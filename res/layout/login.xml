@@ -28,14 +28,16 @@
 		android:layout_height="wrap_content" android:background="#ffffff">
 
 		<!--  Header Starts-->
-		<LinearLayout android:id="@+id/header"
+		<LinearLayout
+			android:id="@+id/header"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:paddingTop="5dip"
 			android:paddingBottom="5dip"
 		>
 			<!-- Logo Start-->
-			<ImageView android:src="@drawable/logo"
+			<ImageView
+				android:src="@drawable/logo"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="10dip"
@@ -45,12 +47,22 @@
 		<!--  Header Ends -->
 
 		<!-- Footer Start -->
-		<!--<LinearLayout android:id="@+id/footer"
+		<LinearLayout
+			android:id="@+id/footer"
 			android:layout_width="fill_parent"
 			android:layout_height="90dip"
-			android:background="@layout/footer_repeat"
-			android:layout_alignParentBottom="true">
-		</LinearLayout>-->
+			android:layout_alignParentBottom="true"
+			android:background="@color/polyyellow"
+		>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:gravity="center"
+				android:textColor="@color/polygreen"
+				android:text="@string/credits"
+				android:textSize="18sp"
+			/>
+		</LinearLayout>
 		<!-- Footer Ends -->
 
 		<!-- Login Form -->
@@ -64,11 +76,15 @@
 			android:background="@color/polygreen"
 		>
 			<!--  BroncoName Label -->
-			<TextView android:layout_width="fill_parent"
+			<TextView
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:textColor="@color/polyyellow"
-				android:text="@string/bronconame"/>
-			<EditText android:layout_width="fill_parent"
+				android:text="@string/bronconame"
+				android:textSize="18sp"
+			/>
+			<EditText
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dip"
 				android:layout_marginBottom="20dip"
@@ -76,11 +92,15 @@
 				android:textColor="@color/white"
 			/>
 			<!--  Password Label -->
-			<TextView android:layout_width="fill_parent"
+			<TextView
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:textColor="@color/polyyellow"
-				android:text="@string/password"/>
-			<EditText android:layout_width="fill_parent"
+				android:text="@string/password"
+				android:textSize="18sp"
+			/>
+			<EditText
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dip"
 				android:singleLine="true"
@@ -88,11 +108,14 @@
 				android:textColor="@color/white"
 			/>
 			<!-- Login button -->
-			<Button android:id="@+id/btnLogin"
+			<Button
+				android:id="@+id/btnLogin"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dip"
-				android:text="Login"/>
+				android:text="Login"
+				android:textColor="@color/white"
+			/>
 		</LinearLayout>
 		<!-- Login Form Ends -->
 	</RelativeLayout>
