@@ -1,0 +1,94 @@
+<!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".MainActivity"
+	android:background="@color/polygreen"
+>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:text="@string/hello_world"
+	/>
+</RelativeLayout>
+-->
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:fillViewport="true"
+	android:background="@color/polygreen"
+>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:background="#ffffff">
+
+		<!--  Header Starts-->
+		<LinearLayout android:id="@+id/header"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="5dip"
+			android:paddingBottom="5dip"
+		>
+			<!-- Logo Start-->
+			<ImageView android:src="@drawable/logo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="10dip"
+			/>
+			<!-- Logo Ends -->
+		</LinearLayout>
+		<!--  Header Ends -->
+
+		<!-- Footer Start -->
+		<!--<LinearLayout android:id="@+id/footer"
+			android:layout_width="fill_parent"
+			android:layout_height="90dip"
+			android:background="@layout/footer_repeat"
+			android:layout_alignParentBottom="true">
+		</LinearLayout>-->
+		<!-- Footer Ends -->
+
+		<!-- Login Form -->
+		<LinearLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="10dip"
+			android:layout_below="@id/header"
+		>
+			<!--  BroncoName Label -->
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/polyyellow"
+				android:text="@string/bronconame"/>
+			<EditText android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dip"
+				android:layout_marginBottom="20dip"
+				android:singleLine="true"/>
+			<!--  Password Label -->
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/polyyellow"
+				android:text="@string/password"/>
+			<EditText android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dip"
+				android:singleLine="true"
+				android:password="true"/>
+			<!-- Login button -->
+			<Button android:id="@+id/btnLogin"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dip"
+				android:text="Login"/>
+		</LinearLayout>
+		<!-- Login Form Ends -->
+	</RelativeLayout>
+</ScrollView>
