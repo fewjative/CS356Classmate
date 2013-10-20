@@ -1,5 +1,9 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import android.app.Activity;
 import static android.app.Activity.RESULT_OK;
 import android.app.AlertDialog;
@@ -40,6 +44,21 @@ public class RecoveryForm extends Activity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
+		 AsyncHttpClient client = new AsyncHttpClient();
+		 RequestParams params = new RequestParams();
+		 final EditText pass1 = (EditText)findViewById(R.id.etBroncoName);
+		 String p1 = pass1.getText().toString();
+		 params.put("email", p1);
+		 client.get("http://www.lol-fc.com/classmate/email.php", params, new AsyncHttpResponseHandler() {
+		     @Override
+		     public void onSuccess(String response) {
+		        
+		   	  System.out.println(response);
+		        
+		     }
+		 });
+		
+		 //now all we have to do is an if else statement, where 'response' from above says that '0' or '1' means the email doesnt exist.
 		AlertDialog d = new AlertDialog.Builder(this).create();
 		d.setTitle(R.string.recover);
 		d.setMessage(getResources().getString(R.string.recoverSent));
@@ -60,4 +79,6 @@ public class RecoveryForm extends Activity implements OnClickListener {
 
 		d.show();
 	}
+	
+	
 }
