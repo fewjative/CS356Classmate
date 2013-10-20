@@ -3,6 +3,8 @@ package edu.csupomona.cs.cs356.classmate;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ParseException;
 import android.os.Bundle;
@@ -122,6 +124,24 @@ public class LoginScreen extends Activity implements OnClickListener {
 		 final EditText pass2 = (EditText)findViewById(R.id.etPassword);
 		 String p2 = pass2.getText().toString();
 		 
+		 final AlertDialog d = new AlertDialog.Builder(this).create();
+			d.setTitle(R.string.loginErrorTitle);
+			d.setMessage(getResources().getString(R.string.loginError));
+			d.setIcon(android.R.drawable.ic_dialog_info);
+			d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				public void onCancel(DialogInterface dialog) {
+					setResult(RESULT_OK);
+					//finish();
+				}
+			});
+
+			d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_OK);
+					//finish();
+				}
+			});
+		 
 		 params.put("email", p1);
 		 params.put("password", p2);
 		 client.get("http://www.lol-fc.com/classmate/login.php",params, new AsyncHttpResponseHandler() {
@@ -131,7 +151,10 @@ public class LoginScreen extends Activity implements OnClickListener {
 		       
 		         	System.out.println(response);
 		         	if(Integer.parseInt(response)==2)
+		         	{
 		         		sendToMainMenu();
+		         	}else
+		         		d.show();
 		        
 		     }
 		 });

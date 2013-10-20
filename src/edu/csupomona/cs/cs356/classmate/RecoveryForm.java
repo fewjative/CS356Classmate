@@ -49,35 +49,64 @@ public class RecoveryForm extends Activity implements OnClickListener {
 		 final EditText pass1 = (EditText)findViewById(R.id.etBroncoName);
 		 String p1 = pass1.getText().toString();
 		 params.put("email", p1);
+		 
+		 final AlertDialog d = new AlertDialog.Builder(this).create();
+			d.setTitle(R.string.recover);
+			d.setMessage(getResources().getString(R.string.recoverSent));
+			d.setIcon(android.R.drawable.ic_dialog_info);
+			d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				public void onCancel(DialogInterface dialog) {
+					setResult(RESULT_OK);
+					finish();
+				}
+			});
+
+			d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_OK);
+					finish();
+				}
+			});
+			
+			final AlertDialog d2 = new AlertDialog.Builder(this).create();
+			d2.setTitle(R.string.recover);
+			d2.setMessage(getResources().getString(R.string.recoverError));
+			d2.setIcon(android.R.drawable.ic_dialog_info);
+			d2.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				public void onCancel(DialogInterface dialog) {
+					setResult(RESULT_OK);
+					finish();
+				}
+			});
+
+			d2.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_OK);
+					finish();
+				}
+			});
+
+	
+			
 		 client.get("http://www.lol-fc.com/classmate/email.php", params, new AsyncHttpResponseHandler() {
 		     @Override
 		     public void onSuccess(String response) {
 		        
 		   	  System.out.println(response);
+		   	  if(Integer.parseInt(response)==2)
+		   	  {
+		   		  d.show();
+		   	  }
+		   	  else
+		   	  {
+		   		  d2.show();
+		   	  }
 		        
 		     }
 		 });
 		
-		 //now all we have to do is an if else statement, where 'response' from above says that '0' or '1' means the email doesnt exist.
-		AlertDialog d = new AlertDialog.Builder(this).create();
-		d.setTitle(R.string.recover);
-		d.setMessage(getResources().getString(R.string.recoverSent));
-		d.setIcon(android.R.drawable.ic_dialog_info);
-		d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-			public void onCancel(DialogInterface dialog) {
-				setResult(RESULT_OK);
-				finish();
-			}
-		});
-
-		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				setResult(RESULT_OK);
-				finish();
-			}
-		});
-
-		d.show();
+		 
+		
 	}
 	
 	
