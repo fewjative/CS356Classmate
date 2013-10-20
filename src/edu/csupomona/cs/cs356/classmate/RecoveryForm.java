@@ -44,12 +44,7 @@ public class RecoveryForm extends Activity implements OnClickListener {
 		d.setTitle(R.string.recover);
 		d.setMessage(getResources().getString(R.string.recoverSent));
 		d.setIcon(android.R.drawable.ic_dialog_info);
-		d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-			public void onCancel(DialogInterface dialog) {
-				setResult(RESULT_OK);
-				finish();
-			}
-		});
+
 
 		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
