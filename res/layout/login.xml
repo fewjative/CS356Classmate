@@ -70,14 +70,16 @@
 				android:text="@string/bronconame"
 				android:textSize="18sp"
 			/>
+
 			<EditText
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="5dip"
-				android:layout_marginBottom="20dip"
-				android:singleLine="true"
-				android:textColor="@color/white"
-			/>
+			    android:id="@+id/etBroncoName"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginBottom="20dip"
+			    android:layout_marginTop="5dip"
+			    android:singleLine="true"
+			    android:textColor="@color/white" />
+
 			<!--  Password Label -->
 			<TextView
 				android:layout_width="fill_parent"
@@ -86,14 +88,16 @@
 				android:text="@string/password"
 				android:textSize="18sp"
 			/>
+
 			<EditText
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="5dip"
-				android:singleLine="true"
-				android:password="true"
-				android:textColor="@color/white"
-			/>
+			    android:id="@+id/etPassword"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="5dip"
+			    android:password="true"
+			    android:singleLine="true"
+			    android:textColor="@color/white" />
+
 			<CheckBox
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"

@@ -6,10 +6,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.ParseException;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,15 +45,46 @@ public class LoginScreen extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 
-		Button b = (Button)findViewById(R.id.btnLogin);
-		b.setOnClickListener(this);
+		final Button b1 = (Button)findViewById(R.id.btnLogin);
+		b1.setOnClickListener(this);
 
-		b = (Button)findViewById(R.id.btnRecover);
-		b.setOnClickListener(this);
+		Button b2 = (Button)findViewById(R.id.btnRecover);
+		b2.setOnClickListener(this);
 
-		b = (Button)findViewById(R.id.btnRegister);
-		b.setOnClickListener(this);
+		Button b3 = (Button)findViewById(R.id.btnRegister);
+		b3.setOnClickListener(this);
 		
+		final EditText etBroncoName = (EditText)findViewById(R.id.etBroncoName);
+		etBroncoName.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s) {
+				String userName = etBroncoName.getText().toString();
+				b1.setEnabled(!userName.isEmpty());
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				//...
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				//...
+			}
+		});
+		
+		final EditText etPassword = (EditText)findViewById(R.id.etPassword);
+		etPassword.addTextChangedListener(new TextWatcher() {
+			public void afterTextChanged(Editable s) {
+				String password = etPassword.getText().toString();
+				b1.setEnabled(!password.isEmpty());
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				//...
+			}
+
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				//...
+			}
+		});
 	
 	}
 
@@ -78,19 +112,30 @@ public class LoginScreen extends Activity implements OnClickListener {
 	}
 	
 	private void verifyLogin(){ //will worry about fixing this later
-		/*AsyncHttpClient client = new AsyncHttpClient();
-		 client.get("http://www.lol-fc.com/classmate/recover.php", new AsyncHttpResponseHandler() {
+		final int result = 0;
+		
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		 final EditText pass1 = (EditText)findViewById(R.id.etBroncoName);
+		 String p1 = pass1.getText().toString();
+		 
+		 final EditText pass2 = (EditText)findViewById(R.id.etPassword);
+		 String p2 = pass2.getText().toString();
+		 
+		 params.put("email", p1);
+		 params.put("password", p2);
+		 client.get("http://www.lol-fc.com/classmate/login.php",params, new AsyncHttpResponseHandler() {
 		     @Override
 		     public void onSuccess(String response) {
 		        
-		         String[] splits = response.split("\"");
-		         for(int i=0;i<splits.length;i++)
-		         {
-		         	System.out.println(splits[i]);
-		         }
+		       
+		         	System.out.println(response);
+		         	if(Integer.parseInt(response)==2)
+		         		sendToMainMenu();
+		        
 		     }
-		 });*/
-		sendToMainMenu();
+		 });
+		
 	}
 
 	@Override
