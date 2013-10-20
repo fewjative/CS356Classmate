@@ -17,51 +17,27 @@
 			android:layout_height="wrap_content"
 			android:paddingTop="5dip"
 			android:paddingBottom="5dip"
+			android:gravity="center"
 		>
 			<!-- Logo Start-->
 			<ImageView
 				android:src="@drawable/logo"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="10dip"
 			/>
 			<!-- Logo Ends -->
 		</LinearLayout>
 		<!--  Header Ends -->
-
-		<!-- Footer Start -->
-		<LinearLayout
-			android:id="@+id/footer"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:padding="5dip"
-			android:layout_alignParentBottom="true"
-		>
-			<!--android:layout_height="90dip"-->
-			<!--android:background="@color/polyyellow"-->
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:gravity="center"
-				android:text="@string/credits"
-			/>
-			<!--android:textColor="@color/polygreen"-->
-			<!--android:textSize="18sp"-->
-		</LinearLayout>
-		<!-- Footer Ends -->
 
 		<!-- Login Form -->
 		<LinearLayout
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
 			android:padding="10dip"
-			android:layout_marginTop="35dip"
+			android:layout_below="@+id/header"
 			android:background="@color/polygreen"
 		>
-			<!--android:layout_below="@id/header"-->
-
 			<!--  BroncoName Label -->
 			<TextView
 				android:layout_width="fill_parent"
@@ -87,12 +63,37 @@
 				android:textSize="18sp"
 			/>
 			<EditText
+				android:id="@+id/etPassword"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dip"
+				android:layout_marginBottom="20dip"
+				android:singleLine="true"
+				android:password="true"
+				android:textColor="@color/white"
+			/>
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/polyyellow"
+				android:text="@string/confirmpassword"
+				android:textSize="18sp"
+			/>
+			<EditText
+				android:id="@+id/etConfirmPassword"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dip"
 				android:singleLine="true"
 				android:password="true"
 				android:textColor="@color/white"
+			/>
+			<TextView
+				android:id="@+id/tvPasswordMatcher"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:gravity="center"
 			/>
 			<CheckBox
 				android:layout_width="fill_parent"
@@ -103,24 +104,6 @@
 				android:textColor="@color/polyyellow"
 				android:textSize="18sp"
 				android:checked="true"
-			/>
-			<!-- Login button -->
-			<Button
-				android:id="@+id/btnLogin"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dip"
-				android:text="@string/login"
-				android:textColor="@color/white"
-			/>
-			<!-- Forgot Password -->
-			<Button
-				android:id="@+id/btnRecover"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dip"
-				android:text="@string/recover"
-				android:textColor="@color/white"
 			/>
 			<!-- Register Button -->
 			<Button

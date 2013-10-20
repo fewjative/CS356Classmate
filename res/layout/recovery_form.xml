@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:fillViewport="true"
+>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/white"
+	>
+		<!--  Header Starts-->
+		<LinearLayout
+			android:id="@+id/header"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="5dip"
+			android:paddingBottom="5dip"
+			android:gravity="center"
+		>
+			<!-- Logo Start-->
+			<ImageView
+				android:src="@drawable/logo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			/>
+			<!-- Logo Ends -->
+		</LinearLayout>
+		<!--  Header Ends -->
+
+		<!-- Recovery Form -->
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="10dip"
+			android:layout_below="@+id/header"
+			android:background="@color/polygreen"
+		>
+			<!--  BroncoName Label -->
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/polyyellow"
+				android:text="@string/bronconame"
+				android:textSize="18sp"
+			/>
+			<EditText
+				android:id="@+id/etBroncoName"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dip"
+				android:layout_marginBottom="20dip"
+				android:singleLine="true"
+				android:textColor="@color/white"
+			/>
+			<!-- Register Button -->
+			<Button
+				android:id="@+id/btnRecover"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dip"
+				android:text="@string/recover"
+				android:textColor="@color/white"
+			/>
+		</LinearLayout>
+		<!-- Recovery Form Ends -->
+	</RelativeLayout>
+</ScrollView>

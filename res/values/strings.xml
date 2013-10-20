@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Classmate</string>
-	<string name="bronconame">BroncoName</string>
+	<string name="ClassmateAppName">Classmate</string>
+	<string name="bronconame">Email Address</string>
 	<string name="password">Password</string>
 	<string name="stayloggedin">Stay signed in</string>
+	<string name="login">Login</string>
+	<string name="recover">Forgot Password</string>
+	<string name="recoverSent">An email has been sent to you with your password.</string>
+	<string name="okay">Okay</string>
+	<string name="register">Register</string>
+	<string name="confirmpassword">Confirm Password</string>
+	<string name="passwordsmatch">Passwords Match</string>
+	<string name="passwordsdonotmatch">Passwords Do NOT Match</string>
 	<string name="credits">Written by the Scrum Dogs</string>
 	<string name="menu_settings">Settings</string>
 	<string name="menu_test">Collin is a Badass</string>
