@@ -91,7 +91,7 @@ public class LoginScreen extends Activity implements OnClickListener {
 
 	private void sendToMainMenu() {
 		Intent i = new Intent(this, MainMenu.class);
-		
+		i.putExtra("ID", "1");
 		startActivity(i);
 	}
 	
