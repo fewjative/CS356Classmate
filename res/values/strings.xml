@@ -18,4 +18,6 @@
 	<string name="recoverError">We are sorry, we could not find that email.</string>
 	<string name="loginError">Sorry, either your username or password is incorrect.</string>
 	<string name="loginErrorTitle">Login Problem</string>
+	<string name="registerErrorTitle">Registration Problem</string>
+	<string name="registerError">We are sorry, that email is already registered.</string>
 </resources>

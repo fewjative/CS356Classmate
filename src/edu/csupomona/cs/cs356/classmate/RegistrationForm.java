@@ -1,6 +1,13 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +21,7 @@ public class RegistrationForm extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		setContentView(R.layout.registeration_form);
+		setContentView(R.layout.registration_form);
 
 		final Button b = (Button)findViewById(R.id.btnRegister);
 		b.setOnClickListener(this);
@@ -56,9 +63,54 @@ public class RegistrationForm extends Activity implements OnClickListener {
 		pass1.addTextChangedListener(textWatcher);
 		pass2.addTextChangedListener(textWatcher);
 	}
-
+	
+	private void sendToMainMenu() {
+		Intent i = new Intent(this, MainMenu.class);
+		startActivity(i);
+	}
+	
 	public void onClick(View v) {
-		setResult(RESULT_OK);
-		finish();
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		 final EditText pass1 = (EditText)findViewById(R.id.etBroncoName);
+		 String p1 = pass1.getText().toString();
+		 
+		 final EditText pass2 = (EditText)findViewById(R.id.etPassword);
+		 String p2 = pass2.getText().toString();
+		 
+		 final AlertDialog d = new AlertDialog.Builder(this).create();
+			d.setTitle(R.string.registerErrorTitle);
+			d.setMessage(getResources().getString(R.string.registerError));
+			d.setIcon(android.R.drawable.ic_dialog_info);
+			d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				public void onCancel(DialogInterface dialog) {
+					setResult(RESULT_OK);
+					//finish();
+				}
+			});
+
+			d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					setResult(RESULT_OK);
+					//finish();
+				}
+			});
+		 
+		 params.put("email", p1);
+		 params.put("password", p2);
+		 client.get("http://www.lol-fc.com/classmate/register.php",params, new AsyncHttpResponseHandler() {
+		     @Override
+		     public void onSuccess(String response) {
+		        
+		       
+		         	System.out.println(response);
+		         	if(Integer.parseInt(response)==2)
+		         	{
+		         		sendToMainMenu();
+		         	}else
+		         		d.show();
+		        
+		     }
+		 });
 	}
 }
