@@ -20,4 +20,14 @@
 	<string name="loginErrorTitle">Login Problem</string>
 	<string name="registerErrorTitle">Registration Problem</string>
 	<string name="registerError">We are sorry, that email is already registered.</string>
+	
+	 <string-array name="optionsArray">
+        <item>Profile</item>
+        <item>Add Class</item>
+        <item>Schedule</item>
+        <item>Friends</item>
+        <item>Compare Schedules</item>
+        <item>Add Friend</item>
+        
+       </string-array>
 </resources>
