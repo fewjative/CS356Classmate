@@ -1,10 +1,10 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainMenu extends Activity implements OnClickListener{
@@ -18,6 +18,7 @@ public class MainMenu extends Activity implements OnClickListener{
 		
 		scheduleButton = (Button) findViewById(R.id.schedule_button);
 		scheduleButton.setText("" + getIntent().getStringExtra("ID"));
+		scheduleButton.setOnClickListener(this);
 	}
 	
 	private void goToSchedule(){
@@ -26,8 +27,12 @@ public class MainMenu extends Activity implements OnClickListener{
 	}
 
 	@Override
-	public void onClick(DialogInterface event, int arg1) {
+	public void onClick(View ae) {
 		// TODO Auto-generated method stub
+		if(ae == scheduleButton){
+			goToSchedule();
+		}
+		
 		
 	}
 }

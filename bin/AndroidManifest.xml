@@ -46,6 +46,13 @@
 			android:label="@string/ClassmateAppName"
 		>
 		</activity>
+		
+		<activity 
+		    android:name="edu.csupomona.cs.cs356.classmate.Schedule"
+		    android:label="@string/ClassmateAppName"
+		>
+		</activity>
+		
 	</application>
 	
 	 <!--  Internet Permissions -->
