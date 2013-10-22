@@ -4,17 +4,20 @@ import android.app.Activity;
 import static android.app.Activity.RESULT_CANCELED;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import static edu.csupomona.cs.cs356.classmate.LoginActivity.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RegistrationActivity extends Activity implements OnClickListener {
@@ -90,7 +93,7 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		RequestParams params = new RequestParams();
 
 		EditText etUserName = (EditText)findViewById(R.id.etUserName);
-		String userName = etUserName.getText().toString();
+		final String userName = etUserName.getText().toString();
 
 		EditText etPassword = (EditText)findViewById(R.id.etPassword);
 		String password = etPassword.getText().toString();
@@ -100,8 +103,15 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		client.get("http://www.lol-fc.com/classmate/register.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				if (Integer.parseInt(response) == 2) {
-					setResult(RESULT_OK);
+				int id = Integer.parseInt(response);
+				if (NULL_USER < id) {
+					CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
+
+					Intent i = new Intent();
+					i.putExtra(LoginActivity.KEY_USERID, id);
+					i.putExtra(LoginActivity.KEY_USERNAME, userName);
+					i.putExtra(LoginActivity.KEY_REMEMBERME, cbRememberMe.isChecked());
+					setResult(RESULT_OK, i);
 					finish();
 				} else {
 					AlertDialog d = new AlertDialog.Builder(RegistrationActivity.this).create();

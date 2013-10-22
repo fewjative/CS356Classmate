@@ -24,10 +24,10 @@ public class RecoveryActivity extends Activity implements OnClickListener {
 
 		final Button btnRecover = (Button)findViewById(R.id.btnRecover);
 		btnRecover.setOnClickListener(this);
-		btnRecover.setEnabled(false);
 
 		EditText etUserName = (EditText)findViewById(R.id.etUserName);
 		etUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME, ""));
+		btnRecover.setEnabled(0 < etUserName.getText().length());
 		etUserName.setSelectAllOnFocus(true);
 		etUserName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override

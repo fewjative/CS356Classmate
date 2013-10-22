@@ -6,7 +6,7 @@
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
-		android:minSdkVersion="8"
+		android:minSdkVersion="12"
 		android:targetSdkVersion="16"
 	/>
 

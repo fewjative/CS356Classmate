@@ -94,6 +94,7 @@
 			/>
 
 			<CheckBox
+				android:id="@+id/cbRememberMe"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dip"
@@ -101,7 +102,6 @@
 				android:text="@string/stayloggedin"
 				android:textColor="@color/polyyellow"
 				android:textSize="18sp"
-				android:checked="true"
 			/>
 			<!-- Login button -->
 			<Button
