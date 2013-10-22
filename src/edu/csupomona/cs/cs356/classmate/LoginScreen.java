@@ -89,9 +89,10 @@ public class LoginScreen extends Activity implements OnClickListener {
 		}
 	}
 
-	private void sendToMainMenu() {
+	private void sendToMainMenu(String response) {
 		Intent i = new Intent(this, MainMenu.class);
-		i.putExtra("ID", "1");
+		if(!response.isEmpty())
+			i.putExtra("ID", response);
 		startActivity(i);
 	}
 	
@@ -132,9 +133,9 @@ public class LoginScreen extends Activity implements OnClickListener {
 		        
 		       
 		         	System.out.println(response);
-		         	if(Integer.parseInt(response)==2)
+		         	if(Integer.parseInt(response)>0)
 		         	{
-		         		sendToMainMenu();
+		         		sendToMainMenu(response);
 		         	}else
 		         		d.show();
 		        
@@ -158,7 +159,7 @@ public class LoginScreen extends Activity implements OnClickListener {
 					break;
 				}
 
-				sendToMainMenu();
+				sendToMainMenu("");//we want to be able to send our users ID to sendToMainMenu and thus to the intent.
 				break;
 		}
 	}
