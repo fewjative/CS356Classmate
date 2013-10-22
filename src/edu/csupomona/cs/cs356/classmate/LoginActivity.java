@@ -5,12 +5,15 @@ import static android.app.Activity.RESULT_OK;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,11 +24,18 @@ import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 public class LoginActivity extends Activity implements OnClickListener {
 	static final String KEY_USERNAME = "userName";
 	static final String KEY_USERID = "userID";
+	static final String KEY_REMEMBERME = "rememberMe";
 
-	static final int NULL_USER = -1;
+	static final int NULL_USER = 0;
+
+	private static final String PREFS_LOGIN = "login_prefs";
+	private static final String PREFS_LOGIN_USERNAME = "etUserName";
+	private static final String PREFS_LOGIN_REMEMBERME = "cbRememberMe";
 
 	private static final int CODE_REGISTERATION_FORM = 0x0f0f0f0f;
 	private static final int CODE_RECOVERY_FORM = 0xf0f0f0f0;
+
+	private SharedPreferences preferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		etUserName.addTextChangedListener(tw);
 		etPassword.addTextChangedListener(tw);
+
+		preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
+		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
+		cbRememberMe.setChecked(preferences.getBoolean(PREFS_LOGIN_REMEMBERME, true));
+		if (cbRememberMe.isChecked()) {
+			etUserName.setText(preferences.getString(PREFS_LOGIN_USERNAME, ""));
+		}
 	}
 
 	@Override
@@ -91,9 +108,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private void sendToMainMenu(int response) {
+	private void sendToMainMenu(int userid) {
+		if (userid <= NULL_USER) {
+			return;
+		}
+
+		Editor editor = preferences.edit();
+
+		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
+		editor.putBoolean(PREFS_LOGIN_REMEMBERME, cbRememberMe.isChecked());
+
+		if(cbRememberMe.isChecked()) {
+			EditText etUserName = (EditText)findViewById(R.id.etUserName);
+			editor.putString(PREFS_LOGIN_USERNAME, etUserName.getText().toString());
+		}
+
+		editor.commit();
+
 		Intent i = new Intent(this, MainMenu.class);
-		i.putExtra(KEY_USERID, response);
+		i.putExtra(KEY_USERID, userid);
 		startActivity(i);
 	}
 
@@ -118,7 +151,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			@Override
 			public void onSuccess(String response) {
 				int id = Integer.parseInt(response);
-				if (0 < id) {
+				if (NULL_USER < id) {
 					sendToMainMenu(id);
 				} else {
 					AlertDialog d = new AlertDialog.Builder(LoginActivity.this).create();
@@ -129,6 +162,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 						public void onClick(DialogInterface dialog, int which) {
 						}
 					});
+
 					d.show();
 				}
 			}
@@ -151,7 +185,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 					break;
 				}
 
-				sendToMainMenu(NULL_USER);
+				EditText etUserName = (EditText)findViewById(R.id.etUserName);
+				etUserName.setText(data.getExtras().getString(KEY_USERNAME, etUserName.getText().toString()));
+
+				CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
+				cbRememberMe.setChecked(data.getExtras().getBoolean(KEY_REMEMBERME, true));
+
+				sendToMainMenu(data.getExtras().getInt(KEY_USERID, NULL_USER));
 				break;
 		}
 	}
