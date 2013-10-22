@@ -6,13 +6,13 @@
 		android:shape="oval"
 	>
 		<solid
-			android:color="@color/polygreen"
+			android:color="@color/polyyellow"
 		/>
 		<stroke
 			android:width="2sp"
 			android:color="#fff"
 		/>
-	</shape>    
+	</shape>
 </item>
 <item android:state_pressed="false">
     	<shape
@@ -20,12 +20,12 @@
 		android:shape="oval"
 	>
 		<solid
-			android:color="@color/polyyellow"
+			android:color="@color/polygreen"
 		/>
 		<stroke
-			android:width="2sp"
+			android:width="6sp"
 			android:color="#fff"
 		/>
-	</shape>  
+	</shape>
 </item>
 </selector>

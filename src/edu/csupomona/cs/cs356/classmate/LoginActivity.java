@@ -20,6 +20,9 @@ import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class LoginActivity extends Activity implements OnClickListener {
 	static final String KEY_USERNAME = "userName";
+	static final String KEY_USERID = "userID";
+
+	static final int NULL_USER = -1;
 
 	private static final int CODE_REGISTERATION_FORM = 0x0f0f0f0f;
 	private static final int CODE_RECOVERY_FORM = 0xf0f0f0f0;
@@ -88,11 +91,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private void sendToMainMenu() {
+	private void sendToMainMenu(int response) {
 		Intent i = new Intent(this, MainMenu.class);
-		i.putExtra("ID", "1");
+		i.putExtra(KEY_USERID, response);
 		startActivity(i);
 	}
+
+
 
 	private void verifyLogin() {
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -112,8 +117,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 		client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				if (Integer.parseInt(response) == 2) {
-					sendToMainMenu();
+				int id = Integer.parseInt(response);
+				if (0 < id) {
+					sendToMainMenu(id);
 				} else {
 					AlertDialog d = new AlertDialog.Builder(LoginActivity.this).create();
 					d.setTitle(R.string.loginErrorTitle);
@@ -145,7 +151,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					break;
 				}
 
-				sendToMainMenu();
+				sendToMainMenu(NULL_USER);
 				break;
 		}
 	}

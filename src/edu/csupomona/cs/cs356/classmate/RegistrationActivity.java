@@ -28,7 +28,7 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		btnRegister.setEnabled(false);
 
 		final EditText etUserName = (EditText)findViewById(R.id.etUserName);
-		etUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
+		etUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME, ""));
 		etUserName.setSelectAllOnFocus(true);
 
 		final EditText pass1 = (EditText)findViewById(R.id.etPassword);

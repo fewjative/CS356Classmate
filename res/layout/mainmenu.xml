@@ -12,36 +12,32 @@
 		android:layout_alignParentBottom="true"
 		android:gravity="center"
 	>
-		<!--android:gravity="center"-->
 		<ImageButton
 			android:id="@+id/btnAddClass"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/ic_action_new"
-			android:scaleX="3.0"
-			android:scaleY="3.0"
-			android:background="@drawable/round_button"
+			android:src="@drawable/ic_add_classes"
+			android:background="@drawable/circular_button"
 			android:layout_margin="10dp"
 		/>
 		<ImageButton
 			android:id="@+id/btnSearchClasses"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/ic_action_search"
-			android:scaleX="3.0"
-			android:scaleY="3.0"
-			android:background="@drawable/round_button"
+			android:src="@drawable/ic_search_classes"
+			android:background="@drawable/circular_button"
 			android:layout_margin="10dp"
 		/>
 	</LinearLayout>
 
-	<Button
-	    android:id="@+id/schedule_button"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="120dp"
-	    android:text="Button" />
-
+	<ImageButton
+		android:id="@+id/btnSchedule"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/ic_schedule"
+		android:background="@drawable/circular_button"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="120dp"
+	/>
 </RelativeLayout>
