@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
@@ -38,16 +37,12 @@
 			android:padding="5dip"
 			android:layout_alignParentBottom="true"
 		>
-			<!--android:layout_height="90dip"-->
-			<!--android:background="@color/polyyellow"-->
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
 				android:gravity="center"
 				android:text="@string/credits"
 			/>
-			<!--android:textColor="@color/polygreen"-->
-			<!--android:textSize="18sp"-->
 		</LinearLayout>
 		<!-- Footer Ends -->
 
@@ -56,31 +51,28 @@
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
+			android:layout_below="@id/header"
 			android:padding="10dip"
-			android:layout_marginTop="35dip"
 			android:background="@color/polygreen"
 		>
-			<!--android:layout_below="@id/header"-->
-
-			<!--  BroncoName Label -->
+			<!--  UserName Label -->
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:textColor="@color/polyyellow"
-				android:text="@string/bronconame"
+				android:text="@string/username"
 				android:textSize="18sp"
 			/>
 
 			<EditText
-			    android:id="@+id/etBroncoName"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_marginBottom="20dip"
-			    android:layout_marginTop="5dip"
-			    android:singleLine="true"
-			    android:textColor="@color/white" 
-			    />
+				android:id="@+id/etUserName"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dip"
+				android:layout_marginTop="5dip"
+				android:singleLine="true"
+				android:textColor="@color/white"
+			/>
 
 			<!--  Password Label -->
 			<TextView
@@ -92,14 +84,14 @@
 			/>
 
 			<EditText
-			    android:id="@+id/etPassword"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_marginTop="5dip"
-			    android:password="true"
-			    android:singleLine="true"
-			    android:textColor="@color/white" 
-			    />
+				android:id="@+id/etPassword"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dip"
+				android:password="true"
+				android:singleLine="true"
+				android:textColor="@color/white"
+			/>
 
 			<CheckBox
 				android:layout_width="fill_parent"

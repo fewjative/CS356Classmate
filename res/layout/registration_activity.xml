@@ -38,17 +38,17 @@
 			android:layout_below="@+id/header"
 			android:background="@color/polygreen"
 		>
-			<!--  BroncoName Label -->
+			<!--  UserName Label -->
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:textColor="@color/polyyellow"
-				android:text="@string/bronconame"
+				android:text="@string/username"
 				android:textSize="18sp"
 			/>
 
 			<EditText
-			    android:id="@+id/etBroncoName"
+			    android:id="@+id/etUserName"
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
 			    android:layout_marginBottom="20dip"

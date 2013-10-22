@@ -17,7 +17,9 @@
 			android:id="@+id/btnAddClass"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/add_class"
+			android:src="@drawable/ic_action_new"
+			android:scaleX="3.0"
+			android:scaleY="3.0"
 			android:background="@drawable/round_button"
 			android:layout_margin="10dp"
 		/>
@@ -25,7 +27,9 @@
 			android:id="@+id/btnSearchClasses"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/search_classes"
+			android:src="@drawable/ic_action_search"
+			android:scaleX="3.0"
+			android:scaleY="3.0"
 			android:background="@drawable/round_button"
 			android:layout_margin="10dp"
 		/>

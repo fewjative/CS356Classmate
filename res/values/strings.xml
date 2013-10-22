@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!--Globals-->
 	<string name="ClassmateAppName">Classmate</string>
-	<string name="bronconame">Email Address</string>
+	<string name="okay">Okay</string>
+	<string name="credits">Written by the Scrum Dogs</string>
+
+	<!--Login Activity-->
+	<string name="login">Login</string>
+	<string name="username">Email Address</string>
 	<string name="password">Password</string>
 	<string name="stayloggedin">Stay signed in</string>
-	<string name="login">Login</string>
+	<string name="loginError">Sorry, either your username or password is incorrect.</string>
+	<string name="loginErrorTitle">Login Problem</string>
+
+	<!--Recovery Activity-->
 	<string name="recover">Forgot Password</string>
 	<string name="recoverSent">An email has been sent to you with your password.</string>
-	<string name="okay">Okay</string>
+	<string name="recoverError">We are sorry, we could not find that email.</string>
+
+	<!--Registration Activity-->
 	<string name="register">Register</string>
 	<string name="confirmpassword">Confirm Password</string>
 	<string name="passwordsmatch">Passwords Match</string>
 	<string name="passwordsdonotmatch">Passwords Do NOT Match</string>
-	<string name="credits">Written by the Scrum Dogs</string>
-	<string name="menu_settings">Settings</string>
-	<string name="menu_test">Collin is a Badass</string>
-	<string name="recoverError">We are sorry, we could not find that email.</string>
-	<string name="loginError">Sorry, either your username or password is incorrect.</string>
-	<string name="loginErrorTitle">Login Problem</string>
 	<string name="registerErrorTitle">Registration Problem</string>
 	<string name="registerError">We are sorry, that email is already registered.</string>
-	
-	 <string-array name="optionsArray">
-        <item>Profile</item>
-        <item>Add Class</item>
-        <item>Schedule</item>
-        <item>Friends</item>
-        <item>Compare Schedules</item>
-        <item>Add Friend</item>
-        
-       </string-array>
+
+	<!--Menu-->
+	<!--<string name="menu_settings">Settings</string>-->
+	<!--<string name="menu_test">Collin is a Badass</string>-->
+
+	<!--Main Menu Navigation Drawer-->
+	<string-array
+		name="optionsArray"
+	>
+		<item>Profile</item>
+		<item>Add Class</item>
+		<item>Schedule</item>
+		<item>Friends</item>
+		<item>Compare Schedules</item>
+		<item>Add Friend</item>
+	</string-array>
 </resources>
