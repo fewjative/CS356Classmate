@@ -2,7 +2,6 @@ package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;

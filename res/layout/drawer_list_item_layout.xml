@@ -3,10 +3,10 @@
    
       android:id="@android:id/text1"
       style="?android:attr/textAppearanceLarge"
-      android:paddingTop="2dip"
-      android:paddingBottom="2dip"
+      android:paddingTop="5dip"
+      android:paddingBottom="5dip"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:textColor="@color/white"
+      android:textColor="@color/polygreen"
       >
 </TextView>

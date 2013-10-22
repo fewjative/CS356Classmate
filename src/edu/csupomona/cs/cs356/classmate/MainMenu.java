@@ -32,7 +32,5 @@ public class MainMenu extends Activity implements OnClickListener{
 		if(ae == scheduleButton){
 			goToSchedule();
 		}
-		
-		
 	}
 }
