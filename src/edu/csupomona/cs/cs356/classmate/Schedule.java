@@ -31,7 +31,7 @@ public class Schedule extends Activity {
 		drawerToggle = new ActionBarDrawerToggle(
 			this,
 			drawerLayout,
-			R.drawable.ic_schedule,
+			R.drawable.ic_drawer,
 			R.string.drawerOpen,
 			R.string.drawerClose
 		);
