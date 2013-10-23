@@ -22,6 +22,9 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class LoginActivity extends Activity implements OnClickListener {
+	private static final boolean OVERRIDE_DEVICEID = true;
+	private static final String CUSTOM_DEVICE_ID = "sdflaksdjflksdjfsadfalk";
+
 	static final String KEY_USERNAME = "userName";
 	static final String KEY_USERID = "userID";
 	static final String KEY_REMEMBERME = "rememberMe";
@@ -45,12 +48,17 @@ public class LoginActivity extends Activity implements OnClickListener {
 		if (prefs.getBoolean(PREFS_LOGIN_REMEMBERME, false)) {
 			String userName = prefs.getString(KEY_USERNAME, null);
 			if (userName != null) {
-				String deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+				String deviceid;
+				if (OVERRIDE_DEVICEID) {
+					deviceid = CUSTOM_DEVICE_ID;
+				} else {
+					deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+				}
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				RequestParams params = new RequestParams();
 				params.put("email", userName);
-				params.put("deviceid", deviceid);
+				params.put("device_id", deviceid);
 				client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
@@ -132,10 +140,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	private void sendToMainMenu(int userid) {
-		if (userid <= NULL_USER) {
-			return;
-		}
-
 		SharedPreferences.Editor editor = prefs.edit();
 
 		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
@@ -155,8 +159,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		startActivity(i);
 	}
 
-
-
 	private void verifyLogin() {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
@@ -167,11 +169,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 		EditText etPassword = (EditText)findViewById(R.id.etPassword);
 		String password = etPassword.getText().toString();
 
-		String deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+		String deviceid;
+		if (OVERRIDE_DEVICEID) {
+			deviceid = CUSTOM_DEVICE_ID;
+		} else {
+			deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+		}
 
 		params.put("email", userName);
 		params.put("password", password);
-		params.put("deviceid", deviceid);
+		params.put("device_id", deviceid);
 		client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {

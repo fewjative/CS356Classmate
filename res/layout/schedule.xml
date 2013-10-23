@@ -26,7 +26,7 @@
 			android:dividerHeight="1dp"
 			android:background="@color/polygreen"
 		/>
-		<TextView
+<!--		<TextView
 			android:id="@+id/tvUserName"
 			style="?android:attr/textAppearanceLarge"
 			android:paddingTop="5dip"
@@ -35,6 +35,6 @@
 			android:layout_height="wrap_content"
 			android:textColor="@color/white"
 		>
-		</TextView>
+		</TextView>-->
 	</android.support.v4.widget.DrawerLayout>
 </TableRow>

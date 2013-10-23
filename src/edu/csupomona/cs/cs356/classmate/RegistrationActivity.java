@@ -6,7 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import static edu.csupomona.cs.cs356.classmate.LoginActivity.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RegistrationActivity extends Activity implements OnClickListener {
@@ -99,16 +98,16 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		EditText etPassword = (EditText)findViewById(R.id.etPassword);
 		String password = etPassword.getText().toString();
 
-		String deviceid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+		String deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
 		params.put("email", userName);
 		params.put("password", password);
-		params.put("deviceid", deviceid);
+		params.put("device_id", deviceid);
 		client.get("http://www.lol-fc.com/classmate/register.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				int id = Integer.parseInt(response);
-				if (NULL_USER < id) {
+				if (LoginActivity.NULL_USER < id) {
 					CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
 
 					Intent i = new Intent();
@@ -136,7 +135,6 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 
 					d.show();
 				}
-
 			}
 		});
 	}

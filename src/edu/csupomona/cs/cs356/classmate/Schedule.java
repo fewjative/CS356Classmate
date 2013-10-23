@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class Schedule extends Activity {
 
@@ -29,10 +28,10 @@ public class Schedule extends Activity {
 		aAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
 		listView.setAdapter(aAdapter);
 
-		TextView tvUserName = (TextView)findViewById(R.id.tvUserName);
-		tvUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
-
-		listView.addHeaderView(tvUserName);
+//		TextView tvUserName = (TextView)findViewById(R.id.tvUserName);
+//		tvUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
+//
+//		listView.addHeaderView(tvUserName);
 
 		drawerToggle = new ActionBarDrawerToggle(
 			this,
