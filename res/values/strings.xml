@@ -46,4 +46,6 @@
 		<item>Compare Schedules</item>
 		<item>Add Friend</item>
 	</string-array>
+	<string name="addClass">Add Class</string>
+	<string name="searchClass">Search Classes</string>
 </resources>

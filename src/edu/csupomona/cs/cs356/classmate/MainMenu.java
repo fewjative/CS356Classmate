@@ -15,6 +15,12 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		ImageButton btnSchedule = (ImageButton)findViewById(R.id.btnSchedule);
 		btnSchedule.setOnClickListener(this);
+		
+		ImageButton btnAddClass = (ImageButton)findViewById(R.id.btnAddClass);
+		btnAddClass.setOnClickListener(this);
+		
+		ImageButton btnSearchClass = (ImageButton)findViewById(R.id.btnSearchClasses);
+		btnSearchClass.setOnClickListener(this);
 	}
 
 	@Override
@@ -26,6 +32,17 @@ public class MainMenu extends Activity implements OnClickListener{
 				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
 				startActivity(i);
 				break;
+				
+			case R.id.btnAddClass:
+				i = new Intent(this, AddClassActivity.class);
+				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
+				startActivity(i);
+				break;
+				
+			case R.id.btnSearchClasses:
+				i = new Intent(this, SearchClassActivity.class);
+				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
+				startActivity(i);
 		}
 	}
 }

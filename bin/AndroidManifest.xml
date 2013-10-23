@@ -4,22 +4,26 @@
 	android:versionCode="1"
 	android:versionName="1.0"
 >
-
+	<!-- SDK Specifications -->
 	<uses-sdk
-		android:minSdkVersion="14"
+		android:minSdkVersion="12"
 		android:targetSdkVersion="16"
 	/>
 
+	<!--  Internet Permissions -->
+	<uses-permission
+		android:name="android.permission.INTERNET"
+	/>
+
 	<application
-	    
 		android:debuggable="true"
 		android:allowBackup="true"
-		android:icon="@drawable/classmate_icon"
+		android:icon="@drawable/classmate_icon_cpp"
 		android:label="@string/ClassmateAppName"
 		android:theme="@style/ClassmateTheme"
 	>
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.LoginScreen"
+			android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
 			android:label="@string/ClassmateAppName"
 			android:windowSoftInputMode="stateHidden"
 		>
@@ -30,13 +34,13 @@
 		</activity>
 
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RecoveryForm"
+			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
 			android:label="@string/recover"
 		>
 		</activity>
 
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RegistrationForm"
+			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
 			android:label="@string/register"
 		>
 		</activity>
@@ -46,15 +50,24 @@
 			android:label="@string/ClassmateAppName"
 		>
 		</activity>
-		
-		<activity 
-		    android:name="edu.csupomona.cs.cs356.classmate.Schedule"
-		    android:label="@string/ClassmateAppName"
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.Schedule"
+			android:label="@string/schedule"
 		>
 		</activity>
 		
+		<activity
+		    android:name="edu.csupomona.cs.cs356.classmate.AddClassActivity"
+		    android:label="@string/addClass"
+		>    
+		</activity>
+		
+		<activity
+		    android:name="edu.csupomona.cs.cs356.classmate.SearchClassActivity"
+		    android:label="@string/searchClass"
+		>
+		</activity>
+
 	</application>
-	
-	 <!--  Internet Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

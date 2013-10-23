@@ -56,6 +56,18 @@
 			android:label="@string/schedule"
 		>
 		</activity>
+		
+		<activity
+		    android:name="edu.csupomona.cs.cs356.classmate.AddClassActivity"
+		    android:label="@string/addClass"
+		>    
+		</activity>
+		
+		<activity
+		    android:name="edu.csupomona.cs.cs356.classmate.SearchClassActivity"
+		    android:label="@string/searchClass"
+		>
+		</activity>
 
 	</application>
 </manifest>
