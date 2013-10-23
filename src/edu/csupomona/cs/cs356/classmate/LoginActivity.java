@@ -6,8 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -35,11 +35,38 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private static final int CODE_REGISTERATION_FORM = 0x0f0f0f0f;
 	private static final int CODE_RECOVERY_FORM = 0xf0f0f0f0;
 
-	private SharedPreferences preferences;
+	private SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		prefs = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
+		if (prefs.getBoolean(PREFS_LOGIN_REMEMBERME, false)) {
+			String userName = prefs.getString(KEY_USERNAME, null);
+			if (userName != null) {
+				String deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+
+				AsyncHttpClient client = new AsyncHttpClient();
+				RequestParams params = new RequestParams();
+				params.put("email", userName);
+				params.put("deviceid", deviceid);
+				client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(String response) {
+						int id = Integer.parseInt(response);
+						if (NULL_USER < id) {
+							sendToMainMenu(id);
+							return;
+						} else {
+							// Error, invalid device id, session has expired
+						}
+					}
+				});
+			}
+		}
+
+
 		setContentView(R.layout.login_activity);
 
 		Button b = (Button)findViewById(R.id.btnRecover);
@@ -76,12 +103,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		etUserName.addTextChangedListener(tw);
 		etPassword.addTextChangedListener(tw);
 
-		preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
 		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
-		cbRememberMe.setChecked(preferences.getBoolean(PREFS_LOGIN_REMEMBERME, true));
-		if (cbRememberMe.isChecked()) {
-			etUserName.setText(preferences.getString(PREFS_LOGIN_USERNAME, ""));
-		}
+		cbRememberMe.setChecked(prefs.getBoolean(PREFS_LOGIN_REMEMBERME, true));
 	}
 
 	@Override
@@ -113,7 +136,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			return;
 		}
 
-		Editor editor = preferences.edit();
+		SharedPreferences.Editor editor = prefs.edit();
 
 		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
 		editor.putBoolean(PREFS_LOGIN_REMEMBERME, cbRememberMe.isChecked());
