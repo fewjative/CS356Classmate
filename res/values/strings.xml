@@ -26,6 +26,11 @@
 	<string name="registerErrorTitle">Registration Problem</string>
 	<string name="registerError">We are sorry, that email is already registered.</string>
 
+	<!--Schedule Activity-->
+	<string name="schedule">Schedule</string>
+	<string name="drawerOpen">Open Menu</string>
+	<string name="drawerClose">Close Menu</string>
+
 	<!--Menu-->
 	<!--<string name="menu_settings">Settings</string>-->
 	<!--<string name="menu_test">Collin is a Badass</string>-->
