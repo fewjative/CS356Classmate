@@ -141,15 +141,17 @@ public class LoginActivity extends Activity implements OnClickListener {
 		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
 		editor.putBoolean(PREFS_LOGIN_REMEMBERME, cbRememberMe.isChecked());
 
+		EditText etUserName = (EditText)findViewById(R.id.etUserName);
+		String userName = etUserName.getText().toString();
 		if(cbRememberMe.isChecked()) {
-			EditText etUserName = (EditText)findViewById(R.id.etUserName);
-			editor.putString(PREFS_LOGIN_USERNAME, etUserName.getText().toString());
+			editor.putString(PREFS_LOGIN_USERNAME, userName);
 		}
 
 		editor.commit();
 
 		Intent i = new Intent(this, MainMenu.class);
 		i.putExtra(KEY_USERID, userid);
+		i.putExtra(KEY_USERNAME, userName);
 		startActivity(i);
 	}
 
@@ -165,11 +167,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 		EditText etPassword = (EditText)findViewById(R.id.etPassword);
 		String password = etPassword.getText().toString();
 
-		System.out.println(userName);
-		System.out.println(password);
+		String deviceid = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
 		params.put("email", userName);
 		params.put("password", password);
+		params.put("deviceid", deviceid);
 		client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {

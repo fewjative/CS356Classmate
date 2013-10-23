@@ -23,6 +23,7 @@ public class MainMenu extends Activity implements OnClickListener{
 		switch (v.getId()) {
 			case R.id.btnSchedule:
 				i = new Intent(this, Schedule.class);
+				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
 				startActivity(i);
 				break;
 		}

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -98,8 +99,11 @@ public class RegistrationActivity extends Activity implements OnClickListener {
 		EditText etPassword = (EditText)findViewById(R.id.etPassword);
 		String password = etPassword.getText().toString();
 
+		String deviceid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
 		params.put("email", userName);
 		params.put("password", password);
+		params.put("deviceid", deviceid);
 		client.get("http://www.lol-fc.com/classmate/register.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
