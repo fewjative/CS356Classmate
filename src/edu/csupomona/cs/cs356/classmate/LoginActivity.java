@@ -46,7 +46,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		prefs = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
 		if (prefs.getBoolean(PREFS_LOGIN_REMEMBERME, false)) {
-			String userName = prefs.getString(KEY_USERNAME, null);
+			String userName = prefs.getString(PREFS_LOGIN_USERNAME, null);
 			if (userName != null) {
 				String deviceid;
 				if (OVERRIDE_DEVICEID) {
@@ -113,6 +113,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		CheckBox cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
 		cbRememberMe.setChecked(prefs.getBoolean(PREFS_LOGIN_REMEMBERME, true));
+		//etUserName.setText(prefs.getString(PREFS_LOGIN_USERNAME, ""));
+		//etUserName.setSelectAllOnFocus(true);
 	}
 
 	@Override
