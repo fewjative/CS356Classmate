@@ -8,6 +8,9 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 public class MainMenu extends Activity implements OnClickListener{
+	private static final int CODE_ADD_CLASS = 0xffff0000;
+	private static final int CODE_SEARCH_CLASSES = 0x0000ffff;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -15,10 +18,10 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		ImageButton btnSchedule = (ImageButton)findViewById(R.id.btnSchedule);
 		btnSchedule.setOnClickListener(this);
-		
+
 		ImageButton btnAddClass = (ImageButton)findViewById(R.id.btnAddClass);
 		btnAddClass.setOnClickListener(this);
-		
+
 		ImageButton btnSearchClass = (ImageButton)findViewById(R.id.btnSearchClasses);
 		btnSearchClass.setOnClickListener(this);
 	}
@@ -32,17 +35,14 @@ public class MainMenu extends Activity implements OnClickListener{
 				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
 				startActivity(i);
 				break;
-				
 			case R.id.btnAddClass:
 				i = new Intent(this, AddClassActivity.class);
-				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
-				startActivity(i);
+				startActivityForResult(i, CODE_ADD_CLASS);
 				break;
-				
 			case R.id.btnSearchClasses:
 				i = new Intent(this, SearchClassActivity.class);
-				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
-				startActivity(i);
+				startActivityForResult(i, CODE_SEARCH_CLASSES);
+				break;
 		}
 	}
 }
