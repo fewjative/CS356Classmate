@@ -8,26 +8,26 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/white"
+		android:background="@color/polygreen"
 	>
-		<!--  Header Starts-->
+		<!-- Footer Start -->
 		<LinearLayout
-			android:id="@+id/header"
+			android:id="@+id/footer"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:paddingTop="5dip"
-			android:paddingBottom="5dip"
-			android:gravity="center"
+			android:padding="5dip"
+			android:layout_alignParentBottom="true"
+			android:background="@color/polygreen"
 		>
-			<!-- Logo Start-->
-			<ImageView
-				android:src="@drawable/logo"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:gravity="center"
+				android:text="@string/credits"
+				android:textColor="@color/white"
 			/>
-			<!-- Logo Ends -->
 		</LinearLayout>
-		<!--  Header Ends -->
+		<!-- Footer Ends -->
 
 		<!-- Login Form -->
 		<LinearLayout
@@ -35,7 +35,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="10dip"
-			android:layout_below="@+id/header"
 			android:background="@color/polygreen"
 		>
 			<!--  UserName Label -->
@@ -48,13 +47,16 @@
 			/>
 
 			<EditText
-			    android:id="@+id/etUserName"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_marginBottom="20dip"
-			    android:layout_marginTop="5dip"
-			    android:singleLine="true"
-			    android:textColor="@color/white" />
+				android:id="@+id/etUserName"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dip"
+				android:layout_marginTop="5dip"
+				android:singleLine="true"
+				android:textColor="@color/white"
+				android:inputType="textEmailAddress"
+				android:hint="@string/usernameExample"
+			/>
 
 			<!--  Password Label -->
 			<TextView
@@ -71,7 +73,8 @@
 				android:layout_marginTop="5dip"
 				android:layout_marginBottom="20dip"
 				android:singleLine="true"
-				android:password="true"
+				android:inputType="textPassword"
+				android:hint="@string/passwordExample"
 				android:textColor="@color/white"
 			/>
 			<TextView
@@ -88,6 +91,8 @@
 				android:layout_marginTop="5dip"
 				android:singleLine="true"
 				android:password="true"
+				android:inputType="textPassword"
+				android:hint="@string/passwordExample"
 				android:textColor="@color/white"
 			/>
 			<TextView
