@@ -9,7 +9,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:padding="5dip"
-		android:layout_alignParentBottom="true"
+		android:layout_above="@id/footer"
 		android:gravity="center"
 	>
 		<ImageButton
@@ -27,6 +27,23 @@
 			android:src="@drawable/ic_search_classes"
 			android:background="@drawable/circular_button"
 			android:layout_margin="10dp"
+		/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/footer"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="5dip"
+		android:layout_alignParentBottom="true"
+	>
+		<Button
+			style="@style/ClassmateButton"
+			android:id="@+id/btnLogout"
+			android:text="@string/logout"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dip"
 		/>
 	</LinearLayout>
 

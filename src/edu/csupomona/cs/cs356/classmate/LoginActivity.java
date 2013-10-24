@@ -35,8 +35,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private static final String PREFS_LOGIN_USERNAME = "etUserName";
 	private static final String PREFS_LOGIN_REMEMBERME = "cbRememberMe";
 
-	private static final int CODE_REGISTERATION_FORM = 0x0f0f0f0f;
-	private static final int CODE_RECOVERY_FORM = 0xf0f0f0f0;
+	private static final int CODE_REGISTERATION_FORM = 1001;
+	private static final int CODE_RECOVERY_FORM = 1002;
+	private static final int CODE_MAINMENU = 1003;
 
 	private SharedPreferences prefs;
 
@@ -158,7 +159,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		Intent i = new Intent(this, MainMenu.class);
 		i.putExtra(KEY_USERID, userid);
 		i.putExtra(KEY_USERNAME, userName);
-		startActivity(i);
+		startActivityForResult(i, CODE_MAINMENU);
 	}
 
 	private void verifyLogin() {
@@ -226,6 +227,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 				cbRememberMe.setChecked(data.getExtras().getBoolean(KEY_REMEMBERME, true));
 
 				sendToMainMenu(data.getExtras().getInt(KEY_USERID, NULL_USER));
+				break;
+			case CODE_MAINMENU:
+				if (resultCode != RESULT_OK) {
+					break;
+				}
+
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putBoolean(PREFS_LOGIN_REMEMBERME, false);
+				editor.putString(PREFS_LOGIN_USERNAME, null);
+				editor.commit();
+
+				etUserName = (EditText)findViewById(R.id.etUserName);
+				etUserName.setText("");
+
+				EditText etPassword = (EditText)findViewById(R.id.etPassword);
+				etPassword.setText("");
+
+				cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
+				cbRememberMe.setChecked(false);
 				break;
 		}
 	}

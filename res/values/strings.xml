@@ -3,15 +3,24 @@
 	<!--Globals-->
 	<string name="ClassmateAppName">Classmate</string>
 	<string name="okay">Okay</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
 	<string name="credits">Written by the Scrum Dogs</string>
 
 	<!--Login Activity-->
 	<string name="login">Login</string>
 	<string name="username">Email Address</string>
+	<string name="usernameExample">johndoe@csupomona.edu</string>
 	<string name="password">Password</string>
+	<string name="passwordExample">password</string>
 	<string name="stayloggedin">Stay signed in</string>
 	<string name="loginError">Sorry, either your username or password is incorrect.</string>
 	<string name="loginErrorTitle">Login Problem</string>
+
+	<!--Logout Activity-->
+	<string name="logout">Logout</string>
+	<string name="logoutConfirmationTitle">Logout?</string>
+	<string name="logoutConfirmation">Are you sure you want to log out?</string>
 
 	<!--Recovery Activity-->
 	<string name="recover">Forgot Password</string>

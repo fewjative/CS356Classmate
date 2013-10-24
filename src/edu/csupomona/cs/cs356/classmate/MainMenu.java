@@ -1,15 +1,19 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
+import static android.app.Activity.RESULT_CANCELED;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainMenu extends Activity implements OnClickListener{
-	private static final int CODE_ADD_CLASS = 0xffff0000;
-	private static final int CODE_SEARCH_CLASSES = 0x0000ffff;
+	private static final int CODE_ADD_CLASS = 2001;
+	private static final int CODE_SEARCH_CLASSES = 2002;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,9 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		ImageButton btnSearchClass = (ImageButton)findViewById(R.id.btnSearchClasses);
 		btnSearchClass.setOnClickListener(this);
+
+		Button btnLogin = (Button)findViewById(R.id.btnLogout);
+		btnLogin.setOnClickListener(this);
 	}
 
 	@Override
@@ -43,6 +50,32 @@ public class MainMenu extends Activity implements OnClickListener{
 				i = new Intent(this, SearchClassActivity.class);
 				startActivityForResult(i, CODE_SEARCH_CLASSES);
 				break;
+			case R.id.btnLogout:
+				AlertDialog d = new AlertDialog.Builder(this).create();
+				d.setTitle(R.string.logoutConfirmationTitle);
+				d.setMessage(getResources().getString(R.string.logoutConfirmation));
+				d.setIcon(android.R.drawable.ic_dialog_info);
+				d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						sendToLoginActivity();
+					}
+				});
+
+				d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						setResult(RESULT_CANCELED);
+					}
+				});
+
+				d.show();
+				break;
 		}
+	}
+
+	private void sendToLoginActivity() {
+		Intent i = new Intent(this, AddClassActivity.class);
+		i.putExtra(LoginActivity.KEY_REMEMBERME, false);
+		setResult(RESULT_OK, i);
+		finish();
 	}
 }

@@ -8,7 +8,7 @@
 	<RelativeLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/white"
+		android:background="@color/polygreen"
 	>
 		<!--  Header Starts-->
 		<LinearLayout
@@ -17,13 +17,14 @@
 			android:layout_height="wrap_content"
 			android:paddingTop="5dip"
 			android:paddingBottom="5dip"
+			android:gravity="center"
+			android:background="@color/white"
 		>
 			<!-- Logo Start-->
 			<ImageView
 				android:src="@drawable/logo"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="10dip"
 			/>
 			<!-- Logo Ends -->
 		</LinearLayout>
@@ -36,12 +37,14 @@
 			android:layout_height="wrap_content"
 			android:padding="5dip"
 			android:layout_alignParentBottom="true"
+			android:background="@color/polygreen"
 		>
 			<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
 				android:gravity="center"
 				android:text="@string/credits"
+				android:textColor="@color/white"
 			/>
 		</LinearLayout>
 		<!-- Footer Ends -->
@@ -70,8 +73,10 @@
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="20dip"
 				android:layout_marginTop="5dip"
+				android:inputType="textEmailAddress"
 				android:singleLine="true"
 				android:textColor="@color/white"
+				android:hint="@string/usernameExample"
 			/>
 
 			<!--  Password Label -->
@@ -88,9 +93,10 @@
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="5dip"
-				android:password="true"
+				android:inputType="textPassword"
 				android:singleLine="true"
 				android:textColor="@color/white"
+				android:hint="@string/passwordExample"
 			/>
 
 			<CheckBox
