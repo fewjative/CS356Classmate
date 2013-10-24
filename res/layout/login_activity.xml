@@ -105,30 +105,30 @@
 			/>
 			<!-- Login button -->
 			<Button
+				style="@style/ClassmateButton"
 				android:id="@+id/btnLogin"
+				android:text="@string/login"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dip"
-				android:text="@string/login"
-				android:textColor="@color/white"
 			/>
 			<!-- Forgot Password -->
 			<Button
+				style="@style/ClassmateButton"
 				android:id="@+id/btnRecover"
+				android:text="@string/recover"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dip"
-				android:text="@string/recover"
-				android:textColor="@color/white"
 			/>
 			<!-- Register Button -->
 			<Button
+				style="@style/ClassmateButton"
 				android:id="@+id/btnRegister"
+				android:text="@string/register"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dip"
-				android:text="@string/register"
-				android:textColor="@color/white"
 			/>
 		</LinearLayout>
 		<!-- Login Form Ends -->
