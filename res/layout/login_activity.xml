@@ -11,7 +11,7 @@
 		android:background="@color/polygreen"
 	>
 		<!--  Header Starts-->
-		<LinearLayout
+		<!--<LinearLayout
 			android:id="@+id/header"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
@@ -20,14 +20,14 @@
 			android:gravity="center"
 			android:background="@color/white"
 		>
-			<!-- Logo Start-->
+			 Logo Start
 			<ImageView
 				android:src="@drawable/logo"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 			/>
-			<!-- Logo Ends -->
-		</LinearLayout>
+			 Logo Ends
+		</LinearLayout>-->
 		<!--  Header Ends -->
 
 		<!-- Footer Start -->
@@ -54,7 +54,6 @@
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/header"
 			android:padding="10dip"
 			android:background="@color/polygreen"
 		>

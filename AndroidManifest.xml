@@ -25,9 +25,9 @@
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
 			android:label="@string/ClassmateAppName"
-			android:logo="@drawable/logo"
 			android:windowSoftInputMode="stateHidden"
 		>
+			<!--android:logo="@drawable/logo"-->
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>

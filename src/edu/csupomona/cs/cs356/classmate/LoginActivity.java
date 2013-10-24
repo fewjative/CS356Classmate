@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import static android.app.Activity.RESULT_OK;
 import android.app.AlertDialog;
@@ -116,6 +117,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 		cbRememberMe.setChecked(prefs.getBoolean(PREFS_LOGIN_REMEMBERME, true));
 		//etUserName.setText(prefs.getString(PREFS_LOGIN_USERNAME, ""));
 		//etUserName.setSelectAllOnFocus(true);
+
+		ActionBar ab = getActionBar();
+		ab.setCustomView(R.layout.logo_layout);
+		ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 	}
 
 	@Override
