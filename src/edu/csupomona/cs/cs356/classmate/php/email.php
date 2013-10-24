@@ -1,11 +1,11 @@
 <?php
 $connect_error = 'Sorry. We are experiencing connection problems.';
-mysql_connect('50.63.235.43','classmatedb','XXXXXXXXXX') or die($connect_error);
+mysql_connect('50.63.235.43','classmatedb','XXXXXXX') or die($connect_error);
 // 50.63.235.43 
 mysql_select_db('classmatedb');
 
 function email($to,$subject,$body) {
-	mail($to,$subject,$body,'From: calpolyclassmate@lgmail.com');
+	mail($to,$subject,$body,'From: calpolyclassmate@gmail.com');
 }
 
 function sanitize($data)
@@ -34,7 +34,7 @@ if(!empty($_GET['email']))
 	$email = sanitize($_GET['email']);
         if(email_exists($email))
 	{
-		email($email,'Your password for Classmate App','Your password is: ' . get_password($email));
+		email($email,"Your password for Classmate App","Your password is: " . get_password($email));
 		print(2);
 	}else
 		print(1);//no known email
