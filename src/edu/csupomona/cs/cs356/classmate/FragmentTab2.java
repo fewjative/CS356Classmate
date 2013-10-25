@@ -21,12 +21,31 @@ public class FragmentTab2 extends ListFragment {
 	@Override
 	  public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-	        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-	        "Linux", "OS/2" };
-	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-	        android.R.layout.simple_list_item_1, values);
+	    String[] values = new String[] { 
+	   		 "Kimberely Dollinger",
+	   		 "Sydney Atwell",  
+	   		 "Gisele Klenk", 
+	   		 "Tisa Levron", 
+	   		 "Cathie Banuelos", 
+	   		 "Glynda Sell", 
+	   		 "Teodora Bernhard", 
+	   		 "Macie Mcfarlain", 
+	   		 "Kaylene Joo", 
+	   		 "Valentin Petrie", 
+	   		 "Delia Councill",
+	   		 "Benjamin Garton", 
+	   		 "Wanda Willette", 
+	   		 "Hong Zuber", 
+	   		 "Charla Pfeil", 
+	   		 "Karisa Ordonez", 
+	   		 "Shavonda Donohue", 
+	   		 "Charity Cullins", 
+	   		 "Tamica Hayworth", 
+	   		 "Lupita Mcclean" };
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.fragment2,
+	       R.id.label, values);
 	    setListAdapter(adapter);
+	    
 	  }
 
 	  @Override

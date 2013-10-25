@@ -1,16 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
     <TextView
+        android:id="@+id/label"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
-        android:text="Friend List" 
-    	android:textColor="@color/white"
-    />
- 
-</RelativeLayout>
+        android:layout_marginLeft="5px"
+        android:text="@+id/label"
+        android:textSize="25px" 
+        android:textColor="@color/white">
+    </TextView>
+    
+    <!-- <ImageView
+        android:id="@+id/icon"
+        android:layout_width="25px"
+        android:layout_height="22px"
+        android:layout_marginLeft="4px"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="4px"
+        android:src="@drawable/ic_action_add_person" >
+    </ImageView> 
+    in case we ever want to do profile images-->
+    
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+   android:layout_height="wrap_content"   
+   android:orientation="horizontal" >
+   
+     <Button
+         android:id="@+id/button1"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+          android:layout_marginRight="120px"
+          android:layout_alignParentRight="true"
+         android:text="Remove" />
+     
+     <Button
+         android:id="@+id/button2"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:text="Schedule" />
+     
+     </RelativeLayout>
+
+</LinearLayout> 
