@@ -28,6 +28,9 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		ImageButton btnSearchClass = (ImageButton)findViewById(R.id.btnSearchClasses);
 		btnSearchClass.setOnClickListener(this);
+		
+		Button btnFriendManager = (Button)findViewById(R.id.btnFriendManager);
+		btnFriendManager.setOnClickListener(this);
 
 		Button btnLogin = (Button)findViewById(R.id.btnLogout);
 		btnLogin.setOnClickListener(this);
@@ -49,6 +52,11 @@ public class MainMenu extends Activity implements OnClickListener{
 			case R.id.btnSearchClasses:
 				i = new Intent(this, SearchClassActivity.class);
 				startActivityForResult(i, CODE_SEARCH_CLASSES);
+				break;
+			case R.id.btnFriendManager:
+				i = new Intent(this, FriendManagerActivity.class);
+				i.putExtra(LoginActivity.KEY_USERNAME, getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
+				startActivity(i);
 				break;
 			case R.id.btnLogout:
 				AlertDialog d = new AlertDialog.Builder(this).create();

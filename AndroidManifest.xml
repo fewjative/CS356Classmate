@@ -6,7 +6,7 @@
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
-		android:minSdkVersion="12"
+		android:minSdkVersion="13"
 		android:targetSdkVersion="16"
 	/>
 
@@ -67,6 +67,12 @@
 		<activity
 		    android:name="edu.csupomona.cs.cs356.classmate.SearchClassActivity"
 		    android:label="@string/searchClass"
+		>
+		</activity>
+		
+		<activity
+		    android:name="edu.csupomona.cs.cs356.classmate.FriendManagerActivity"
+		    android:label="@string/friendManager"
 		>
 		</activity>
 
