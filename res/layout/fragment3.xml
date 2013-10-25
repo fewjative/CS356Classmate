@@ -9,6 +9,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="190dp"
-        android:text="Friend List" />
+        android:text="Friend List" 
+    	android:textColor="@color/white"
+    />
  
 </RelativeLayout>

@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Requests" />
+        android:text="Requests"
+    	android:textColor="@color/white"
+    />
 
     <LinearLayout
         android:layout_width="wrap_content"

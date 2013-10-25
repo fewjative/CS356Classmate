@@ -1,10 +1,16 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,7 +33,8 @@ public class Schedule extends Activity {
 
 		aAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
 		listView.setAdapter(aAdapter);
-
+		
+		
 //		TextView tvUserName = (TextView)findViewById(R.id.tvUserName);
 //		tvUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
 //
@@ -40,13 +47,14 @@ public class Schedule extends Activity {
 			R.string.drawerOpen,
 			R.string.drawerClose
 		);
-
+		
 		drawerLayout.setDrawerListener(drawerToggle);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		//getActionBar().setHomeButtonEnabled(true);
+		
 	}
-
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
