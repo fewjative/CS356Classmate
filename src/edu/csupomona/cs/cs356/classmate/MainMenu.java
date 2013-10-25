@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import static android.app.Activity.RESULT_CANCELED;
 import android.app.AlertDialog;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainMenu extends Activity implements OnClickListener{
 	private static final int CODE_ADD_CLASS = 2001;
@@ -28,12 +31,19 @@ public class MainMenu extends Activity implements OnClickListener{
 
 		ImageButton btnSearchClass = (ImageButton)findViewById(R.id.btnSearchClasses);
 		btnSearchClass.setOnClickListener(this);
-		
+
 		Button btnFriendManager = (Button)findViewById(R.id.btnFriendManager);
 		btnFriendManager.setOnClickListener(this);
 
 		Button btnLogin = (Button)findViewById(R.id.btnLogout);
 		btnLogin.setOnClickListener(this);
+
+		ActionBar ab = getActionBar();
+		ab.setTitle("What's Happening Today");
+
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("EEE, MMM d, yyyy");
+		ab.setSubtitle(df.format(c.getTime()));
 	}
 
 	@Override

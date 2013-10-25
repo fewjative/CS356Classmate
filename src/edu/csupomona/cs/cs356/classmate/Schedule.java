@@ -25,21 +25,16 @@ public class Schedule extends Activity {
 		listView = (ListView)findViewById(R.id.left_drawer);
 		drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-		aAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
-		listView.setAdapter(aAdapter);
-
-//		TextView tvUserName = (TextView)findViewById(R.id.tvUserName);
-//		tvUserName.setText(getIntent().getExtras().getString(LoginActivity.KEY_USERNAME));
-//
-//		listView.addHeaderView(tvUserName);
+		listView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList));
 
 		drawerToggle = new ActionBarDrawerToggle(
 			this,
 			drawerLayout,
 			R.drawable.ic_drawer,
 			R.string.drawerOpen,
-			R.string.drawerClose
-		);
+			R.string.drawerClose) {
+			//...
+		};
 
 		drawerLayout.setDrawerListener(drawerToggle);
 
