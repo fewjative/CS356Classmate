@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Fragment;
 import android.app.ListFragment;
@@ -21,6 +24,17 @@ public class FragmentTab2 extends ListFragment {
 	@Override
 	  public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
+	    
+	    String userName = getActivity().getIntent().getExtras().getString(LoginActivity.KEY_USERNAME);
+	    System.out.println(userName);
+	    //So we have the correct user
+	    //Need to get the correct 'friend' id tomorrow and set them to invisible fields
+	    
+	    //final TextView hidden = (TextView)getListView().findViewById(R.id.hidden);
+	    //hidden.setText(userName);
+
+	    
+	    
 	    String[] values = new String[] { 
 	   		 "Kimberely Dollinger",
 	   		 "Sydney Atwell",  
