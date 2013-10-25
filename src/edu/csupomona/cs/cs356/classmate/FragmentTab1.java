@@ -64,7 +64,8 @@ public class FragmentTab1 extends Fragment {//this is the fragment for adding a 
       		client.get("http://www.lol-fc.com/classmate/addfriend.php", params, new AsyncHttpResponseHandler() {
       			@Override
       			public void onSuccess(String response) {
-      				int id = Integer.parseInt(response);
+      				int id = Integer.parseInt(response);//we should definitely add some try and catch whenever we take data from server
+      				
       				if (id==2) {
       					
       					AlertDialog d = new AlertDialog.Builder(getActivity()).create();
