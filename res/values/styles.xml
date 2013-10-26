@@ -2,30 +2,22 @@
 	<color name="white">#FFFFFF</color>
 	<color name="red">#FF0000</color>
 	<color name="green">#00FF00</color>
-	<color name="polygreen">#00512B</color>
-	<color name="polyyellow">#F5BC23</color>
 
-	<!--
-	    Base application theme, dependent on API level. This theme is replaced
-	    by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-	-->
+	<color name="cppgreen">#00512B</color>
+	<color name="cppgold">#F5BC23</color>
+
 	<style
 		name="ClassmateBaseTheme"
 		parent="android:Theme.Light"
 	>
-		<!--
-		    Theme customizations available in newer API levels can go in
-		    res/values-vXX/styles.xml, while customizations related to
-		    backward-compatibility can go here.
-		-->
+		<!---->
 	</style>
 
-	<!-- Application theme. -->
 	<style
 		name="ClassmateTheme"
 		parent="ClassmateBaseTheme"
 	>
-		<!-- All customizations that are NOT specific to a particular API-level can go here. -->
+		<!---->
 	</style>
 
 	<style
@@ -33,5 +25,50 @@
 		parent="@android:style/Widget.Holo.Button"
 	>
 		<item name="android:textColor">@color/white</item>
+		<item name="android:layout_marginTop">10dip</item>
+	</style>
+
+	<style
+		name="ClassmateTextView"
+		parent="@android:style/Widget.Holo.TextView"
+	>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/cppgold</item>
+	</style>
+
+	<style
+		name="ClassmateEditText"
+		parent="@android:style/Widget.Holo.EditText"
+	>
+		<item name="android:singleLine">true</item>
+		<item name="android:textColor">@color/white</item>
+		<item name="android:layout_marginBottom">20dip</item>
+		<item name="android:layout_marginTop">5dip</item>
+	</style>
+
+	<style
+		name="ClassmateEditText_Username"
+		parent="ClassmateEditText"
+	>
+		<item name="android:inputType">textEmailAddress</item>
+		<item name="android:hint">@string/usernameExample</item>
+	</style>
+
+	<style
+		name="ClassmateEditText_Password"
+		parent="ClassmateEditText"
+	>
+		<item name="android:inputType">textPassword</item>
+		<item name="android:hint">@string/passwordExample</item>
+	</style>
+
+	<style
+		name="ClassmateCheckBox"
+		parent="@android:style/Widget.Holo.CompoundButton.CheckBox"
+	>
+		<item name="android:textColor">@color/cppgold</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:layout_marginBottom">5dip</item>
+		<item name="android:layout_marginTop">5dip</item>
 	</style>
 </resources>

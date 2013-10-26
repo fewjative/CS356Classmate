@@ -7,7 +7,7 @@
 	<!-- SDK Specifications -->
 	<uses-sdk
 		android:minSdkVersion="13"
-		android:targetSdkVersion="16"
+		android:targetSdkVersion="17"
 	/>
 
 	<!--  Internet Permissions -->
@@ -27,54 +27,10 @@
 			android:label="@string/ClassmateAppName"
 			android:windowSoftInputMode="stateHidden"
 		>
-			<!--android:logo="@drawable/logo"-->
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
-			android:label="@string/recover"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
-			android:label="@string/register"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.MainMenu"
-			android:label="@string/ClassmateAppName"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.Schedule"
-			android:label="@string/schedule"
-		>
-		</activity>
-
-		<activity
-		    android:name="edu.csupomona.cs.cs356.classmate.AddClassActivity"
-		    android:label="@string/addClass"
-		>
-		</activity>
-
-		<activity
-		    android:name="edu.csupomona.cs.cs356.classmate.SearchClassActivity"
-		    android:label="@string/searchClass"
-		>
-		</activity>
-		
-		<activity
-		    android:name="edu.csupomona.cs.cs356.classmate.FriendManagerActivity"
-		    android:label="@string/friendManager"
-		>
-		</activity>
-
 	</application>
 </manifest>

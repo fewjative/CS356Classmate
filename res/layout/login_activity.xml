@@ -1,141 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:fillViewport="true"
+	android:background="@color/cppgreen"
 >
-	<RelativeLayout
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dip"
+		android:background="@android:color/transparent"
+	>
+		<TextView
+			style="@style/ClassmateTextView"
+			android:text="@string/username"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+
+		<EditText
+			style="@style/ClassmateEditText_Username"
+			android:id="@+id/etUserName"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+
+		<TextView
+			style="@style/ClassmateTextView"
+			android:text="@string/password"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+
+		<EditText
+			style="@style/ClassmateEditText_Password"
+			android:id="@+id/etPassword"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+
+		<CheckBox
+			style="@style/ClassmateCheckBox"
+			android:id="@+id/cbRememberMe"
+			android:text="@string/stayloggedin"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+
+		<Button
+			style="@style/ClassmateButton"
+			android:id="@+id/btnLogin"
+			android:text="@string/login"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+		<Button
+			style="@style/ClassmateButton"
+			android:id="@+id/btnRecover"
+			android:text="@string/recover"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+		<Button
+			style="@style/ClassmateButton"
+			android:id="@+id/btnRegister"
+			android:text="@string/register"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+		/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:padding="5dip"
+		android:gravity="center"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/polygreen"
+		android:background="@android:color/transparent"
+		android:layout_alignParentBottom="true"
 	>
-		<!--  Header Starts-->
-		<!--<LinearLayout
-			android:id="@+id/header"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:paddingTop="5dip"
-			android:paddingBottom="5dip"
-			android:gravity="center"
-			android:background="@color/white"
-		>
-			 Logo Start
-			<ImageView
-				android:src="@drawable/logo"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-			/>
-			 Logo Ends
-		</LinearLayout>-->
-		<!--  Header Ends -->
-
-		<!-- Footer Start -->
-		<LinearLayout
-			android:id="@+id/footer"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:padding="5dip"
-			android:layout_alignParentBottom="true"
-			android:background="@color/polygreen"
-		>
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:gravity="center"
-				android:text="@string/credits"
-				android:textColor="@color/white"
-			/>
-		</LinearLayout>
-		<!-- Footer Ends -->
-
-		<!-- Login Form -->
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:padding="10dip"
-			android:background="@color/polygreen"
-		>
-			<!--  UserName Label -->
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textColor="@color/polyyellow"
-				android:text="@string/username"
-				android:textSize="18sp"
-			/>
-
-			<EditText
-				android:id="@+id/etUserName"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="20dip"
-				android:layout_marginTop="5dip"
-				android:inputType="textEmailAddress"
-				android:singleLine="true"
-				android:textColor="@color/white"
-				android:hint="@string/usernameExample"
-			/>
-
-			<!--  Password Label -->
-			<TextView
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textColor="@color/polyyellow"
-				android:text="@string/password"
-				android:textSize="18sp"
-			/>
-
-			<EditText
-				android:id="@+id/etPassword"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="5dip"
-				android:inputType="textPassword"
-				android:singleLine="true"
-				android:textColor="@color/white"
-				android:hint="@string/passwordExample"
-			/>
-
-			<CheckBox
-				android:id="@+id/cbRememberMe"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="5dip"
-				android:layout_marginBottom="5dip"
-				android:text="@string/stayloggedin"
-				android:textColor="@color/polyyellow"
-				android:textSize="18sp"
-			/>
-			<!-- Login button -->
-			<Button
-				style="@style/ClassmateButton"
-				android:id="@+id/btnLogin"
-				android:text="@string/login"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dip"
-			/>
-			<!-- Forgot Password -->
-			<Button
-				style="@style/ClassmateButton"
-				android:id="@+id/btnRecover"
-				android:text="@string/recover"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dip"
-			/>
-			<!-- Register Button -->
-			<Button
-				style="@style/ClassmateButton"
-				android:id="@+id/btnRegister"
-				android:text="@string/register"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dip"
-			/>
-		</LinearLayout>
-		<!-- Login Form Ends -->
-	</RelativeLayout>
-</ScrollView>
+		<TextView
+			android:text="@string/credits"
+			android:textColor="@color/white"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+		/>
+	</LinearLayout>
+</RelativeLayout>
