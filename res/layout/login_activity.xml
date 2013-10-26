@@ -11,6 +11,23 @@
 		android:background="@color/cppgreen"
 	>
 		<LinearLayout
+			android:padding="5dip"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:background="@android:color/transparent"
+		>
+			<TextView
+				android:gravity="center"
+				android:text="@string/author"
+				android:textColor="@color/white"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+
+		<LinearLayout
 			android:padding="10dip"
 			android:orientation="vertical"
 			android:layout_width="match_parent"
@@ -66,23 +83,6 @@
 				style="@style/ClassmateButton"
 				android:id="@+id/btnRegister"
 				android:text="@string/register"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
-		</LinearLayout>
-
-		<LinearLayout
-			android:padding="5dip"
-			android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:background="@android:color/transparent"
-		>
-			<TextView
-				android:gravity="center"
-				android:text="@string/author"
-				android:textColor="@color/white"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 			/>

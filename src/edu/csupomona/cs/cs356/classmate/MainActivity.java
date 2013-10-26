@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,9 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(icicle);
 		setContentView(R.layout.main_activity);
 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+
 		optionList = getResources().getStringArray(R.array.drawerItemList);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
 
@@ -41,17 +46,7 @@ public class MainActivity extends FragmentActivity {
 		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, final int pos, long id) {
-				dlMainDrawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-					@Override
-					public void onDrawerClosed(View drawerView) {
-						super.onDrawerClosed(drawerView);
-						activeFragmentID = pos;
-						FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-						tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[pos]));
-						tx.commit();
-					}
-				});
-
+				activeFragmentID = pos;
 				dlMainDrawer.closeDrawer(lvDrawer);
 			}
 		});
@@ -61,29 +56,8 @@ public class MainActivity extends FragmentActivity {
 		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[0]));
 		tx.commit();
 
-		drawerToggle = new ActionBarDrawerToggle(
-				this,
-				dlMainDrawer,
-				R.drawable.ic_drawer,
-				R.string.drawerOpen,
-				R.string.drawerClose) {
-			/*@Override
-			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle("Menu");
-			}
-
-
-
-			@Override
-			public void onDrawerClosed(View drawerView) {
-				getActionBar().setTitle(optionList[activeFragmentID]);
-			}*/
-		};
-
+		drawerToggle = new CustomActionBarDrawerToggle(this, dlMainDrawer);
 		dlMainDrawer.setDrawerListener(drawerToggle);
-
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
 	}
 
 	@Override
@@ -105,5 +79,40 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		boolean drawerOpen = dlMainDrawer.isDrawerOpen(lvDrawer);
+		//menu.findItem(R.id.action_save).setVisible(!drawerOpen);
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle {
+		CustomActionBarDrawerToggle(Activity a, DrawerLayout drawerLayout){
+			super(
+				a,
+				drawerLayout,
+				R.drawable.ic_drawer,
+				R.string.drawerOpen,
+				R.string.drawerClose
+			);
+		}
+
+		@Override
+		public void onDrawerOpened(View drawerView) {
+			getActionBar().setTitle(R.string.ClassmateAppName);
+			invalidateOptionsMenu();
+		}
+
+		@Override
+		public void onDrawerClosed(View drawerView) {
+			FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+			tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[activeFragmentID]));
+			tx.commit();
+
+			getActionBar().setTitle(optionList[activeFragmentID]);
+			invalidateOptionsMenu();
+		}
 	}
 }
