@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
 	android:fillViewport="true"
 >
 	<RelativeLayout
@@ -20,70 +20,59 @@
 			<TextView
 				style="@style/ClassmateTextView"
 				android:text="@string/username"
-				android:layout_width="match_parent"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 			/>
 			<EditText
 				style="@style/ClassmateEditText_Username"
 				android:id="@+id/etUserName"
-				android:layout_width="match_parent"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 			/>
 			<TextView
 				style="@style/ClassmateTextView"
 				android:text="@string/password"
-				android:layout_width="match_parent"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 			/>
 			<EditText
 				style="@style/ClassmateEditText_Password"
 				android:id="@+id/etPassword"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+			/>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:text="@string/password"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+			/>
+			<EditText
+				style="@style/ClassmateEditText_Password"
+				android:id="@+id/etConfirmPassword"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+			/>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:id="@+id/tvPasswordMatcher"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:gravity="center"
 			/>
 			<CheckBox
 				style="@style/ClassmateCheckBox"
 				android:id="@+id/cbRememberMe"
 				android:text="@string/stayloggedin"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
-			<Button
-				style="@style/ClassmateButton"
-				android:id="@+id/btnLogin"
-				android:text="@string/login"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
-			<Button
-				style="@style/ClassmateButton"
-				android:id="@+id/btnRecover"
-				android:text="@string/recover"
-				android:layout_width="match_parent"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 			/>
 			<Button
 				style="@style/ClassmateButton"
 				android:id="@+id/btnRegister"
 				android:text="@string/register"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
-		</LinearLayout>
-
-		<LinearLayout
-			android:padding="5dip"
-			android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:background="@android:color/transparent"
-		>
-			<TextView
-				android:gravity="center"
-				android:text="@string/author"
-				android:textColor="@color/white"
-				android:layout_width="match_parent"
+				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 			/>
 		</LinearLayout>

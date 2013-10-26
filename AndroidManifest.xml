@@ -32,5 +32,17 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
+			android:label="@string/recover"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
+			android:label="@string/register"
+		>
+		</activity>
 	</application>
 </manifest>
