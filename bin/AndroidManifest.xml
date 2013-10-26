@@ -6,7 +6,7 @@
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
-		android:minSdkVersion="13"
+		android:minSdkVersion="14"
 		android:targetSdkVersion="17"
 	/>
 
@@ -31,6 +31,24 @@
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
+			android:label="@string/recover"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
+			android:label="@string/register"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
+			android:label="@string/ClassmateAppName"
+		>
 		</activity>
 	</application>
 </manifest>
