@@ -32,7 +32,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 	private static final int CODE_REGISTERATION_FORM = 1001;
 	private static final int CODE_RECOVERY_FORM = 1002;
-	//private static final int CODE_MAINMENU = 1003;
+	private static final int CODE_MAINMENU = 1003;
 
 	private Button btnLogin;
 	private EditText etUsername;
@@ -122,18 +122,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		editor.commit();
 	}
 
-	private void login(int user) {
-		assert NULL_USER < user;
-
-		//Intent i = new Intent(this, MainMenu.class);
-		//i.putExtra(KEY_USERID, userid);
-		//i.putExtra(KEY_USERNAME, userName);
-		//startActivityForResult(i, CODE_MAINMENU);
-	}
-
 	@Override
 	public void onClick(View v) {
-		Intent i;
 		switch (v.getId()) {
 			case R.id.btnLogin:
 				attemptLogin();
@@ -189,6 +179,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				login(id);
 			}
 		});
+	}
+
+	private void login(int user) {
+		assert NULL_USER < user;
+
+		String userName = etUsername.getText().toString();
+
+		Intent i = new Intent(this, MainActivity.class);
+		i.putExtra(INTENT_KEY_USERID, user);
+		i.putExtra(INTENT_KEY_USERNAME, userName);
+		startActivityForResult(i, CODE_MAINMENU);
 	}
 
 	private void recoverAccount() {

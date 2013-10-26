@@ -1,0 +1,109 @@
+package edu.csupomona.cs.cs356.classmate;
+
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class MainActivity extends FragmentActivity {
+	final String[] fragments = {
+		"edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment",
+		"edu.csupomona.cs.cs356.classmate.fragments.AnotherFragment"
+	};
+
+	private int activeFragmentID;
+
+	private String[] optionList;
+	private DrawerLayout dlMainDrawer;
+	private ListView lvDrawer;
+	private ActionBarDrawerToggle drawerToggle;
+
+	@Override
+	public void onCreate(Bundle icicle) {
+		super.onCreate(icicle);
+		setContentView(R.layout.main_activity);
+
+		optionList = getResources().getStringArray(R.array.drawerItemList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
+
+		dlMainDrawer = (DrawerLayout)findViewById(R.id.dlMainDrawer);
+		lvDrawer = (ListView)findViewById(R.id.lvDrawer);
+		lvDrawer.setAdapter(adapter);
+		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, final int pos, long id) {
+				dlMainDrawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+					@Override
+					public void onDrawerClosed(View drawerView) {
+						super.onDrawerClosed(drawerView);
+						activeFragmentID = pos;
+						FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+						tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[pos]));
+						tx.commit();
+					}
+				});
+
+				dlMainDrawer.closeDrawer(lvDrawer);
+			}
+		});
+
+		activeFragmentID = 0;
+		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[0]));
+		tx.commit();
+
+		drawerToggle = new ActionBarDrawerToggle(
+				this,
+				dlMainDrawer,
+				R.drawable.ic_drawer,
+				R.string.drawerOpen,
+				R.string.drawerClose) {
+			/*@Override
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle("Menu");
+			}
+
+
+
+			@Override
+			public void onDrawerClosed(View drawerView) {
+				getActionBar().setTitle(optionList[activeFragmentID]);
+			}*/
+		};
+
+		dlMainDrawer.setDrawerListener(drawerToggle);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle icicle) {
+		super.onPostCreate(icicle);
+		drawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		drawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (drawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+}

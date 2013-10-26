@@ -6,7 +6,7 @@
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
-		android:minSdkVersion="13"
+		android:minSdkVersion="14"
 		android:targetSdkVersion="17"
 	/>
 
@@ -42,6 +42,12 @@
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
 			android:label="@string/register"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
+			android:label="@string/ClassmateAppName"
 		>
 		</activity>
 	</application>

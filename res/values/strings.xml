@@ -63,15 +63,12 @@
 
 	<!--Main Menu Navigation Drawer-->
 	<string-array
-		name="optionsArray"
+		name="drawerItemList"
 	>
-		<item>Profile</item>
-		<item>Add Class</item>
-		<item>Schedule</item>
 		<item>Friends</item>
-		<item>Compare Schedules</item>
-		<item>Add Friend</item>
+		<item>Another</item>
 	</string-array>
+
 	<string name="addClass">Add Class</string>
 	<string name="searchClass">Search Classes</string>
 </resources>
