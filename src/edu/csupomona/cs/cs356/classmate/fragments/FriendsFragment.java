@@ -13,27 +13,20 @@ import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendsListTab;
 
 public class FriendsFragment extends Fragment {
 	private FragmentTabHost tabHost;
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.friends_fragment, null);
-
-		tabHost = (FragmentTabHost)root.findViewById(android.R.id.tabhost);
-		tabHost.setup(root.getContext(), getFragmentManager(), R.id.realtabcontent);
+		tabHost = new FragmentTabHost(getActivity());
+		tabHost.setup(getActivity(), getChildFragmentManager(), R.id.flTabContentPane);
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("List"), FriendsListTab.class, null);
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Requests"), FriendRequestsTab.class, null);
 		tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Add"), AddFriendTab.class, null);
-		tabHost.setCurrentTab(0);
-
-		return root;
+		return tabHost;
 	}
 
 	@Override
-	public void onResume() {
-		if (tabHost != null) {
-			tabHost.setCurrentTab(0);
-		}
-		
-		super.onResume();
+	public void onDestroyView() {
+		super.onDestroyView();
+		tabHost = null;
 	}
 }

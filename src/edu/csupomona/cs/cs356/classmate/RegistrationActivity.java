@@ -1,7 +1,6 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
-import static android.app.Activity.RESULT_CANCELED;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,9 +25,6 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 	private EditText etUsername;
 	private EditText etPass1;
 	private EditText etPass2;
-
-	private boolean attemptingRegister;
-	private boolean registerPossible;
 
 	@Override
 	public void onCreate(Bundle icicle) {

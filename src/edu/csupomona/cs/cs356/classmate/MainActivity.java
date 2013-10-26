@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,11 +81,25 @@ public class MainActivity extends FragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
+	/*@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		boolean drawerOpen = dlMainDrawer.isDrawerOpen(lvDrawer);
-		//menu.findItem(R.id.action_save).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_save).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
+	}*/
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_MENU:
+				if (dlMainDrawer.isDrawerOpen(lvDrawer)) {
+					dlMainDrawer.closeDrawer(lvDrawer);
+				} else {
+					dlMainDrawer.openDrawer(lvDrawer);
+				}
+				break;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle {
