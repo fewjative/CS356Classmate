@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string-array name="user_menu_items">
+		<item>user_menu_friends</item>
+		<item>user_menu_groups</item>
+	</string-array>
+
+	<array name="user_menu_items_icon">
+		<item>ic_action_person</item>
+		<item>ic_action_group</item>
+	</array>
+
+	<string-array name="app_menu_items">
+		<item>app_menu_settings</item>
+		<item>app_menu_logout</item>
+	</string-array>
+
+	<array name="app_menu_items_icon">
+		<item>ic_action_settings</item>
+		<item>ic_action_back</item>
+	</array>
+</resources>

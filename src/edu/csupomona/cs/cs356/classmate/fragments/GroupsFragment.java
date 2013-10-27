@@ -7,14 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.csupomona.cs.cs356.classmate.R;
 
-public class AnotherFragment extends Fragment {
-	public AnotherFragment() {
-		//...
-	}
-
+public class GroupsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.another_fragment, null);
+		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.groups_fragment, null);
 		return root;
 	}
 }

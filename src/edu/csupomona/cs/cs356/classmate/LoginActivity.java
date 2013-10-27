@@ -116,7 +116,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 		SharedPreferences preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putString(PREFS_KEY_USERNAME, etUsername.getText().toString());
+
+		String currentUserName = etUsername.getText().toString();
+		if (!currentUserName.isEmpty()) {
+			editor.putString(PREFS_KEY_USERNAME, currentUserName);
+		}
+
 		editor.putBoolean(PREFS_KEY_REMEMBER, cbRemember.isChecked());
 
 		editor.commit();
@@ -185,6 +190,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		assert NULL_USER < user;
 
 		String userName = etUsername.getText().toString();
+		if (userName.isEmpty()) {
+			SharedPreferences preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
+			userName = preferences.getString(PREFS_KEY_USERNAME, null);
+		}
 
 		Intent i = new Intent(this, MainActivity.class);
 		i.putExtra(INTENT_KEY_USERID, user);
@@ -236,9 +245,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				etUsername.setText("");
 				etPassword.setText("");
 				cbRemember.setChecked(false);
-				
+
 				etUsername.requestFocus();
-				
+
 				break;
 		}
 	}

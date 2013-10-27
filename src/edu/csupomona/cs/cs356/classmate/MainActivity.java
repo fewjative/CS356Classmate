@@ -15,24 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import edu.csupomona.cs.cs356.classmate.fragments.AnotherFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.utils.MenuAdapter;
 import edu.csupomona.cs.cs356.classmate.utils.MenuItemModel;
 
 public class MainActivity extends FragmentActivity {
-	final String[] fragments = {
-		FriendsFragment.class.getCanonicalName(),
-		AnotherFragment.class.getCanonicalName()
-	};
-
-	private int activeFragmentID;
-	
-	private String[] optionList;
-	private DrawerLayout dlMainDrawer;
 	private ListView lvDrawer;
+	private DrawerLayout dlMainDrawer;
+	private MenuItemModel selectedDrawerItem;
 	private ActionBarDrawerToggle drawerToggle;
 
 	@Override
@@ -40,42 +32,25 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(icicle);
 		setContentView(R.layout.main_activity);
 
-		optionList = getResources().getStringArray(R.array.drawerItemList);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
-
 		dlMainDrawer = (DrawerLayout)findViewById(R.id.dlMainDrawer);
 		lvDrawer = (ListView)findViewById(R.id.lvDrawer);
-
-		buildDrawer();
-		/*final TextView tvUser = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_header_layout, null);
-		tvUser.setText(getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME));
-		lvDrawer.addHeaderView(tvUser, null, false);
-
-		final TextView tvLogout = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_item_layout, null);
-		tvLogout.setText("Logout");
-		lvDrawer.addFooterView(tvLogout);
-
-		lvDrawer.setAdapter(adapter);*/
-
+		lvDrawer.setAdapter(buildDrawer());
 		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				//if (id == tvLogout.getId()) {
-				//	attemptLogout();
-				//	return;
-				//}
+				selectedDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(pos);
+				if (selectedDrawerItem.getTitleRes() == R.string.app_menu_logout) {
+					attemptLogout();
+					return;
+				}
 
-				activeFragmentID = pos;
 				dlMainDrawer.closeDrawer(lvDrawer);
 			}
 		});
 
-		activeFragmentID = 0;
-		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[0]));
-		tx.commit();
+		selectedDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(1);
+		swapFragments();
 
-		getActionBar().setTitle(optionList[activeFragmentID]);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
@@ -83,35 +58,42 @@ public class MainActivity extends FragmentActivity {
 		dlMainDrawer.setDrawerListener(drawerToggle);
 	}
 
-	private void buildDrawer() {
+	private MenuAdapter buildDrawer() {
 		MenuAdapter mAdapter = new MenuAdapter(this);
 
-		// Add Header
-		mAdapter.addHeader(R.string.menu_main_header_1);
-
-		// Add first block
-		optionList = getResources().getStringArray(R.array.menu_items);
-		String[] menuItemsIcon = getResources().getStringArray(R.array.menu_items_icon);
-
-		int res = 0;
-		for (String item : optionList) {
-
-			int id_title = getResources().getIdentifier(item, "string", this.getPackageName());
-			int id_icon = getResources().getIdentifier(menuItemsIcon[res], "drawable", this.getPackageName());
-
-			MenuItemModel mItem = new MenuItemModel(id_title, id_icon);
-			if (res == 1) {
-				mItem.setCounter(12);
-			}
-
-			mAdapter.addItem(mItem);
-			res++;
+		String userName = getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME);
+		if (userName == null) {
+			mAdapter.addHeader(R.string.user_menu_header);
+		} else {
+			mAdapter.addHeader(userName);
 		}
 
-		mAdapter.addHeader(R.string.menu_main_header_2);
+		int name, icon;
+		String[] itemName, itemIcon;
 
-		lvDrawer.setAdapter(mAdapter);
-		//lvDrawer.setOnItemClickListener(new DrawerItemClickListener());
+		itemName = getResources().getStringArray(R.array.user_menu_items);
+		itemIcon = getResources().getStringArray(R.array.user_menu_items_icon);
+		assert itemName.length == itemIcon.length;
+		for (int i = 0; i < itemName.length; i++) {
+			name = getResources().getIdentifier(itemName[i], "string", this.getPackageName());
+			icon = getResources().getIdentifier(itemIcon[i], "drawable", this.getPackageName());
+			MenuItemModel mItem = new MenuItemModel(name, icon);
+			mAdapter.addItem(mItem);
+		}
+
+		mAdapter.addHeader(R.string.app_menu_header);
+
+		itemName = getResources().getStringArray(R.array.app_menu_items);
+		itemIcon = getResources().getStringArray(R.array.app_menu_items_icon);
+		assert itemName.length == itemIcon.length;
+		for (int i = 0; i < itemName.length; i++) {
+			name = getResources().getIdentifier(itemName[i], "string", this.getPackageName());
+			icon = getResources().getIdentifier(itemIcon[i], "drawable", this.getPackageName());
+			MenuItemModel mItem = new MenuItemModel(name, icon);
+			mAdapter.addItem(mItem);
+		}
+
+		return mAdapter;
 	}
 
 	private void attemptLogout() {
@@ -205,12 +187,29 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public void onDrawerClosed(View drawerView) {
-			FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-			tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[activeFragmentID]));
-			tx.commit();
-
-			getActionBar().setTitle(optionList[activeFragmentID]);
-			invalidateOptionsMenu();
+			swapFragments();
 		}
+	}
+
+	private void swapFragments() {
+		String conicalPath = null;
+		switch (selectedDrawerItem.getTitleRes()) {
+			case R.string.user_menu_friends:
+				conicalPath = FriendsFragment.class.getCanonicalName();
+				break;
+			case R.string.user_menu_groups:
+				conicalPath = GroupsFragment.class.getCanonicalName();
+				break;
+			case R.string.app_menu_settings:
+				conicalPath = GroupsFragment.class.getCanonicalName();
+				break;
+		}
+
+		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, conicalPath));
+		tx.commit();
+
+		getActionBar().setTitle(selectedDrawerItem.getTitleRes());
+		invalidateOptionsMenu();
 	}
 }
