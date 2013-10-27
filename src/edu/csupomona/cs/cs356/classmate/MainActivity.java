@@ -37,9 +37,6 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(icicle);
 		setContentView(R.layout.main_activity);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-
 		optionList = getResources().getStringArray(R.array.drawerItemList);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item_layout, optionList);
 
@@ -73,7 +70,11 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
 		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[0]));
 		tx.commit();
-
+		
+		getActionBar().setTitle(optionList[activeFragmentID]);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		
 		drawerToggle = new CustomActionBarDrawerToggle(this, dlMainDrawer);
 		dlMainDrawer.setDrawerListener(drawerToggle);
 	}
