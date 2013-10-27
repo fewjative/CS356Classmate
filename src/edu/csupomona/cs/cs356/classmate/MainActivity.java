@@ -1,6 +1,8 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 	final String[] fragments = {
@@ -42,10 +45,25 @@ public class MainActivity extends FragmentActivity {
 
 		dlMainDrawer = (DrawerLayout)findViewById(R.id.dlMainDrawer);
 		lvDrawer = (ListView)findViewById(R.id.lvDrawer);
+		
+		//final TextView tvUser = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_item_layout, null);
+		//tvUser.setText(getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME));
+		//lvDrawer.addHeaderView(tvUser, null, false);
+		
+		final TextView tvLogout = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_item_layout, null);
+		tvLogout.setText("Logout");
+		lvDrawer.addFooterView(tvLogout);
+		
 		lvDrawer.setAdapter(adapter);
+		
 		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, final int pos, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+				if (id == tvLogout.getId()) {
+					attemptLogout();
+					return;
+				}
+				
 				activeFragmentID = pos;
 				dlMainDrawer.closeDrawer(lvDrawer);
 			}
@@ -60,6 +78,27 @@ public class MainActivity extends FragmentActivity {
 		dlMainDrawer.setDrawerListener(drawerToggle);
 	}
 
+	private void attemptLogout() {
+		AlertDialog d = new AlertDialog.Builder(this).create();
+		d.setTitle(R.string.logoutConfirmationTitle);
+		d.setMessage(getResources().getString(R.string.logoutConfirmation));
+		d.setIcon(android.R.drawable.ic_dialog_info);
+		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_OK);
+				finish();
+			}
+		});
+
+		d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_CANCELED);
+			}
+		});
+
+		d.show();
+	}
+	
 	@Override
 	protected void onPostCreate(Bundle icicle) {
 		super.onPostCreate(icicle);

@@ -222,32 +222,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 					break;
 				}
 
-				// Setting these values here should add them into preferences correctly
 				etUsername.setText(data.getStringExtra(INTENT_KEY_USERNAME));
 				cbRemember.setChecked(data.getBooleanExtra(INTENT_KEY_REMEMBER, false));
 
 				int user = data.getIntExtra(INTENT_KEY_USERID, NULL_USER);
 				login(user);
 				break;
-//			case CODE_MAINMENU:
-//				if (resultCode != RESULT_OK) {
-//					break;
-//				}
-//
-//				SharedPreferences.Editor editor = prefs.edit();
-//				editor.putBoolean(PREFS_LOGIN_REMEMBERME, false);
-//				editor.putString(PREFS_LOGIN_USERNAME, null);
-//				editor.commit();
-//
-//				etUserName = (EditText)findViewById(R.id.etUserName);
-//				etUserName.setText("");
-//
-//				EditText etPassword = (EditText)findViewById(R.id.etPassword);
-//				etPassword.setText("");
-//
-//				cbRememberMe = (CheckBox)findViewById(R.id.cbRememberMe);
-//				cbRememberMe.setChecked(false);
-//				break;
+			case CODE_MAINMENU:
+				if (resultCode != RESULT_OK) {
+					break;
+				}
+
+				etUsername.setText("");
+				etPassword.setText("");
+				cbRemember.setChecked(false);
+				
+				etUsername.requestFocus();
+				
+				break;
 		}
 	}
 }
