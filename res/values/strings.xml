@@ -45,14 +45,14 @@
 	<!--FriendManager Activity-->
 	<string name="friendManager">Manage Friends</string>
 
-    <string name="Fragment1">This is Fragment 1</string>
-    <string name="Fragment2">This is Fragment 2</string>
-    <string name="Fragment3">This is Fragment 3</string>
+	<string name="Fragment1">This is Fragment 1</string>
+	<string name="Fragment2">This is Fragment 2</string>
+	<string name="Fragment3">This is Fragment 3</string>
 
-    <string name="addFriendErrorTitle">Could Not Add</string>
+	<string name="addFriendErrorTitle">Could Not Add</string>
 	<string name="addFriendError">Either the friend is already in your friendlist or you have entered in an incorrect email.</string>
 
-	 <string name="addFriendSuccessTitle">Success!</string>
+	<string name="addFriendSuccessTitle">Success!</string>
 	<string name="addFriendSuccess">A friend request has been sent to the user!</string>
 
 
@@ -71,4 +71,10 @@
 
 	<string name="addClass">Add Class</string>
 	<string name="searchClass">Search Classes</string>
+
+	<string name="menu_main_header_1">Main Header 1</string>
+	<string name="menu_friends">Friends</string>
+	<string name="menu_another">Another</string>
+	
+	<string name="menu_main_header_2">Main Header 2</string>
 </resources>

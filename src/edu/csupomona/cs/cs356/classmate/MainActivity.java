@@ -17,16 +17,19 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import edu.csupomona.cs.cs356.classmate.fragments.AnotherFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
+import edu.csupomona.cs.cs356.classmate.utils.MenuAdapter;
+import edu.csupomona.cs.cs356.classmate.utils.MenuItemModel;
 
 public class MainActivity extends FragmentActivity {
 	final String[] fragments = {
-		"edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment",
-		"edu.csupomona.cs.cs356.classmate.fragments.AnotherFragment"
+		FriendsFragment.class.getCanonicalName(),
+		AnotherFragment.class.getCanonicalName()
 	};
 
 	private int activeFragmentID;
-
+	
 	private String[] optionList;
 	private DrawerLayout dlMainDrawer;
 	private ListView lvDrawer;
@@ -42,25 +45,26 @@ public class MainActivity extends FragmentActivity {
 
 		dlMainDrawer = (DrawerLayout)findViewById(R.id.dlMainDrawer);
 		lvDrawer = (ListView)findViewById(R.id.lvDrawer);
-		
-		//final TextView tvUser = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_item_layout, null);
-		//tvUser.setText(getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME));
-		//lvDrawer.addHeaderView(tvUser, null, false);
-		
+
+		buildDrawer();
+		/*final TextView tvUser = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_header_layout, null);
+		tvUser.setText(getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME));
+		lvDrawer.addHeaderView(tvUser, null, false);
+
 		final TextView tvLogout = (TextView)getLayoutInflater().inflate(R.layout.drawer_list_item_layout, null);
 		tvLogout.setText("Logout");
 		lvDrawer.addFooterView(tvLogout);
-		
-		lvDrawer.setAdapter(adapter);
-		
+
+		lvDrawer.setAdapter(adapter);*/
+
 		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				if (id == tvLogout.getId()) {
-					attemptLogout();
-					return;
-				}
-				
+				//if (id == tvLogout.getId()) {
+				//	attemptLogout();
+				//	return;
+				//}
+
 				activeFragmentID = pos;
 				dlMainDrawer.closeDrawer(lvDrawer);
 			}
@@ -70,13 +74,44 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
 		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, fragments[0]));
 		tx.commit();
-		
+
 		getActionBar().setTitle(optionList[activeFragmentID]);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
+
 		drawerToggle = new CustomActionBarDrawerToggle(this, dlMainDrawer);
 		dlMainDrawer.setDrawerListener(drawerToggle);
+	}
+
+	private void buildDrawer() {
+		MenuAdapter mAdapter = new MenuAdapter(this);
+
+		// Add Header
+		mAdapter.addHeader(R.string.menu_main_header_1);
+
+		// Add first block
+		optionList = getResources().getStringArray(R.array.menu_items);
+		String[] menuItemsIcon = getResources().getStringArray(R.array.menu_items_icon);
+
+		int res = 0;
+		for (String item : optionList) {
+
+			int id_title = getResources().getIdentifier(item, "string", this.getPackageName());
+			int id_icon = getResources().getIdentifier(menuItemsIcon[res], "drawable", this.getPackageName());
+
+			MenuItemModel mItem = new MenuItemModel(id_title, id_icon);
+			if (res == 1) {
+				mItem.setCounter(12);
+			}
+
+			mAdapter.addItem(mItem);
+			res++;
+		}
+
+		mAdapter.addHeader(R.string.menu_main_header_2);
+
+		lvDrawer.setAdapter(mAdapter);
+		//lvDrawer.setOnItemClickListener(new DrawerItemClickListener());
 	}
 
 	private void attemptLogout() {
@@ -99,7 +134,7 @@ public class MainActivity extends FragmentActivity {
 
 		d.show();
 	}
-	
+
 	@Override
 	protected void onPostCreate(Bundle icicle) {
 		super.onPostCreate(icicle);
@@ -127,7 +162,7 @@ public class MainActivity extends FragmentActivity {
 		menu.findItem(R.id.action_save).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}*/
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
@@ -137,8 +172,17 @@ public class MainActivity extends FragmentActivity {
 				} else {
 					dlMainDrawer.openDrawer(lvDrawer);
 				}
+
+				break;
+			case KeyEvent.KEYCODE_BACK:
+				if (dlMainDrawer.isDrawerOpen(lvDrawer)) {
+					break;
+				}
+
+				attemptLogout();
 				break;
 		}
+
 		return super.onKeyDown(keyCode, event);
 	}
 
