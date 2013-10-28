@@ -10,6 +10,16 @@
 		<item>ic_action_group</item>
 	</array>
 
+	<string-array name="schedule_menu_items">
+		<item>schedule_menu_today</item>
+		<item>schedule_menu_schedule</item>
+	</string-array>
+
+	<array name="schedule_menu_items_icon">
+		<item>ic_action_go_to_today</item>
+		<item>ic_action_go_to_today</item>
+	</array>
+
 	<string-array name="app_menu_items">
 		<item>app_menu_settings</item>
 		<item>app_menu_logout</item>

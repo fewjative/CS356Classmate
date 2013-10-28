@@ -45,6 +45,10 @@
 	<string name="user_menu_friends">Friends</string>
 	<string name="user_menu_groups">Groups</string>
 
+	<string name="schedule_menu_header">Schedule</string>
+	<string name="schedule_menu_today">Today</string>
+	<string name="schedule_menu_schedule">Full Schedule</string>
+
 	<string name="app_menu_header">Application</string>
 	<string name="app_menu_settings">Settings</string>
 	<string name="app_menu_logout">Logout</string>

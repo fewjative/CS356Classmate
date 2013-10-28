@@ -81,6 +81,18 @@ public class MainActivity extends FragmentActivity {
 			mAdapter.addItem(mItem);
 		}
 
+		mAdapter.addHeader(R.string.schedule_menu_header);
+
+		itemName = getResources().getStringArray(R.array.schedule_menu_items);
+		itemIcon = getResources().getStringArray(R.array.schedule_menu_items_icon);
+		assert itemName.length == itemIcon.length;
+		for (int i = 0; i < itemName.length; i++) {
+			name = getResources().getIdentifier(itemName[i], "string", this.getPackageName());
+			icon = getResources().getIdentifier(itemIcon[i], "drawable", this.getPackageName());
+			MenuItemModel mItem = new MenuItemModel(name, icon);
+			mAdapter.addItem(mItem);
+		}
+
 		mAdapter.addHeader(R.string.app_menu_header);
 
 		itemName = getResources().getStringArray(R.array.app_menu_items);
@@ -101,6 +113,7 @@ public class MainActivity extends FragmentActivity {
 		d.setTitle(R.string.logoutConfirmationTitle);
 		d.setMessage(getResources().getString(R.string.logoutConfirmation));
 		d.setIcon(android.R.drawable.ic_dialog_info);
+		d.setCanceledOnTouchOutside(true);
 		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				setResult(RESULT_OK);
@@ -110,7 +123,6 @@ public class MainActivity extends FragmentActivity {
 
 		d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				setResult(RESULT_CANCELED);
 			}
 		});
 
@@ -155,14 +167,14 @@ public class MainActivity extends FragmentActivity {
 					dlMainDrawer.openDrawer(lvDrawer);
 				}
 
-				break;
+				return true;
 			case KeyEvent.KEYCODE_BACK:
-				if (dlMainDrawer.isDrawerOpen(lvDrawer)) {
+				if (dlMainDrawer.isDrawerOpen(lvDrawer) || event.getRepeatCount() != 0) {
 					break;
 				}
 
 				attemptLogout();
-				break;
+				return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -198,6 +210,12 @@ public class MainActivity extends FragmentActivity {
 				conicalPath = FriendsFragment.class.getCanonicalName();
 				break;
 			case R.string.user_menu_groups:
+				conicalPath = GroupsFragment.class.getCanonicalName();
+				break;
+			case R.string.schedule_menu_today:
+				conicalPath = FriendsFragment.class.getCanonicalName();
+				break;
+			case R.string.schedule_menu_schedule:
 				conicalPath = GroupsFragment.class.getCanonicalName();
 				break;
 			case R.string.app_menu_settings:
