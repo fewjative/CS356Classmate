@@ -17,6 +17,7 @@
 	<string name="loginLoading">Verifying user credentials.</string>
 	<string name="loginError">Sorry, either your username or password is incorrect.</string>
 	<string name="loginErrorTitle">Login Problem</string>
+	<string name="welcomeBack">Welcome back!</string>
 
 	<!--Logout Activity-->
 	<string name="logout">Logout</string>

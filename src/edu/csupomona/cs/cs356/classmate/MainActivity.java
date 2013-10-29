@@ -24,31 +24,38 @@ import edu.csupomona.cs.cs356.classmate.utils.MenuItemModel;
 public class MainActivity extends FragmentActivity {
 	private ListView lvDrawer;
 	private DrawerLayout dlMainDrawer;
-	private MenuItemModel selectedDrawerItem;
+	private MenuAdapter adapter;
+	private MenuItemModel activeDrawerItem;
 	private ActionBarDrawerToggle drawerToggle;
 
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.main_activity);
+		setResult(RESULT_CANCELED);
 
+		adapter = buildDrawer();
 		dlMainDrawer = (DrawerLayout)findViewById(R.id.dlMainDrawer);
 		lvDrawer = (ListView)findViewById(R.id.lvDrawer);
-		lvDrawer.setAdapter(buildDrawer());
+		lvDrawer.setAdapter(adapter);
 		lvDrawer.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				selectedDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(pos);
-				if (selectedDrawerItem.getTitleRes() == R.string.app_menu_logout) {
+				MenuItemModel selecedDrawerItem = adapter.getItem(pos);
+				if (activeDrawerItem.getTitleRes() == selecedDrawerItem.getTitleRes()) {
+					dlMainDrawer.closeDrawer(lvDrawer);
+					return;
+				} else if (selecedDrawerItem.getTitleRes() == R.string.app_menu_logout) {
 					attemptLogout();
 					return;
 				}
 
+				activeDrawerItem = selecedDrawerItem;
 				dlMainDrawer.closeDrawer(lvDrawer);
 			}
 		});
 
-		selectedDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(1);
+		activeDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(1);
 		swapFragments();
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,6 +130,7 @@ public class MainActivity extends FragmentActivity {
 
 		d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
+				setResult(RESULT_CANCELED);
 			}
 		});
 
@@ -168,13 +176,13 @@ public class MainActivity extends FragmentActivity {
 				}
 
 				return true;
-			case KeyEvent.KEYCODE_BACK:
-				if (dlMainDrawer.isDrawerOpen(lvDrawer) || event.getRepeatCount() != 0) {
-					break;
-				}
+			/*case KeyEvent.KEYCODE_BACK:
+				//if (dlMainDrawer.isDrawerOpen(lvDrawer)) {
+				//	break;
+				//}
 
 				attemptLogout();
-				return true;
+				return true;*/
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -205,7 +213,7 @@ public class MainActivity extends FragmentActivity {
 
 	private void swapFragments() {
 		String conicalPath = null;
-		switch (selectedDrawerItem.getTitleRes()) {
+		switch (activeDrawerItem.getTitleRes()) {
 			case R.string.user_menu_friends:
 				conicalPath = FriendsFragment.class.getCanonicalName();
 				break;
@@ -213,7 +221,7 @@ public class MainActivity extends FragmentActivity {
 				conicalPath = GroupsFragment.class.getCanonicalName();
 				break;
 			case R.string.schedule_menu_today:
-				conicalPath = FriendsFragment.class.getCanonicalName();
+				conicalPath = GroupsFragment.class.getCanonicalName();
 				break;
 			case R.string.schedule_menu_schedule:
 				conicalPath = GroupsFragment.class.getCanonicalName();
@@ -227,7 +235,7 @@ public class MainActivity extends FragmentActivity {
 		tx.replace(R.id.flContentFrame, Fragment.instantiate(MainActivity.this, conicalPath));
 		tx.commit();
 
-		getActionBar().setTitle(selectedDrawerItem.getTitleRes());
+		getActionBar().setTitle(activeDrawerItem.getTitleRes());
 		invalidateOptionsMenu();
 	}
 }

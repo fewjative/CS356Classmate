@@ -15,9 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
@@ -47,6 +50,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		boolean remember = preferences.getBoolean(PREFS_KEY_REMEMBER, false);
 		String userName = preferences.getString(PREFS_KEY_USERNAME, null);
 		if (remember && userName != null) {
+			final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.login), getResources().getString(R.string.loginLoading));
+
 			String device = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
 			RequestParams params = new RequestParams();
@@ -57,9 +62,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(String response) {
+					pg.dismiss();
 					int id = Integer.parseInt(response);
 					if (NULL_USER < id) {
 						login(id);
+						Toast.makeText(LoginActivity.this, R.string.welcomeBack, Toast.LENGTH_LONG).show();
 						return;
 					} else {
 						// Error, invalid device id, session has expired
@@ -238,15 +245,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				login(user);
 				break;
 			case CODE_MAINMENU:
-				if (resultCode != RESULT_OK) {
-					break;
+				switch (resultCode) {
+					case RESULT_OK:
+						etUsername.setText("");
+						etPassword.setText("");
+						cbRemember.setChecked(false);
+						etUsername.requestFocus();
+						break;
+					case RESULT_CANCELED:
+						finish();
+						break;
 				}
-
-				etUsername.setText("");
-				etPassword.setText("");
-				cbRemember.setChecked(false);
-
-				etUsername.requestFocus();
 
 				break;
 		}
