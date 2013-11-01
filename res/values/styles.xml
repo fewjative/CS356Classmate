@@ -20,7 +20,14 @@
 		<item name="android:textColor">@color/white</item>
 		<item name="android:layout_marginTop">10dip</item>
 	</style>
-
+	
+	<style
+		name="ClassmateButtonSmall"
+		parent="@android:style/Widget.Holo.Button.Small"
+	>
+		<item name="android:textColor">@color/white</item>
+	</style>
+	
 	<style
 		name="ClassmateTextView"
 		parent="@android:style/Widget.Holo.TextView"

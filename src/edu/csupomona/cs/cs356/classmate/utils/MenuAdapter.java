@@ -68,10 +68,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 		View view = convertView;
 
 		if (view == null) {
-			int layout = R.layout.menu_row_counter;
-			if (item.isHeader) {
-				layout = R.layout.menu_row_header;
-			}
+			int layout = item.isHeader ? R.layout.menu_row_header : R.layout.menu_row_counter;
 
 			view = LayoutInflater.from(getContext()).inflate(layout, null);
 

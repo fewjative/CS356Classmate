@@ -16,18 +16,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
-	static final String INTENT_KEY_USERNAME = "userName";
-	static final String INTENT_KEY_REMEMBER = "remember";
-	static final String INTENT_KEY_USERID = "userID";
+	public static final String INTENT_KEY_USERNAME = "userName";
+	public static final String INTENT_KEY_REMEMBER = "remember";
+	public static final String INTENT_KEY_USERID = "userID";
 
 	private static final String PREFS_LOGIN = "login_activity_prefs";
 	private static final String PREFS_KEY_USERNAME = "userName";

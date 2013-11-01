@@ -5,6 +5,7 @@
 	<string name="okay">Okay</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
+	<string name="cancel">Cancel</string>
 	<string name="author">Written by the Scrum Dogs</string>
 
 	<!--Login Activity-->
@@ -53,4 +54,18 @@
 	<string name="app_menu_header">Application</string>
 	<string name="app_menu_settings">Settings</string>
 	<string name="app_menu_logout">Logout</string>
+
+	<!--Friend Management-->
+	<string name="addFriend">Add Friend</string>
+	<string name="addAFriend">Add a friend</string>
+	<string name="addFriendHint">(Enter their email)</string>
+
+	<string name="addFriendErrorTitle">Could Not Add</string>
+	<string name="addFriendError">Either the friend is already in your friendlist or you have entered in an incorrect email.</string>
+
+	<string name="addFriendSuccessTitle">Success!</string>
+	<string name="addFriendSuccess">A friend request has been sent to the user!</string>
+
+	<string name="removeTitle">Hold on a sec....</string>
+	<string name="removeConfirmation">Would you like to remove this friend from seeing your schedule? If so click \'yes\'. Otherwise clicking \'no\' will only remove the person from your friendlist.</string>
 </resources>

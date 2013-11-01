@@ -15,4 +15,6 @@
 
 	<color name="cppgreen">#00512B</color>
 	<color name="cppgold">#F5BC23</color>
+	
+	<color name="cppgreen_darker">#003D21</color>
 </resources>
