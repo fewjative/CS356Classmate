@@ -70,9 +70,9 @@ public class MainActivity extends FragmentActivity {
 
 		String userName = getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME);
 		if (userName == null) {
-			mAdapter.addHeader(R.string.user_menu_header);
+			mAdapter.addMasterHeader(R.string.user_menu_header);
 		} else {
-			mAdapter.addHeader(userName);
+			mAdapter.addMasterHeader(userName);
 		}
 
 		int name, icon;

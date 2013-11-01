@@ -14,20 +14,28 @@ public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 		super(context, 0);
 	}
 
+	public void addMasterHeader(int title) {
+		add(new MenuItemModel(title, -1, true, true));
+	}
+
+	public void addMasterHeader(CharSequence title) {
+		add(new MenuItemModel(title, -1, true, true));
+	}
+
 	public void addHeader(int title) {
-		add(new MenuItemModel(title, -1, true));
+		add(new MenuItemModel(title, -1, true, false));
 	}
 
 	public void addHeader(CharSequence title) {
-		add(new MenuItemModel(title, -1, true));
+		add(new MenuItemModel(title, -1, true, false));
 	}
 
 	public void addItem(int title, int icon) {
-		add(new MenuItemModel(title, icon, false));
+		add(new MenuItemModel(title, icon, false, false));
 	}
 
 	public void addItem(CharSequence title, int icon) {
-		add(new MenuItemModel(title, icon, false));
+		add(new MenuItemModel(title, icon, false, false));
 	}
 
 	public void addItem(MenuItemModel itemModel) {
@@ -68,7 +76,16 @@ public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 		View view = convertView;
 
 		if (view == null) {
-			int layout = item.isHeader ? R.layout.menu_row_header : R.layout.menu_row_counter;
+			int layout;
+			if (item.isHeader) {
+				if (item.isMasterHeader) {
+					layout = R.layout.menu_master_header;
+				} else {
+					layout = R.layout.menu_header;
+				}
+			} else {
+				layout = R.layout.menu_item;
+			}
 
 			view = LayoutInflater.from(getContext()).inflate(layout, null);
 
@@ -78,7 +95,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 			view.setTag(new ViewHolder(text1, image1, textcounter1));
 		}
 
-		if (holder == null && view != null) {
+		if (holder == null) {
 			Object tag = view.getTag();
 			if (tag instanceof ViewHolder) {
 				holder = (ViewHolder)tag;

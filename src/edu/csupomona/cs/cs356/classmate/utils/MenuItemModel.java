@@ -1,39 +1,42 @@
 package edu.csupomona.cs.cs356.classmate.utils;
 
 public class MenuItemModel {
-	protected int title;
-	protected CharSequence titleString;
-	protected int icon;
-	protected int counter;
-	protected boolean isHeader;
+	int title;
+	CharSequence titleString;
+	int icon;
+	int counter;
+	boolean isHeader;
+	boolean isMasterHeader;
 
 	public MenuItemModel(int title, int icon) {
-		this(title, icon, false);
+		this(title, icon, false, false);
 	}
 
-	public MenuItemModel(int title, int icon, boolean header) {
-		this(title, icon, header, 0);
+	public MenuItemModel(int title, int icon, boolean header, boolean master) {
+		this(title, icon, header, master, 0);
 	}
 
-	public MenuItemModel(int title, int icon, boolean header, int counter) {
+	public MenuItemModel(int title, int icon, boolean header, boolean master, int counter) {
 		this.title = title;
 		this.icon = icon;
 		this.isHeader = header;
+		this.isMasterHeader = master;
 		this.counter = counter;
 	}
 
 	public MenuItemModel(CharSequence title, int icon) {
-		this(title, icon, false);
+		this(title, icon, false, false);
 	}
 
-	public MenuItemModel(CharSequence title, int icon, boolean header) {
-		this(title, icon, header, 0);
+	public MenuItemModel(CharSequence title, int icon, boolean header, boolean master) {
+		this(title, icon, header, master, 0);
 	}
 
-	public MenuItemModel(CharSequence title, int icon, boolean header, int counter) {
+	public MenuItemModel(CharSequence title, int icon, boolean header, boolean master, int counter) {
 		this.titleString = title;
 		this.icon = icon;
 		this.isHeader = header;
+		this.isMasterHeader = master;
 		this.counter = counter;
 	}
 
@@ -75,5 +78,13 @@ public class MenuItemModel {
 
 	public void setHeader(boolean b) {
 		isHeader = b;
+	}
+
+	public boolean isMasterHeader() {
+		return isMasterHeader;
+	}
+
+	public void setMasterHeader(boolean b) {
+		isMasterHeader = b;
 	}
 }
