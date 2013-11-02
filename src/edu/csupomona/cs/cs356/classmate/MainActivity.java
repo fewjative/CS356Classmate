@@ -22,15 +22,19 @@ import edu.csupomona.cs.cs356.classmate.utils.MenuAdapter;
 import edu.csupomona.cs.cs356.classmate.utils.MenuItemModel;
 
 public class MainActivity extends FragmentActivity {
+	private static final String STATE_FRAGMENT = "fragment";
+	private static final String STATE_FRAGMENT_FRIENDS_TAB = "fragmentFriendsTab";
+
 	private ListView lvDrawer;
 	private DrawerLayout dlMainDrawer;
 	private MenuAdapter adapter;
-	private MenuItemModel activeDrawerItem;
 	private ActionBarDrawerToggle drawerToggle;
+	
+	private MenuItemModel activeDrawerItem;
 
 	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		setResult(RESULT_CANCELED);
 
@@ -42,7 +46,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 				MenuItemModel selecedDrawerItem = adapter.getItem(pos);
-				if (activeDrawerItem.getTitleRes() == selecedDrawerItem.getTitleRes()) {
+				if (activeDrawerItem != null && activeDrawerItem.getTitleRes() == selecedDrawerItem.getTitleRes()) {
 					dlMainDrawer.closeDrawer(lvDrawer);
 					return;
 				} else if (selecedDrawerItem.getTitleRes() == R.string.app_menu_logout) {
@@ -55,8 +59,12 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 
-		activeDrawerItem = ((MenuAdapter)lvDrawer.getAdapter()).getItem(1);
-		swapFragments();
+		if (savedInstanceState == null) {
+			activeDrawerItem = adapter.getItem(1);
+			swapFragments();
+		} else {
+			// Technically I should set the tab here, but I don't think it's needed
+		}
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -114,7 +122,17 @@ public class MainActivity extends FragmentActivity {
 
 		return mAdapter;
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (activeDrawerItem == null) {
+			outState.putInt(STATE_FRAGMENT, R.string.user_menu_friends);
+		} else {
+			outState.putInt(STATE_FRAGMENT, activeDrawerItem.getTitleRes());
+		}
+	}
+	
 	private void attemptLogout() {
 		AlertDialog d = new AlertDialog.Builder(this).create();
 		d.setTitle(R.string.logoutConfirmationTitle);

@@ -17,19 +17,18 @@ public class FriendsFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		tabHost = new FragmentTabHost(getActivity());
-		tabHost.setup(getActivity(), getChildFragmentManager(), R.id.flTabContentPane);
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("List"), FriendsListTab.class, null);
-		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Requests"), FriendRequestsTab.class, null);
-		tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Add"), AddFriendTab.class, null);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		tabHost = new FragmentTabHost(getActivity());
+		tabHost.setup(getActivity(), getChildFragmentManager(), R.id.flTabContentPane);
+		tabHost.addTab(tabHost.newTabSpec("friendListTab").setIndicator("List"), FriendsListTab.class, null);
+		tabHost.addTab(tabHost.newTabSpec("friendRequestsTab").setIndicator("Requests"), FriendRequestsTab.class, null);
+		tabHost.addTab(tabHost.newTabSpec("addFriendTab").setIndicator("Add"), AddFriendTab.class, null);
 		return tabHost;
 	}
-
+	
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
