@@ -18,8 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
-import edu.csupomona.cs.cs356.classmate.utils.MenuAdapter;
-import edu.csupomona.cs.cs356.classmate.utils.MenuItemModel;
 
 public class MainActivity extends FragmentActivity {
 	private static final String STATE_FRAGMENT = "fragment";

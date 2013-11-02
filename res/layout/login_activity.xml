@@ -39,6 +39,7 @@
 				android:text="@string/username"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:labelFor="@+id/etUserName"
 			/>
 			<EditText
 				style="@style/ClassmateEditText_Username"
@@ -51,6 +52,7 @@
 				android:text="@string/password"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:labelFor="@+id/etPassword"
 			/>
 			<EditText
 				style="@style/ClassmateEditText_Password"

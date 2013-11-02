@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/cppgreen"
+	android:background="@color/white"
+	android:padding="5dp"
+	android:orientation="vertical"
 >
-</RelativeLayout>
+	<TextView
+		style="@style/ClassmateTextView"
+		android:id="@+id/tvAddFriendHint"
+		android:text="@string/addFriendHint"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/black"
+	/>
+
+	<SearchView
+		android:id="@+id/svSearchBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:iconifiedByDefault="false"
+		android:queryHint="@string/usernameExample"
+		android:layout_marginBottom="5dip"
+	/>
+
+	<ListView
+		android:id="@+id/lvSearchResults"
+		android:layout_width="match_parent"
+		android:layout_height="0dip"
+		android:background="@color/cppgreen"
+		android:layout_weight="1"
+	/>
+
+	<Button
+		style="@style/ClassmateButton"
+		android:id="@+id/btnAddFriend"
+		android:text="@string/addFriend"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/black"
+		android:layout_marginTop="5dip"
+	/>
+</LinearLayout>

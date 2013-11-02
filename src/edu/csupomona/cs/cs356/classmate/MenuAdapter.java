@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.utils;
+package edu.csupomona.cs.cs356.classmate;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import edu.csupomona.cs.cs356.classmate.R;
 
 public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 	public MenuAdapter(Context context) {

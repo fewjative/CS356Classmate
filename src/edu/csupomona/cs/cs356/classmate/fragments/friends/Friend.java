@@ -1,12 +1,16 @@
 package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
+import edu.csupomona.cs.cs356.classmate.R;
+
 public class Friend {
-	private final int id;
-	private final String username;
+	final int id;
+	final String username;
+	final int avatar;
 
 	public Friend(int id, String username) {
 		this.id = id;
 		this.username = username;
+		this.avatar = R.drawable.ic_action_person;
 	}
 
 	public int getID() {
@@ -15,5 +19,9 @@ public class Friend {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public int getAvatar() {
+		return avatar;
 	}
 }

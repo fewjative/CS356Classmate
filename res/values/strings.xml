@@ -6,6 +6,7 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="cancel">Cancel</string>
+	<string name="search">Search</string>
 	<string name="author">Written by the Scrum Dogs</string>
 
 	<!--Login Activity-->
@@ -56,9 +57,9 @@
 	<string name="app_menu_logout">Logout</string>
 
 	<!--Friend Management-->
-	<string name="addFriend">Add Friend</string>
+	<string name="addFriend">Send Friend Request</string>
 	<string name="addAFriend">Add a friend</string>
-	<string name="addFriendHint">(Enter their email)</string>
+	<string name="addFriendHint">Enter your friends email address</string>
 
 	<string name="addFriendErrorTitle">Could Not Add</string>
 	<string name="addFriendError">Either the friend is already in your friendlist or you have entered in an incorrect email.</string>

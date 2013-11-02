@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.utils;
+package edu.csupomona.cs.cs356.classmate;
 
 public class MenuItemModel {
 	int title;
