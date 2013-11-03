@@ -10,7 +10,7 @@ public class Friend {
 	public Friend(int id, String username) {
 		this.id = id;
 		this.username = username;
-		this.avatar = R.drawable.ic_action_person;
+		this.avatar = R.drawable.ic_action_person_dark;
 	}
 
 	public int getID() {

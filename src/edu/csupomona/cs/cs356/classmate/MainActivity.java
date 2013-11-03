@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
 
 public class MainActivity extends FragmentActivity {
 	private static final String STATE_FRAGMENT = "fragment";
@@ -27,7 +28,7 @@ public class MainActivity extends FragmentActivity {
 	private DrawerLayout dlMainDrawer;
 	private MenuAdapter adapter;
 	private ActionBarDrawerToggle drawerToggle;
-	
+
 	private MenuItemModel activeDrawerItem;
 
 	@Override
@@ -84,8 +85,8 @@ public class MainActivity extends FragmentActivity {
 		int name, icon;
 		String[] itemName, itemIcon;
 
-		itemName = getResources().getStringArray(R.array.user_menu_items);
-		itemIcon = getResources().getStringArray(R.array.user_menu_items_icon);
+		itemName = getResources().getStringArray(R.array.schedule_menu_items);
+		itemIcon = getResources().getStringArray(R.array.schedule_menu_items_icon);
 		assert itemName.length == itemIcon.length;
 		for (int i = 0; i < itemName.length; i++) {
 			name = getResources().getIdentifier(itemName[i], "string", this.getPackageName());
@@ -94,10 +95,10 @@ public class MainActivity extends FragmentActivity {
 			mAdapter.addItem(mItem);
 		}
 
-		mAdapter.addHeader(R.string.schedule_menu_header);
+		mAdapter.addHeader(R.string.user_menu_header);
 
-		itemName = getResources().getStringArray(R.array.schedule_menu_items);
-		itemIcon = getResources().getStringArray(R.array.schedule_menu_items_icon);
+		itemName = getResources().getStringArray(R.array.user_menu_items);
+		itemIcon = getResources().getStringArray(R.array.user_menu_items_icon);
 		assert itemName.length == itemIcon.length;
 		for (int i = 0; i < itemName.length; i++) {
 			name = getResources().getIdentifier(itemName[i], "string", this.getPackageName());
@@ -120,7 +121,7 @@ public class MainActivity extends FragmentActivity {
 
 		return mAdapter;
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -130,7 +131,7 @@ public class MainActivity extends FragmentActivity {
 			outState.putInt(STATE_FRAGMENT, activeDrawerItem.getTitleRes());
 		}
 	}
-	
+
 	private void attemptLogout() {
 		AlertDialog d = new AlertDialog.Builder(this).create();
 		d.setTitle(R.string.logoutConfirmationTitle);
@@ -237,7 +238,7 @@ public class MainActivity extends FragmentActivity {
 				conicalPath = GroupsFragment.class.getCanonicalName();
 				break;
 			case R.string.schedule_menu_today:
-				conicalPath = GroupsFragment.class.getCanonicalName();
+				conicalPath = TodaysFragment.class.getCanonicalName();
 				break;
 			case R.string.schedule_menu_schedule:
 				conicalPath = GroupsFragment.class.getCanonicalName();

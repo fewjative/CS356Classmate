@@ -45,7 +45,7 @@ public class FriendRequestsTab extends Fragment {
 					}
 				}
 
-				FriendListAdapter adapter = new FriendListAdapter(getActivity(), requests);
+				FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), requests);
 				ListView lvRequestList = (ListView)root.findViewById(R.id.lvRequestList);
 				lvRequestList.setAdapter(adapter);
 			}

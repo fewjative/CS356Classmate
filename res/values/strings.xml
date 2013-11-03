@@ -44,7 +44,7 @@
 	<string name="drawerOpen">Open Menu</string>
 	<string name="drawerClose">Close Menu</string>
 
-	<string name="user_menu_header">User</string>
+	<string name="user_menu_header">Social</string>
 	<string name="user_menu_friends">Friends</string>
 	<string name="user_menu_groups">Groups</string>
 
