@@ -11,8 +11,10 @@
 
 	<!--Login Activity-->
 	<string name="login">Login</string>
-	<string name="username">Email Address</string>
-	<string name="usernameExample">johndoe@csupomona.edu</string>
+	<string name="username">Username</string>
+	<string name="usernameExample">John</string>
+	<string name="email">Email Address</string>
+	<string name="emailExample">johndoe@csupomona.edu</string>
 	<string name="password">Password</string>
 	<string name="passwordExample">password</string>
 	<string name="stayloggedin">Stay signed in</string>

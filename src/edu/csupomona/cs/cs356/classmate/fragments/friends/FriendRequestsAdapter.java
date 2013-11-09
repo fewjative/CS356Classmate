@@ -64,7 +64,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 		if (r != null && holder != null) {
 			if (holder.textHolder != null) {
-				holder.textHolder.setText(r.username);
+				holder.textHolder.setText(String.format("%s (%s)", r.username, r.emailAddress));
 			}
 
 			if (holder.avatar != null) {
@@ -89,10 +89,10 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	}
 
 	public void acceptInvite(final Friend r) {
-		String userName = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME);
+		String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
-		params.put("email", userName);
+		params.put("email", emailAddress);
 		params.put("user_id", Integer.toString(r.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -105,10 +105,10 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	}
 
 	public void rejectInvite(final Friend r) {
-		String userName = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME);
+		String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
-		params.put("email", userName);
+		params.put("email", emailAddress);
 		params.put("user_id", Integer.toString(r.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

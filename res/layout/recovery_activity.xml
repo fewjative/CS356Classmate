@@ -19,14 +19,14 @@
 		>
 			<TextView
 				style="@style/ClassmateTextView"
-				android:text="@string/username"
+				android:text="@string/email"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:labelFor="@+id/etUserName"
+				android:labelFor="@+id/etEmailAddress"
 			/>
 			<EditText
-				style="@style/ClassmateEditText_Username"
-				android:id="@+id/etUserName"
+				style="@style/ClassmateEditText_Email"
+				android:id="@+id/etEmailAddress"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 			/>

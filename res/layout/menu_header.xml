@@ -2,13 +2,13 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="48dp"
+	android:layout_height="wrap_content"
 	android:gravity="center_vertical"
 >
 	<TextView
 		android:id="@+id/menurow_title"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="48dp"
 		android:paddingLeft="5dp"
 		android:paddingTop="20dp"
 		android:singleLine="true"
@@ -16,14 +16,12 @@
 		android:textStyle="bold"
 		android:textColor="@color/cppgold_trans"
 	/>
-<!-- 	android:gravity="center_vertical" -->
-<!-- 	android:padding="10dp" -->
-<!--  android:paddingBottom="2dp" -->
-	<ImageView
+
+	<View
 		android:id="@+id/menu_divider"
 		android:layout_width="match_parent"
 		android:layout_height="2dp"
 		android:layout_below="@+id/menurow_title"
-		android:src="@color/cppgold_trans"
+		android:background="@color/cppgold_trans"
 	/>
 </RelativeLayout>

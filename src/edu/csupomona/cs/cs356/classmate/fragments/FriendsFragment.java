@@ -14,6 +14,14 @@ import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendsListTab;
 public class FriendsFragment extends Fragment {
 	private FragmentTabHost tabHost;
 
+	public static FriendsFragment newInstance() {
+		FriendsFragment f = new FriendsFragment();
+
+		//...
+
+		return f;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,7 +36,7 @@ public class FriendsFragment extends Fragment {
 		tabHost.addTab(tabHost.newTabSpec("addFriendTab").setIndicator("Add"), AddFriendTab.class, null);
 		return tabHost;
 	}
-	
+
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();

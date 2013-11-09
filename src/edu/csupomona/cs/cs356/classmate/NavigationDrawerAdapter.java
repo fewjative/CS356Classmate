@@ -8,36 +8,36 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
-	public MenuAdapter(Context context) {
+public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemModel> {
+	public NavigationDrawerAdapter(Context context) {
 		super(context, 0);
 	}
 
 	public void addMasterHeader(int title) {
-		add(new MenuItemModel(title, -1, true, true));
+		add(new NavigationDrawerItemModel(title, -1, true, true));
 	}
 
 	public void addMasterHeader(CharSequence title) {
-		add(new MenuItemModel(title, -1, true, true));
+		add(new NavigationDrawerItemModel(title, -1, true, true));
 	}
 
 	public void addHeader(int title) {
-		add(new MenuItemModel(title, -1, true, false));
+		add(new NavigationDrawerItemModel(title, -1, true, false));
 	}
 
 	public void addHeader(CharSequence title) {
-		add(new MenuItemModel(title, -1, true, false));
+		add(new NavigationDrawerItemModel(title, -1, true, false));
 	}
 
 	public void addItem(int title, int icon) {
-		add(new MenuItemModel(title, icon, false, false));
+		add(new NavigationDrawerItemModel(title, icon, false, false));
 	}
 
 	public void addItem(CharSequence title, int icon) {
-		add(new MenuItemModel(title, icon, false, false));
+		add(new NavigationDrawerItemModel(title, icon, false, false));
 	}
 
-	public void addItem(MenuItemModel itemModel) {
+	public void addItem(NavigationDrawerItemModel itemModel) {
 		add(itemModel);
 	}
 
@@ -70,7 +70,7 @@ public class MenuAdapter extends ArrayAdapter<MenuItemModel> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		MenuItemModel item = getItem(position);
+		NavigationDrawerItemModel item = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 

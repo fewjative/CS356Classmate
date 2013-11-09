@@ -17,21 +17,21 @@ import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RecoveryActivity extends Activity implements View.OnClickListener {
 	private Button btnRecover;
-	private EditText etUsername;
+	private EditText etEmailAddress;
 
 	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recovery_activity);
 
 		btnRecover = (Button)findViewById(R.id.btnRecover);
 		btnRecover.setOnClickListener(this);
 
-		etUsername = (EditText)findViewById(R.id.etUserName);
-		etUsername.setText(getIntent().getExtras().getString(LoginActivity.INTENT_KEY_USERNAME, ""));
-		btnRecover.setEnabled(etUsername.getText().length() != 0);
-		etUsername.setSelectAllOnFocus(true);
-		etUsername.addTextChangedListener(new TextWatcherAdapter() {
+		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
+		etEmailAddress.setText(getIntent().getExtras().getString(LoginActivity.INTENT_KEY_EMAIL, ""));
+		btnRecover.setEnabled(etEmailAddress.getText().length() != 0);
+		etEmailAddress.setSelectAllOnFocus(true);
+		etEmailAddress.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
 			public void afterTextChanged(Editable e) {
 				btnRecover.setEnabled(e.length() != 0);
@@ -42,10 +42,10 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.recover), getResources().getString(R.string.loginLoading));
 
-		String userName = etUsername.getText().toString();
+		String emailAddress = etEmailAddress.getText().toString();
 
 		RequestParams params = new RequestParams();
-		params.put("email", userName);
+		params.put("email", emailAddress);
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/email.php", params, new AsyncHttpResponseHandler() {

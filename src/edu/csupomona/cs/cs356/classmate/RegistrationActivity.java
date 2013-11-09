@@ -22,31 +22,36 @@ import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 	private Button btnRegister;
+	private EditText etEmailAddress;
 	private EditText etUsername;
 	private EditText etPass1;
 	private EditText etPass2;
 
 	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registration_activity);
 
 		btnRegister = (Button)findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);
 		btnRegister.setEnabled(false);
 
-		etUsername = (EditText)findViewById(R.id.etUserName);
-		etUsername.setText(getIntent().getExtras().getString(LoginActivity.INTENT_KEY_USERNAME, ""));
-		etUsername.setSelectAllOnFocus(true);
+		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
+		etEmailAddress.setText(getIntent().getExtras().getString(LoginActivity.INTENT_KEY_EMAIL, ""));
+		etEmailAddress.setSelectAllOnFocus(true);
+
+		etUsername = (EditText)findViewById(R.id.etUsername);
 
 		etPass1 = (EditText)findViewById(R.id.etPassword);
 		etPass2 = (EditText)findViewById(R.id.etConfirmPassword);
 		final TextView tvPasswordMatcher = (TextView)findViewById(R.id.tvPasswordMatcher);
 		TextWatcher textWatcher = new TextWatcherAdapter() {
+			String s1, s2, username, emailAddress;
+
 			@Override
 			public void afterTextChanged(Editable e) {
-				String s1 = etPass1.getText().toString();
-				String s2 = etPass2.getText().toString();
+				s1 = etPass1.getText().toString();
+				s2 = etPass2.getText().toString();
 				if (!s1.isEmpty() && s1.compareTo(s2) == 0) {
 					tvPasswordMatcher.setText(R.string.passwordsmatch);
 					tvPasswordMatcher.setTextColor(getResources().getColor(R.color.green));
@@ -57,8 +62,13 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 					btnRegister.setEnabled(false);
 				}
 
-				String userName = etUsername.getText().toString();
-				if (userName.isEmpty()) {
+				username = etUsername.getText().toString();
+				if (username.isEmpty()) {
+					btnRegister.setEnabled(false);
+				}
+
+				emailAddress = etEmailAddress.getText().toString();
+				if (emailAddress.isEmpty()) {
 					btnRegister.setEnabled(false);
 				}
 
@@ -66,23 +76,25 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 			}
 		};
 
+		etEmailAddress.addTextChangedListener(textWatcher);
 		etUsername.addTextChangedListener(textWatcher);
 		etPass1.addTextChangedListener(textWatcher);
 		etPass2.addTextChangedListener(textWatcher);
 	}
 
-	@Override
 	public void onClick(View v) {
 		assert etPass1.getText().toString().compareTo(etPass2.getText().toString()) == 0;
 
 		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.register), getResources().getString(R.string.registerLoading));
 
-		final String userName = etUsername.getText().toString();
+		final String emailAddress = etEmailAddress.getText().toString();
+		final String username = etUsername.getText().toString();
 		String password = etPass1.getText().toString();
 		String device = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
 		RequestParams params = new RequestParams();
-		params.put("email", userName);
+		params.put("email", emailAddress);
+		params.put("username", username);
 		params.put("password", password);
 		params.put("device_id", device);
 
@@ -126,7 +138,8 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 				Intent i = new Intent();
 				i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-				i.putExtra(LoginActivity.INTENT_KEY_USERNAME, userName);
+				i.putExtra(LoginActivity.INTENT_KEY_EMAIL, emailAddress);
+				i.putExtra(LoginActivity.INTENT_KEY_USERNAME, username);
 				i.putExtra(LoginActivity.INTENT_KEY_REMEMBER, cbRememberMe.isChecked());
 				setResult(RESULT_OK, i);
 				finish();

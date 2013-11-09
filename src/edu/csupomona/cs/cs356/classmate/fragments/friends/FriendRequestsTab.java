@@ -38,7 +38,7 @@ public class FriendRequestsTab extends Fragment {
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
-							requests.add(new Friend(jObj.getInt("user_id"), jObj.getString("email")));
+							requests.add(new Friend(jObj.getInt("user_id"), jObj.getString("username"), jObj.getString("email")));
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

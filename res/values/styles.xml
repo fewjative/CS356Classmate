@@ -50,8 +50,16 @@
 		name="ClassmateEditText_Username"
 		parent="ClassmateEditText"
 	>
-		<item name="android:inputType">textEmailAddress</item>
+		<item name="android:inputType">textPersonName</item>
 		<item name="android:hint">@string/usernameExample</item>
+	</style>
+
+	<style
+		name="ClassmateEditText_Email"
+		parent="ClassmateEditText"
+	>
+		<item name="android:inputType">textEmailAddress</item>
+		<item name="android:hint">@string/emailExample</item>
 	</style>
 
 	<style

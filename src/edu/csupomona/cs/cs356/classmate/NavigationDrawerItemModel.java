@@ -1,6 +1,6 @@
 package edu.csupomona.cs.cs356.classmate;
 
-public class MenuItemModel {
+public class NavigationDrawerItemModel {
 	int title;
 	CharSequence titleString;
 	int icon;
@@ -8,15 +8,15 @@ public class MenuItemModel {
 	boolean isHeader;
 	boolean isMasterHeader;
 
-	public MenuItemModel(int title, int icon) {
+	public NavigationDrawerItemModel(int title, int icon) {
 		this(title, icon, false, false);
 	}
 
-	public MenuItemModel(int title, int icon, boolean header, boolean master) {
+	public NavigationDrawerItemModel(int title, int icon, boolean header, boolean master) {
 		this(title, icon, header, master, 0);
 	}
 
-	public MenuItemModel(int title, int icon, boolean header, boolean master, int counter) {
+	public NavigationDrawerItemModel(int title, int icon, boolean header, boolean master, int counter) {
 		this.title = title;
 		this.icon = icon;
 		this.isHeader = header;
@@ -24,15 +24,15 @@ public class MenuItemModel {
 		this.counter = counter;
 	}
 
-	public MenuItemModel(CharSequence title, int icon) {
+	public NavigationDrawerItemModel(CharSequence title, int icon) {
 		this(title, icon, false, false);
 	}
 
-	public MenuItemModel(CharSequence title, int icon, boolean header, boolean master) {
+	public NavigationDrawerItemModel(CharSequence title, int icon, boolean header, boolean master) {
 		this(title, icon, header, master, 0);
 	}
 
-	public MenuItemModel(CharSequence title, int icon, boolean header, boolean master, int counter) {
+	public NavigationDrawerItemModel(CharSequence title, int icon, boolean header, boolean master, int counter) {
 		this.titleString = title;
 		this.icon = icon;
 		this.isHeader = header;
