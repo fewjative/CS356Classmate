@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:background="@color/gray"
+	android:background="@color/cppgreen"
 >
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -18,19 +18,31 @@
 			android:layout_width="48dp"
 			android:layout_height="48dp"
 			android:layout_marginLeft="6dp"
-			android:src="@drawable/ic_action_person_dark"
+			android:src="@drawable/ic_action_person"
 		/>
 
 		<TextView
-			android:id="@+id/tvItemText"
+			android:id="@+id/tvItemTextUsername"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:minHeight="?android:attr/listPreferredItemHeightLarge"
+			android:textAppearance="?android:attr/textAppearanceListItemSmall"
+			android:textColor="@color/white"
+			android:layout_marginLeft="6dip"
+		/>
+
+		<TextView
+			android:id="@+id/tvItemTextEmail"
 			android:layout_width="0dip"
 			android:layout_height="wrap_content"
 			android:gravity="center_vertical"
 			android:minHeight="?android:attr/listPreferredItemHeightLarge"
-			android:textAppearance="?android:attr/textAppearanceListItem"
-			android:textColor="@color/black"
+			android:textAppearance="?android:attr/textAppearanceListItemSmall"
+			android:textColor="@color/cppgold"
+			android:scrollHorizontally="true"
 			android:layout_weight="1"
-			android:layout_marginLeft="6dip"
+			android:layout_marginLeft="4dip"
 		/>
 
 		<ImageButton

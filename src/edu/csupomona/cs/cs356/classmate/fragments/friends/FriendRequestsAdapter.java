@@ -23,13 +23,15 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 	private static class ViewHolder {
 		final ImageView avatar;
-		final TextView textHolder;
+		final TextView tvItemTextUsername;
+		final TextView tvItemTextEmail;
 		final ImageButton btnAccept;
 		final ImageButton btnReject;
 
-		ViewHolder(ImageView avatar, TextView textHolder, ImageButton btnAccept, ImageButton btnReject) {
+		ViewHolder(ImageView avatar, TextView tvItemTextUsername, TextView tvItemTextEmail, ImageButton btnAccept, ImageButton btnReject) {
 			this.avatar = avatar;
-			this.textHolder = textHolder;
+			this.tvItemTextUsername = tvItemTextUsername;
+			this.tvItemTextEmail = tvItemTextEmail;
 			this.btnAccept = btnAccept;
 			this.btnReject = btnReject;
 		}
@@ -45,10 +47,11 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 			view = LayoutInflater.from(getContext()).inflate(R.layout.tab_friends_requests_list_item, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
-			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
+			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
+			TextView tvItemTextEmail = (TextView)view.findViewById(R.id.tvItemTextEmail);
 			ImageButton btnAccept = (ImageButton)view.findViewById(R.id.btnAccept);
 			ImageButton btnReject = (ImageButton)view.findViewById(R.id.btnReject);
-			view.setTag(new ViewHolder(ivAvatar, tvItemText, btnAccept, btnReject));
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, tvItemTextEmail, btnAccept, btnReject));
 
 			btnAccept.setTag(r);
 			btnAccept.setOnClickListener(this);
@@ -63,8 +66,12 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 		}
 
 		if (r != null && holder != null) {
-			if (holder.textHolder != null) {
-				holder.textHolder.setText(String.format("%s (%s)", r.username, r.emailAddress));
+			if (holder.tvItemTextUsername != null) {
+				holder.tvItemTextUsername.setText(r.username);
+			}
+
+			if (holder.tvItemTextEmail != null) {
+				holder.tvItemTextEmail.setText(String.format("(%s)", r.emailAddress));
 			}
 
 			if (holder.avatar != null) {

@@ -149,6 +149,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 					});
 
 					d.show();
+				} else {
+					// Device id has expired
 				}
 			}
 		});

@@ -50,6 +50,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 		lvDrawer = drawerListView;
 		lvDrawer.setAdapter(drawerAdapter);
+		//lvDrawer.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		lvDrawer.setOnItemClickListener(new FragmentDrawerItemListener());
 
 		drawerToggle = setupDrawerToggle();
@@ -100,7 +101,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 	public void selectDrawerItem(int position) {
 		FragmentNavigationItem navItem = drawerItemList.get(position);
-		if (navItem.titleRes == R.string.logout) {
+		if (navItem.titleRes == R.string.app_menu_logout) {
 			attemptLogout();
 			return;
 		}
@@ -120,6 +121,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
 		lvDrawer.setItemChecked(position, true);
+		lvDrawer.setSelection(position);
 		if (navItem.title == null) {
 			setTitle(navItem.titleRes);
 		} else {
@@ -212,8 +214,21 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 	}
 
 	private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
+		NavigationDrawerItemModel item;
+		View itemView;
+
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//if (item != null) {
+			//	item.isSelected = false;
+			//	itemView.setBackgroundResource(0);
+			//}
+
+			//itemView = view;
+			//item = drawerAdapter.getItem(position);
+			//item.isSelected = true;
+			//itemView.setBackgroundResource(R.color.cppgold_trans);
+
 			selectDrawerItem(position);
 		}
 	}

@@ -12,7 +12,7 @@ public class Friend {
 		this.id = id;
 		this.username = username;
 		this.emailAddress = emailAddress;
-		this.avatar = R.drawable.ic_action_person_dark;
+		this.avatar = R.drawable.ic_action_person;
 	}
 
 	public int getID() {

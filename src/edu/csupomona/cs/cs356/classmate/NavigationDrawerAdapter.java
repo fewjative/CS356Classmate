@@ -88,6 +88,10 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 
 			view = LayoutInflater.from(getContext()).inflate(layout, null);
 
+			//if (item.isSelected) {
+			//	view.setBackgroundResource(R.color.cppgold_trans);
+			//}
+
 			TextView text1 = (TextView)view.findViewById(R.id.menurow_title);
 			ImageView image1 = (ImageView)view.findViewById(R.id.menurow_icon);
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);

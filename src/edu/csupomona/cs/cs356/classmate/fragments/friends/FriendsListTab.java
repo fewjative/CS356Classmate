@@ -22,10 +22,10 @@ public class FriendsListTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View root = (ViewGroup)inflater.inflate(R.layout.tab_friends_list, null);
 
-		String userName = getActivity().getIntent().getStringExtra(LoginActivity.INTENT_KEY_USERNAME);
+		String email = getActivity().getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
-		params.put("email", userName);
+		params.put("email", email);
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getfriends.php", params, new AsyncHttpResponseHandler() {
