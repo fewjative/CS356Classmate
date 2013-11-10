@@ -23,26 +23,20 @@
 
 		<TextView
 			android:id="@+id/tvItemTextUsername"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:gravity="center_vertical"
 			android:minHeight="?android:attr/listPreferredItemHeightLarge"
 			android:textAppearance="?android:attr/textAppearanceListItemSmall"
 			android:textColor="@color/white"
 			android:layout_marginLeft="6dip"
-		/>
-
-		<TextView
-			android:id="@+id/tvItemTextEmail"
-			android:layout_width="0dip"
-			android:layout_height="wrap_content"
-			android:gravity="center_vertical"
-			android:minHeight="?android:attr/listPreferredItemHeightLarge"
-			android:textAppearance="?android:attr/textAppearanceListItemSmall"
-			android:textColor="@color/cppgold"
-			android:scrollHorizontally="true"
 			android:layout_weight="1"
-			android:layout_marginLeft="4dip"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit ="marquee_forever"
+			android:scrollHorizontally="true"
+			android:focusable="true"
+			android:focusableInTouchMode="true"
 		/>
 
 		<ImageButton
