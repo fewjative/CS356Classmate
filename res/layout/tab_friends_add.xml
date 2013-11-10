@@ -23,7 +23,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:iconifiedByDefault="false"
-		android:queryHint="@string/usernameExample"
+		android:queryHint="@string/emailExample"
 		android:layout_marginBottom="5dip"
 	/>
 
@@ -31,7 +31,7 @@
 		android:id="@+id/lvSearchResults"
 		android:layout_width="match_parent"
 		android:layout_height="0dip"
-		android:background="@color/cppgreen"
+		android:background="@color/cppgreen_darker"
 		android:layout_weight="1"
 	/>
 

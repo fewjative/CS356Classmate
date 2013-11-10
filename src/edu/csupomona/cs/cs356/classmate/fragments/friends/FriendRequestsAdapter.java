@@ -2,6 +2,10 @@ package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +28,12 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	private static class ViewHolder {
 		final ImageView avatar;
 		final TextView tvItemTextUsername;
-		final TextView tvItemTextEmail;
 		final ImageButton btnAccept;
 		final ImageButton btnReject;
 
-		ViewHolder(ImageView avatar, TextView tvItemTextUsername, TextView tvItemTextEmail, ImageButton btnAccept, ImageButton btnReject) {
+		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAccept, ImageButton btnReject) {
 			this.avatar = avatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.tvItemTextEmail = tvItemTextEmail;
 			this.btnAccept = btnAccept;
 			this.btnReject = btnReject;
 		}
@@ -48,10 +50,11 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			TextView tvItemTextEmail = (TextView)view.findViewById(R.id.tvItemTextEmail);
 			ImageButton btnAccept = (ImageButton)view.findViewById(R.id.btnAccept);
 			ImageButton btnReject = (ImageButton)view.findViewById(R.id.btnReject);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, tvItemTextEmail, btnAccept, btnReject));
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAccept, btnReject));
+
+			tvItemTextUsername.setSelected(true);
 
 			btnAccept.setTag(r);
 			btnAccept.setOnClickListener(this);
@@ -67,11 +70,17 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 		if (r != null && holder != null) {
 			if (holder.tvItemTextUsername != null) {
-				holder.tvItemTextUsername.setText(r.username);
-			}
+				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-			if (holder.tvItemTextEmail != null) {
-				holder.tvItemTextEmail.setText(String.format("(%s)", r.emailAddress));
+				SpannableString username = new SpannableString(r.username);
+				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				builder.append(username);
+
+				SpannableString email = new SpannableString(String.format(" (%s)", r.emailAddress));
+				email.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, email.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				builder.append(email);
+
+				holder.tvItemTextUsername.setText(builder);
 			}
 
 			if (holder.avatar != null) {

@@ -7,7 +7,6 @@ public class NavigationDrawerItemModel {
 	int counter;
 	boolean isHeader;
 	boolean isMasterHeader;
-	boolean isSelected;
 
 	public NavigationDrawerItemModel(int title, int icon) {
 		this(title, icon, false, false);
