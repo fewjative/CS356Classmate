@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,7 +37,6 @@ public class AddFriendTab extends Fragment {
 		lvSearchResults = (ListView)root.findViewById(R.id.lvSearchResults);
 
 		etFriendName = (EditText)root.findViewById(R.id.etFriendName);
-		etFriendName.requestFocus();
 		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
 			public void afterTextChanged(Editable e) {
@@ -76,6 +77,17 @@ public class AddFriendTab extends Fragment {
 					}
 				});
 			}
+		});
+
+		etFriendName.requestFocus();
+		etFriendName.setFocusableInTouchMode(true);
+		etFriendName.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				etFriendName.requestFocusFromTouch();
+				return false;
+			}
+
 		});
 
 		return root;
