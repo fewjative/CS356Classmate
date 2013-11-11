@@ -53,6 +53,8 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 			ImageButton btnSendRequest = (ImageButton)view.findViewById(R.id.btnSendRequest);
 			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnSendRequest));
 
+			tvItemTextUsername.setSelected(true);
+
 			btnSendRequest.setTag(r);
 			btnSendRequest.setOnClickListener(this);
 		}

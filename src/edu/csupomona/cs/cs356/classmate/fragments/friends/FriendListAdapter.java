@@ -56,6 +56,8 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 			ImageButton btnRemove = (ImageButton)view.findViewById(R.id.btnRemove);
 			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnViewSchedule, btnRemove));
 
+			tvItemTextUsername.setSelected(true);
+
 			btnViewSchedule.setTag(r);
 			btnViewSchedule.setOnClickListener(this);
 
