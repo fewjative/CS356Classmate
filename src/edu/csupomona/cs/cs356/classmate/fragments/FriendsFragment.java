@@ -14,12 +14,10 @@ import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendRequestsTab;
 public class FriendsFragment extends Fragment {
 	private FragmentTabHost tabHost;
 
+	private static final FriendsFragment INSTANCE = new FriendsFragment();
+
 	public static FriendsFragment newInstance() {
-		FriendsFragment f = new FriendsFragment();
-
-		//...
-
-		return f;
+		return INSTANCE;
 	}
 
 	@Override
