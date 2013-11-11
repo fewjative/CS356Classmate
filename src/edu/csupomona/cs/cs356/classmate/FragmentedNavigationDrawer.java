@@ -98,6 +98,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 			@Override
 			public void onDrawerOpened(View drawerView) {
 				setTitle(R.string.ClassmateAppName);
+				((MainActivity)getActivity()).updateFriendRequestsNum();
 				//getActivity().invalidateOptionsMenu();
 			}
 		};

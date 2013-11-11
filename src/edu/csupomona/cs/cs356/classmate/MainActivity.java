@@ -56,7 +56,6 @@ public class MainActivity extends FragmentActivity {
 		name = getResources().getIdentifier("user_menu_friends", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_person", "drawable", this.getPackageName());
 		friendsItem = dlDrawer.addItem(name, icon, FriendsFragment.class);
-		updateFriendRequestsNum();
 
 		name = getResources().getIdentifier("user_menu_groups", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_group", "drawable", this.getPackageName());
