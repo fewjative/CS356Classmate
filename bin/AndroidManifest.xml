@@ -50,5 +50,6 @@
 			android:label="@string/ClassmateAppName"
 		>
 		</activity>
+		<!--			android:configChanges="orientation"-->
 	</application>
 </manifest>
