@@ -219,9 +219,11 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			if (selectedItem != null) {
-				selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(0);
+			if (selectedItem == null) {
+				selectedItem = drawerAdapter.firstListItem;
 			}
+
+			selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(0);
 
 			selectedItem = view;
 			selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(R.color.cppgold_trans_darker);

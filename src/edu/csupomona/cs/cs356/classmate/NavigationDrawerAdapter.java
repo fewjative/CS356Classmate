@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemModel> {
+	View firstListItem;
+
 	public NavigationDrawerAdapter(Context context) {
 		super(context, 0);
 	}
@@ -92,6 +94,11 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			ImageView image1 = (ImageView)view.findViewById(R.id.menurow_icon);
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);
 			view.setTag(new ViewHolder(text1, image1, textcounter1));
+
+			if (firstListItem == null && !item.isHeader && !item.isMasterHeader) {
+				firstListItem = view;
+				firstListItem.findViewById(R.id.menuitem_content).setBackgroundResource(R.color.cppgold_trans_darker);
+			}
 		}
 
 		if (holder == null) {
