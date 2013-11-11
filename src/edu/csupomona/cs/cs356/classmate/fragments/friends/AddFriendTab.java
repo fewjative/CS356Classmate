@@ -12,6 +12,8 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
+import static edu.csupomona.cs.cs356.classmate.LoginActivity.INTENT_KEY_USERID;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 import java.util.ArrayList;
@@ -44,8 +46,11 @@ public class AddFriendTab extends Fragment {
 				llProgressBar.setVisibility(View.VISIBLE);
 				lvSearchResults.setAdapter(null);
 
+				int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER);
+
 				RequestParams params = new RequestParams();
 				params.put("search", e.toString());
+				params.put("user_id", Integer.toString(id));
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/searchfriends.php", params, new AsyncHttpResponseHandler() {
