@@ -17,7 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class FriendsListTab extends Fragment {
+public class FriendListTab extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View root = (ViewGroup)inflater.inflate(R.layout.tab_friends_list, null);

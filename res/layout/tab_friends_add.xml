@@ -18,30 +18,46 @@
 		android:textColor="@color/black"
 	/>
 
-	<SearchView
-		android:id="@+id/svSearchBar"
+	<EditText
+		style="@style/ClassmateEditText"
+		android:id="@+id/etFriendName"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:iconifiedByDefault="false"
-		android:queryHint="@string/emailExample"
+		android:hint="@string/emailExample"
+		android:textColor="@color/black"
 		android:layout_marginBottom="5dip"
 	/>
 
-	<ListView
-		android:id="@+id/lvSearchResults"
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="0dip"
-		android:background="@color/cppgreen_darker"
+		android:layout_height="0dp"
 		android:layout_weight="1"
-	/>
+		android:orientation="vertical"
+		android:background="@color/cppgreen_darker"
+	>
+		<LinearLayout
+			android:id="@+id/llProgressBar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<ProgressBar
+				style="Widget.ProgressBar.Large.Inverse"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			>
+			</ProgressBar>
+		</LinearLayout>
 
-	<Button
-		style="@style/ClassmateButton"
-		android:id="@+id/btnAddFriend"
-		android:text="@string/addFriend"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textColor="@color/black"
-		android:layout_marginTop="5dip"
-	/>
+		<ListView
+			android:id="@+id/lvSearchResults"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@android:color/transparent"
+		>
+		</ListView>
+	</LinearLayout>
 </LinearLayout>

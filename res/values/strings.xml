@@ -61,10 +61,10 @@
 	<!--Friend Management-->
 	<string name="addFriend">Send Friend Request</string>
 	<string name="addAFriend">Add a friend</string>
-	<string name="addFriendHint">Enter your friends email address</string>
+	<string name="addFriendHint">Enter your friends email address or username</string>
 
 	<string name="addFriendErrorTitle">Could Not Add</string>
-	<string name="addFriendError">Either the friend is already in your friendlist or you have entered in an incorrect email.</string>
+	<string name="addFriendError">Either the friend is already in your friend list or you have entered in an incorrect email.</string>
 
 	<string name="addFriendSuccessTitle">Success!</string>
 	<string name="addFriendSuccess">A friend request has been sent to the user!</string>

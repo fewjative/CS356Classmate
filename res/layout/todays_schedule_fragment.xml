@@ -18,7 +18,7 @@
 	>
 			<TextView
 				style="@style/ClassmateTextView"
-				android:text="You currently have no classes in to your schedule. To add classes, press the add class button below"
+				android:text="You currently have no classes added to your schedule. To add some, touch the button below"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center"

@@ -40,13 +40,19 @@
 	>
 		<item name="android:singleLine">true</item>
 		<item name="android:textColor">@color/white</item>
+	</style>
+
+	<style
+		name="ClassmateEditText_Form"
+		parent="ClassmateEditText"
+	>
 		<item name="android:layout_marginBottom">20dip</item>
 		<item name="android:layout_marginTop">5dip</item>
 	</style>
 
 	<style
 		name="ClassmateEditText_Username"
-		parent="ClassmateEditText"
+		parent="ClassmateEditText_Form"
 	>
 		<item name="android:inputType">textPersonName</item>
 		<item name="android:hint">@string/usernameExample</item>
@@ -54,7 +60,7 @@
 
 	<style
 		name="ClassmateEditText_Email"
-		parent="ClassmateEditText"
+		parent="ClassmateEditText_Form"
 	>
 		<item name="android:inputType">textEmailAddress</item>
 		<item name="android:hint">@string/emailExample</item>
@@ -62,7 +68,7 @@
 
 	<style
 		name="ClassmateEditText_Password"
-		parent="ClassmateEditText"
+		parent="ClassmateEditText_Form"
 	>
 		<item name="android:inputType">textPassword</item>
 		<item name="android:hint">@string/passwordExample</item>
