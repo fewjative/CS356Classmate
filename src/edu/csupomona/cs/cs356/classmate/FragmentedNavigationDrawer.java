@@ -28,7 +28,9 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 	private ArrayList<FragmentNavigationItem> drawerItemList;
 	private int drawerContainerRes;
 
-	private CharSequence lastTitle;
+	private int selectedItemPosition;
+
+	private static CharSequence lastTitle;
 
 	private View selectedItem;
 
@@ -101,6 +103,10 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		};
 	}
 
+	public int getSelectedItemPosition() {
+		return selectedItemPosition;
+	}
+
 	public void selectDrawerItem(int position) {
 		FragmentNavigationItem navItem = drawerItemList.get(position);
 		if (navItem.titleRes == R.string.app_menu_logout) {
@@ -131,6 +137,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 		lastTitle = getActionBar().getTitle();
 		closeDrawer(lvDrawer);
+		selectedItemPosition = position;
 	}
 
 	public void setDrawerHeader(int title) {

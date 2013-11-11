@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemModel> {
-	View firstListItem;
+	static View firstListItem;
 
 	public NavigationDrawerAdapter(Context context) {
 		super(context, 0);

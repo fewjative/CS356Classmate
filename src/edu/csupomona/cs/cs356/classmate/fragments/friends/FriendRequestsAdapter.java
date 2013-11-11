@@ -98,11 +98,9 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 		switch (v.getId()) {
 			case R.id.btnAccept:
 				acceptInvite(r);
-				((MainActivity)getContext()).updateFriendRequestsNum();
 				break;
 			case R.id.btnReject:
 				rejectInvite(r);
-				((MainActivity)getContext()).updateFriendRequestsNum();
 				break;
 		}
 	}
@@ -119,6 +117,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 			@Override
 			public void onSuccess(String response) {
 				remove(r);
+				((MainActivity)getContext()).updateFriendRequestsNum();
 			}
 		});
 	}
@@ -135,6 +134,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 			@Override
 			public void onSuccess(String response) {
 				remove(r);
+				((MainActivity)getContext()).updateFriendRequestsNum();
 			}
 		});
 	}

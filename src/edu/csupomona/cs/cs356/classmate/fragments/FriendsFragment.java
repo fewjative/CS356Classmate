@@ -12,9 +12,9 @@ import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendListTab;
 import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendRequestsTab;
 
 public class FriendsFragment extends Fragment {
-	private FragmentTabHost tabHost;
-
 	private static final FriendsFragment INSTANCE = new FriendsFragment();
+
+	private FragmentTabHost tabHost;
 
 	public static FriendsFragment newInstance() {
 		return INSTANCE;

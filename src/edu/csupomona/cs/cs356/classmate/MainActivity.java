@@ -4,7 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
+import android.view.View;
 import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -95,8 +95,12 @@ public class MainActivity extends FragmentActivity {
 				}
 
 				friendsItem.setCounter(num);
-				((BaseAdapter)dlDrawer.getAdapter()).notifyDataSetChanged();
-				System.out.println("classm updated to " + num);
+				ListView list = dlDrawer.getListView();
+				int start = list.getFirstVisiblePosition();
+				for (int i = start, j = list.getLastVisiblePosition(); i <= j; i++) {
+					View view = list.getChildAt(i - start);
+					list.getAdapter().getView(i, view, list);
+				}
 			}
 		});
 	}
