@@ -50,12 +50,12 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 
 	@Override
 	public int getItemViewType(int position) {
-		return getItem(position).isHeader ? 0 : 1;
+		return getItem(position).isHeader() ? 0 : 1;
 	}
 
 	@Override
 	public boolean isEnabled(int position) {
-		return !getItem(position).isHeader;
+		return !getItem(position).isHeader();
 	}
 
 	private static class ViewHolder {
@@ -78,8 +78,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 
 		if (view == null) {
 			int layout;
-			if (item.isHeader) {
-				if (item.isMasterHeader) {
+			if (item.isHeader()) {
+				if (item.isMasterHeader()) {
 					layout = R.layout.menu_master_header;
 				} else {
 					layout = R.layout.menu_header;
@@ -95,7 +95,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);
 			view.setTag(new ViewHolder(text1, image1, textcounter1));
 
-			if (firstListItem == null && !item.isHeader && !item.isMasterHeader) {
+			if (firstListItem == null && !item.isHeader() && !item.isMasterHeader()) {
 				firstListItem = view;
 				firstListItem.findViewById(R.id.menuitem_content).setBackgroundResource(R.color.cppgold_trans_darker);
 			}
@@ -110,26 +110,26 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 
 		if (item != null && holder != null) {
 			if (holder.textHolder != null) {
-				if (item.titleString == null) {
-					holder.textHolder.setText(item.title);
+				if (item.getTitle() == null) {
+					holder.textHolder.setText(item.getTitleRes());
 				} else {
-					holder.textHolder.setText(item.titleString);
+					holder.textHolder.setText(item.getTitle());
 				}
 			}
 
 			if (holder.textCounterHolder != null) {
-				if (item.counter > 0) {
+				if (item.getCounter() > 0) {
 					holder.textCounterHolder.setVisibility(View.VISIBLE);
-					holder.textCounterHolder.setText(Integer.toString(item.counter));
+					holder.textCounterHolder.setText(Integer.toString(item.getCounter()));
 				} else {
 					holder.textCounterHolder.setVisibility(View.GONE);
 				}
 			}
 
 			if (holder.imageHolder != null) {
-				if (item.icon > 0) {
+				if (item.getIconRes() > 0) {
 					holder.imageHolder.setVisibility(View.VISIBLE);
-					holder.imageHolder.setImageResource(item.icon);
+					holder.imageHolder.setImageResource(item.getIconRes());
 				} else {
 					holder.imageHolder.setVisibility(View.GONE);
 				}

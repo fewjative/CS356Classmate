@@ -37,15 +37,15 @@
 			android:layout_width="32dp"
 			android:layout_height="32dp"
 			android:layout_alignParentRight="true"
-			android:layout_marginRight="8dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginRight="12dp"
 			android:background="@drawable/menu_counter_rectangle"
 			android:gravity="center"
+			android:layout_centerVertical="true"
 			android:minHeight="?android:attr/listPreferredItemHeightSmall"
 			android:padding="6dp"
 			android:textAppearance="?android:attr/textAppearanceListItemSmall"
 			android:textColor="@color/white_trans"
-			android:textSize="12sp"
+			android:textSize="14sp"
 			android:textStyle="bold"
 		/>
 	</RelativeLayout>

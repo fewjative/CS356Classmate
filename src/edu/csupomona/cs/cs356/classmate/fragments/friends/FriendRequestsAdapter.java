@@ -17,6 +17,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
+import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import java.util.List;
 
@@ -97,9 +98,11 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 		switch (v.getId()) {
 			case R.id.btnAccept:
 				acceptInvite(r);
+				((MainActivity)getContext()).updateFriendRequestsNum();
 				break;
 			case R.id.btnReject:
 				rejectInvite(r);
+				((MainActivity)getContext()).updateFriendRequestsNum();
 				break;
 		}
 	}

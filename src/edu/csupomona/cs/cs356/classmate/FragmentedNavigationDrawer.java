@@ -153,14 +153,18 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		drawerItemList.add(null);
 	}
 
-	public void addItem(int title, int icon, Class<? extends Fragment> fragmentClass) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, icon, false, false));
+	public NavigationDrawerItemModel addItem(int title, int icon, Class<? extends Fragment> fragmentClass) {
+		NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
+		drawerAdapter.add(item);
 		drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
+		return item;
 	}
 
-	public void addItem(CharSequence title, int icon, Class<? extends Fragment> fragmentClass) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, icon, false, false));
+	public NavigationDrawerItemModel addItem(CharSequence title, int icon, Class<? extends Fragment> fragmentClass) {
+		NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
+		drawerAdapter.add(item);
 		drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
+		return item;
 	}
 
 	private FragmentActivity getActivity() {
@@ -169,6 +173,14 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 	private ActionBar getActionBar() {
 		return getActivity().getActionBar();
+	}
+
+	public NavigationDrawerAdapter getAdapter() {
+		return drawerAdapter;
+	}
+
+	public ListView getListView() {
+		return lvDrawer;
 	}
 
 	public ActionBarDrawerToggle getDrawerToggle() {

@@ -11,6 +11,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
+import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class FriendRequestsTab extends Fragment {
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
 					lvRequestList.setAdapter(adapter);
+					((MainActivity)getActivity()).updateFriendRequestsNum();
 				}
 
 				llProgressBar.setVisibility(View.GONE);

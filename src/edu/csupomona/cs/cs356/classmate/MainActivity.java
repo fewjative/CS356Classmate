@@ -4,7 +4,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
@@ -14,6 +18,8 @@ public class MainActivity extends FragmentActivity {
 	private static final String STATE_FRAGMENT_FRIENDS_TAB = "fragmentFriendsTab";
 
 	private FragmentedNavigationDrawer dlDrawer;
+
+	private NavigationDrawerItemModel friendsItem;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +55,8 @@ public class MainActivity extends FragmentActivity {
 
 		name = getResources().getIdentifier("user_menu_friends", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_person", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, FriendsFragment.class);
+		friendsItem = dlDrawer.addItem(name, icon, FriendsFragment.class);
+		updateFriendRequestsNum();
 
 		name = getResources().getIdentifier("user_menu_groups", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_group", "drawable", this.getPackageName());
@@ -68,6 +75,30 @@ public class MainActivity extends FragmentActivity {
 		if (savedInstanceState == null) {
 			dlDrawer.selectDrawerItem(1);
 		}
+	}
+
+	public void updateFriendRequestsNum() {
+		String email = getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+
+		RequestParams params = new RequestParams();
+		params.put("email", email);
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get("http://lol-fc.com/classmate/numrequests.php", params, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				int num;
+				try {
+					num = Integer.parseInt(response);
+				} catch (NumberFormatException e) {
+					num = 0;
+				}
+
+				friendsItem.setCounter(num);
+				((BaseAdapter)dlDrawer.getAdapter()).notifyDataSetChanged();
+				System.out.println("classm updated to " + num);
+			}
+		});
 	}
 
 	@Override

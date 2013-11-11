@@ -6,10 +6,11 @@
 	<color name="green">#00FF00</color>
 	<color name="gray">#808080</color>
 
-	<color name="not_background">#5490CC</color>
-	<color name="not_highlight">#A4C2E0</color>
+	<color name="not_background">#CCFF0000</color>
+	<color name="not_highlight">#CCFFFFFF</color>
 
 	<color name="white_trans">#CCFFFFFF</color>
+	<color name="black_trans">#CC000000</color>
 	<color name="cppgreen_trans">#CC00512B</color>
 	<color name="cppgold_trans">#CCF5BC23</color>
 	<color name="gray_trans">#CC808080</color>

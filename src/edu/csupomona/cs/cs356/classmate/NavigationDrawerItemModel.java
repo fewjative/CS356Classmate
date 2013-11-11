@@ -1,12 +1,12 @@
 package edu.csupomona.cs.cs356.classmate;
 
 public class NavigationDrawerItemModel {
-	int title;
-	CharSequence titleString;
-	int icon;
-	int counter;
-	boolean isHeader;
-	boolean isMasterHeader;
+	private int title;
+	private CharSequence titleString;
+	private int icon;
+	private int counter;
+	private boolean isHeader;
+	private boolean isMasterHeader;
 
 	public NavigationDrawerItemModel(int title, int icon) {
 		this(title, icon, false, false);
