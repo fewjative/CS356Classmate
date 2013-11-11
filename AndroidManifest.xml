@@ -48,8 +48,8 @@
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
 			android:label="@string/ClassmateAppName"
-			android:configChanges="orientation"
 		>
 		</activity>
+		<!--			android:configChanges="orientation"-->
 	</application>
 </manifest>
