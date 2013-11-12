@@ -6,8 +6,6 @@ public class Section {
 	String time_start;
 	String time_end;
 	String weekdays;
-	String AMPM_start;
-	String AMPM_end;
 	String date_start;
 	String date_end;
 	String instructor;
@@ -21,5 +19,9 @@ public class Section {
 
 	public Section() {
 		//...
+	}
+
+	public String getFullTime() {
+		return time_start + " - " + time_end;
 	}
 }

@@ -1,9 +1,9 @@
 package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -111,13 +111,13 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 	}
 
 	public void removeFriend(final Friend r) {
-		AlertDialog d = new AlertDialog.Builder(((Activity)getContext())).create();
+		AlertDialog d = new AlertDialog.Builder(((FragmentActivity)getContext())).create();
 		d.setTitle(R.string.removeTitle);
 		d.setMessage(getContext().getResources().getString(R.string.removeConfirmation));
 		d.setIcon(android.R.drawable.ic_dialog_info);
 		d.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+				String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
@@ -138,7 +138,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 		d.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+				String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);

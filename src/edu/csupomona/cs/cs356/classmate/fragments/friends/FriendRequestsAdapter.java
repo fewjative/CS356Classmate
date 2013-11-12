@@ -1,7 +1,7 @@
 package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -106,7 +106,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	}
 
 	public void acceptInvite(final Friend r) {
-		String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
 		params.put("email", emailAddress);
@@ -123,7 +123,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	}
 
 	public void rejectInvite(final Friend r) {
-		String emailAddress = ((Activity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
 		params.put("email", emailAddress);

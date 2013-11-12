@@ -1,14 +1,15 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -63,12 +64,23 @@ public class ScheduleFragment extends Fragment {
 					ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
 					btnAddClass.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
-							Toast.makeText(getActivity(), "You clicked me, ouch", Toast.LENGTH_LONG).show();
+							Intent i = new Intent(getActivity(), AddClassActivity.class);
+							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+							startActivityForResult(i, 1);
 						}
 					});
 				} else {
 					llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
 					llSchedule.setVisibility(View.VISIBLE);
+
+					Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
+					btnAddClass2.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							Intent i = new Intent(getActivity(), AddClassActivity.class);
+							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+							startActivityForResult(i, 1);
+						}
+					});
 
 					final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
 					llProgressBarClasses.setVisibility(View.VISIBLE);
@@ -108,8 +120,6 @@ public class ScheduleFragment extends Fragment {
 					s.time_start = jObj.getString("time_start");
 					s.time_end = jObj.getString("time_end");
 					s.weekdays = jObj.getString("weekdays");
-					s.AMPM_start = jObj.getString("AMPM_start");
-					s.AMPM_end = jObj.getString("AMPM_end");
 					s.date_start = jObj.getString("date_start");
 					s.date_end = jObj.getString("date_end");
 					s.instructor = jObj.getString("instructor");

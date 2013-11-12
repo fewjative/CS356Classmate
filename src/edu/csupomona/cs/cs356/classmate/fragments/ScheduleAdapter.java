@@ -1,12 +1,18 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
+import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import java.util.List;
 
@@ -68,6 +74,18 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	}
 
 	public void removeClass(final Section s) {
-		//...
+		int id = ((FragmentActivity)getContext()).getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+
+		RequestParams params = new RequestParams();
+		params.put("user_id", Integer.toString(id));
+		params.put("class_id", Integer.toString(s.class_id));
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get("http://lol-fc.com/classmate/removeclass.php", params, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				remove(s);
+			}
+		});
 	}
 }
