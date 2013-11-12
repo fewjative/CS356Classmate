@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/cppgreen"
+>
+	<LinearLayout
+		android:id="@+id/llProgressBar"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:visibility="gone"
+		android:background="@android:color/transparent"
+	>
+		<ProgressBar
+			style="Widget.ProgressBar.Large.Inverse"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		>
+		</ProgressBar>
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/llAddClass"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/dashed_border"
+		android:padding="10dp"
+		android:layout_margin="10dp"
+		android:gravity="center"
+		android:visibility="gone"
+	>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:text="You currently have no classes added to your schedule. To add some, touch the button below"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+			/>
+
+			<ImageButton
+				android:id="@+id/btnAddClass"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_add_classes"
+				android:background="@drawable/circular_button"
+				android:layout_margin="10dp"
+			/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/llSchedule"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@color/cppgreen_darker"
+		android:visibility="gone"
+	>
+		<LinearLayout
+			android:id="@+id/llProgressBarClasses"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<ProgressBar
+				style="Widget.ProgressBar.Large.Inverse"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			>
+			</ProgressBar>
+		</LinearLayout>
+
+		<ListView
+			android:id="@+id/lvSchedule"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@android:color/transparent"
+		>
+		</ListView>
+	</LinearLayout>
+</LinearLayout>

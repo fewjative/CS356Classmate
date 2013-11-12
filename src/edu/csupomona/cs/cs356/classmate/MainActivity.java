@@ -11,6 +11,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity {
 
 		name = getResources().getIdentifier("schedule_menu_schedule", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, TodaysFragment.class);
+		dlDrawer.addItem(name, icon, ScheduleFragment.class);
 
 		dlDrawer.addHeader(R.string.user_menu_header);
 
