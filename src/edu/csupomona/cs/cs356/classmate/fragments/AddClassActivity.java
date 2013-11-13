@@ -17,6 +17,9 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.R;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Scanner;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,22 +30,28 @@ public class AddClassActivity extends Activity{
 	ArrayList<String> term;
 	ArrayList<String> major;
 	ArrayList<String> course;
+	ArrayList<String> classSections;
 	ArrayAdapter<String> termAdapter;
 	ArrayAdapter<String> majorAdapter;
 	ArrayAdapter<String> courseAdapter;
-
+	ArrayAdapter<String> sectionAdapter;
+	
 	AsyncHttpClient client;
 
 	Spinner termSpinner;
 	Spinner majorSpinner;
 	Spinner courseSpinner;
+	Spinner sectionSpinner;
 
+	boolean	termSelected;
 	boolean majorSelected;
 	boolean courseSelected;
-
+	boolean sectionSelected;
+	
+	String prevTerm;
 	String prevMajor;
+	String prevCourse;
 
-	TextView title, titleResult;
 	TextView time, timeResult;
 	TextView professor, professorResult;
 	TextView weekdays, weekdaysResult;
@@ -53,7 +62,9 @@ public class AddClassActivity extends Activity{
 	Section selectedClass;
 
 	Integer userID;
-
+	
+	String courseMajorShort;
+	int	courseClassNum;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,12 +81,10 @@ public class AddClassActivity extends Activity{
 		term = new ArrayList<String>(1);
 		major = new ArrayList<String>(1);
 		course = new ArrayList<String>(1);
+		classSections = new ArrayList<String>();
 
 		time = (TextView) findViewById(R.id.times);
 		timeResult = (TextView) findViewById(R.id.timeResult);
-
-		title = (TextView) findViewById(R.id.title);
-		titleResult = (TextView) findViewById(R.id.titleResult);
 
 		weekdays = (TextView) findViewById(R.id.meeting);
 		weekdaysResult = (TextView) findViewById(R.id.meetingResult);
@@ -143,7 +152,7 @@ public class AddClassActivity extends Activity{
 					}
 					courseSpinner.setEnabled(true);
 				}else{
-						courseSpinner.setEnabled(false);
+					courseSpinner.setEnabled(false);
 				}
 			}
 
@@ -163,34 +172,29 @@ public class AddClassActivity extends Activity{
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				// TODO Auto-generated method stub
 				String key = parent.getItemAtPosition(pos).toString();
+				Scanner scanSelected = new Scanner(key);
+				
 				if(!key.equals("Select A Course")){
-					titleResult.setText(classTable.get(key).title);
-					timeResult.setText(classTable.get(key).getFullTime());
-					weekdaysResult.setText(classTable.get(key).weekdays);
-					professorResult.setText(classTable.get(key).instructor);
-					title.setVisibility(1);
-					titleResult.setVisibility(1);
-					time.setVisibility(1);
-					timeResult.setVisibility(1);
-					weekdays.setVisibility(1);
-					weekdaysResult.setVisibility(1);
-					professor.setVisibility(1);
-					professorResult.setVisibility(1);
+					if(!sectionSelected){
+						String major_short = scanSelected.next();;
+						Integer class_num = Integer.parseInt(scanSelected.next());
+						
+						getSections(major_short, class_num);
+						prevCourse = key;
+						sectionSelected = true;
+					}else if(!key.equals(prevCourse)){
+						String major_short = scanSelected.next();;
+						Integer class_num = Integer.parseInt(scanSelected.next());
+						
+						getSections(major_short, class_num);
+						prevCourse = key;
+					}
+					sectionSpinner.setEnabled(true);
 
-					selectedClass = classTable.get(key);
-
-					add.setEnabled(true);
-
-				} else {
-					title.setVisibility(4);
-					titleResult.setVisibility(4);
-					time.setVisibility(4);
-					timeResult.setVisibility(4);
-					weekdays.setVisibility(4);
-					weekdaysResult.setVisibility(4);
-					professor.setVisibility(4);
-					professorResult.setVisibility(4);
+				}else{
+					sectionSpinner.setEnabled(false);
 				}
+				scanSelected.close();
 
 			}
 
@@ -200,8 +204,49 @@ public class AddClassActivity extends Activity{
 
 			}
 		});
-	}
+		
+		sectionSpinner = (Spinner) findViewById(R.id.sectionSpinner);
+		sectionSpinner.setEnabled(false);
+		sectionSpinner.setOnItemSelectedListener(new OnItemSelectedListener(){
 
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				// TODO Auto-generated method stub
+				String section = parent.getItemAtPosition(pos).toString();
+				if(!section.equals("Select A Section")){
+					selectedClass = classTable.get(section);
+					timeResult.setText(classTable.get(section).getFullTime());
+					weekdaysResult.setText(classTable.get(section).getWeekdays());
+					professorResult.setText(classTable.get(section).getInstructor());
+					time.setVisibility(1);
+					timeResult.setVisibility(1);
+					weekdays.setVisibility(1);
+					weekdaysResult.setVisibility(1);
+					professor.setVisibility(1);
+					professorResult.setVisibility(1);
+					
+					add.setEnabled(true);
+				}else{
+					time.setVisibility(4);
+					timeResult.setVisibility(4);
+					weekdays.setVisibility(4);
+					weekdaysResult.setVisibility(4);
+					professor.setVisibility(4);
+					professorResult.setVisibility(4);
+					add.setEnabled(false);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	}
+	
 	public void getTerms(){
 		term = new ArrayList<String>();
 		term.add("Select Term");
@@ -265,43 +310,25 @@ public class AddClassActivity extends Activity{
 	public void getCourses(String majorShort){
 		classTable = new HashMap<String, Section>(50);
 		course = new ArrayList<String>();
+		
 		course.add("Select A Course");
-
+		courseMajorShort = majorShort;
+		
 		RequestParams params = new RequestParams();
 		params.put("major", majorShort);
+		params.put("distinct", "yes");
+		
 		client.get("http://www.lol-fc.com/classmate/getclasses.php", params, new AsyncHttpResponseHandler(){
 			@Override
 			public void onSuccess(String response){
 
 				if(1 < response.length()){
 					try{
-						Section s;
 						JSONObject jObj;
 						JSONArray myjsonarray = new JSONArray(response);
 						for(int i = 0; i < myjsonarray.length(); i++){
 							jObj = myjsonarray.getJSONObject(i);
-							course.add(jObj.getString("major_short") + jObj.getInt("class_num") + "  Section " + jObj.getInt("section"));
-
-							s = new Section();
-							s.class_id = jObj.getInt("class_id");
-							s.title = jObj.getString("title");
-							s.time_start = jObj.getString("time_start");
-							s.time_end = jObj.getString("time_end");
-							s.weekdays = jObj.getString("weekdays");
-							s.date_start = jObj.getString("date_start");
-							s.date_end = jObj.getString("date_end");
-							s.instructor = jObj.getString("instructor");
-							s.building = jObj.getString("building");
-							s.room = jObj.getString("room");
-							s.section = jObj.getString("section");
-							s.major_short = jObj.getString("major_short");
-							s.major_long = jObj.getString("major_long");
-							s.class_num = jObj.getString("class_num");
-							s.term = jObj.getString("term");
-							classTable.put(
-								  jObj.getString("major_short") + jObj.getInt("class_num") + "  Section " + jObj.getInt("section"),
-								  s
-							);
+							course.add(courseMajorShort + " " + jObj.getInt("class_num"));
 						}
 					} catch (JSONException e){
 						e.printStackTrace();
@@ -314,9 +341,47 @@ public class AddClassActivity extends Activity{
 		courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		courseSpinner.setAdapter(courseAdapter);
 	}
+	
+	public void getSections(String majorShort, int classNum){
+		classTable = new HashMap<String, Section>(50);
+		classSections = new ArrayList<String>();
+		classSections.add("Select A Section");
+		Integer classNumber = classNum;
+		
+		RequestParams params = new RequestParams();
+		params.put("major", majorShort);
+		params.put("class_num", classNumber.toString());
+		client.get("http://www.lol-fc.com/classmate/getclasses.php", params, new AsyncHttpResponseHandler(){
+			@Override
+			public void onSuccess(String response){
+				if(1 < response.length()){
+					try{
+						JSONObject jObj;
+						JSONArray myjsonarray = new JSONArray(response);
+						for(int i = 0; i < myjsonarray.length(); i++){
+							jObj = myjsonarray.getJSONObject(i);
+							classSections.add(jObj.getString("title") + " Section " + jObj.getInt("section"));
+							
+							classTable.put(jObj.getString("title") + " Section " + jObj.getInt("section"), 
+                                    new Section(jObj.getInt("class_id"),jObj.getString("title"), jObj.getString("time_start"), 
+                                    		jObj.getString("time_end"),  jObj.getString("weekdays"),jObj.getString("date_start"), 
+                                    		jObj.getString("date_end"), jObj.getString("instructor"),jObj.getInt("building"), 
+                                    		jObj.getInt("room"), jObj.getInt("section"), jObj.getString("major_short"),
+                                            jObj.getString("major_long"), jObj.getInt("class_num"), jObj.getString("term")));
+						}
+					}catch (JSONException e){
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		sectionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, classSections);
+		sectionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		sectionSpinner.setAdapter(sectionAdapter);
+	}
 
 	public void addClass(){
-		Integer classID = selectedClass.class_id;
+		Integer classID = selectedClass.getClassID();
 		RequestParams params = new RequestParams();
 		params.put("user_id", userID.toString());
 		params.put("class_id", classID.toString());

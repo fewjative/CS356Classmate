@@ -114,22 +114,12 @@ public class ScheduleFragment extends Fragment {
 				for (int i = 0; i < myjsonarray.length(); i++) {
 					jObj = myjsonarray.getJSONObject(i);
 
-					s = new Section();
-					s.class_id = jObj.getInt("class_id");
-					s.title = jObj.getString("title");
-					s.time_start = jObj.getString("time_start");
-					s.time_end = jObj.getString("time_end");
-					s.weekdays = jObj.getString("weekdays");
-					s.date_start = jObj.getString("date_start");
-					s.date_end = jObj.getString("date_end");
-					s.instructor = jObj.getString("instructor");
-					s.building = jObj.getString("building");
-					s.room = jObj.getString("room");
-					s.section = jObj.getString("section");
-					s.major_short = jObj.getString("major_short");
-					s.major_long = jObj.getString("major_long");
-					s.class_num = jObj.getString("class_num");
-					s.term = jObj.getString("term");
+					s = new Section(jObj.getInt("class_id"),
+                            jObj.getString("title"), jObj.getString("time_start"), jObj.getString("time_end"),
+                            jObj.getString("weekdays"),
+                            jObj.getString("date_start"), jObj.getString("date_end"), jObj.getString("instructor"),
+                            jObj.getInt("building"), jObj.getInt("room"), jObj.getInt("section"), jObj.getString("major_short"),
+                            jObj.getString("major_long"), jObj.getInt("class_num"), jObj.getString("term"));
 
 					schedule.add(s);
 				}

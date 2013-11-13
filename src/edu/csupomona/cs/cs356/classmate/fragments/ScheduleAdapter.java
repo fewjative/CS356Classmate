@@ -57,7 +57,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 		if (s != null && holder != null) {
 			if (holder.tvItemText != null) {
-				holder.tvItemText.setText(String.format("%s %s Section %s", s.major_short, s.class_num, s.section));
+				holder.tvItemText.setText(String.format("%s %s Section %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 		}
 
@@ -78,7 +78,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 		RequestParams params = new RequestParams();
 		params.put("user_id", Integer.toString(id));
-		params.put("class_id", Integer.toString(s.class_id));
+		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://lol-fc.com/classmate/removeclass.php", params, new AsyncHttpResponseHandler() {
