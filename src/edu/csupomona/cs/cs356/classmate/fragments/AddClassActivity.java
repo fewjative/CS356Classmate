@@ -199,12 +199,7 @@ public class AddClassActivity extends Activity{
 				// TODO Auto-generated method stub
 
 			}
-
 		});
-
-
-
-
 	}
 
 	public void getTerms(){

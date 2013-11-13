@@ -51,5 +51,11 @@
 		>
 		</activity>
 		<!--			android:configChanges="orientation"-->
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
+			android:label="Add Class"
+		>
+		</activity>
 	</application>
 </manifest>
