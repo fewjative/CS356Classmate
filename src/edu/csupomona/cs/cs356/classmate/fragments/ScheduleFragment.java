@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -23,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ScheduleFragment extends Fragment {
+	public static final int CODE_ADD_CLASS = 12345;
+
 	// TODO this doesn't do anything...
 	private static final ScheduleFragment INSTANCE = new ScheduleFragment();
 
@@ -30,11 +33,13 @@ public class ScheduleFragment extends Fragment {
 		return INSTANCE;
 	}
 
+	private ViewGroup root;
+	private LinearLayout llAddClass;
 	private LinearLayout llSchedule;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final ViewGroup root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
+		root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
 
 		final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 
@@ -58,7 +63,7 @@ public class ScheduleFragment extends Fragment {
 				}
 
 				if (numClasses == 0) {
-					LinearLayout llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
+					llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
 					llAddClass.setVisibility(View.VISIBLE);
 
 					ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
@@ -66,7 +71,7 @@ public class ScheduleFragment extends Fragment {
 						public void onClick(View v) {
 							Intent i = new Intent(getActivity(), AddClassActivity.class);
 							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-							startActivityForResult(i, 1);
+							startActivityForResult(i, CODE_ADD_CLASS);
 						}
 					});
 				} else {
@@ -78,7 +83,7 @@ public class ScheduleFragment extends Fragment {
 						public void onClick(View v) {
 							Intent i = new Intent(getActivity(), AddClassActivity.class);
 							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-							startActivityForResult(i, 1);
+							startActivityForResult(i, CODE_ADD_CLASS);
 						}
 					});
 
@@ -114,13 +119,22 @@ public class ScheduleFragment extends Fragment {
 				for (int i = 0; i < myjsonarray.length(); i++) {
 					jObj = myjsonarray.getJSONObject(i);
 
-					s = new Section(jObj.getInt("class_id"),
-                            jObj.getString("title"), jObj.getString("time_start"), jObj.getString("time_end"),
-                            jObj.getString("weekdays"),
-                            jObj.getString("date_start"), jObj.getString("date_end"), jObj.getString("instructor"),
-                            jObj.getInt("building"), jObj.getInt("room"), jObj.getInt("section"), jObj.getString("major_short"),
-                            jObj.getString("major_long"), jObj.getInt("class_num"), jObj.getString("term"));
-
+					s = new Section();
+					s.class_id = jObj.getInt("class_id");
+					s.title = jObj.getString("title");
+					s.time_start = jObj.getString("time_start");
+					s.time_end = jObj.getString("time_end");
+					s.weekdays = jObj.getString("weekdays");
+					s.date_start = jObj.getString("date_start");
+					s.date_end = jObj.getString("date_end");
+					s.instructor = jObj.getString("instructor");
+					s.building = jObj.getString("building");
+					s.room = jObj.getString("room");
+					s.section = jObj.getString("section");
+					s.major_short = jObj.getString("major_short");
+					s.major_long = jObj.getString("major_long");
+					s.class_num = jObj.getString("class_num");
+					s.term = jObj.getString("term");
 					schedule.add(s);
 				}
 			} catch (JSONException e) {
@@ -131,5 +145,62 @@ public class ScheduleFragment extends Fragment {
 		ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), schedule);
 		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
 		lvSchedule.setAdapter(adapter);
+		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
+				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+			}
+		});
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case CODE_ADD_CLASS:
+				//if (resultCode != RESULT_OK) {
+				//	break;
+				//}
+
+				final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+
+				if (llAddClass != null) {
+					llAddClass.setVisibility(View.GONE);
+				}
+
+
+				if (llSchedule == null) {
+					llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
+
+					Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
+					btnAddClass2.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							Intent i = new Intent(getActivity(), AddClassActivity.class);
+							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+							startActivityForResult(i, CODE_ADD_CLASS);
+						}
+					});
+				}
+
+				llSchedule.setVisibility(View.VISIBLE);
+
+				final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
+				llProgressBarClasses.setVisibility(View.VISIBLE);
+
+				RequestParams params = new RequestParams();
+				params.put("full", "yes");
+				params.put("user_id", Integer.toString(id));
+
+				AsyncHttpClient client = new AsyncHttpClient();
+				client.get("http://lol-fc.com/classmate/getuserclasses.php", params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(String response) {
+						setupSchedule(response);
+						llProgressBarClasses.setVisibility(View.GONE);
+					}
+				});
+
+				break;
+		}
 	}
 }
