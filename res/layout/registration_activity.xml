@@ -58,7 +58,7 @@
 			/>
 			<TextView
 				style="@style/ClassmateTextView"
-				android:text="@string/password"
+				android:text="@string/confirmpassword"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:labelFor="@+id/etConfirmPassword"
