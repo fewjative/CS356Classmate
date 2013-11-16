@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ScheduleFragment extends Fragment {
-	public static final int CODE_ADD_CLASS = 12345;
+	public static final int CODE_ADD_CLASS = 0x000D;
 
 	private ViewGroup root;
 	private LinearLayout llAddClass;

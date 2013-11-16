@@ -125,8 +125,8 @@ public class AddClassActivity extends Activity {
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
 							c = new College(
-								jObj.getString("major_long"),
-								jObj.getString("major_short")
+								jObj.getString("major_short"),
+								jObj.getString("major_long")
 							);
 
 							colleges.add(c);

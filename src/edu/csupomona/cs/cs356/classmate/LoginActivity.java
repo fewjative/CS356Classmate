@@ -38,9 +38,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private static final String PREFS_KEY_EMAIL = "emailAddress";
 	private static final String PREFS_KEY_REMEMBER = "remember";
 
-	private static final int CODE_REGISTERATION_FORM = 1001;
-	private static final int CODE_RECOVERY_FORM = 1002;
-	private static final int CODE_MAINMENU = 1003;
+	private static final int CODE_REGISTERATION_FORM = 0x000F;
+	private static final int CODE_RECOVERY_FORM = 0x001F;
+	private static final int CODE_MAINMENU = 0x002F;
 
 	private Button btnLogin;
 	private EditText etEmailAddress;

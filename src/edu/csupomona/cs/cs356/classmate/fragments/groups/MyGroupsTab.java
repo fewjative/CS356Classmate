@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyGroupsTab extends Fragment {
-	public static final int CODE_MANAGE_GROUP = 189546;
+	public static final int CODE_MANAGE_GROUP = 0x00F0;
 
 	private ViewGroup root;
 	private String email;

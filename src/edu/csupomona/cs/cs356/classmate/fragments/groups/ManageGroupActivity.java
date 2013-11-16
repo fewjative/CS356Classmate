@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ManageGroupActivity extends Activity {
-	public static final int CODE_ADD_FRIEND = 19815;
+	public static final int CODE_ADD_FRIEND = 0x000C;
 
 	private Group group;
 
@@ -52,6 +52,7 @@ public class ManageGroupActivity extends Activity {
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
 
 		lvGroupMembers = (ListView)findViewById(R.id.lvGroupMembers);
+		refreshMembers();
 	}
 
 	private void refreshMembers() {

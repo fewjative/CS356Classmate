@@ -13,8 +13,6 @@ import edu.csupomona.cs.cs356.classmate.fragments.groups.MyGroupsTab;
 public class GroupsFragment extends Fragment {
 	public static final String INTENT_KEY_GROUP = "group";
 
-	public static final int CODE_GROUPS_CREATE = 654987;
-
 	private FragmentTabHost tabHost;
 
 	@Override
