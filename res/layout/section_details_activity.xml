@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+>
+	<GridLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:columnCount="2"
+		android:stretchMode="columnWidth"
+	>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Course: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvCourseNum"
+		/>
+
+		<TextView
+			android:id="@+id/tvCourseNum"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Title: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvCourseTitle"
+		/>
+
+		<TextView
+			android:id="@+id/tvCourseTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Time: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvSectionTime"
+		/>
+
+		<TextView
+			android:id="@+id/tvSectionTime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Date: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvSectionDate"
+		/>
+
+		<TextView
+			android:id="@+id/tvSectionDate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Instructor: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvSectionInstructor"
+		/>
+
+		<TextView
+			android:id="@+id/tvSectionInstructor"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Bldg./Room: "
+			android:layout_gravity="right|center_vertical"
+			android:labelFor="@+id/tvSectionBuildingRoom"
+		/>
+
+		<TextView
+			android:id="@+id/tvSectionBuildingRoom"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_gravity="left|center_vertical"
+		/>
+	</GridLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:orientation="vertical"
+		android:background="@color/cppgreen"
+	>
+		<TextView
+			style="@style/ClassmateTextView"
+			android:text="Friends in class:"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textStyle="bold"
+		/>
+
+		<LinearLayout
+			android:id="@+id/llEmptyList"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:text="You do not have any friends in this class."
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llProgressBar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<ProgressBar
+				style="Widget.ProgressBar.Large.Inverse"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			>
+			</ProgressBar>
+		</LinearLayout>
+
+		<ListView
+			android:id="@+id/lvFriendsList"
+			android:background="@android:color/transparent"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:divider="@color/gray"
+			android:dividerHeight="2dp"
+			android:animateLayoutChanges="true"
+		/>
+	</LinearLayout>
+</LinearLayout>

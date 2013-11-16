@@ -68,5 +68,11 @@
 			android:label="Add Friend"
 		>
 		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"
+			android:label="Class Details"
+		>
+		</activity>
 	</application>
 </manifest>

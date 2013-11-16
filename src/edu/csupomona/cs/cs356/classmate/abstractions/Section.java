@@ -1,6 +1,9 @@
 package edu.csupomona.cs.cs356.classmate.abstractions;
 
-public class Section {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Section implements Parcelable {
 	private final int class_id;
 	private final String title;
 	private final String time_start;
@@ -113,4 +116,72 @@ public class Section {
 	public String getSection() {
 		return section;
 	}
+
+	public String getDateStart() {
+		return date_start;
+	}
+
+	public String getDateEnd() {
+		return date_end;
+	}
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	private Section(Parcel in) {
+		this.class_id = in.readInt();
+		this.title = in.readString();
+		this.time_start = in.readString();
+		this.time_end = in.readString();
+		this.weekdays = in.readString();
+		this.date_start = in.readString();
+		this.date_end = in.readString();
+		this.instructor = in.readString();
+		this.building = in.readString();
+		this.room = in.readString();
+		this.section = in.readString();
+		this.major_short = in.readString();
+		this.major_long = in.readString();
+		this.class_num = in.readString();
+		this.term = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(class_id);
+		dest.writeString(title);
+		dest.writeString(time_start);
+		dest.writeString(time_end);
+		dest.writeString(weekdays);
+		dest.writeString(date_start);
+		dest.writeString(date_end);
+		dest.writeString(instructor);
+		dest.writeString(building);
+		dest.writeString(room);
+		dest.writeString(section);
+		dest.writeString(major_short);
+		dest.writeString(major_long);
+		dest.writeString(class_num);
+		dest.writeString(term);
+	}
+
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+		public Section createFromParcel(Parcel in) {
+			return new Section(in);
+		}
+
+		public Section[] newArray(int size) {
+			return new Section[size];
+		}
+	};
 }

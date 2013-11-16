@@ -6,6 +6,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
 	android:background="@color/cppgreen"
+	android:animateLayoutChanges="true"
 >
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -90,6 +91,18 @@
 			android:textColor="@color/black"
 			android:layout_marginLeft="6dip"
 			android:singleLine="true"
+		/>
+
+		<Button
+			style="@style/ClassmateButton"
+			android:id="@+id/btnViewSectionDetails"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="View Details"
+			android:textColor="@color/black"
+			android:focusable="false"
+			android:layout_marginTop="0dp"
+			android:visibility="gone"
 		/>
 
 		<Button
