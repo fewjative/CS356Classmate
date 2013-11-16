@@ -12,6 +12,7 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.SettingsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -66,7 +67,7 @@ public class MainActivity extends FragmentActivity {
 
 		name = getResources().getIdentifier("app_menu_settings", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_settings", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, GroupsFragment.class);
+		dlDrawer.addItem(name, icon, SettingsFragment.class);
 
 		name = getResources().getIdentifier("app_menu_logout", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_back", "drawable", this.getPackageName());
