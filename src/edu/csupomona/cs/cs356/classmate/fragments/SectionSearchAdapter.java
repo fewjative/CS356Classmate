@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import edu.csupomona.cs.cs356.classmate.abstractions.Section;
 import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -69,7 +70,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s %s.%02d", s.getMajorShort(), s.getClassNum(), Integer.parseInt(s.getSection())));
+				holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 
 			if (holder.tvClassTitle != null) {

@@ -8,16 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 
 public class TodaysFragment extends Fragment {
-	private static final TodaysFragment INSTANCE = new TodaysFragment();
 	private int userID;
-	public static TodaysFragment newInstance() {
-		return INSTANCE;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -1,7 +1,6 @@
-package edu.csupomona.cs.cs356.classmate.fragments.friends;
+package edu.csupomona.cs.cs356.classmate.fragments.groups;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -16,28 +15,28 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.cs.cs356.classmate.LoginActivity;
-import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
+import edu.csupomona.cs.cs356.classmate.abstractions.Group;
 import java.util.List;
 
-public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
-	public FriendRequestsAdapter(Context context, List<Friend> requests) {
-		super(context, 0, requests);
+public class AddMemberAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
+	private final Group group;
+
+	public AddMemberAdapter(Context context, Group group, List<Friend> friends) {
+		super(context, 0, friends);
+		this.group = group;
 	}
 
 	private static class ViewHolder {
 		final ImageView avatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnAccept;
-		final ImageButton btnReject;
+		final ImageButton btnSendRequest;
 
-		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAccept, ImageButton btnReject) {
+		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnSendRequest) {
 			this.avatar = avatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnAccept = btnAccept;
-			this.btnReject = btnReject;
+			this.btnSendRequest = btnSendRequest;
 		}
 	}
 
@@ -48,21 +47,17 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.tab_friends_requests_list_item, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.tab_friends_add_list_item, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnAccept = (ImageButton)view.findViewById(R.id.btnAccept);
-			ImageButton btnReject = (ImageButton)view.findViewById(R.id.btnReject);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAccept, btnReject));
+			ImageButton btnSendRequest = (ImageButton)view.findViewById(R.id.btnSendRequest);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnSendRequest));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnAccept.setTag(f);
-			btnAccept.setOnClickListener(this);
-
-			btnReject.setTag(f);
-			btnReject.setOnClickListener(this);
+			btnSendRequest.setTag(f);
+			btnSendRequest.setOnClickListener(this);
 		}
 
 		Object tag = view.getTag();
@@ -95,47 +90,25 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 	}
 
 	public void onClick(View v) {
-		Friend r = (Friend)v.getTag();
+		Friend f = (Friend)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnAccept:
-				acceptInvite(r);
-				break;
-			case R.id.btnReject:
-				rejectInvite(r);
+			case R.id.btnSendRequest:
+				joinGroup(f);
 				break;
 		}
 	}
 
-	public void acceptInvite(final Friend f) {
-		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
-
+	public void joinGroup(final Friend f) {
 		RequestParams params = new RequestParams();
-		params.put("email", emailAddress);
-		params.put("user_id", Integer.toString(f.getID()));
+		params.put("group_id", Integer.toString(group.getID()));
+		params.put("email", f.getEmail());
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/acceptfriend.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://www.lol-fc.com/classmate/addtogroup.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				remove(f);
-				((MainActivity)getContext()).updateFriendRequestsNum();
-			}
-		});
-	}
-
-	public void rejectInvite(final Friend f) {
-		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
-
-		RequestParams params = new RequestParams();
-		params.put("email", emailAddress);
-		params.put("user_id", Integer.toString(f.getID()));
-
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/dismissfriend.php", params, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(String response) {
-				remove(f);
-				((MainActivity)getContext()).updateFriendRequestsNum();
+				group.getPeople().add(f);
 			}
 		});
 	}

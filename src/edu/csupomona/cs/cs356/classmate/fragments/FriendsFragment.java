@@ -12,13 +12,7 @@ import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendListTab;
 import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendRequestsTab;
 
 public class FriendsFragment extends Fragment {
-	private static final FriendsFragment INSTANCE = new FriendsFragment();
-
 	private FragmentTabHost tabHost;
-
-	public static FriendsFragment newInstance() {
-		return INSTANCE;
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,9 +23,9 @@ public class FriendsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		tabHost = new FragmentTabHost(getActivity());
 		tabHost.setup(getActivity(), getChildFragmentManager(), R.id.flTabContentPane);
-		tabHost.addTab(tabHost.newTabSpec("friendListTab").setIndicator("List"), FriendListTab.class, null);
+		tabHost.addTab(tabHost.newTabSpec("friendListTab").setIndicator("My Friends"), FriendListTab.class, null);
 		tabHost.addTab(tabHost.newTabSpec("friendRequestsTab").setIndicator("Requests"), FriendRequestsTab.class, null);
-		tabHost.addTab(tabHost.newTabSpec("addFriendTab").setIndicator("Add"), AddFriendTab.class, null);
+		tabHost.addTab(tabHost.newTabSpec("addFriendTab").setIndicator("Search"), AddFriendTab.class, null);
 		return tabHost;
 	}
 

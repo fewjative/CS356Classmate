@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
 import java.util.List;
 
 public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
@@ -43,7 +44,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Friend r = getItem(position);
+		Friend f = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 
@@ -58,10 +59,10 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 			tvItemTextUsername.setSelected(true);
 
-			btnViewSchedule.setTag(r);
+			btnViewSchedule.setTag(f);
 			btnViewSchedule.setOnClickListener(this);
 
-			btnRemove.setTag(r);
+			btnRemove.setTag(f);
 			btnRemove.setOnClickListener(this);
 		}
 
@@ -70,15 +71,15 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 			holder = (ViewHolder)tag;
 		}
 
-		if (r != null && holder != null) {
+		if (f != null && holder != null) {
 			if (holder.tvItemTextUsername != null) {
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-				SpannableString username = new SpannableString(r.username);
+				SpannableString username = new SpannableString(f.getUsername());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 
-				SpannableString email = new SpannableString(String.format(" (%s)", r.emailAddress));
+				SpannableString email = new SpannableString(String.format(" (%s)", f.getEmail()));
 				email.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, email.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(email);
 
@@ -87,7 +88,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 			if (holder.avatar != null) {
 				holder.avatar.setVisibility(View.VISIBLE);
-				holder.avatar.setImageResource(r.avatar);
+				holder.avatar.setImageResource(f.getAvatar());
 			}
 		}
 
@@ -106,11 +107,11 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 		}
 	}
 
-	public void viewSchedule(final Friend r) {
+	public void viewSchedule(final Friend f) {
 		//...
 	}
 
-	public void removeFriend(final Friend r) {
+	public void removeFriend(final Friend f) {
 		AlertDialog d = new AlertDialog.Builder(((FragmentActivity)getContext())).create();
 		d.setTitle(R.string.removeTitle);
 		d.setMessage(getContext().getResources().getString(R.string.removeConfirmation));
@@ -121,14 +122,14 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(r.getID()));
+				params.put("user_id", Integer.toString(f.getID()));
 				params.put("version", "1");
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						remove(r);
+						remove(f);
 					}
 
 				});
@@ -142,14 +143,14 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(r.getID()));
+				params.put("user_id", Integer.toString(f.getID()));
 				params.put("version", "2");
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						remove(r);
+						remove(f);
 					}
 				});
 			}

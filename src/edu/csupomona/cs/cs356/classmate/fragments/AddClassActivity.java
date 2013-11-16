@@ -13,6 +13,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.cs.cs356.classmate.abstractions.College;
+import edu.csupomona.cs.cs356.classmate.abstractions.Course;
+import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import edu.csupomona.cs.cs356.classmate.abstractions.Term;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -72,9 +76,10 @@ public class AddClassActivity extends Activity {
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
+							t = new Term(
+								  jObj.getString("term")
+							);
 
-							t = new Term();
-							t.term = jObj.getString("term");
 							terms.add(t);
 						}
 					} catch (JSONException e) {
@@ -105,9 +110,8 @@ public class AddClassActivity extends Activity {
 		});
 
 		RequestParams params = new RequestParams();
-		params.put("term", t.term);
+		params.put("term", t.getTerm());
 
-		// TODO Computer Science (CS) on list
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getmajors.php", params, new AsyncHttpResponseHandler() {
 			@Override
@@ -120,10 +124,11 @@ public class AddClassActivity extends Activity {
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
+							c = new College(
+								jObj.getString("major_long"),
+								jObj.getString("major_short")
+							);
 
-							c = new College();
-							c.major_long = jObj.getString("major_long");
-							c.major_short = jObj.getString("major_short");
 							colleges.add(c);
 						}
 					} catch (JSONException e) {
@@ -156,7 +161,7 @@ public class AddClassActivity extends Activity {
 		});
 
 		RequestParams params = new RequestParams();
-		params.put("major", college.major_short);
+		params.put("major", college.getMajorShort());
 		params.put("distinct", "yes");
 
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -172,10 +177,11 @@ public class AddClassActivity extends Activity {
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
+							c = new Course(
+								college,
+								jObj.getString("class_num")
+							);
 
-							c = new Course();
-							c.college = college;
-							c.class_num = jObj.getString("class_num");
 							courses.add(c);
 						}
 					} catch (JSONException e) {
@@ -195,12 +201,12 @@ public class AddClassActivity extends Activity {
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
-		params.put("major", college.major_short);
+		params.put("major", college.getMajorShort());
 
 		if (course != null) {
 			params.put("class_num", course.class_num);
 		} else {
-			params.put("term", term.term);
+			params.put("term", term.getTerm());
 		}
 
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -217,23 +223,24 @@ public class AddClassActivity extends Activity {
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
+							s = new Section(
+								jObj.getInt("class_id"),
+								jObj.getString("title"),
+								jObj.getString("time_start"),
+								jObj.getString("time_end"),
+								jObj.getString("weekdays"),
+								jObj.getString("date_start"),
+								jObj.getString("date_end"),
+								jObj.getString("instructor"),
+								jObj.getString("building"),
+								jObj.getString("room"),
+								jObj.getString("section"),
+								jObj.getString("major_short"),
+								jObj.getString("major_long"),
+								jObj.getString("class_num"),
+								jObj.getString("term")
+							);
 
-							s = new Section();
-							s.class_id = jObj.getInt("class_id");
-							s.title = jObj.getString("title");
-							s.time_start = jObj.getString("time_start");
-							s.time_end = jObj.getString("time_end");
-							s.weekdays = jObj.getString("weekdays");
-							s.date_start = jObj.getString("date_start");
-							s.date_end = jObj.getString("date_end");
-							s.instructor = jObj.getString("instructor");
-							s.building = jObj.getString("building");
-							s.room = jObj.getString("room");
-							s.section = jObj.getString("section");
-							s.major_short = jObj.getString("major_short");
-							s.major_long = jObj.getString("major_long");
-							s.class_num = jObj.getString("class_num");
-							s.term = jObj.getString("term");
 							schedule.add(s);
 						}
 					} catch (JSONException e) {

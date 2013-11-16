@@ -1,30 +1,39 @@
-package edu.csupomona.cs.cs356.classmate.fragments;
+package edu.csupomona.cs.cs356.classmate.abstractions;
 
 public class Section {
-	int class_id;
-	String title;
-	String time_start;
-	String time_end;
-	String weekdays;
-	String date_start;
-	String date_end;
-	String instructor;
-	String building;
-	String room;
-	String section;
-	String major_short;
-	String major_long;
-	String class_num;
-	String term;
+	private final int class_id;
+	private final String title;
+	private final String time_start;
+	private final String time_end;
+	private final String weekdays;
+	private final String date_start;
+	private final String date_end;
+	private final String instructor;
+	private final String building;
+	private final String room;
+	private final String section;
+	private final String major_short;
+	private final String major_long;
+	private final String class_num;
+	private final String term;
 
-	Section() {
-		//...
-	}
-
-	public Section(int class_id, String title, String time_start,
-			   String time_end, String weekdays, String date_start, String date_end,
-			   String instructor, String building, String room, String section,
-			   String major_short, String major_long, String class_num, String term) {
+	public Section(
+			int class_id,
+			String title,
+			String time_start,
+			String time_end,
+			String weekdays,
+			String date_start,
+			String date_end,
+			String instructor,
+			String building,
+			String room,
+			String section,
+			String major_short,
+			String major_long,
+			String class_num,
+			String term
+	) {
 		this.class_id = class_id;
 		this.title = title;
 		this.time_start = time_start;

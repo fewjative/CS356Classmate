@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
+import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;

@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
 import java.util.List;
 
 public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
@@ -41,7 +42,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Friend r = getItem(position);
+		Friend f = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 
@@ -55,7 +56,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 			tvItemTextUsername.setSelected(true);
 
-			btnSendRequest.setTag(r);
+			btnSendRequest.setTag(f);
 			btnSendRequest.setOnClickListener(this);
 		}
 
@@ -64,15 +65,15 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 			holder = (ViewHolder)tag;
 		}
 
-		if (r != null && holder != null) {
+		if (f != null && holder != null) {
 			if (holder.tvItemTextUsername != null) {
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-				SpannableString username = new SpannableString(r.username);
+				SpannableString username = new SpannableString(f.getUsername());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 
-				SpannableString email = new SpannableString(String.format(" (%s)", r.emailAddress));
+				SpannableString email = new SpannableString(String.format(" (%s)", f.getEmail()));
 				email.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, email.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(email);
 
@@ -81,7 +82,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 			if (holder.avatar != null) {
 				holder.avatar.setVisibility(View.VISIBLE);
-				holder.avatar.setImageResource(r.avatar);
+				holder.avatar.setImageResource(f.getAvatar());
 			}
 		}
 
@@ -97,21 +98,21 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 		}
 	}
 
-	public void sendRequest(final Friend r) {
+	public void sendRequest(final Friend f) {
 		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		RequestParams params = new RequestParams();
 		params.put("email", emailAddress);
-		params.put("friend", r.emailAddress);
+		params.put("friend", f.getEmail());
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/addfriend.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				remove(r);
+				remove(f);
 				AlertDialog d = new AlertDialog.Builder(getContext()).create();
 				d.setTitle("Request Sent");
-				d.setMessage(String.format("A request has been dispatched to %s.", r.username));
+				d.setMessage(String.format("A request has been dispatched to %s.", f.getUsername()));
 				d.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getString(R.string.okay), new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
@@ -123,7 +124,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 		});
 	}
 
-	public void removeFriend(final Friend r) {
+	public void removeFriend(final Friend f) {
 		AlertDialog d = new AlertDialog.Builder(((FragmentActivity)getContext())).create();
 		d.setTitle(R.string.removeTitle);
 		d.setMessage(getContext().getResources().getString(R.string.removeConfirmation));
@@ -134,14 +135,14 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(r.getID()));
+				params.put("user_id", Integer.toString(f.getID()));
 				params.put("version", "1");
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						remove(r);
+						remove(f);
 					}
 
 				});
@@ -155,14 +156,14 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(r.getID()));
+				params.put("user_id", Integer.toString(f.getID()));
 				params.put("version", "2");
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						remove(r);
+						remove(f);
 					}
 				});
 			}
