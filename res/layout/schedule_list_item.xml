@@ -70,7 +70,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:visibility="gone"
-		android:background="@color/gray"
+		android:background="@color/white"
 	>
 		<TextView
 			android:id="@+id/tvClassTime"
