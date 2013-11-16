@@ -31,13 +31,13 @@ public class ManageGroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_group_activity);
 
-		final Group g = (Group)getIntent().getSerializableExtra(INTENT_KEY_GROUP);
+		final Group g = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);
 		btnAddMember.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent i = new Intent(getIntent());
-				i.setClass(ManageGroupActivity.this, AddMemberActivity.class);
+				Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
+				i.putExtra(INTENT_KEY_GROUP, g);
 				startActivity(i);
 			}
 		});

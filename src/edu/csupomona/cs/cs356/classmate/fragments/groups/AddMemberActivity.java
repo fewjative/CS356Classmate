@@ -31,7 +31,7 @@ public class AddMemberActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_member_activity);
 
-		final Group g = (Group)getIntent().getSerializableExtra(INTENT_KEY_GROUP);
+		final Group g = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
 		lvSearchResults = (ListView)findViewById(R.id.lvSearchResults);
