@@ -1,6 +1,5 @@
 package edu.csupomona.cs.cs356.classmate.fragments.groups;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +18,7 @@ import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Group;
 import static edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment.INTENT_KEY_GROUP;
+import static edu.csupomona.cs.cs356.classmate.fragments.groups.MyGroupsTab.CODE_MANAGE_GROUP;
 import java.util.List;
 
 public class MyGroupsListAdapter extends ArrayAdapter<Group> implements View.OnClickListener {
@@ -87,10 +87,10 @@ public class MyGroupsListAdapter extends ArrayAdapter<Group> implements View.OnC
 		}
 	}
 
-	public void viewDetails(final Group g) {
-		Intent i = new Intent((Activity)getContext(), ManageGroupActivity.class);
+	public void viewDetails(Group g) {
+		Intent i = new Intent(((FragmentActivity)getContext()), ManageGroupActivity.class);
 		i.putExtra(INTENT_KEY_GROUP, g);
-		((Activity)getContext()).startActivity(i);
+		((FragmentActivity)getContext()).startActivityForResult(i, CODE_MANAGE_GROUP);
 	}
 
 	public void removeGroup(final Group g) {

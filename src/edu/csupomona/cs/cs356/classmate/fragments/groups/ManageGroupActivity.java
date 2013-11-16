@@ -22,6 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ManageGroupActivity extends Activity {
+	public static final int CODE_ADD_FRIEND = 19815;
+
+	private Group group;
+
 	private TextView tvGroupName;
 	private ListView lvGroupMembers;
 	private LinearLayout llProgressBar;
@@ -31,27 +35,30 @@ public class ManageGroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_group_activity);
 
-		final Group g = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
+		group = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);
 		btnAddMember.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
-				i.putExtra(INTENT_KEY_GROUP, g);
-				startActivity(i);
+				i.putExtra(INTENT_KEY_GROUP, group);
+				startActivityForResult(i, CODE_ADD_FRIEND);
 			}
 		});
 
 		tvGroupName = (TextView)findViewById(R.id.tvGroupName);
-		tvGroupName.setText(g.getTitle());
+		tvGroupName.setText(group.getTitle());
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
-		llProgressBar.setVisibility(View.VISIBLE);
 
 		lvGroupMembers = (ListView)findViewById(R.id.lvGroupMembers);
+	}
+
+	private void refreshMembers() {
+		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
-		params.put("group_id", Integer.toString(g.getID()));
+		params.put("group_id", Integer.toString(group.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getpeopleingroup.php", params, new AsyncHttpResponseHandler() {
@@ -75,12 +82,21 @@ public class ManageGroupActivity extends Activity {
 					}
 				}
 
-				g.setPeople(people);
+				group.setPeople(people);
 
-				ManageGroupAdapter adapter = new ManageGroupAdapter(ManageGroupActivity.this, g);
+				ManageGroupAdapter adapter = new ManageGroupAdapter(ManageGroupActivity.this, group);
 				lvGroupMembers.setAdapter(adapter);
 				llProgressBar.setVisibility(View.GONE);
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case CODE_ADD_FRIEND:
+				refreshMembers();
+				break;
+		}
 	}
 }

@@ -27,13 +27,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyGroupsTab extends Fragment {
+	public static final int CODE_MANAGE_GROUP = 189546;
+
+	private ViewGroup root;
+	private String email;
+
 	private LinearLayout llProgressBar;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View root = (ViewGroup)inflater.inflate(R.layout.tab_groups_list, null);
-
-		final String email = getActivity().getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
+		root = (ViewGroup)inflater.inflate(R.layout.tab_groups_list, null);
+		email = getActivity().getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
 
 		Button btnCreateGroup = (Button)root.findViewById(R.id.btnCreateGroup);
 		btnCreateGroup.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +68,45 @@ public class MyGroupsTab extends Fragment {
 		});
 
 		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
+		refreshGroups();
+
+		return root;
+	}
+
+	private void createGroup(final String groupName, final String email) {
+		RequestParams params = new RequestParams();
+		params.put("title", groupName);
+		params.put("email", email);
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get("http://www.lol-fc.com/classmate/creategroup.php", params, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				if (response.compareTo("0") == 0) {
+					AlertDialog.Builder d = new AlertDialog.Builder(getActivity());
+					d.setTitle("Group Exists");
+					d.setMessage("There is already a group with this name.");
+					d.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+
+					d.show();
+				} else {
+					Intent i = new Intent(getActivity(), ManageGroupActivity.class);
+					i.putExtra(INTENT_KEY_GROUP, new Group(
+						  Integer.parseInt(response),
+						  groupName
+					));
+
+					startActivityForResult(i, CODE_MANAGE_GROUP);
+				}
+			}
+		});
+	}
+
+	private void refreshGroups() {
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
@@ -102,40 +145,14 @@ public class MyGroupsTab extends Fragment {
 				llProgressBar.setVisibility(View.GONE);
 			}
 		});
-
-		return root;
 	}
 
-	private void createGroup(final String groupName, final String email) {
-		RequestParams params = new RequestParams();
-		params.put("title", groupName);
-		params.put("email", email);
-
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/creategroup.php", params, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(String response) {
-				if (response.compareTo("0") == 0) {
-					AlertDialog.Builder d = new AlertDialog.Builder(getActivity());
-					d.setTitle("Group Exists");
-					d.setMessage("There is already a group with this name.");
-					d.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
-
-					d.show();
-				} else {
-					Intent i = new Intent(getActivity(), ManageGroupActivity.class);
-					i.putExtra(INTENT_KEY_GROUP, new Group(
-						  Integer.parseInt(response),
-						  groupName
-					));
-
-					startActivity(i);
-				}
-			}
-		});
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case CODE_MANAGE_GROUP:
+				refreshGroups();
+				break;
+		}
 	}
 }

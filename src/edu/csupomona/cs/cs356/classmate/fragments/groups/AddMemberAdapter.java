@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments.groups;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -31,12 +32,12 @@ public class AddMemberAdapter extends ArrayAdapter<Friend> implements View.OnCli
 	private static class ViewHolder {
 		final ImageView avatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnSendRequest;
+		final ImageButton btnAddToGroup;
 
-		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnSendRequest) {
+		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAddToGroup) {
 			this.avatar = avatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnSendRequest = btnSendRequest;
+			this.btnAddToGroup = btnAddToGroup;
 		}
 	}
 
@@ -51,13 +52,13 @@ public class AddMemberAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnSendRequest = (ImageButton)view.findViewById(R.id.btnSendRequest);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnSendRequest));
+			ImageButton btnAddToGroup = (ImageButton)view.findViewById(R.id.btnSendRequest);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAddToGroup));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnSendRequest.setTag(f);
-			btnSendRequest.setOnClickListener(this);
+			btnAddToGroup.setTag(f);
+			btnAddToGroup.setOnClickListener(this);
 		}
 
 		Object tag = view.getTag();
@@ -108,7 +109,7 @@ public class AddMemberAdapter extends ArrayAdapter<Friend> implements View.OnCli
 			@Override
 			public void onSuccess(String response) {
 				remove(f);
-				group.getPeople().add(f);
+				((Activity)getContext()).finish();
 			}
 		});
 	}
