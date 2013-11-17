@@ -117,9 +117,10 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="1"
+		android:layout_weight="0.34"
 		android:orientation="vertical"
-		android:background="@color/cppgreen"
+		android:background="@color/cppgreen_darker"
+		android:padding="5dp"
 	>
 		<TextView
 			style="@style/ClassmateTextView"
@@ -166,6 +167,68 @@
 
 		<ListView
 			android:id="@+id/lvFriendsList"
+			android:background="@android:color/transparent"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:divider="@color/gray"
+			android:dividerHeight="2dp"
+			android:animateLayoutChanges="true"
+		/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.66"
+		android:orientation="vertical"
+		android:background="@color/cppgreen_darker"
+		android:padding="5dp"
+	>
+		<TextView
+			style="@style/ClassmateTextView"
+			android:text="Reviews:"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textStyle="bold"
+		/>
+
+		<LinearLayout
+			android:id="@+id/llEmptyListReviews"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:text="There are no reviews for this course yet."
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llProgressBarReviews"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<ProgressBar
+				style="Widget.ProgressBar.Large.Inverse"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			>
+			</ProgressBar>
+		</LinearLayout>
+
+		<ListView
+			android:id="@+id/lvReviewList"
 			android:background="@android:color/transparent"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

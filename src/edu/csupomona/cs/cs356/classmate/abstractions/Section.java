@@ -133,6 +133,11 @@ public class Section implements Parcelable {
 		return room;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s %s Section %s", major_short, class_num, section);
+	}
+
 	private Section(Parcel in) {
 		this.class_id = in.readInt();
 		this.title = in.readString();

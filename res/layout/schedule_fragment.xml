@@ -89,6 +89,8 @@
 				android:layout_height="0dp"
 				android:layout_weight="1"
 				android:background="@color/cppgreen_darker"
+				android:divider="@color/gray"
+				android:dividerHeight="1dp"
 			>
 			</ListView>
 			<Button

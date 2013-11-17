@@ -1,8 +1,9 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
-import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import android.app.Activity;
 import static android.app.Activity.RESULT_OK;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
+import static edu.csupomona.cs.cs356.classmate.LoginActivity.INTENT_KEY_USERID;
 import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.cs.cs356.classmate.SectionDetailsActivity;
+import static edu.csupomona.cs.cs356.classmate.SectionDetailsActivity.INTENT_KEY_SECTION;
+import edu.csupomona.cs.cs356.classmate.abstractions.Section;
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener {
@@ -28,14 +33,16 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		final TextView tvClassTime;
 		final TextView tvClassLecturer;
 		final Button btnAddClass;
+		final Button btnViewSectionDetails;
 
-		ViewHolder(TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnAddClass) {
+		ViewHolder(TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnAddClass, Button btnViewSectionDetails) {
 			this.tvClassNumber = tvClassNumber;
 			this.tvClassTitle = tvClassTitle;
 			this.tvClassDays = tvClassDays;
 			this.tvClassTime = tvClassTime;
 			this.tvClassLecturer = tvClassLecturer;
 			this.btnAddClass = btnAddClass;
+			this.btnViewSectionDetails = btnViewSectionDetails;
 		}
 	}
 
@@ -54,13 +61,18 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			Button btnAddClass = (Button)view.findViewById(R.id.btnRemoveClass);
-			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnAddClass));
+			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
+			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnAddClass, btnViewSectionDetails));
 
 			tvClassTitle.setSelected(true);
 
 			btnAddClass.setTag(s);
 			btnAddClass.setOnClickListener(this);
 			btnAddClass.setText("Add Class");
+
+			btnViewSectionDetails.setVisibility(View.VISIBLE);
+			btnViewSectionDetails.setTag(s);
+			btnViewSectionDetails.setOnClickListener(this);
 		}
 
 		Object tag = view.getTag();
@@ -99,7 +111,17 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 			case R.id.btnRemoveClass:
 				addClass(s);
 				break;
+			case R.id.btnViewSectionDetails:
+				viewSectionDetails(s);
+				break;
 		}
+	}
+
+	private void viewSectionDetails(final Section s) {
+		Intent i = new Intent(((Activity)getContext()), SectionDetailsActivity.class);
+		i.putExtra(INTENT_KEY_SECTION, s);
+		i.putExtra(INTENT_KEY_USERID, ((Activity)getContext()).getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER));
+		((Activity)getContext()).startActivity(i);
 	}
 
 	public void addClass(final Section s) {

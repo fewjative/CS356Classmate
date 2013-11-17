@@ -1,8 +1,10 @@
 package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,7 +14,9 @@ import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import static edu.csupomona.cs.cs356.classmate.LoginActivity.INTENT_KEY_USERID;
 import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
+import edu.csupomona.cs.cs356.classmate.abstractions.Review;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import edu.csupomona.cs.cs356.classmate.fragments.ReviewAdapter;
 import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendListAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,8 @@ public class SectionDetailsActivity extends Activity {
 
 	private LinearLayout llProgressBar;
 
+	private LinearLayout llProgressBarReviews;
+
 	private int id;
 	private Section section;
 
@@ -36,8 +42,10 @@ public class SectionDetailsActivity extends Activity {
 		id = getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
 
+		getActionBar().setTitle(String.format("%s Class Details", section.toString()));
+
 		TextView tvCourseNum = (TextView)findViewById(R.id.tvCourseNum);
-		tvCourseNum.setText(String.format("%s %s Section %s", section.getMajorShort(), section.getClassNum(), section.getSection()));
+		tvCourseNum.setText(section.toString());
 
 		TextView tvCourseTitle = (TextView)findViewById(R.id.tvCourseTitle);
 		tvCourseTitle.setText(section.getTitle());
@@ -93,6 +101,62 @@ public class SectionDetailsActivity extends Activity {
 				}
 
 				llProgressBar.setVisibility(View.GONE);
+			}
+		});
+
+		llProgressBarReviews = (LinearLayout)findViewById(R.id.llProgressBar);
+		llProgressBarReviews.setVisibility(View.VISIBLE);
+
+		params = new RequestParams();
+		params.put("class_id", Integer.toString(section.getClassID()));
+
+		client = new AsyncHttpClient();
+		client.get("http://www.lol-fc.com/classmate/getreviews.php", params, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				List<Review> reviews = new ArrayList<Review>();
+				if (1 < response.length()) {
+					try {
+						JSONObject jObj;
+						JSONArray myjsonarray = new JSONArray(response);
+						for (int i = 0; i < myjsonarray.length(); i++) {
+							jObj = myjsonarray.getJSONObject(i);
+							reviews.add(new Review(
+								jObj.getInt("review_id"),
+								jObj.getString("username"),
+								jObj.getInt("class_id"),
+								jObj.getString("title"),
+								jObj.getString("review_text"),
+								jObj.getInt("review_rating"),
+								jObj.getString("date")
+							));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+
+				ReviewAdapter adapter = new ReviewAdapter(SectionDetailsActivity.this, reviews);
+				ListView lvReviewList = (ListView)findViewById(R.id.lvReviewList);
+				lvReviewList.setOnItemClickListener(new ListView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						TextView tvReview = (TextView)view.findViewById(R.id.tvReview);
+						AlertDialog b = new AlertDialog.Builder(SectionDetailsActivity.this).create();
+						b.setMessage(tvReview.getText());
+						b.setCanceledOnTouchOutside(true);
+						b.show();
+					}
+				});
+
+				if (adapter.isEmpty()) {
+					LinearLayout llEmptyListReviews = (LinearLayout)findViewById(R.id.llEmptyListReviews);
+					llEmptyListReviews.setVisibility(View.VISIBLE);
+				} else {
+					lvReviewList.setAdapter(adapter);
+				}
+
+				llProgressBarReviews.setVisibility(View.GONE);
 			}
 		});
 	}
