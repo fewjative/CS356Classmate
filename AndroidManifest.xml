@@ -74,5 +74,11 @@
 			android:label="Class Details"
 		>
 		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.SectionReviewActivity"
+			android:label="Review"
+		>
+		</activity>
 	</application>
 </manifest>

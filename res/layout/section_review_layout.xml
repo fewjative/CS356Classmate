@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/cppgreen"
+	android:orientation="vertical"
+	android:gravity="center_horizontal"
+>
+	<RatingBar
+		android:id="@+id/rbRating"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:numStars="5"
+	/>
+
+	<TextView
+		style="@style/ClassmateTextView"
+		android:text="Title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:labelFor="@+id/etTitle"
+	/>
+
+	<EditText
+		style="@style/ClassmateEditText"
+		android:id="@+id/etTitle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+	/>
+
+	<TextView
+		style="@style/ClassmateTextView"
+		android:text="Review"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:labelFor="@+id/etReview"
+	/>
+
+	<EditText
+		style="@style/ClassmateEditText"
+		android:id="@+id/etReview"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:singleLine="false"
+	/>
+
+	<Button
+		style="@style/ClassmateButton"
+		android:id="@+id/btnSubmitReview"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Submit"
+	/>
+</LinearLayout>

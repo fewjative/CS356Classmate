@@ -237,4 +237,15 @@
 			android:animateLayoutChanges="true"
 		/>
 	</LinearLayout>
+	
+	<Button
+		style="@style/ClassmateButton"
+		android:id="@+id/btnCreateReview"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Review Class"
+		android:textColor="@color/black"
+		android:layout_marginTop="0dp"
+		android:visibility="gone"
+	/>
 </LinearLayout>
