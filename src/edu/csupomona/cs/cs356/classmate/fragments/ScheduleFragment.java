@@ -30,13 +30,34 @@ public class ScheduleFragment extends Fragment {
 
 	private ViewGroup root;
 	private LinearLayout llAddClass;
+	private LinearLayout llNoClass;
 	private LinearLayout llSchedule;
+	
+	private boolean outside_source=false;
+	private final int friend_id;
+	
+	public ScheduleFragment(int user_id)
+	{
+		outside_source = true;
+		friend_id = user_id;
+	}
+	
+	public ScheduleFragment()
+	{
+		friend_id = 0;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
 
-		final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+		final int id;
+		if(outside_source)
+		{
+			id = friend_id;
+		}
+		else
+			id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
@@ -58,22 +79,37 @@ public class ScheduleFragment extends Fragment {
 				}
 
 				if (numClasses == 0) {
-					llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
-					llAddClass.setVisibility(View.VISIBLE);
-
-					ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
-					btnAddClass.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-							Intent i = new Intent(getActivity(), AddClassActivity.class);
-							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-							startActivityForResult(i, CODE_ADD_CLASS);
-						}
-					});
+					
+					if(outside_source)
+					{
+						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
+						llNoClass.setVisibility(View.VISIBLE);
+					}
+					else
+					{
+						llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
+						llAddClass.setVisibility(View.VISIBLE);
+	
+						ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
+						btnAddClass.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View v) {
+								Intent i = new Intent(getActivity(), AddClassActivity.class);
+								i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+								startActivityForResult(i, CODE_ADD_CLASS);
+							}
+						});
+					}
 				} else {
 					llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
 					llSchedule.setVisibility(View.VISIBLE);
 
 					Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
+					
+					if(outside_source)
+					{
+						btnAddClass2.setVisibility(View.GONE);
+					}
+					
 					btnAddClass2.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
 							Intent i = new Intent(getActivity(), AddClassActivity.class);
@@ -138,7 +174,16 @@ public class ScheduleFragment extends Fragment {
 			}
 		}
 
-		ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), schedule);
+		ScheduleAdapter adapter;
+		
+		if(outside_source)
+		{
+			adapter = new ScheduleAdapter(getActivity(), schedule, outside_source);
+		}
+		else
+			adapter = new ScheduleAdapter(getActivity(), schedule);
+
+		
 		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
 		lvSchedule.setAdapter(adapter);
 		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {

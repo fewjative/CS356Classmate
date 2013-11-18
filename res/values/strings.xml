@@ -1,74 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!--Globals-->
-	<string name="ClassmateAppName">Classmate</string>
-	<string name="okay">Okay</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="cancel">Cancel</string>
-	<string name="search">Search</string>
-	<string name="author">Written by the Scrum Dogs</string>
+        <!--Globals-->
+        <string name="ClassmateAppName">Classmate</string>
+        <string name="okay">Okay</string>
+        <string name="yes">Yes</string>
+        <string name="no">No</string>
+        <string name="cancel">Cancel</string>
+        <string name="search">Search</string>
+        <string name="author">Written by the Scrum Dogs</string>
 
-	<!--Login Activity-->
-	<string name="login">Login</string>
-	<string name="username">Username</string>
-	<string name="usernameExample">John</string>
-	<string name="email">Email Address</string>
-	<string name="emailExample">johndoe@csupomona.edu</string>
-	<string name="password">Password</string>
-	<string name="passwordExample">password</string>
-	<string name="stayloggedin">Stay signed in</string>
-	<string name="loginLoading">Verifying user credentials.</string>
-	<string name="loginError">Sorry, either your username or password is incorrect.</string>
-	<string name="loginErrorTitle">Login Problem</string>
-	<string name="welcomeBack">Welcome back!</string>
+        <!--Login Activity-->
+        <string name="login">Login</string>
+        <string name="username">Username</string>
+        <string name="usernameExample">John</string>
+        <string name="email">Email Address</string>
+        <string name="emailExample">johndoe@csupomona.edu</string>
+        <string name="password">Password</string>
+        <string name="passwordExample">password</string>
+        <string name="stayloggedin">Stay signed in</string>
+        <string name="loginLoading">Verifying user credentials.</string>
+        <string name="loginError">Sorry, either your username or password is incorrect.</string>
+        <string name="loginErrorTitle">Login Problem</string>
+        <string name="welcomeBack">Welcome back!</string>
 
-	<!--Logout Activity-->
-	<string name="logout">Logout</string>
-	<string name="logoutConfirmationTitle">Logout?</string>
-	<string name="logoutConfirmation">Are you sure you want to log out?</string>
+        <!--Logout Activity-->
+        <string name="logout">Logout</string>
+        <string name="logoutConfirmationTitle">Logout?</string>
+        <string name="logoutConfirmation">Are you sure you want to log out?</string>
 
-	<!--Recovery Activity-->
-	<string name="recover">Forgot Password</string>
-	<string name="recoverSent">An email has been sent to you with your password.</string>
-	<string name="recoverError">We are sorry, we could not find that email.</string>
+        <!--Recovery Activity-->
+        <string name="recover">Forgot Password</string>
+        <string name="recoverSent">An email has been sent to you with your password.</string>
+        <string name="recoverError">We are sorry, we could not find that email.</string>
 
-	<!--Registration Activity-->
-	<string name="register">Register</string>
-	<string name="confirmpassword">Confirm Password</string>
-	<string name="passwordsmatch">Passwords Match</string>
-	<string name="passwordsdonotmatch">Passwords Do NOT Match</string>
-	<string name="registerErrorTitle">Registration Problem</string>
-	<string name="registerError">We are sorry, that email is already registered.</string>
-	<string name="registerLoading">Creating your new account.</string>
+        <!--Registration Activity-->
+        <string name="register">Register</string>
+        <string name="confirmpassword">Confirm Password</string>
+        <string name="passwordsmatch">Passwords Match</string>
+        <string name="passwordsdonotmatch">Passwords Do NOT Match</string>
+        <string name="registerErrorTitle">Registration Problem</string>
+        <string name="registerError">We are sorry, that email is already registered.</string>
+        <string name="registerLoading">Creating your new account.</string>
 
-	<!--Navigation Drawer-->
-	<string name="drawerOpen">Open Menu</string>
-	<string name="drawerClose">Close Menu</string>
+        <!--Navigation Drawer-->
+        <string name="drawerOpen">Open Menu</string>
+        <string name="drawerClose">Close Menu</string>
 
-	<string name="user_menu_header">Social</string>
-	<string name="user_menu_friends">Friends</string>
-	<string name="user_menu_groups">Groups</string>
+        <string name="user_menu_header">Social</string>
+        <string name="user_menu_friends">Friends</string>
+        <string name="user_menu_groups">Groups</string>
 
-	<string name="schedule_menu_header">Schedule</string>
-	<string name="schedule_menu_today">Today</string>
-	<string name="schedule_menu_schedule">Full Schedule</string>
+        <string name="schedule_menu_header">Schedule</string>
+        <string name="schedule_menu_today">Today</string>
+        <string name="schedule_menu_schedule">Full Schedule</string>
 
-	<string name="app_menu_header">Application</string>
-	<string name="app_menu_settings">Settings</string>
-	<string name="app_menu_logout">Logout</string>
+        <string name="app_menu_header">Application</string>
+        <string name="app_menu_settings">Settings</string>
+        <string name="app_menu_logout">Logout</string>
 
-	<!--Friend Management-->
-	<string name="addFriend">Send Friend Request</string>
-	<string name="addAFriend">Add a friend</string>
-	<string name="addFriendHint">Enter your friends email address or username</string>
+        <!--Friend Management-->
+        <string name="addFriend">Send Friend Request</string>
+        <string name="addAFriend">Add a friend</string>
+        <string name="addFriendHint">Enter your friends email address or username</string>
 
-	<string name="addFriendErrorTitle">Could Not Add</string>
-	<string name="addFriendError">Either the friend is already in your friend list or you have entered in an incorrect email.</string>
+        <string name="addFriendErrorTitle">Could Not Add</string>
+        <string name="addFriendError">Either the friend is already in your friend list or you have entered in an incorrect email.</string>
 
-	<string name="addFriendSuccessTitle">Success!</string>
-	<string name="addFriendSuccess">A friend request has been sent to the user!</string>
+        <string name="addFriendSuccessTitle">Success!</string>
+        <string name="addFriendSuccess">A friend request has been sent to the user!</string>
 
-	<string name="removeTitle">Hold on a sec....</string>
-	<string name="removeConfirmation">Would you like to remove this friend from seeing your schedule? If so click \'yes\'. Otherwise clicking \'no\' will only remove the person from your friendlist.</string>
+        <string name="removeTitle">Hold on a sec....</string>
+        <string name="removeConfirmation">Would you like to remove this friend from seeing your schedule? If so click \'yes\'. Otherwise clicking \'no\' will only remove the person from your friendlist.</string>
+        <string name="oldPass">Old Password</string>
+        <string name="newPass">New Password</string>
+        <string name="changePass">Change Password</string>
+        <string name="changePassLoading">Changing Your Password</string>
 </resources>

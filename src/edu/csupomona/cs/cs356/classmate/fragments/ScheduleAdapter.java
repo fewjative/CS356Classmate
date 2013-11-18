@@ -23,8 +23,16 @@ import static edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment.CODE_V
 import java.util.List;
 
 public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnClickListener {
+	private boolean outside_source = false;
+	
 	public ScheduleAdapter(Context context, List<Section> schedule) {
 		super(context, 0, schedule);
+	}
+	
+	public ScheduleAdapter(Context context, List<Section> schedule, boolean outside_source)
+	{
+		super(context,0,schedule);
+		this.outside_source = outside_source;
 	}
 
 	private static class ViewHolder {
@@ -52,6 +60,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		Section s = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
+		Button btnRemoveClass = null;
 
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
@@ -61,7 +70,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
-			Button btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
+			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
 			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
 
@@ -101,6 +110,9 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 				holder.tvClassLecturer.setText("Lecturer: " + s.getInstructor());
 			}
 		}
+		
+		if(outside_source && btnRemoveClass!=null)
+			btnRemoveClass.setVisibility(View.GONE);
 
 		return view;
 	}
