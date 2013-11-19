@@ -6,7 +6,7 @@ public class Review {
 	private final int class_id;
 	private final String title;
 	private final String review_text;
-	private final int review_rating;
+	private final float review_rating;
 	private final String date;
 
 	public Review(
@@ -15,7 +15,7 @@ public class Review {
 		int class_id,
 		String title,
 		String review_text,
-		int review_rating,
+		String review_rating,
 		String date
 	) {
 		this.review_id = review_id;
@@ -23,7 +23,7 @@ public class Review {
 		this.class_id = class_id;
 		this.title = title;
 		this.review_text = review_text;
-		this.review_rating = review_rating;
+		this.review_rating = Float.parseFloat(review_rating);
 		this.date = date;
 	}
 
@@ -47,7 +47,7 @@ public class Review {
 		return review_text;
 	}
 
-	public int getRating() {
+	public float getRating() {
 		return review_rating;
 	}
 
