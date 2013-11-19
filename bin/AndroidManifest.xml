@@ -50,11 +50,34 @@
 			android:label="@string/ClassmateAppName"
 		>
 		</activity>
-		<!--			android:configChanges="orientation"-->
 
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
 			android:label="Add Class"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity"
+			android:label="Manage Group"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.AddMemberActivity"
+			android:label="Add Friend"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"
+			android:label="Class Details"
+		>
+		</activity>
+
+		<activity
+			android:name="edu.csupomona.cs.cs356.classmate.SectionReviewActivity"
+			android:label="Review"
 		>
 		</activity>
 	</application>
