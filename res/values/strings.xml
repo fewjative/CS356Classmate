@@ -20,6 +20,8 @@
 	<string name="example_name">John</string>
 	<string name="example_password">password</string>
 
+	<string name="login_welcome_back">Hello %1$s, welcome back!</string>
+
 	<string name="dialog_login_load_title">Logging in</string>
 	<string name="dialog_login_load">Validating user authentication&#8230;</string>
 

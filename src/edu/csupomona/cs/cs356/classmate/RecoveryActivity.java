@@ -15,6 +15,7 @@ import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_EMAIL;
+import static edu.csupomona.cs.cs356.classmate.Constants.PHP_SUCCESS;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RecoveryActivity extends Activity implements View.OnClickListener {
@@ -79,8 +80,7 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 
 				boolean emailExists = false;
 				try {
-					int value = Integer.parseInt(result);
-					emailExists = value == 2;
+					emailExists = Integer.parseInt(result) == PHP_SUCCESS;
 				} catch (NumberFormatException e) {
 					emailExists = false;
 				} finally {

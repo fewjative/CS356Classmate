@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -239,6 +240,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			SharedPreferences prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
 			email = prefs.getString(PREFS_KEY_EMAIL, null);
 			assert email != null;
+
+			String welcomeMessage = getString(R.string.login_welcome_back, name);
+			Toast.makeText(this, welcomeMessage, Toast.LENGTH_LONG).show();
 		}
 
 		Intent i = new Intent();

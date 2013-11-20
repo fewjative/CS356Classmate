@@ -3,7 +3,8 @@ package edu.csupomona.cs.cs356.classmate;
 public interface Constants {
 	int NO_USER = 0;
 
-	String PHP_BASE_ADDRESS = "http://www.lol-fc.com/classmate/";
+	int PHP_SUCCESS = 2;
+	String PHP_BASE_ADDRESS = "http://www.lol-fc.com/classmate/2/";
 
 	String PHP_PARAM_USERID		= "user_id";
 	String PHP_PARAM_NAME		= "username";
