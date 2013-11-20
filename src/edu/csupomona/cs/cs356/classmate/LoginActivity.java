@@ -167,7 +167,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 	private void attemptLogin(final String email, final String password) {
 		final ProgressDialog loadingDialog = new ProgressDialog(this);
-		loadingDialog.setTitle(getString(R.string.dialog_login_load_title));
+		//loadingDialog.setTitle(getString(R.string.dialog_login_load_title));
 		loadingDialog.setMessage(getString(R.string.dialog_login_load));
 		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		loadingDialog.setCancelable(true);

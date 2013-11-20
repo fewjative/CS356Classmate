@@ -110,7 +110,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 	private void registerAccount(final String email, final String password, final String name) {
 		final ProgressDialog loadingDialog = new ProgressDialog(this);
-		loadingDialog.setTitle(getString(R.string.dialog_register_load_title));
+		//loadingDialog.setTitle(getString(R.string.dialog_register_load_title));
 		loadingDialog.setMessage(getString(R.string.dialog_register_load));
 		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		loadingDialog.setCancelable(true);

@@ -2,6 +2,7 @@ package edu.csupomona.cs.cs356.classmate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,6 +57,13 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 	}
 
 	static void recoverAccount(final Activity parent, final String email) {
+		final ProgressDialog loadingDialog = new ProgressDialog(parent);
+		//loadingDialog.setTitle(parent.getString(R.string.dialog_login_load_title));
+		loadingDialog.setMessage(parent.getString(R.string.dialog_login_load));
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		loadingDialog.setCancelable(true);
+		loadingDialog.show();
+
 		RequestParams params = new RequestParams();
 		params.put(PHP_PARAM_EMAIL, email);
 
@@ -63,6 +71,12 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 		client.get(PHP_BASE_ADDRESS + "recover.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String result) {
+				if (!loadingDialog.isShowing()) {
+					return;
+				}
+
+				loadingDialog.dismiss();
+
 				boolean emailExists = false;
 				try {
 					int value = Integer.parseInt(result);
