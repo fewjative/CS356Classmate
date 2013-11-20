@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:baselineAligned="false"
+	android:background="@color/cppgreen"
+	android:padding="10dp"
+>
+	<TextView
+		style="@style/style_textview"
+		android:text="@string/email_address"
+		android:labelFor="@+id/etEmailAddress"
+	/>
+	<EditText
+		style="@style/style_edittext_email"
+		android:id="@+id/etEmailAddress"
+		android:layout_marginBottom="@dimen/login_component_spacing"
+	/>
+	<Button
+		style="@style/style_button"
+		android:id="@+id/btnRecover"
+		android:text="@string/recovery_action_recover"
+		android:textColor="@color/white"
+	/>
+</LinearLayout>

@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!--Globals-->
+	<string name="global_classmate">Classmate</string>
+	<string name="global_authors">Created by The Scrum Dogs</string>
+	<string name="global_action_okay">Okay</string>
+	<string name="global_action_cancel">Cancel</string>
 
+	<!--Login Activity-->
+	<string name="email_address">Email Address</string>
+	<string name="person_name">Name</string>
+	<string name="password">Password</string>
+	<string name="autologin">Stay signed in</string>
+
+	<string name="login_action_login">Login</string>
+	<string name="login_action_recover_account">Forgot Password?</string>
+	<string name="login_action_register_account">Create an Account</string>
+
+	<string name="example_email">johndoe@csupomona.edu</string>
+	<string name="example_name">John</string>
+	<string name="example_password">password</string>
+
+	<string name="dialog_login_load_title">Logging in</string>
+	<string name="dialog_login_load">Validating user authentication&#8230;</string>
+
+	<string name="dialog_login_error_title">Login Failed</string>
+	<string name="dialog_login_error">Sorry, either your email or password was incorrect.</string>
+
+	<!--Recovery Activity-->
+	<string name="recovery_action_recover">Recover Password</string>
+
+	<string name="dialog_recovery_load_title">Contacting Server</string>
+	<string name="dialog_recovery_load">Trying to send you an email with your password&#8230;</string>
+
+	<string name="dialog_recovery_success_title">Email Sent</string>
+	<string name="dialog_recovery_success">We have sent you an email containing your password.</string>
+
+	<string name="dialog_recovery_error_title">Recovery Failed</string>
+	<string name="dialog_recovery_error">Sorry, we do not have any accounts with that email.</string>
+
+	<!--Registration Activity-->
+	<string name="registration_action_register">Create Account</string>
+	<string name="registration_action_forgot_password">Forgot Password</string>
+
+	<string name="confirm_password">Confirm Password</string>
+
+	<string name="passwords_match">Passwords Match</string>
+	<string name="passwords_do_not_match">Passwords Do NOT Match</string>
+
+	<string name="dialog_register_load_title">Contacting Server</string>
+	<string name="dialog_register_load">Attempting to register your new account&#8230;</string>
+
+	<string name="dialog_register_error_title">Registration Failed</string>
+	<string name="dialog_register_error">We are sorry, there is already an account with that email. Did you forget your password?</string>
 </resources>
