@@ -38,10 +38,13 @@ import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_KEY_AUTOLOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_KEY_EMAIL;
 import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_WHICH;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
+	private SharedPreferences prefs;
+
 	private EditText etEmailAddress;
 	private EditText etPassword;
 	private CheckBox cbAutoLogin;
@@ -52,7 +55,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity_layout);
 
-		SharedPreferences prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
+		prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
 		boolean bAutoLogin = prefs.getBoolean(PREFS_KEY_AUTOLOGIN, false);
 
 		btnLogin = (Button)findViewById(R.id.btnLogin);
@@ -101,10 +104,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	}
 
 	@Override
-	protected void onStop() {
-		SharedPreferences prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = prefs.edit();
+	protected void onPause() {
+		super.onPause();
 
+		SharedPreferences.Editor editor = prefs.edit();
 		String email = etEmailAddress.getText().toString();
 		if (!email.isEmpty()) {
 			editor.putString(PREFS_KEY_EMAIL, email);
@@ -112,7 +115,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 		editor.putBoolean(PREFS_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
 		editor.commit();
-		super.onStop();
 	}
 
 	@Override
@@ -184,7 +186,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(PHP_BASE_ADDRESS + "login.php", params, new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(JSONObject json) {
+			public void onSuccess(JSONArray jsona) {
 				if (!loadingDialog.isShowing()) {
 					return;
 				}
@@ -194,6 +196,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				int id = NO_USER;
 				String name = null;
 				try {
+					JSONObject json = jsona.getJSONObject(0);
 					id = json.getInt(PHP_PARAM_USERID);
 					name = json.getString(PHP_PARAM_NAME);
 				} catch (JSONException e) {
@@ -237,7 +240,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 		String email = etEmailAddress.getText().toString();
 		if (email.isEmpty()) {
-			SharedPreferences prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
 			email = prefs.getString(PREFS_KEY_EMAIL, null);
 			assert email != null;
 
@@ -245,7 +247,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			Toast.makeText(this, welcomeMessage, Toast.LENGTH_LONG).show();
 		}
 
-		Intent i = new Intent();
+		Intent i = new Intent(this, MainActivity.class);
 		i.putExtra(Constants.INTENT_KEY_USERID, id);
 		i.putExtra(Constants.INTENT_KEY_EMAIL, email);
 		i.putExtra(Constants.INTENT_KEY_NAME, name);

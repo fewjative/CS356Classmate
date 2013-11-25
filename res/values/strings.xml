@@ -5,6 +5,8 @@
 	<string name="global_authors">Created by The Scrum Dogs</string>
 	<string name="global_action_okay">Okay</string>
 	<string name="global_action_cancel">Cancel</string>
+	<string name="global_action_yes">Yes</string>
+	<string name="global_action_no">No</string>
 
 	<!--Login Activity-->
 	<string name="email_address">Email Address</string>
@@ -32,10 +34,10 @@
 	<string name="recovery_action_recover">Recover Password</string>
 
 	<string name="dialog_recovery_load_title">Contacting Server</string>
-	<string name="dialog_recovery_load">Trying to send you an email with your password&#8230;</string>
+	<string name="dialog_recovery_load">Trying to send you an email with your new password&#8230;</string>
 
 	<string name="dialog_recovery_success_title">Email Sent</string>
-	<string name="dialog_recovery_success">We have sent you an email containing your password.</string>
+	<string name="dialog_recovery_success">We have sent you an email containing your new password.</string>
 
 	<string name="dialog_recovery_error_title">Recovery Failed</string>
 	<string name="dialog_recovery_error">Sorry, we do not have any accounts with that email.</string>
@@ -54,4 +56,21 @@
 
 	<string name="dialog_register_error_title">Registration Failed</string>
 	<string name="dialog_register_error">We are sorry, there is already an account with that email. Did you forget your password?</string>
+
+	<!--Navigation Drawer-->
+	<string name="nd_schedule_header">Schedule</string>
+	<string name="nd_schedule_today">Today</string>
+	<string name="nd_schedule_full_schedule">Full Schedule</string>
+
+	<string name="nd_social_header">Social</string>
+	<string name="nd_social_friends">Friends</string>
+	<string name="nd_social_groups">Groups</string>
+
+	<string name="nd_app_header">Application</string>
+	<string name="nd_app_settings">Settings</string>
+	<string name="nd_app_logout">Logout</string>
+
+	<!--Logout-->
+	<string name="dialog_logout_title">Logout?</string>
+	<string name="dialog_logout">Are you sure you want to log out?</string>
 </resources>

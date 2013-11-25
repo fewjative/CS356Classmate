@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="36dp"
+	android:orientation="horizontal"
+	android:gravity="center_vertical"
+	android:paddingLeft="12dp"
+	android:paddingRight="12dp"
+>
+	<ImageView
+		android:scaleType="fitXY"
+		android:id="@+id/ivIcon"
+		android:layout_width="36dp"
+		android:layout_height="36dp"
+		android:layout_marginRight="6dp"
+	/>
+
+	<TextView
+		android:id="@+id/tvTitle"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:layout_weight="1"
+		android:minHeight="?android:attr/listPreferredItemHeightSmall"
+		android:textAppearance="?android:attr/textAppearanceListItemSmall"
+		android:textColor="@color/white_trans"
+	/>
+
+	<TextView
+		android:id="@+id/tvCounter"
+		android:layout_width="32dp"
+		android:layout_height="32dp"
+		android:background="@drawable/drawer_item_counter"
+		android:gravity="center"
+		android:minHeight="?android:attr/listPreferredItemHeightSmall"
+		android:padding="4dp"
+		android:textAppearance="?android:attr/textAppearanceListItemSmall"
+		android:textColor="@color/white_trans"
+		android:textSize="12sp"
+		android:textStyle="bold"
+	/>
+</LinearLayout>
