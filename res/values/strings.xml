@@ -49,6 +49,7 @@
         <string name="user_menu_header">Social</string>
         <string name="user_menu_friends">Friends</string>
         <string name="user_menu_groups">Groups</string>
+        <string name="user_menu_freetime">Freetime</string>
 
         <string name="schedule_menu_header">Schedule</string>
         <string name="schedule_menu_today">Today</string>

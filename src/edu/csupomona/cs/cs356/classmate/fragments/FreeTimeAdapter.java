@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragments.friends;
+package edu.csupomona.cs.cs356.classmate.fragments;
 
 import static edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment.INTENT_KEY_GROUP;
 import static edu.csupomona.cs.cs356.classmate.fragments.groups.MyGroupsTab.CODE_MANAGE_GROUP;
@@ -33,22 +33,21 @@ import edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity;
 
 import java.util.List;
 
-public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
-        public FriendListAdapter(Context context, List<Friend> friends) {
+public class FreeTimeAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
+        public FreeTimeAdapter(Context context, List<Friend> friends) {
                 super(context, 0, friends);
         }
 
         private static class ViewHolder {
                 final ImageView avatar;
                 final TextView tvItemTextUsername;
-                final ImageButton btnViewSchedule;
-                final ImageButton btnRemove;
+                final ImageButton btnCompare;
+ 
 
-                ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnViewSchedule, ImageButton btnRemove) {
+                ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnCompare) {
                         this.avatar = avatar;
                         this.tvItemTextUsername = tvItemTextUsername;
-                        this.btnViewSchedule = btnViewSchedule;
-                        this.btnRemove = btnRemove;
+                        this.btnCompare = btnCompare;
                 }
         }
 
@@ -59,21 +58,19 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
                 View view = convertView;
 
                 if (view == null) {
-                        view = LayoutInflater.from(getContext()).inflate(R.layout.tab_friends_list_list_item, null);
+                        view = LayoutInflater.from(getContext()).inflate(R.layout.freetime_list_list_item, null);
 
                         ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
                         TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-                        ImageButton btnViewSchedule = (ImageButton)view.findViewById(R.id.btnViewSchedule);
-                        ImageButton btnRemove = (ImageButton)view.findViewById(R.id.btnRemove);
-                        view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnViewSchedule, btnRemove));
+                        ImageButton btnCompare = (ImageButton)view.findViewById(R.id.btnCompare);
+                        view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnCompare));
 
                         tvItemTextUsername.setSelected(true);
 
-                        btnViewSchedule.setTag(f);
-                        btnViewSchedule.setOnClickListener(this);
+                        btnCompare.setTag(f);
+                        btnCompare.setOnClickListener(this);
 
-                        btnRemove.setTag(f);
-                        btnRemove.setOnClickListener(this);
+                 
                 }
 
                 Object tag = view.getTag();
@@ -108,26 +105,21 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
         public void onClick(View v) {
                 Friend r = (Friend)v.getTag();
                 switch (v.getId()) {
-                        case R.id.btnViewSchedule:
-                                viewSchedule(r);
-                                break;
-                        case R.id.btnRemove:
-                                removeFriend(r);
+                        case R.id.btnCompare:
+                                compareSchedule(r);
                                 break;
                 }
         }
 
-        public void viewSchedule(final Friend f) {
+        public void compareSchedule(final Friend f) {
                 
                 if (getContext() instanceof FragmentActivity) {
                     // We can get the fragment manager
                         int id = f.getID();
-                        Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment(id);
+                        Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.FreeTimeScheduleFragment(id);
                     FragmentActivity activity = ((FragmentActivity)getContext());
                     FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
                     t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
-                    //2131165220
-                    //2131165207
                     t.addToBackStack(null);
 
                     t.commit();

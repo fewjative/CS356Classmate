@@ -125,7 +125,8 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		System.out.println(drawerContainerRes);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 

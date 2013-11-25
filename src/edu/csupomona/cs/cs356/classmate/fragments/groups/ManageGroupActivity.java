@@ -38,11 +38,21 @@ public class ManageGroupActivity extends Activity {
 		group = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);
+		Button btnEmailGroup = (Button)findViewById(R.id.btnEmailGroup);
+		
 		btnAddMember.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
 				i.putExtra(INTENT_KEY_GROUP, group);
 				startActivityForResult(i, CODE_ADD_FRIEND);
+			}
+		});
+		
+		btnEmailGroup.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(ManageGroupActivity.this, EmailGroupActivity.class);
+				i.putExtra(INTENT_KEY_GROUP, group);
+				startActivityForResult(i, 1);//what goes for the second parameter?
 			}
 		});
 
