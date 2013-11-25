@@ -68,12 +68,6 @@
 			android:label="Add Friend"
 		>
 		</activity>
-		
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.EmailGroupActivity"
-			android:label="Email Group"
-		>
-		</activity>
 
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"

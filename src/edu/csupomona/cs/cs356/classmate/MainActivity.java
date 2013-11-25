@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(name, icon, TodaysFragment.class);
 
 		name = getResources().getIdentifier("schedule_menu_schedule", "string", this.getPackageName());
-		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
+		icon = getResources().getIdentifier("ic_action_go_to_schedule", "drawable", this.getPackageName());
 		dlDrawer.addItem(name, icon, ScheduleFragment.class);
 
 		dlDrawer.addHeader(R.string.user_menu_header);
