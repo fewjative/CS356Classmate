@@ -64,6 +64,7 @@
                         />
                         
         </LinearLayout>
+        
 
         <LinearLayout
                 android:id="@+id/llFreeTime"
@@ -73,6 +74,17 @@
                 android:background="@color/cppgreen"
                 android:visibility="gone"
         >
+          
+                        
+         <TextView
+            android:id="@+id/tvDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/white"
+            android:text="You and your friend are free from:" 
+            android:gravity="center"/>
+         
                 <LinearLayout
                         android:id="@+id/llProgressBarClasses"
                         android:layout_width="match_parent"
@@ -106,4 +118,6 @@
                         </ListView>
                 </LinearLayout>
         </LinearLayout>
+
+
 </LinearLayout>
