@@ -17,7 +17,7 @@ public class Item extends DrawerListItem {
 	int iconResId;
 	int count;
 
-	boolean selected;
+	private boolean checked;
 
 	public Item(Class<? extends Fragment> fragment, String title) {
 		this(fragment, title, 0);
@@ -32,7 +32,7 @@ public class Item extends DrawerListItem {
 		this.fragment = fragment;
 		this.iconResId = iconResId;
 		this.count = count;
-		this.selected = false;
+		this.checked = false;
 		numItems++;
 	}
 
@@ -40,7 +40,7 @@ public class Item extends DrawerListItem {
 	View getView(Context c, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v != null) {
-			if (selected) {
+			if (checked) {
 				v.setBackgroundResource(R.color.cppgold_trans_darker);
 				TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
 				tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
@@ -73,7 +73,7 @@ public class Item extends DrawerListItem {
 			tvCounter.setVisibility(View.GONE);
 		}
 
-		if (selected) {
+		if (checked) {
 			v.setBackgroundResource(R.color.cppgold_trans_darker);
 			tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
 		} else {
@@ -82,5 +82,20 @@ public class Item extends DrawerListItem {
 		}
 
 		return v;
+	}
+
+	@Override
+	public boolean isChecked() {
+		return checked;
+	}
+
+	@Override
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	@Override
+	public void toggle() {
+		checked = !checked;
 	}
 }

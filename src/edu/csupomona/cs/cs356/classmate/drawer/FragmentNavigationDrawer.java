@@ -86,7 +86,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		}
 
 		if (selectedItem != null && selectedItemView != null && selectedItemView != v) {
-			selectedItem.selected = false;
+			selectedItem.setChecked(false);
 			View view = lvDrawer.getChildAt(selectedItemPosition);
 			selectedItemView = adapter.getView(selectedItemPosition, view, this);
 		}
@@ -95,7 +95,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 		boolean wasNull = (selectedItem == null);
 		selectedItem = (Item)adapter.getItem(selectedItemPosition);
-		selectedItem.selected = true;
+		selectedItem.setChecked(true);
 
 		//if (v == null) {
 		View view = lvDrawer.getChildAt(selectedItemPosition);
