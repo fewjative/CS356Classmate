@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import edu.csupomona.cs.cs356.classmate.R;
 
 public class FragmentNavigationDrawer extends DrawerLayout {
@@ -28,6 +27,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 	private Item selectedItem;
 	private View selectedItemView;
+	private int selectedItemPosition;
 
 	public FragmentNavigationDrawer(Context c, AttributeSet attrs, int defStyle) {
 		super(c, attrs, defStyle);
@@ -80,26 +80,30 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		selectItem(position, null);
 	}
 
-	// TODO first item is not selecting on list
 	public void selectItem(int position, View v) {
 		if (position < 0) {
 			return;
 		}
 
-		if (v == null) {
-			View view = lvDrawer.getChildAt(position);
-			v = adapter.getView(position, view, this);
+		if (selectedItem != null && selectedItemView != null && selectedItemView != v) {
+			selectedItem.selected = false;
+			View view = lvDrawer.getChildAt(selectedItemPosition);
+			selectedItemView = adapter.getView(selectedItemPosition, view, this);
 		}
 
-		if (selectedItemView != null && selectedItemView != v) {
-			unselect(selectedItemView);
-		}
-
-		selectedItemView = v;
-		select(selectedItemView);
+		selectedItemPosition = position;
 
 		boolean wasNull = (selectedItem == null);
-		selectedItem = (Item)adapter.getItem(position);
+		selectedItem = (Item)adapter.getItem(selectedItemPosition);
+		selectedItem.selected = true;
+
+		//if (v == null) {
+		View view = lvDrawer.getChildAt(selectedItemPosition);
+		v = adapter.getView(selectedItemPosition, view, this);
+		//}
+
+		selectedItemView = v;
+
 		if (selectedItem.title.contentEquals(getResources().getString(R.string.nd_app_logout))) {
 			attemptLogout();
 			return;
@@ -121,24 +125,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 				}
 			}
 		}
-	}
-
-	private void select(View v) {
-		select(getActivity(), v);
-	}
-
-	static void select(Context c, View v) {
-		v.setBackgroundResource(R.color.cppgold_trans_darker);
-
-		TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
-		tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
-	}
-
-	private void unselect(View v) {
-		v.setBackgroundResource(android.R.color.transparent);
-
-		TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
-		tvTitle.setTextColor(getResources().getColor(R.color.white_trans));
 	}
 
 	@Override
@@ -186,7 +172,8 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 	private class DrawerItemListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-			selectItem(position, v);
+			// TODO See if passing v will be more efficient
+			selectItem(position, null);
 		}
 	}
 

@@ -35,6 +35,6 @@ class DrawerAdapter extends ArrayAdapter<DrawerListItem> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return getItem(position).getView(getContext(), convertView);
+		return getItem(position).getView(getContext(), convertView, parent);
 	}
 }

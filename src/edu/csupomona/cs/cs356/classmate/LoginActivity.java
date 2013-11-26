@@ -98,7 +98,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		b.setOnClickListener(this);
 
 		String emailAddress = prefs.getString(PREFS_KEY_EMAIL, null);
-		if (bAutoLogin && emailAddress != null) {
+		if (savedInstanceState == null && bAutoLogin && emailAddress != null) {
 			attemptLogin(emailAddress, null);
 		}
 	}
