@@ -137,6 +137,10 @@ public class Section implements Parcelable {
 	public String toString() {
 		return String.format("%s %s Section %s", major_short, class_num, section);
 	}
+	
+	public String toString(int override) {
+		return String.format("%s %s %s",getFullTime(), major_short, class_num);
+	}
 
 	private Section(Parcel in) {
 		this.class_id = in.readInt();

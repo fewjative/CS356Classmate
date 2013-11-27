@@ -3,12 +3,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/widget_shape">
     
+    
+    
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:loopViews="true" />
+    
+     <!-- <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:text="Todays Classes:"
+       android:gravity="center"
+        android:textColor="#ffffff"
+        android:textStyle="bold" /> -->
+        
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
@@ -17,14 +29,10 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="Please login to see your schedule."
-        android:textSize="20sp" /> 
+        android:textSize="18sp" /> 
         
-    <!-- <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:text="Todays Classes:"
-       android:gravity="center"
-        android:textColor="#ffffff"
-        android:textStyle="bold" /> -->
+    
+
+
+
     </FrameLayout>

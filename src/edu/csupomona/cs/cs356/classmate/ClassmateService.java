@@ -98,7 +98,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
        // We construct a remote views item based on our widget item xml file, and set the
        // text based on the position.
        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
-       rv.setTextViewText(R.id.widget_item, classes.get(position).toString());
+       rv.setTextViewText(R.id.widget_item, classes.get(position).toString(1));
 
        // Next, we set a fill-intent which will be used to fill-in the pending intent template
        // which is set on the collection view in StackWidgetProvider.
