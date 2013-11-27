@@ -24,6 +24,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,6 +165,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			SharedPreferences preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
 			emailAddress = preferences.getString(PREFS_KEY_EMAIL, null);
 		}
+		Intent widgetIntent = new Intent(ClassmateProvider.UPDATE_ID);
+		widgetIntent.putExtra(INTENT_KEY_USERID, id);
+		sendBroadcast(widgetIntent);
+		System.out.println("Should have broadcasted id " + id);
 
 		Intent i = new Intent(this, MainActivity.class);
 		i.putExtra(INTENT_KEY_USERID, id);
