@@ -125,7 +125,8 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
                         Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment(id);
                     FragmentActivity activity = ((FragmentActivity)getContext());
                     FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
-                    t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
+                    t.replace(R.id.flContentFrame, newFragment);//wtf is the first parameter supposed to be
+                   // t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
                     //2131165220
                     //2131165207
                     t.addToBackStack(null);

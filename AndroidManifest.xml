@@ -1,97 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="edu.csupomona.cs.cs356.classmate"
-	android:versionCode="1"
-	android:versionName="1.0"
+        package="edu.csupomona.cs.cs356.classmate"
+        android:versionCode="1"
+        android:versionName="1.0"
 >
-	<!-- SDK Specifications -->
-	<uses-sdk
-		android:minSdkVersion="14"
-		android:targetSdkVersion="18"
-	/>
+        <!-- SDK Specifications -->
+        <uses-sdk
+                android:minSdkVersion="14"
+                android:targetSdkVersion="18"
+        />
 
-	<!--  Internet Permissions -->
-	<uses-permission
-		android:name="android.permission.INTERNET"
-	/>
+        <!-- Internet Permissions -->
+        <uses-permission
+                android:name="android.permission.INTERNET"
+        />
 
-	<application
-		android:debuggable="true"
-		android:allowBackup="true"
-		android:icon="@drawable/classmate_icon_cpp"
-		android:label="@string/ClassmateAppName"
-		android:theme="@style/ClassmateTheme"
-	>
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
-			android:label="@string/ClassmateAppName"
-			android:windowSoftInputMode="stateHidden"
-		>
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
+        <application
+                android:debuggable="true"
+                android:allowBackup="true"
+                android:icon="@drawable/classmate_icon_cpp"
+                android:label="@string/ClassmateAppName"
+                android:theme="@style/ClassmateTheme"
+        >
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
+                        android:label="@string/ClassmateAppName"
+                        android:windowSoftInputMode="stateHidden"
+                >
+                        <intent-filter>
+                                <action android:name="android.intent.action.MAIN"/>
+                                <category android:name="android.intent.category.LAUNCHER"/>
+                        </intent-filter>
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
-			android:label="@string/recover"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
+                        android:label="@string/recover"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
-			android:label="@string/register"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
+                        android:label="@string/register"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
-			android:label="@string/ClassmateAppName"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
+                        android:label="@string/ClassmateAppName"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
-			android:label="Add Class"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
+                        android:label="Add Class"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity"
-			android:label="Manage Group"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity"
+                        android:label="Manage Group"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.AddMemberActivity"
-			android:label="Add Friend"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.AddMemberActivity"
+                        android:label="Add Friend"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"
-			android:label="Class Details"
-		>
-		</activity>
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"
+                        android:label="Class Details"
+                >
+                </activity>
 
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.SectionReviewActivity"
-			android:label="Review"
-		>
-		</activity>
-		
-		<receiver android:name="ClassmateProvider">
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.SectionReviewActivity"
+                        android:label="Review"
+                >
+                </activity>
+                
+                <receiver android:name="ClassmateProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action
+                    android:name="edu.csupomona.cs.cs356.classmate.ClassmateProvider.UPDATE_ID"/>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
 
-        <service android:name="edu.csupomona.cs.cs356.classmate.widget.ClassmateService"
+        <service android:name="edu.csupomona.cs.cs356.classmate.ClassmateService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
         
-	</application>
+        </application>
 </manifest>

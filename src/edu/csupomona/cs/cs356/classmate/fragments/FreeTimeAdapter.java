@@ -119,7 +119,8 @@ public class FreeTimeAdapter extends ArrayAdapter<Friend> implements View.OnClic
                         Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.FreeTimeScheduleFragment(id);
                     FragmentActivity activity = ((FragmentActivity)getContext());
                     FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
-                    t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
+                   // t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
+                    t.replace(R.id.flContentFrame, newFragment);//wtf is the first parameter supposed to be
                     t.addToBackStack(null);
 
                     t.commit();
