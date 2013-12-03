@@ -12,7 +12,17 @@ public class Friend {
 		this.id = id;
 		this.username = username;
 		this.emailAddress = emailAddress;
-		this.avatar = R.drawable.ic_action_person;
+		
+		switch(this.id){
+		case 18: this.avatar = R.drawable.ic_action_person_collin;
+		break;
+		case 19: this.avatar = R.drawable.ic_action_person_robert;
+		break;
+		case 30: this.avatar = R.drawable.ic_action_person_josh;
+		break;
+		default: this.avatar = R.drawable.ic_action_person;
+		}
+		
 	}
 
 	public int getID() {

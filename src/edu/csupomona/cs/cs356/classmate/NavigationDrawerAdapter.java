@@ -1,6 +1,8 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import android.widget.TextView;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemModel> {
 	static View firstListItem;
+	private Intent intent;
 
 	public NavigationDrawerAdapter(Context context) {
 		super(context, 0);
+		this.intent = ((Activity) context).getIntent();
 	}
 
 	public void addMasterHeader(int title) {
@@ -75,6 +79,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 		NavigationDrawerItemModel item = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
+		View avatarView;
 
 		if (view == null) {
 			int layout;
@@ -89,9 +94,30 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			}
 
 			view = LayoutInflater.from(getContext()).inflate(layout, null);
+			avatarView = view;
 
+				
 			TextView text1 = (TextView)view.findViewById(R.id.menurow_title);
 			ImageView image1 = (ImageView)view.findViewById(R.id.menurow_icon);
+			
+			if(layout==R.layout.menu_master_header)
+			{
+				ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
+				
+				int id = intent.getIntExtra(LoginActivity.INTENT_KEY_USERID, 0);
+				switch(id){
+				case 18: avatar.setImageResource(R.drawable.ic_action_person_collin);
+				break;
+				case 19:avatar.setImageResource(R.drawable.ic_action_person_robert);
+				break;
+				case 30: avatar.setImageResource(R.drawable.ic_action_person_josh);
+				break;
+				default: avatar.setImageResource(R.drawable.ic_action_person);
+				}
+				
+				
+			}
+
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);
 			view.setTag(new ViewHolder(text1, image1, textcounter1));
 

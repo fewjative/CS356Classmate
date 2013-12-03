@@ -41,6 +41,7 @@ public class MainActivity extends FragmentActivity {
 			dlDrawer.setDrawerHeader(R.string.user_menu_header);
 		} else {
 			dlDrawer.setDrawerHeader(username);
+	
 		}
 
 		int name, icon;
