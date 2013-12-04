@@ -31,30 +31,50 @@ public class TimeSlot implements Parcelable {
 
 	
 	public String getFullTime() {
-		String start, end, amPmStart, amPmEnd;
-		String startEnd, endEnd;
-		start = time_start.substring(0, 2);
-		end = time_end.substring(0, 2);
-		Integer startInt = Integer.parseInt(start);
-		Integer endInt = Integer.parseInt(end);
+		String startHour, endHour, ampmStart, ampmEnd;
+		String startMinutes, endMinutes;
+		startHour = time_start.substring(0, 2);
+		startMinutes = time_start.substring(3, 5);
+		endHour = time_end.substring(0, 2);
+		endMinutes = time_end.substring(3, 5);
+		Integer startHourInt = Integer.parseInt(startHour);
+		Integer startMinutesInt = Integer.parseInt(startMinutes);
+		Integer endHourInt = Integer.parseInt(endHour);
+		Integer endMinutesInt = Integer.parseInt(endMinutes);
 
-		amPmStart = " AM";
-		amPmEnd = " AM";
-		if (startInt > 12) {
-			startInt = startInt - 12;
-			amPmStart = " PM";
+		ampmStart = " AM";
+		ampmEnd = " AM";
+		
+		if(startHourInt == 0){
+			startHourInt = 12;
+		}else if (startHourInt > 12) {
+			startHourInt = startHourInt - 12;
+			if(startHourInt == 12){
+				startHourInt = 11;
+				startMinutesInt = 59;
+				startMinutes = startMinutesInt.toString();
+			}
+			ampmStart = " PM";
 		}
-
-		if (endInt > 12) {
-			endInt = endInt - 12;
-			amPmEnd = " PM";
+		
+		if(endHourInt == 0){
+			endHourInt = 12;
+		}else if (endHourInt > 12) {
+			endHourInt = endHourInt - 12;
+			if(endHourInt == 12){
+				endHourInt = 11;
+				endMinutesInt = 59;
+				endMinutes = endMinutesInt.toString();
+			}
+			ampmEnd = " PM";
 		}
-		start = startInt.toString();
-		end = endInt.toString();
-		startEnd = time_start.substring(2, 5);
-		endEnd = time_end.substring(2, 5);
+		
+		startHour = startHourInt.toString();
+		endHour = endHourInt.toString();
+		
+		
 
-		return start + startEnd + amPmStart + " - " + end + endEnd + amPmEnd;
+		return startHour + ":" + startMinutes + ampmStart + " - " + endHour + ":" + endMinutes + ampmEnd;
 	}
 
 	

@@ -75,30 +75,55 @@ public class Section implements Parcelable {
 	}
 
 	public String getFullTime() {
-		String start, end, amPmStart, amPmEnd;
-		String startEnd, endEnd;
-		start = time_start.substring(0, 2);
-		end = time_end.substring(0, 2);
-		Integer startInt = Integer.parseInt(start);
-		Integer endInt = Integer.parseInt(end);
-
-		amPmStart = " AM";
-		amPmEnd = " AM";
-		if (startInt > 12) {
-			startInt = startInt - 12;
-			amPmStart = " PM";
+		String startHour, endHour, ampmStart, ampmEnd;
+		String startMinutes, endMinutes;
+		startHour = time_start.substring(0, 2);
+		endHour = time_end.substring(0, 2);
+		startMinutes = time_start.substring(3,5);
+		endMinutes = time_end.substring(3,5);
+		Integer startHoursInt = Integer.parseInt(startHour);
+		Integer endHoursInt = Integer.parseInt(endHour);
+		Integer startMinutesInt = Integer.parseInt(startMinutes);
+		Integer endMinutesInt = Integer.parseInt(endMinutes);
+		
+		
+		/*
+		 * 12-12 = 0
+		 * 24-12 = 12
+		 */
+		
+		ampmStart = " AM";
+		ampmEnd = " AM";
+		
+		
+		if(startHoursInt == 0){
+			startHoursInt = 12;
+		}else if (startHoursInt > 12) {
+			startHoursInt = startHoursInt - 12;
+			if(startHoursInt == 12){
+				startHoursInt = 11;
+				startMinutesInt = 59;
+				startMinutes = startMinutesInt.toString();
+			}
+			ampmStart = " PM";
 		}
-
-		if (endInt > 12) {
-			endInt = endInt - 12;
-			amPmEnd = " PM";
+		
+		if(endHoursInt == 0){
+			endHoursInt = 12;
+		}else if (endHoursInt > 12) {
+			endHoursInt = endHoursInt - 12;
+			if(endHoursInt == 12){
+				endHoursInt = 11;
+				endMinutesInt = 59;
+				endMinutes = endMinutesInt.toString();
+			}
+			ampmEnd = " PM";
 		}
-		start = startInt.toString();
-		end = endInt.toString();
-		startEnd = time_start.substring(2, 5);
-		endEnd = time_end.substring(2, 5);
+		
+		startHour = startHoursInt.toString();
+		endHour = endHoursInt.toString();
 
-		return start + startEnd + amPmStart + " - " + end + endEnd + amPmEnd;
+		return startHour + ":" +  startMinutes + ampmStart + " - " + endHour + ":" +  endMinutes + ampmEnd;
 	}
 
 	public int getClassID() {
