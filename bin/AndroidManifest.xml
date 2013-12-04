@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="edu.csupomona.cs.cs356.classmate"
 	android:versionCode="1"
-	android:versionName="1.0"
+	android:versionName="1.0.0"
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
@@ -15,16 +15,17 @@
 		android:name="android.permission.INTERNET"
 	/>
 
+	<!-- SDK Specifications -->
 	<application
 		android:debuggable="true"
 		android:allowBackup="true"
 		android:icon="@drawable/classmate_icon_cpp"
-		android:label="@string/ClassmateAppName"
+		android:label="@string/global_classmate"
 		android:theme="@style/ClassmateTheme"
 	>
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
-			android:label="@string/ClassmateAppName"
+			android:label="@string/global_classmate"
 			android:windowSoftInputMode="stateHidden"
 		>
 			<intent-filter>
@@ -32,52 +33,22 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
-			android:label="@string/recover"
+			android:label="@string/recovery_action_recover"
+			android:windowSoftInputMode="stateVisible"
 		>
 		</activity>
-
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
-			android:label="@string/register"
+			android:label="@string/registration_action_register"
+			android:windowSoftInputMode="stateVisible"
 		>
 		</activity>
-
 		<activity
 			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
-			android:label="@string/ClassmateAppName"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
-			android:label="Add Class"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity"
-			android:label="Manage Group"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.fragments.groups.AddMemberActivity"
-			android:label="Add Friend"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.SectionDetailsActivity"
-			android:label="Class Details"
-		>
-		</activity>
-
-		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.SectionReviewActivity"
-			android:label="Review"
+			android:label="@string/global_classmate"
+			android:windowSoftInputMode="stateHidden"
 		>
 		</activity>
 	</application>

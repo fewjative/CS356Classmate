@@ -60,7 +60,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 		TextWatcher textWatcher = new TextWatcherAdapter() {
 			@Override
 			public void afterTextChanged(Editable e) {
-				// TODO: Safely clear strings from memory using some char array
+				// TODO Safely clear strings from memory using some char array
 				String s1 = etPass1.getText().toString();
 				String s2 = etPass2.getText().toString();
 				if (!s1.isEmpty() && s1.compareTo(s2) == 0) {
