@@ -163,6 +163,7 @@ public class AddClassActivity extends Activity {
 		RequestParams params = new RequestParams();
 		params.put("major", college.getMajorShort());
 		params.put("distinct", "yes");
+		params.put("term", term.getTerm());
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getclasses.php", params, new AsyncHttpResponseHandler() {

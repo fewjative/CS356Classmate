@@ -5,10 +5,12 @@
     
     
     
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ListView 
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="15dip"
+        android:paddingBottom="15dip"
         android:gravity="center"
         android:loopViews="true" />
     
@@ -21,7 +23,7 @@
         android:textColor="#ffffff"
         android:textStyle="bold" /> -->
         
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView 
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
