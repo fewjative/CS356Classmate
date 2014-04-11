@@ -22,7 +22,8 @@ import android.widget.TextView;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
-
+//allow for a user to upload a photo/choose a photo for their profile picture
+//allow a user to make multiple schedules and choose the schedule from the settings fragment
 public class SettingsFragment extends Fragment implements View.OnClickListener{
         private Button btnChangePass;
         private EditText etOldPass;
