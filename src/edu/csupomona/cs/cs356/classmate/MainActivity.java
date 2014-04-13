@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_app_logout);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
-		
+
 		dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
 	}
 

@@ -28,6 +28,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 	private Item selectedItem;
 	private View selectedItemView;
 	private int selectedItemPosition;
+	private int lastSelectedItemPosition;
 
 	public FragmentNavigationDrawer(Context c, AttributeSet attrs, int defStyle) {
 		super(c, attrs, defStyle);
@@ -48,7 +49,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 		lvDrawer = drawerListView;
 		lvDrawer.setAdapter(adapter);
-		lvDrawer.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+		lvDrawer.setChoiceMode(AbsListView.CHOICE_MODE_NONE);
 		lvDrawer.setOnItemClickListener(new DrawerItemListener());
 
 		toggle = new ActionBarDrawerToggle(
@@ -77,10 +78,14 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 	}
 
 	public void selectItem(int position) {
-		selectItem(position, null);
+		selectItem(position, true);
 	}
 
-	public void selectItem(int position, View v) {
+	public void selectItem(int position, boolean closeDrawer) {
+		selectItem(position, closeDrawer, null);
+	}
+
+	public void selectItem(int position, boolean closeDrawer, View v) {
 		if (position < 0) {
 			return;
 		}
@@ -91,6 +96,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 			selectedItemView = adapter.getView(selectedItemPosition, view, this);
 		}
 
+		lastSelectedItemPosition = selectedItemPosition;
 		selectedItemPosition = position;
 
 		boolean wasNull = (selectedItem == null);
@@ -118,7 +124,9 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 			if (fragment != null) {
 				FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 				fragmentManager.beginTransaction().replace(contentPaneResId, fragment).commit();
-				closeDrawer(lvDrawer);
+				if (closeDrawer) {
+					closeDrawer(lvDrawer);
+				}
 
 				if (wasNull) {
 					getActivity().getActionBar().setTitle(selectedItem.title);
@@ -173,7 +181,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 			// TODO See if passing v will be more efficient
-			selectItem(position, null);
+			selectItem(position, true, null);
 		}
 	}
 
@@ -191,6 +199,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		logoutDialog.setNegativeButton(R.string.global_action_no, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				getActivity().setResult(Activity.RESULT_CANCELED);
+				selectItem(lastSelectedItemPosition, false);
 			}
 		});
 

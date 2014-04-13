@@ -13,6 +13,7 @@ import android.provider.Settings.Secure;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_NAME;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USERID;
 import static edu.csupomona.cs.cs356.classmate.Constants.NO_USER;
+import static edu.csupomona.cs.cs356.classmate.Constants.PHP_ADDRESS_LOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_DEVICEID;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_EMAIL;
@@ -156,6 +158,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		String email = etEmailAddress.getText().toString();
 		switch (v.getId()) {
 			case R.id.btnLogin:
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(etEmailAddress.getWindowToken(), 0);
+				//imm.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
+
 				String password = etPassword.getText().toString();
 				attemptLogin(email, password);
 				break;
@@ -184,7 +190,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		params.put(PHP_PARAM_DEVICEID, device_id);
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(PHP_BASE_ADDRESS + "login.php", params, new JsonHttpResponseHandler() {
+		client.get(PHP_BASE_ADDRESS + PHP_ADDRESS_LOGIN, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsona) {
 				if (!loadingDialog.isShowing()) {
@@ -205,15 +211,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				} finally {
 					if (id == NO_USER) {
 						// Session has expired (logged on from another device)
-					} else if (password != null) {
-						AlertDialog.Builder errorDialog = new AlertDialog.Builder(LoginActivity.this);
-						errorDialog.setTitle(R.string.dialog_login_error_title);
-						errorDialog.setMessage(R.string.dialog_login_error);
-						errorDialog.setPositiveButton(R.string.global_action_okay, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								//...
-							}
-						});
+						if (password != null) {
+							AlertDialog.Builder errorDialog = new AlertDialog.Builder(LoginActivity.this);
+							errorDialog.setTitle(R.string.dialog_login_error_title);
+							errorDialog.setMessage(R.string.dialog_login_error);
+							errorDialog.setPositiveButton(R.string.global_action_okay, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									//...
+								}
+							});
+
+							errorDialog.show();
+						}
 					} else {
 						login(id, name);
 					}
