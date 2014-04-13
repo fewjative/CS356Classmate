@@ -1,6 +1,7 @@
 package edu.csupomona.cs.cs356.classmate.drawer;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,14 +41,15 @@ public class Item extends DrawerListItem {
 	View getView(Context c, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v != null) {
+			TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
 			if (checked) {
 				v.setBackgroundResource(R.color.cppgold_trans_darker);
-				TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
 				tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
+				tvTitle.setTypeface(null, Typeface.BOLD);
 			} else {
 				v.setBackgroundResource(android.R.color.transparent);
-				TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
 				tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
+				tvTitle.setTypeface(null, Typeface.NORMAL);
 			}
 
 			return v;
@@ -76,9 +78,11 @@ public class Item extends DrawerListItem {
 		if (checked) {
 			v.setBackgroundResource(R.color.cppgold_trans_darker);
 			tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
+			tvTitle.setTypeface(null, Typeface.BOLD);
 		} else {
 			v.setBackgroundResource(android.R.color.transparent);
 			tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
+			tvTitle.setTypeface(null, Typeface.NORMAL);
 		}
 
 		return v;
