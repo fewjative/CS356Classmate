@@ -15,23 +15,29 @@ public class Item extends DrawerListItem {
 
 	Class<? extends Fragment> fragment;
 
+	int iconSelectedResId;
 	int iconResId;
 	int count;
 
 	private boolean checked;
 
 	public Item(Class<? extends Fragment> fragment, String title) {
-		this(fragment, title, 0);
+		this(fragment, title, 0, 0);
 	}
 
 	public Item(Class<? extends Fragment> fragment, String title, int iconResId) {
-		this(fragment, title, iconResId, 0);
+		this(fragment, title, iconResId, iconResId, 0);
 	}
 
-	public Item(Class<? extends Fragment> fragment, String title, int iconResId, int count) {
+	public Item(Class<? extends Fragment> fragment, String title, int iconResId, int iconSelectedResId) {
+		this(fragment, title, iconResId, iconSelectedResId, 0);
+	}
+
+	public Item(Class<? extends Fragment> fragment, String title, int iconResId, int iconSelectedResId, int count) {
 		super(title);
 		this.fragment = fragment;
 		this.iconResId = iconResId;
+		this.iconSelectedResId = iconSelectedResId;
 		this.count = count;
 		this.checked = false;
 		numItems++;
@@ -42,14 +48,17 @@ public class Item extends DrawerListItem {
 		View v = convertView;
 		if (v != null) {
 			TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
+			ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
 			if (checked) {
 				v.setBackgroundResource(R.color.cppgold_trans_darker);
-				tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
+				tvTitle.setTextColor(c.getResources().getColor(R.color.menu_grey));
 				tvTitle.setTypeface(null, Typeface.BOLD);
+				ivIcon.setImageResource(iconSelectedResId);
 			} else {
 				v.setBackgroundResource(android.R.color.transparent);
 				tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
 				tvTitle.setTypeface(null, Typeface.NORMAL);
+				ivIcon.setImageResource(iconResId);
 			}
 
 			return v;
@@ -60,12 +69,7 @@ public class Item extends DrawerListItem {
 		tvTitle.setText(title);
 
 		ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
-		if (0 < iconResId) {
-			ivIcon.setVisibility(View.VISIBLE);
-			ivIcon.setImageResource(iconResId);
-		} else {
-			ivIcon.setVisibility(View.GONE);
-		}
+		ivIcon.setVisibility(0 < iconResId ? View.VISIBLE : View.GONE);
 
 		TextView tvCounter = (TextView)v.findViewById(R.id.tvCounter);
 		if (0 < count) {
@@ -77,12 +81,14 @@ public class Item extends DrawerListItem {
 
 		if (checked) {
 			v.setBackgroundResource(R.color.cppgold_trans_darker);
-			tvTitle.setTextColor(c.getResources().getColor(R.color.black_trans));
+			tvTitle.setTextColor(c.getResources().getColor(R.color.menu_grey));
 			tvTitle.setTypeface(null, Typeface.BOLD);
+			ivIcon.setImageResource(iconSelectedResId);
 		} else {
 			v.setBackgroundResource(android.R.color.transparent);
 			tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
 			tvTitle.setTypeface(null, Typeface.NORMAL);
+			ivIcon.setImageResource(iconResId);
 		}
 
 		return v;

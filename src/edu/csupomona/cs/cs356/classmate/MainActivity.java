@@ -33,28 +33,28 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new UserHeader(temp, R.drawable.ic_action_person));
 
 		temp = getString(R.string.nd_schedule_today);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today, R.drawable.ic_action_go_to_today_dark));
 
 		temp = getString(R.string.nd_schedule_full_schedule);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_schedule));
 
 		temp = getString(R.string.nd_social_header);
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_social_friends);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_person));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_person, R.drawable.ic_action_person_dark));
 
 		temp = getString(R.string.nd_social_groups);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_group));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_group, R.drawable.ic_action_group_dark));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_app_settings);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_settings));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_settings, R.drawable.ic_action_settings_dark));
 
 		temp = getString(R.string.nd_app_logout);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back, R.drawable.ic_action_back_dark));
 
 		dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
 	}
