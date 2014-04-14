@@ -63,15 +63,29 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 				// TODO Safely clear strings from memory using some char array
 				String s1 = etPass1.getText().toString();
 				String s2 = etPass2.getText().toString();
-				if (!s1.isEmpty() && s1.compareTo(s2) == 0) {
+				if (!s1.isEmpty()) 
+				{
+					if (s2.isEmpty())
+					{
+						tvPasswordMatcher.setText("");
+					}
+					else if (s1.compareTo(s2) == 0)
+					{
 					tvPasswordMatcher.setText(R.string.passwords_match);
 					tvPasswordMatcher.setTextColor(getResources().getColor(R.color.green));
 					btnRegister.setEnabled(true);
+					}
+					else
+					{
+						tvPasswordMatcher.setText(R.string.passwords_do_not_match);
+						tvPasswordMatcher.setTextColor(getResources().getColor(R.color.red));
+						btnRegister.setEnabled(false);
+					}
 				} else {
-					tvPasswordMatcher.setText(R.string.passwords_do_not_match);
-					tvPasswordMatcher.setTextColor(getResources().getColor(R.color.red));
-					btnRegister.setEnabled(false);
+					tvPasswordMatcher.setText("");
 				}
+				
+				
 
 				String username = etUsername.getText().toString();
 				if (username.isEmpty()) {
