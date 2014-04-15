@@ -1,4 +1,4 @@
-CS356Classmate
+CS480_Classmate
 ==============
 
 'Classmate' is an android application that functions as a class scheduler gone social.
