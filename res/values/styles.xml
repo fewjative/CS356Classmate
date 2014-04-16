@@ -1,7 +1,7 @@
 <resources>
 	<style
 		name="ClassmateBaseTheme"
-		parent="android:Theme.Light"
+		parent="android:Theme.Holo"
 	>
 	</style>
 
