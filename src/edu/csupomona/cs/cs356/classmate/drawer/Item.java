@@ -49,23 +49,28 @@ public class Item extends DrawerListItem {
 		if (v != null) {
 			TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
 			ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
-			if (checked) {
-				v.setBackgroundResource(R.color.cppgold_trans_darker);
-				tvTitle.setTextColor(c.getResources().getColor(R.color.menu_grey));
-				tvTitle.setTypeface(null, Typeface.BOLD);
-				ivIcon.setImageResource(iconSelectedResId);
-			} else {
-				v.setBackgroundResource(android.R.color.transparent);
-				tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
-				tvTitle.setTypeface(null, Typeface.NORMAL);
-				ivIcon.setImageResource(iconResId);
-			}
+			if (tvTitle != null && ivIcon != null) {
+				tvTitle.setSelected(checked);
+				if (checked) {
+					v.setBackgroundResource(R.color.cppgold_trans_darker);
+					tvTitle.setTypeface(null, Typeface.BOLD);
+					ivIcon.setImageResource(iconSelectedResId);
+				} else {
+					v.setBackgroundResource(android.R.color.transparent);
+					tvTitle.setTypeface(null, Typeface.NORMAL);
+					ivIcon.setImageResource(iconResId);
+				}
 
-			return v;
+				return v;
+			} else {
+				System.out.println("classm " + convertView.getClass().getName());
+			}
 		}
 
 		v = LayoutInflater.from(c).inflate(R.layout.drawer_item_item_layout, parent, false);
+
 		TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);
+		tvTitle.setSelected(checked);
 		tvTitle.setText(title);
 
 		ImageView ivIcon = (ImageView)v.findViewById(R.id.ivIcon);
@@ -81,12 +86,10 @@ public class Item extends DrawerListItem {
 
 		if (checked) {
 			v.setBackgroundResource(R.color.cppgold_trans_darker);
-			tvTitle.setTextColor(c.getResources().getColor(R.color.menu_grey));
 			tvTitle.setTypeface(null, Typeface.BOLD);
 			ivIcon.setImageResource(iconSelectedResId);
 		} else {
 			v.setBackgroundResource(android.R.color.transparent);
-			tvTitle.setTextColor(c.getResources().getColor(R.color.white_trans));
 			tvTitle.setTypeface(null, Typeface.NORMAL);
 			ivIcon.setImageResource(iconResId);
 		}

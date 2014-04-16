@@ -25,6 +25,8 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 	private int contentPaneResId;
 
+	private Header header;
+
 	private Item selectedItem;
 	private View selectedItemView;
 	private int selectedItemPosition;
@@ -42,10 +44,12 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		super(c);
 	}
 
-	public void setupDrawerConfiguration(ListView drawerListView, int contentPaneResId) {
+	public void setupDrawerConfiguration(Header header, ListView drawerListView, int contentPaneResId) {
+		this.header = header;
 		this.contentPaneResId = contentPaneResId;
 
 		adapter = new DrawerAdapter(getContext());
+		adapter.add(header);
 
 		lvDrawer = drawerListView;
 		lvDrawer.setAdapter(adapter);
@@ -103,10 +107,12 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		selectedItem = (Item)adapter.getItem(selectedItemPosition);
 		selectedItem.setChecked(true);
 
-		//if (v == null) {
-		View view = lvDrawer.getChildAt(selectedItemPosition);
-		v = adapter.getView(selectedItemPosition, view, this);
-		//}
+		// TODO figure out what this did
+		if (v == null) {
+		v = lvDrawer.getChildAt(selectedItemPosition);
+		}
+
+		v = adapter.getView(selectedItemPosition, v, this);
 
 		selectedItemView = v;
 
@@ -181,7 +187,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 			// TODO See if passing v will be more efficient
-			selectItem(position, true, null);
+			selectItem(position, true, v);
 		}
 	}
 

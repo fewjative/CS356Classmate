@@ -14,9 +14,9 @@ public class ItemDivider extends DrawerListItem {
 	@Override
 	View getView(Context c, View convertView, ViewGroup parent) {
 		View v = convertView;
-		if (v != null) {
+		/*if (v != null) {
 			return v;
-		}
+		}*/
 
 		v = LayoutInflater.from(c).inflate(R.layout.drawer_item_item_divider_layout, parent, false);
 		return v;

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import edu.csupomona.cs.cs356.classmate.R;
 
-public class UserHeader extends DrawerListItem {
+public class UserHeader extends Header {
 	int iconResId;
 
 	public UserHeader(String title, int iconResId) {
@@ -19,9 +19,9 @@ public class UserHeader extends DrawerListItem {
 	@Override
 	View getView(Context c, View convertView, ViewGroup parent) {
 		View v = convertView;
-		if (v != null) {
+		/*if (v != null) {
 			return v;
-		}
+		}*/
 
 		v = LayoutInflater.from(c).inflate(R.layout.drawer_item_userheader_layout, parent, false);
 		TextView tvTitle = (TextView)v.findViewById(R.id.tvTitle);

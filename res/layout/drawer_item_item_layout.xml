@@ -24,7 +24,7 @@
 		android:layout_weight="1"
 		android:minHeight="?android:attr/listPreferredItemHeightSmall"
 		android:textAppearance="?android:attr/textAppearanceListItemSmall"
-		android:textColor="@color/white_trans"
+		android:textColor="@color/drawer_item_text"
 	/>
 
 	<TextView

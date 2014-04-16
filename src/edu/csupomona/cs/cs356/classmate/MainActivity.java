@@ -23,17 +23,16 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void setupDrawer() {
+		String temp = getIntent().getStringExtra(INTENT_KEY_NAME);
 		dlDrawer = (FragmentNavigationDrawer)findViewById(R.id.dlDrawer);
 		dlDrawer.setupDrawerConfiguration(
-			  (ListView)findViewById(R.id.lvDrawer),
-			  R.id.flContentFrame
+			new UserHeader(temp, R.drawable.ic_action_person),
+			(ListView)findViewById(R.id.lvDrawer),
+			R.id.flContentFrame
 		);
 
-		String temp = getIntent().getStringExtra(INTENT_KEY_NAME);
-		dlDrawer.addItem(new UserHeader(temp, R.drawable.ic_action_person));
-
 		temp = getString(R.string.nd_schedule_today);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today, R.drawable.ic_action_go_to_today_dark));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
 
 		temp = getString(R.string.nd_schedule_full_schedule);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_schedule));
@@ -42,19 +41,19 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_social_friends);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_person, R.drawable.ic_action_person_dark));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_person));
 
 		temp = getString(R.string.nd_social_groups);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_group, R.drawable.ic_action_group_dark));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_group));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_app_settings);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_settings, R.drawable.ic_action_settings_dark));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_settings));
 
 		temp = getString(R.string.nd_app_logout);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back, R.drawable.ic_action_back_dark));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
 
 		dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
 	}
