@@ -33,7 +33,7 @@
 			<Button
 				style="@style/ClassmateButton"
 				android:id="@+id/btnRecover"
-				android:text="@string/recover"
+				android:text="@string/submit"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 			/>

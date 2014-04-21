@@ -1,35 +1,40 @@
 package edu.csupomona.cs.cs356.classmate;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import static android.content.Context.MODE_PRIVATE;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.provider.Settings.Secure;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
-import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.provider.Settings.Secure;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+
+public class LoginActivity extends FragmentActivity implements View.OnClickListener {
 	public static final String INTENT_KEY_EMAIL = "emailAddress";
 	public static final String INTENT_KEY_USERNAME = "userName";
 	public static final String INTENT_KEY_REMEMBER = "remember";
@@ -42,24 +47,38 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private static final int CODE_REGISTERATION_FORM = 0x000F;
 	private static final int CODE_RECOVERY_FORM = 0x001F;
 	private static final int CODE_MAINMENU = 0x002F;
-
+	
+	private boolean remember;
 	private Button btnLogin;
 	private EditText etEmailAddress;
 	private EditText etPassword;
 	private CheckBox cbRemember;
 
+	private UiLifecycleHelper uiHelper;
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+    	@Override
+    	public void call(Session session, SessionState state, Exception exception) {
+	    	onSessionStateChange(session, state, exception);
+	    }
+	};
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.login_activity);
-
+		
 		SharedPreferences preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
-		boolean remember = preferences.getBoolean(PREFS_KEY_REMEMBER, false);
-
+		remember = preferences.getBoolean(PREFS_KEY_REMEMBER, false);
+		
+		uiHelper = new UiLifecycleHelper(this, callback);
+	    uiHelper.onCreate(savedInstanceState);
+		
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
 		btnLogin.setEnabled(false);
-
+		
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
 		etPassword = (EditText)findViewById(R.id.etPassword);
 		TextWatcher tw = new TextWatcherAdapter() {
@@ -89,18 +108,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		ab.setCustomView(R.layout.logo_layout);
 		ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
-		Button b = (Button)findViewById(R.id.btnRecover);
+		Button b = (Button)findViewById(R.id.btnRegister);
 		b.setOnClickListener(this);
-
-		b = (Button)findViewById(R.id.btnRegister);
-		b.setOnClickListener(this);
-
+		
+		TextView tv = (TextView)findViewById(R.id.txtRecover);
+		tv.setOnClickListener(this);
+		
 		String emailAddress = preferences.getString(PREFS_KEY_EMAIL, null);
 		if (remember && emailAddress != null) {
 			attemptLogin(emailAddress, null);
 		}
 	}
-
+	
 	private void attemptLogin(String emailAddress, final String password) {
 		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.login), getResources().getString(R.string.loginLoading));
 
@@ -197,16 +216,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		String emailAddress = etEmailAddress.getText().toString();
-		switch (v.getId()) {
-			case R.id.btnLogin:
-				attemptLogin(emailAddress, etPassword.getText().toString());
-				break;
-			case R.id.btnRecover:
-				recoverAccount(emailAddress);
-				break;
-			case R.id.btnRegister:
-				registerAccount(emailAddress);
-				break;
+		int id = v.getId();
+		
+		if (id == R.id.btnLogin) {
+			attemptLogin(emailAddress, etPassword.getText().toString());
+		} 
+		else if (id == R.id.btnRegister) {
+			registerAccount(emailAddress);
+		} 
+		else if (id == R.id.txtRecover) {
+			recoverAccount(emailAddress);
 		}
 	}
 
@@ -221,9 +240,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		i.putExtra(INTENT_KEY_USERNAME, emailAddress);
 		startActivityForResult(i, CODE_REGISTERATION_FORM);
 	}
-
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+		
 		switch (requestCode) {
 			case CODE_RECOVERY_FORM:
 				if (resultCode != RESULT_OK) {
@@ -258,5 +282,54 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 				break;
 		}
+		
+		//start MainActivity if valid Facebook login 
+	    if (Session.getActiveSession() != null || Session.getActiveSession().isOpened()){
+	    	Intent i = new Intent(this, MainActivity.class);
+	    	startActivity(i);
+       }
+	    
 	}
+	
+	@Override
+	public void onResume() {
+	    super.onResume();
+
+	    // For scenarios where the main activity is launched and user
+	    // session is not null, the session state change notification
+	    // may not be triggered. Trigger it if it's open/closed.
+	    Session session = Session.getActiveSession();
+	    if (session != null &&
+	           (session.isOpened() || session.isClosed()) ) {
+	        onSessionStateChange(session, session.getState(), null);
+	    }
+	    uiHelper.onResume();
+	}
+
+	@Override
+	public void onPause() {
+	    super.onPause();
+	    uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    uiHelper.onDestroy();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    uiHelper.onSaveInstanceState(outState);
+	}
+
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+	    if (state.isOpened()) {
+	        Log.i("FACEBOOK", "Logged in...");
+	    } else if (state.isClosed()) {
+	        Log.i("FACEBOOK", "Logged out...");
+	    }
+	}
+	
 }

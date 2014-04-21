@@ -18,7 +18,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
+import com.facebook.Session;
 
 public class FragmentedNavigationDrawer extends DrawerLayout {
 	private ActionBarDrawerToggle drawerToggle;
@@ -259,8 +262,13 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		d.setMessage(getResources().getString(R.string.logoutConfirmation));
 		d.setIcon(android.R.drawable.ic_dialog_info);
 		d.setCanceledOnTouchOutside(true);
-		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {			
 			public void onClick(DialogInterface dialog, int which) {
+				//logout of facebook session if there is one
+				Session session = Session.getActiveSession();
+				if (session != null) {
+					session.closeAndClearTokenInformation();
+				}
 				getActivity().setResult(RESULT_OK);
 				getActivity().finish();
 			}

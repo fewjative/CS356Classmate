@@ -8,7 +8,10 @@
         <string name="cancel">Cancel</string>
         <string name="search">Search</string>
         <string name="author">Written by the Scrum Dogs</string>
-
+	
+        <!--Facebook Stuff -->
+        <string name="app_id">1486951238200357</string>
+        
         <!--Login Activity-->
         <string name="login">Login</string>
         <string name="username">Username</string>
@@ -25,14 +28,19 @@
 
         <!--Logout Activity-->
         <string name="logout">Logout</string>
+        <string name="submit">Submit</string>
         <string name="logoutConfirmationTitle">Logout?</string>
         <string name="logoutConfirmation">Are you sure you want to log out?</string>
 
         <!--Recovery Activity-->
-        <string name="recover">Forgot Password</string>
+        <string name="recover">Forget Password?</string>
         <string name="recoverSent">An email has been sent to you with your password.</string>
         <string name="recoverError">We are sorry, we could not find that email.</string>
-
+	
+        <!--Setting Fragment-->
+        <string name="changepassword">Change Password</string>
+        <string name="confirmnewpassword">Confirm New Password</string>
+        
         <!--Registration Activity-->
         <string name="register">Register</string>
         <string name="confirmpassword">Confirm Password</string>

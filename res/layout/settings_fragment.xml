@@ -10,12 +10,23 @@
                 android:layout_height="wrap_content"
                 android:background="@color/cppgreen"
         >
+                <com.facebook.widget.LoginButton
+           		 		android:id="@+id/btnFacebookLink"
+            			android:layout_width="match_parent"
+            			android:layout_height="wrap_content"
+            			android:layout_marginTop="30dp"
+            			android:layout_marginBottom="30dp"
+            			android:layout_marginLeft="20dp"
+            			android:layout_marginRight="20dp"
+            	/>
+                
                 <LinearLayout
                         android:padding="10dip"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
+                        android:layout_below="@+id/btnFacebookLink"
                 >
                         <TextView
                                 style="@style/ClassmateTextView"
@@ -46,7 +57,7 @@
                         />
                         <TextView
                                 style="@style/ClassmateTextView"
-                                android:text="Confirm New Password"
+                                android:text="@string/confirmnewpassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:labelFor="@+id/etConfirmPassword"
@@ -68,10 +79,11 @@
                         <Button
                                 style="@style/ClassmateButton"
                                 android:id="@+id/btnChangePass"
-                                android:text="Change Password"
+                                android:text="@string/changepassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                         />
                 </LinearLayout>
+
         </RelativeLayout>
 </ScrollView>
