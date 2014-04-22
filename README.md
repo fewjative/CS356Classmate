@@ -25,4 +25,5 @@ Importing Libraries in Eclipse
 5. Go back to Properties -> Android in the project folder and click "Add..."
 6. Select library enabled previously, click Ok to add and then Ok again to save preferences.
 
-When importing facebook, replace facebook-android-sdk/libs/android-support-v4.jar with the android-support-4.jar found in the project directory or you will get a 'Jar mismatch! Fix your dependencies' error.
+Facebook:
+- replace facebook-android-sdk/libs/android-support-v4.jar with the android-support-4.jar found in the project directory or you will get a 'Jar mismatch! Fix your dependencies' error.
