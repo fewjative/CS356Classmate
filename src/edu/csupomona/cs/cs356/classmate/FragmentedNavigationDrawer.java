@@ -125,8 +125,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(drawerContainerRes);
+
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
@@ -236,8 +235,6 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 	}
 
 	private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
-
-
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			if (selectedItem == null) {

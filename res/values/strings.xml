@@ -55,6 +55,11 @@
         <string name="schedule_menu_today">Today</string>
         <string name="schedule_menu_schedule">Full Schedule</string>
 
+        <string name="feeds_menu_header">Event Feeds</string>
+        <string name="feeds_menu_activity">Activity</string>
+        <string name="feeds_menu_events">Events</string>
+        <string name="feeds_menu_news">News</string>
+
         <string name="app_menu_header">Application</string>
         <string name="app_menu_settings">Settings</string>
         <string name="app_menu_logout">Logout</string>

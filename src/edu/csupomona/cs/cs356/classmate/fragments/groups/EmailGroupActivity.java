@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,25 +18,17 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.RegistrationActivity;
-import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
 import edu.csupomona.cs.cs356.classmate.abstractions.Group;
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import static edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment.INTENT_KEY_GROUP;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class EmailGroupActivity extends Activity implements View.OnClickListener {
 	private EditText etEmailSubject;
 	private EditText etEmailMessage;
 	private Button btnSendEmail;
-	
+
 	private ListView lvSearchResults;
 	private LinearLayout llProgressBar;
 
@@ -51,19 +40,19 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 		final Group g = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
-		
+
 		etEmailSubject = (EditText)findViewById(R.id.etEmailSubject);
 		etEmailMessage = (EditText)findViewById(R.id.etEmailMessage);
-		
+
 		etEmailSubject.setSelectAllOnFocus(true);
-		
+
 		btnSendEmail = (Button)findViewById(R.id.btnSendEmail);
 		btnSendEmail.setOnClickListener(this);
 		btnSendEmail.setEnabled(false);
 
-		
+
 		final TextView tvSubjMessage = (TextView)findViewById(R.id.tvSubjMessage);
-		
+
 		TextWatcher textWatcher = new TextWatcherAdapter() {
 			String subj,message;
 
@@ -71,7 +60,7 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 			public void afterTextChanged(Editable e) {
 				subj = etEmailSubject.getText().toString();
 				message = etEmailMessage.getText().toString();
-				
+
 				if (!subj.isEmpty() && !message.isEmpty()) {
 					tvSubjMessage.setText("You are ready to send the email!");
 					tvSubjMessage.setTextColor(getResources().getColor(R.color.green));
@@ -81,14 +70,12 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 					tvSubjMessage.setTextColor(getResources().getColor(R.color.red));
 					btnSendEmail.setEnabled(false);
 				}
-
-				// TODO: Safely clear strings from memory using some char array
 			}
 		};
 
 		etEmailSubject.addTextChangedListener(textWatcher);
 		etEmailMessage.addTextChangedListener(textWatcher);
-		
+
 		/*
 		etFriendName = (EditText)findViewById(R.id.etFriendName);
 		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
@@ -135,7 +122,7 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 			}
 		});*/
 	}
-	
+
 	public void onClick(View v) {
 		//assert etEmailSubject.getText().toString().compareTo(etPass2.getText().toString()) == 0;
 
@@ -143,7 +130,7 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 
 		final String subject = etEmailSubject.getText().toString();
 		final String message = etEmailMessage.getText().toString();
-		
+
 		final Group g = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		RequestParams params = new RequestParams();
@@ -188,7 +175,7 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 					return;
 				}
 
-			
+
 
 				/*Intent i = new Intent();
 				i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
