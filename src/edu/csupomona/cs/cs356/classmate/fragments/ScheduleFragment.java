@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("ValidFragment")
 public class ScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
