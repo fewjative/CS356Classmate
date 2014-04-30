@@ -100,7 +100,7 @@ public class TodaysFragment extends Fragment {
                                         params.put("user_id", Integer.toString(id));
 
                                         AsyncHttpClient client = new AsyncHttpClient();
-                                        client.get("http://lol-fc.com/classmate/getuserclassestoday.php", params, new AsyncHttpResponseHandler() {
+                                        client.get("http://lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
                                                 @Override
                                                 public void onSuccess(String response) {
                                                         setupSchedule(response);
@@ -199,7 +199,7 @@ public class TodaysFragment extends Fragment {
                                 params.put("user_id", Integer.toString(id));
 
                                 AsyncHttpClient client = new AsyncHttpClient();
-                                client.get("http://lol-fc.com/classmate/getuserclassestoday.php", params, new AsyncHttpResponseHandler() {
+                                client.get("http://lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
                                         @Override
                                         public void onSuccess(String response) {
                                                 setupSchedule(response);

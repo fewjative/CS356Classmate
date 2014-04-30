@@ -63,7 +63,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 		params.put("full", "yes");
 		AsyncHttpClient client = new AsyncHttpClient();
 
-		client.get("http://www.lol-fc.com/classmate/getuserclassestoday.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://www.lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				 setupSchedule(response);

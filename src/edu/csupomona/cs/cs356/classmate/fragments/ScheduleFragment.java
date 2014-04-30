@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("ValidFragment")//takes care of problem with line 46
 public class ScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
@@ -36,16 +38,17 @@ public class ScheduleFragment extends Fragment {
 	private boolean outside_source=false;
 	private final int friend_id;
 	
+	public ScheduleFragment()
+	{
+		friend_id = 0;
+	}
+	
 	public ScheduleFragment(int user_id)
 	{
 		outside_source = true;
 		friend_id = user_id;
 	}
 	
-	public ScheduleFragment()
-	{
-		friend_id = 0;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -126,7 +129,8 @@ public class ScheduleFragment extends Fragment {
 					params.put("user_id", Integer.toString(id));
 
 					AsyncHttpClient client = new AsyncHttpClient();
-					client.get("http://lol-fc.com/classmate/getuserclasses.php", params, new AsyncHttpResponseHandler() {
+					//CHANGED TO VERSION2
+					client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(String response) {
 							setupSchedule(response);
@@ -242,7 +246,8 @@ public class ScheduleFragment extends Fragment {
 		params.put("user_id", Integer.toString(id));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://lol-fc.com/classmate/getuserclasses.php", params, new AsyncHttpResponseHandler() {
+		//CHANGED TO GETUSERCLASSES2
+		client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				setupSchedule(response);
