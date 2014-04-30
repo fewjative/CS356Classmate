@@ -21,6 +21,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class FragmentedNavigationDrawer extends DrawerLayout {
+
 private ActionBarDrawerToggle drawerToggle;
 
 private ListView lvDrawer;
@@ -270,5 +271,6 @@ getActivity().setResult(RESULT_CANCELED);
 });
 
 d.show();
+
 }
 }
