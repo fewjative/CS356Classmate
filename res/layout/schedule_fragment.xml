@@ -83,6 +83,44 @@
 
         </LinearLayout>
 
+          <LinearLayout
+                android:id="@+id/llNoSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/dashed_border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:visibility="gone"
+        >
+                        <TextView
+                                style="@style/ClassmateTextView"
+                                android:text="You have not created a schedule yet. You must create at least one schedule before attempting to add content. Create one now!"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                        />
+                        
+                         <EditText
+                                style="@style/ClassmateEditText"
+                                android:id="@+id/etScheduleName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                        />
+                        
+                        <Button
+                                style="@style/ClassmateButton"
+                                android:id="@+id/btnAddSchedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:text="Create Your First Schedule"
+                        />
+
+        </LinearLayout>
+        
         <LinearLayout
                 android:id="@+id/llSchedule"
                 android:layout_width="match_parent"
