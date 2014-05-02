@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment;
@@ -23,13 +24,13 @@ public class MainActivity extends FragmentActivity {
 	private FragmentedNavigationDrawer dlDrawer;
 
 	private NavigationDrawerItemModel friendsItem;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		setResult(RESULT_CANCELED);
-
+		
 		dlDrawer = (FragmentedNavigationDrawer)findViewById(R.id.dlMainDrawer);
 		dlDrawer.setupDrawerConfiguration(
 			(ListView)findViewById(R.id.lvDrawer),
@@ -131,4 +132,5 @@ public class MainActivity extends FragmentActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

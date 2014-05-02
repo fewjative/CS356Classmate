@@ -25,9 +25,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -43,7 +46,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	private static final String PREFS_LOGIN = "login_activity_prefs";
 	private static final String PREFS_KEY_EMAIL = "emailAddress";
 	private static final String PREFS_KEY_REMEMBER = "remember";
-
+	
 	private static final int CODE_REGISTERATION_FORM = 0x000F;
 	private static final int CODE_RECOVERY_FORM = 0x001F;
 	private static final int CODE_MAINMENU = 0x002F;
@@ -53,7 +56,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	private EditText etEmailAddress;
 	private EditText etPassword;
 	private CheckBox cbRemember;
-
+	
 	private UiLifecycleHelper uiHelper;
     private Session.StatusCallback callback = new Session.StatusCallback() {
     	@Override
@@ -118,6 +121,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 		if (remember && emailAddress != null) {
 			attemptLogin(emailAddress, null);
 		}
+		
 	}
 	
 	private void attemptLogin(String emailAddress, final String password) {
@@ -188,7 +192,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 		widgetIntent.putExtra(INTENT_KEY_USERID, id);
 		sendBroadcast(widgetIntent);
 		System.out.println("Should have broadcasted id " + id);
-
+		
 		Intent i = new Intent(this, MainActivity.class);
 		i.putExtra(INTENT_KEY_USERID, id);
 		i.putExtra(INTENT_KEY_EMAIL, emailAddress);
@@ -243,8 +247,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	
 	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {		
 		super.onActivityResult(requestCode, resultCode, data);
 		uiHelper.onActivityResult(requestCode, resultCode, data);
 		
@@ -279,30 +282,17 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 						finish();
 						break;
 				}
-
 				break;
 		}
-		
-		//start MainActivity if valid Facebook login 
-	    if (Session.getActiveSession() != null || Session.getActiveSession().isOpened()){
-	    	Intent i = new Intent(this, MainActivity.class);
-	    	startActivity(i);
-       }
 	    
 	}
 	
 	@Override
 	public void onResume() {
 	    super.onResume();
-
 	    // For scenarios where the main activity is launched and user
 	    // session is not null, the session state change notification
 	    // may not be triggered. Trigger it if it's open/closed.
-	    Session session = Session.getActiveSession();
-	    if (session != null &&
-	           (session.isOpened() || session.isClosed()) ) {
-	        onSessionStateChange(session, session.getState(), null);
-	    }
 	    uiHelper.onResume();
 	}
 
@@ -325,8 +315,21 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	}
 
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-	    if (state.isOpened()) {
+		if (state.isOpened()) {
 	        Log.i("FACEBOOK", "Logged in...");
+
+	        // Request Facebook user data and start main activity
+	        Request.newMeRequest(session, new Request.GraphUserCallback() {
+				@Override
+				public void onCompleted(GraphUser user, Response response) {
+					if (user != null) {
+						// Log.i("FACEBOOK", user.getId()+" ***** "+user.getName());
+						Intent i = new Intent(getApplicationContext(), MainActivity.class);
+				    	startActivity(i);
+					}
+				}
+	        }).executeAsync();
+
 	    } else if (state.isClosed()) {
 	        Log.i("FACEBOOK", "Logged out...");
 	    }

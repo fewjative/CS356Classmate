@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:facebook="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -10,15 +11,73 @@
                 android:layout_height="wrap_content"
                 android:background="@color/cppgreen"
         >
-                <com.facebook.widget.LoginButton
-           		 		android:id="@+id/btnFacebookLink"
-            			android:layout_width="match_parent"
-            			android:layout_height="wrap_content"
-            			android:layout_marginTop="30dp"
-            			android:layout_marginBottom="30dp"
-            			android:layout_marginLeft="20dp"
-            			android:layout_marginRight="20dp"
-            	/>
+                <com.facebook.widget.ProfilePictureView
+                    android:id="@+id/settingsProfilePicture"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="10dp"
+                    facebook:preset_size="normal"
+                />
+                
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_alignLeft="@+id/settingsProfilePicture"
+                    android:layout_below="@+id/settingsProfilePicture"
+                    android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="yo goddamn face"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_action_person" 
+                />
+                
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/settingsProfilePicture"
+                    android:layout_toRightOf="@+id/settingsProfilePicture" >
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                         	<TextView
+                         	    android:id="@+id/promptName"
+                         	    android:layout_width="wrap_content"
+                         	    android:layout_height="wrap_content"
+                         	    android:text="Name: "
+								android:textColor="@color/white_trans"
+							/>
+                        	<TextView
+                         	    android:id="@+id/displayName"
+                         	    android:layout_width="wrap_content"
+                         	    android:layout_height="wrap_content"
+								android:textColor="@color/white_trans"
+                         	    android:gravity="center"
+							/>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                         	<TextView
+                         	    android:id="@+id/promptID"
+                         	    android:layout_width="wrap_content"
+                         	    android:layout_height="wrap_content"
+                         	    android:text="FBID: "
+								android:textColor="@color/white_trans"
+							/>
+                        	<TextView
+                         	    android:id="@+id/displayID"
+                         	    android:layout_width="wrap_content"
+                         	    android:layout_height="wrap_content"
+								android:textColor="@color/white_trans"
+                         	    android:gravity="center"
+							/>
+                    </TableRow>
+                </TableLayout>                
                 
                 <LinearLayout
                         android:padding="10dip"
@@ -26,8 +85,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:layout_below="@+id/btnFacebookLink"
+                        android:layout_below="@+id/imageView1"
                 >
+                
                         <TextView
                                 style="@style/ClassmateTextView"
                                 android:text="@string/oldPass"

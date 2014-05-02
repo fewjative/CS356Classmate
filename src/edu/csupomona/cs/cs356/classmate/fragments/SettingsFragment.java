@@ -2,12 +2,11 @@ package edu.csupomona.cs.cs356.classmate.fragments;
 
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 
-import com.facebook.LoggingBehavior;
+import com.facebook.Request;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.Session.StatusCallback;
 import com.facebook.SessionState;
-import com.facebook.Settings;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -16,22 +15,27 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
+import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
-import com.facebook.*;
-import com.facebook.widget.LoginButton;
+
+import com.facebook.model.GraphUser;
+import com.facebook.widget.ProfilePictureView;
 
 
 //allow for a user to upload a photo/choose a photo for their profile picture
@@ -39,35 +43,47 @@ import com.facebook.widget.LoginButton;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener{
         private Button btnChangePass;
-        private LoginButton btnFacebookLink;
+        private ProfilePictureView settingsProfilePicture;
+        private ImageView iv;
+        private TextView displayName;
+        private TextView displayID; 
         private EditText etOldPass;
         private EditText etNewPass1;
         private EditText etNewPass2;
         
+        private static boolean isFbLoggedIn = false;
     	private UiLifecycleHelper uiHelper;
         private Session.StatusCallback callback = new Session.StatusCallback() {
-        @Override
-        public void call(Session session, SessionState state, Exception exception) {
-    	    	onSessionStateChange(session, state, exception);
-    	    }
+	        @Override
+	        public void call(Session session, SessionState state, Exception exception) {
+	    	    	onSessionStateChange(session, state, exception);
+	        }
     	};
         
+    	public boolean isFbLoggedIn() {
+    		return isFbLoggedIn;
+    	}
+    	
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         		super.onCreateView(inflater, container, savedInstanceState);
         		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.settings_fragment, null);
-                
-        		btnFacebookLink = (LoginButton)root.findViewById(R.id.btnFacebookLink);
-        		btnFacebookLink.setFragment(this);
         		
                 btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
                 btnChangePass.setOnClickListener(this);
                 btnChangePass.setEnabled(false);
-                                
+                         
+        		settingsProfilePicture = (ProfilePictureView)root.findViewById(R.id.settingsProfilePicture);
+                iv = (ImageView)root.findViewById(R.id.imageView1);
+        		displayName = (TextView)root.findViewById(R.id.displayName);
+                displayID = (TextView)root.findViewById(R.id.displayID);
+                
+                iv.setImageResource(R.drawable.ic_action_person);
+                
                 etOldPass = (EditText)root.findViewById(R.id.etOldPass);
                 etNewPass1 = (EditText)root.findViewById(R.id.etPassword);
                 etNewPass2 = (EditText)root.findViewById(R.id.etConfirmPassword);
-                
+                                
                 final TextView tvPasswordMatcher = (TextView)root.findViewById(R.id.tvPasswordMatcher);
                 TextWatcherAdapter textWatcher = new TextWatcherAdapter() {
                         String s1, s2, oldpass;
@@ -213,8 +229,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     	    // session is not null, the session state change notification
     	    // may not be triggered. Trigger it if it's open/closed.
     	    Session session = Session.getActiveSession();
-    	    if (session != null &&
-    	           (session.isOpened() || session.isClosed()) ) {
+    	    if (session != null && (session.isOpened() || session.isClosed()) ) {
     	        onSessionStateChange(session, session.getState(), null);
     	    }
     	    uiHelper.onResume();
@@ -246,10 +261,31 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     	
     	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
     	    if (state.isOpened()) {
-    	        Log.i("FACEBOOK", "Logged in...");
+    	    	Log.i("FACEBOOK", "Logged in...");
+    	    	Request.newMeRequest(session, new Request.GraphUserCallback() {
+    				@Override
+    				public void onCompleted(GraphUser user, Response response) {
+    					//set facebook details(picture, name, id) in the layout if logged in
+    					if (user != null) {
+    						isFbLoggedIn = true;
+    		                settingsProfilePicture.setProfileId(user.getId());
+    		                ImageView fbImage = ((ImageView)settingsProfilePicture.getChildAt( 0));
+    		                Bitmap bitmap = ((BitmapDrawable) fbImage.getDrawable()).getBitmap();
+    		                iv.setImageBitmap(bitmap);
+    		                displayName.setText(user.getName());
+    		                displayID.setText(user.getId());
+    					}
+    				}
+    	        }).executeAsync();
+    	    //if not logged into facebook then set all the layout details to null	
     	    } else if (state.isClosed()) {
     	        Log.i("FACEBOOK", "Logged out...");
+    	        isFbLoggedIn = false;
+        		settingsProfilePicture.setProfileId(null);
+                // iv.setImageResource(R.drawable.ic_action_person);
+        		displayName.setText(null);
+        		displayID.setText(null);
     	    }
     	}
-        
+    	
 }
