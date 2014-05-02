@@ -10,12 +10,12 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import edu.csupomona.cs.cs356.classmate.fragments.FreeTimeFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.SettingsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
-import edu.csupomona.cs.cs356.classmate.fragments.FreeTimeFragment;
 
 public class MainActivity extends FragmentActivity {
 	private static final String STATE_FRAGMENT = "fragment";
@@ -47,6 +47,20 @@ public class MainActivity extends FragmentActivity {
 		int name, icon;
 		String[] itemName, itemIcon;
 
+		name = getResources().getIdentifier("feeds_menu_activity", "string", this.getPackageName());
+		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
+		dlDrawer.addItem(name, icon, TodaysFragment.class);
+
+		name = getResources().getIdentifier("feeds_menu_events", "string", this.getPackageName());
+		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
+		dlDrawer.addItem(name, icon, TodaysFragment.class);
+
+		name = getResources().getIdentifier("feeds_menu_news", "string", this.getPackageName());
+		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
+		dlDrawer.addItem(name, icon, TodaysFragment.class);
+
+		dlDrawer.addHeader(R.string.schedule_menu_header);
+
 		name = getResources().getIdentifier("schedule_menu_today", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
 		dlDrawer.addItem(name, icon, TodaysFragment.class);
@@ -64,7 +78,7 @@ public class MainActivity extends FragmentActivity {
 		name = getResources().getIdentifier("user_menu_groups", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_group", "drawable", this.getPackageName());
 		dlDrawer.addItem(name, icon, GroupsFragment.class);
-		
+
 		name = getResources().getIdentifier("user_menu_freetime", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_time", "drawable", this.getPackageName());//CHANGE TO IC_ACTION_FREETIME
 		dlDrawer.addItem(name, icon, FreeTimeFragment.class);

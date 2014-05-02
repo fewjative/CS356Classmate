@@ -132,7 +132,8 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://lol-fc.com/classmate/addclass.php", params, new AsyncHttpResponseHandler() {
+		//CHANGED TO ADDCLASS2
+		client.get("http://lol-fc.com/classmate/addclass2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				((AddClassActivity)getContext()).setResult(RESULT_OK);

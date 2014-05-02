@@ -80,6 +80,7 @@
                 </TableLayout>                
                 
                 <LinearLayout
+                    	android:id="@+id/llSettings"
                         android:padding="10dip"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -142,6 +143,42 @@
                                 android:text="@string/changepassword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                        />
+                         <TextView
+                                style="@style/ClassmateTextView"
+                                android:id="@+id/tvCreateSchedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                        />
+                          <EditText
+                                style="@style/ClassmateEditText"
+                                android:id="@+id/etScheduleName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                        />
+                           <Button
+                                style="@style/ClassmateButton"
+                                android:id="@+id/btnCreateSchedule"
+                                android:text="Create Schedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                        />
+                             <Spinner
+						android:id="@+id/sSchedules"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="gone"
+						/>
+                        
+                        <Button
+                                style="@style/ClassmateButton"
+                                android:id="@+id/btnSetActive"
+                                android:text="Set Active Schedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
                         />
                 </LinearLayout>
 

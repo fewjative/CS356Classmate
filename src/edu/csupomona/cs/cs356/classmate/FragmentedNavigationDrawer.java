@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import com.facebook.Session;
 
 public class FragmentedNavigationDrawer extends DrawerLayout {
+
 	private ActionBarDrawerToggle drawerToggle;
 
 	private ListView lvDrawer;
@@ -71,14 +72,14 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_MENU:
-				if (isDrawerOpen()) {
-					closeDrawer(lvDrawer);
-				} else {
-					openDrawer(lvDrawer);
-				}
+		case KeyEvent.KEYCODE_MENU:
+			if (isDrawerOpen()) {
+				closeDrawer(lvDrawer);
+			} else {
+				openDrawer(lvDrawer);
+			}
 
-				return true;
+			return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -86,12 +87,12 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 
 	private ActionBarDrawerToggle setupDrawerToggle() {
 		return new ActionBarDrawerToggle(
-			getActivity(),
-			this,
-			R.drawable.ic_drawer,
-			R.string.drawerOpen,
-			R.string.drawerClose
-		) {
+				getActivity(),
+				this,
+				R.drawable.ic_drawer,
+				R.string.drawerOpen,
+				R.string.drawerClose
+				) {
 			@Override
 			public void onDrawerClosed(View view) {
 				setTitle(lastTitle);
@@ -128,8 +129,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(drawerContainerRes);
+
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
@@ -239,8 +239,6 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 	}
 
 	private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
-
-
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			if (selectedItem == null) {
@@ -262,7 +260,7 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		d.setMessage(getResources().getString(R.string.logoutConfirmation));
 		d.setIcon(android.R.drawable.ic_dialog_info);
 		d.setCanceledOnTouchOutside(true);
-		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {			
+		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				//logout of facebook session if there is one
 				Session session = Session.getActiveSession();
@@ -281,5 +279,6 @@ public class FragmentedNavigationDrawer extends DrawerLayout {
 		});
 
 		d.show();
+
 	}
 }

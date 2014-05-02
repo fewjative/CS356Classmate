@@ -144,7 +144,8 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://lol-fc.com/classmate/removeclass.php", params, new AsyncHttpResponseHandler() {
+		//CHANGED TO REMOVE CLASS 2
+		client.get("http://lol-fc.com/classmate/removeclass2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				remove(s);
