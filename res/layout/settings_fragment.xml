@@ -19,19 +19,6 @@
                     facebook:preset_size="normal"
                 />
                 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_alignLeft="@+id/settingsProfilePicture"
-                    android:layout_below="@+id/settingsProfilePicture"
-                    android:layout_marginBottom="10dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="yo goddamn face"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_action_person" 
-                />
-                
                 <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -86,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:layout_below="@+id/imageView1"
+                        android:layout_below="@+id/settingsProfilePicture"
                 >
                 
                         <TextView

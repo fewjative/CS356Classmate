@@ -40,6 +40,8 @@
         <!--Setting Fragment-->
         <string name="changepassword">Change Password</string>
         <string name="confirmnewpassword">Confirm New Password</string>
+        <string name="action_camera">Take a photo</string>
+        <string name="action_gallery">Choose Existing</string>
         
         <!--Registration Activity-->
         <string name="register">Register</string>

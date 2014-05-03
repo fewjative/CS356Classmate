@@ -2,7 +2,6 @@ package edu.csupomona.cs.cs356.classmate.fragments;
 
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 
-
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -24,32 +23,25 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
-import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Schedule;
-import edu.csupomona.cs.cs356.classmate.abstractions.Term;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 import com.facebook.model.GraphUser;
@@ -59,10 +51,9 @@ import com.facebook.widget.ProfilePictureView;
 //allow for a user to upload a photo/choose a photo for their profile picture
 //allow a user to make multiple schedules and choose the schedule from the settings fragment
 
-public class SettingsFragment extends Fragment implements View.OnClickListener{
+public class SettingsFragment extends PictureHandlerFragment implements View.OnClickListener{
         private Button btnChangePass;
         private ProfilePictureView settingsProfilePicture;
-        private ImageView iv;
         private TextView displayName;
         private TextView displayID; 
         private EditText etOldPass;
@@ -77,10 +68,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         private ViewGroup root;
         private Spinner sSchedule;
         private Schedule schActive = null;
-        private boolean isFirst = true;
         
-        private static boolean isFbLoggedIn = false;
-    	private UiLifecycleHelper uiHelper;
+        private boolean isFirst = true;
+        private boolean isFbLoggedIn = false;
+    	private boolean photoTaken = true;
+    	
+        private UiLifecycleHelper uiHelper;
         private Session.StatusCallback callback = new Session.StatusCallback() {
 	        @Override
 	        public void call(Session session, SessionState state, Exception exception) {
@@ -112,12 +105,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
                 
                 // facebook stuff
         		settingsProfilePicture = (ProfilePictureView)root.findViewById(R.id.settingsProfilePicture);
-                iv = (ImageView)root.findViewById(R.id.imageView1);
+        		settingsProfilePicture.setOnClickListener(this);
+        		settingsProfilePicture.setEnabled(true);
+        		
         		displayName = (TextView)root.findViewById(R.id.displayName);
                 displayID = (TextView)root.findViewById(R.id.displayID);
-            
-                iv.setImageResource(R.drawable.ic_action_person);
-                //facebook stuff
+                //-----------------
                 
                 etOldPass = (EditText)root.findViewById(R.id.etOldPass);
                 etNewPass1 = (EditText)root.findViewById(R.id.etPassword);
@@ -171,8 +164,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
                     }
             };
            
-            
-
                 etOldPass.addTextChangedListener(textWatcher);
                 etNewPass1.addTextChangedListener(textWatcher);
                 etNewPass2.addTextChangedListener(textWatcher);
@@ -187,8 +178,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
                 client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(String response) {
-   
-
                                 int numSchedules;
                                 try {
                                 	numSchedules = Integer.parseInt(response);
@@ -284,17 +273,34 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         	AsyncHttpClient client = new AsyncHttpClient();
         	 
         	switch(v.getId()){
+        	//profile picture clicked
+        	case R.id.settingsProfilePicture:
+        		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                CharSequence camera = getResources().getString(R.string.action_camera);
+                CharSequence gallery = getResources().getString(R.string.action_gallery);
+                builder.setCancelable(true).
+                        setItems(new CharSequence[] {camera, gallery}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0) {
+                                	startCamera();
+                                } else if (i == 1) {
+                                    //
+                                }
+                            }
+                        });
+                builder.show();  
+        		
+        		//startCamera();
+        		break;
+        	
         	case R.id.btnChangePass:
                 assert etNewPass1.getText().toString().compareTo(etNewPass2.getText().toString()) == 0;
 
                 final ProgressDialog pg = ProgressDialog.show(getActivity(), getResources().getString(R.string.changePass), getResources().getString(R.string.changePassLoading));
 
-        
                 String newpassword = etNewPass1.getText().toString();
                 String oldpassword = etOldPass.getText().toString();
-                
-               
-                
                 
                 params.put("user_id", Integer.toString(id));
                 params.put("oldpassword", oldpassword);
@@ -435,7 +441,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         	
         	}
         }
-    
+        
+        // methods required for facebook stuff------------
     	@Override
     	public void onResume() {
     	    super.onResume();
@@ -454,6 +461,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     	public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	    super.onActivityResult(requestCode, resultCode, data);
     	    uiHelper.onActivityResult(requestCode, resultCode, data);
+    	    
+    	    switch(requestCode) {
+    	    //display picture captured in ProfilePictureView
+    	    case CODE_CAMERA_REQUEST:
+    	        if(resultCode == getActivity().RESULT_OK) {
+    	           Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+    	           settingsProfilePicture.setDefaultProfilePicture(thumbnail);
+    	        }
+    	        break;
+    	    }
     	}
 
     	@Override
@@ -484,9 +501,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     					if (user != null) {
     						isFbLoggedIn = true;
     		                settingsProfilePicture.setProfileId(user.getId());
-    		                ImageView fbImage = ((ImageView)settingsProfilePicture.getChildAt( 0));
-    		                Bitmap bitmap = ((BitmapDrawable) fbImage.getDrawable()).getBitmap();
-    		                iv.setImageBitmap(bitmap);
+//    		                ImageView fbImage = ((ImageView)settingsProfilePicture.getChildAt( 0));
+//    		                Bitmap bitmap = ((BitmapDrawable) fbImage.getDrawable()).getBitmap();
     		                displayName.setText(user.getName());
     		                displayID.setText(user.getId());
     					}
@@ -496,12 +512,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     	    } else if (state.isClosed()) {
     	        Log.i("FACEBOOK", "Logged out...");
     	        isFbLoggedIn = false;
-        		settingsProfilePicture.setProfileId(null);
-                // iv.setImageResource(R.drawable.ic_action_person);
+        		// get drawable resource from icon and convert to bitmap form
+    	        Bitmap profilepic = BitmapFactory.decodeResource(getActivity().getBaseContext().getResources(),
+    	        												 R.drawable.ic_action_person);
+    	        // set default profile pic to specified bitmap
+    	        settingsProfilePicture.setDefaultProfilePicture(profilepic);
+    	        
         		displayName.setText(null);
         		displayID.setText(null);
     	    }
     	}
-    	
+    	//---------------------------------------
 }
 //http://stackoverflow.com/questions/18268880/reset-reload-fragment-container
