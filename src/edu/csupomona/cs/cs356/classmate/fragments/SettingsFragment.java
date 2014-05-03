@@ -25,7 +25,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,7 +74,6 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         
         private boolean isFirst = true;
         private boolean isFbLoggedIn = false;
-    	private boolean photoTaken = true;
     	
         private UiLifecycleHelper uiHelper;
         private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -105,11 +107,15 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 
                 // facebook stuff
         		settingsProfilePicture = (ProfilePictureView)root.findViewById(R.id.settingsProfilePicture);
+        		// set default profile pic to specified bitmap
+        		settingsProfilePicture.setDefaultProfilePicture(getBitmap(R.drawable.ic_action_person));
         		settingsProfilePicture.setOnClickListener(this);
         		settingsProfilePicture.setEnabled(true);
         		
         		displayName = (TextView)root.findViewById(R.id.displayName);
                 displayID = (TextView)root.findViewById(R.id.displayID);
+        		displayName.setText(null);
+        		displayID.setText(null);
                 //-----------------
                 
                 etOldPass = (EditText)root.findViewById(R.id.etOldPass);
@@ -169,7 +175,6 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 etNewPass2.addTextChangedListener(textWatcher);
                 etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
              
-                
                 final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
                 RequestParams params = new RequestParams();
                 params.put("user_id", Integer.toString(id));
@@ -285,13 +290,11 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                                 if (i == 0) {
                                 	startCamera();
                                 } else if (i == 1) {
-                                    //
+                                    startGallery();
                                 }
                             }
                         });
                 builder.show();  
-        		
-        		//startCamera();
         		break;
         	
         	case R.id.btnChangePass:
@@ -467,7 +470,23 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	    case CODE_CAMERA_REQUEST:
     	        if(resultCode == getActivity().RESULT_OK) {
     	           Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+    	           // set default profile pic to specified bitmap
     	           settingsProfilePicture.setDefaultProfilePicture(thumbnail);
+    	           ImageView iv = (ImageView)root.findViewById(R.id.imageView1);
+    	           iv.setImageBitmap(thumbnail);
+    	        }
+    	        break;
+    	    case CODE_GALLERY_REQUEST:
+    	        try { //if data != null
+	    	       Uri photoUri = data.getData();
+	    	       // Do something with the photo based on Uri
+	    	       Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+	    	       // Load the selected image into a preview
+	    	       settingsProfilePicture.setDefaultProfilePicture(thumbnail);
+	    	       ImageView iv = (ImageView)root.findViewById(R.id.imageView1);
+    	           iv.setImageBitmap(thumbnail);
+    	        } catch (Exception e) {
+    	        	Log.i("GALLERY", e.getMessage());
     	        }
     	        break;
     	    }
@@ -512,14 +531,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	    } else if (state.isClosed()) {
     	        Log.i("FACEBOOK", "Logged out...");
     	        isFbLoggedIn = false;
-        		// get drawable resource from icon and convert to bitmap form
-    	        Bitmap profilepic = BitmapFactory.decodeResource(getActivity().getBaseContext().getResources(),
-    	        												 R.drawable.ic_action_person);
-    	        // set default profile pic to specified bitmap
-    	        settingsProfilePicture.setDefaultProfilePicture(profilepic);
     	        
-        		displayName.setText(null);
-        		displayID.setText(null);
     	    }
     	}
     	//---------------------------------------

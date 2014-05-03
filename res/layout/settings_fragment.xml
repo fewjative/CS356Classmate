@@ -6,168 +6,176 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
 >
+
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cppgreen" >
+
+            <com.facebook.widget.ProfilePictureView
+                android:id="@+id/settingsProfilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                facebook:preset_size="normal" />
+
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/settingsProfilePicture"
+                android:layout_toRightOf="@+id/settingsProfilePicture" >
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/promptName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name: "
+                        android:textColor="@color/white_trans" />
+
+                    <TextView
+                        android:id="@+id/displayName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/white_trans" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/promptID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FBID: "
+                        android:textColor="@color/white_trans" />
+
+                    <TextView
+                        android:id="@+id/displayID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/white_trans" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/llSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cppgreen"
-        >
-                <com.facebook.widget.ProfilePictureView
-                    android:id="@+id/settingsProfilePicture"
+                android:layout_below="@+id/settingsProfilePicture"
+                android:background="@android:color/transparent"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    style="@style/ClassmateTextView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_margin="10dp"
-                    facebook:preset_size="normal"
-                />
-                
-                <TableLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignTop="@+id/settingsProfilePicture"
-                    android:layout_toRightOf="@+id/settingsProfilePicture" >
+                    android:labelFor="@+id/etOldPass"
+                    android:text="@string/oldPass" />
 
-                    <TableRow
-                        android:id="@+id/tableRow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-                         	<TextView
-                         	    android:id="@+id/promptName"
-                         	    android:layout_width="wrap_content"
-                         	    android:layout_height="wrap_content"
-                         	    android:text="Name: "
-								android:textColor="@color/white_trans"
-							/>
-                        	<TextView
-                         	    android:id="@+id/displayName"
-                         	    android:layout_width="wrap_content"
-                         	    android:layout_height="wrap_content"
-								android:textColor="@color/white_trans"
-                         	    android:gravity="center"
-							/>
-                    </TableRow>
+                <EditText
+                    android:id="@+id/etOldPass"
+                    style="@style/ClassmateEditText_Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-                    <TableRow
-                        android:id="@+id/tableRow2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-                         	<TextView
-                         	    android:id="@+id/promptID"
-                         	    android:layout_width="wrap_content"
-                         	    android:layout_height="wrap_content"
-                         	    android:text="FBID: "
-								android:textColor="@color/white_trans"
-							/>
-                        	<TextView
-                         	    android:id="@+id/displayID"
-                         	    android:layout_width="wrap_content"
-                         	    android:layout_height="wrap_content"
-								android:textColor="@color/white_trans"
-                         	    android:gravity="center"
-							/>
-                    </TableRow>
-                </TableLayout>                
-                
-                <LinearLayout
-                    	android:id="@+id/llSettings"
-                        android:padding="10dip"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:layout_below="@+id/settingsProfilePicture"
-                >
-                
-                        <TextView
-                                style="@style/ClassmateTextView"
-                                android:text="@string/oldPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etOldPass"
-                        />
-                        <EditText
-                                style="@style/ClassmateEditText_Password"
-                                android:id="@+id/etOldPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        
-                        <TextView
-                                style="@style/ClassmateTextView"
-                                android:text="@string/newPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etPassword"
-                        />
-                        <EditText
-                                style="@style/ClassmateEditText_Password"
-                                android:id="@+id/etPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        <TextView
-                                style="@style/ClassmateTextView"
-                                android:text="@string/confirmnewpassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etConfirmPassword"
-                        />
-                        <EditText
-                                style="@style/ClassmateEditText_Password"
-                                android:id="@+id/etConfirmPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        <TextView
-                                style="@style/ClassmateTextView"
-                                android:id="@+id/tvPasswordMatcher"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:gravity="center"
-                        />
-                        <Button
-                                style="@style/ClassmateButton"
-                                android:id="@+id/btnChangePass"
-                                android:text="@string/changepassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                         <TextView
-                                style="@style/ClassmateTextView"
-                                android:id="@+id/tvCreateSchedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:gravity="center"
-                        />
-                          <EditText
-                                style="@style/ClassmateEditText"
-                                android:id="@+id/etScheduleName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                           <Button
-                                style="@style/ClassmateButton"
-                                android:id="@+id/btnCreateSchedule"
-                                android:text="Create Schedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                             <Spinner
-						android:id="@+id/sSchedules"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="gone"
-						/>
-                        
-                        <Button
-                                style="@style/ClassmateButton"
-                                android:id="@+id/btnSetActive"
-                                android:text="Set Active Schedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                        />
-                </LinearLayout>
+                <TextView
+                    style="@style/ClassmateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@+id/etPassword"
+                    android:text="@string/newPass" />
 
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/ClassmateEditText_Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/ClassmateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@+id/etConfirmPassword"
+                    android:text="@string/confirmnewpassword" />
+
+                <EditText
+                    android:id="@+id/etConfirmPassword"
+                    style="@style/ClassmateEditText_Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvPasswordMatcher"
+                    style="@style/ClassmateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnChangePass"
+                    style="@style/ClassmateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/changepassword" />
+
+                <TextView
+                    android:id="@+id/tvCreateSchedule"
+                    style="@style/ClassmateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etScheduleName"
+                    style="@style/ClassmateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btnCreateSchedule"
+                    style="@style/ClassmateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create Schedule" />
+
+                <Spinner
+                    android:id="@+id/sSchedules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnSetActive"
+                    style="@style/ClassmateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set Active Schedule"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tableLayout1"
+                android:layout_marginBottom="21dp"
+                android:layout_marginLeft="62dp"
+                android:layout_toRightOf="@+id/tableLayout1"
+                android:visibility="gone"
+                android:src="@drawable/circular_button" />
         </RelativeLayout>
+
 </ScrollView>
