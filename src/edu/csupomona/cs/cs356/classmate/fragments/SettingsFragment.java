@@ -80,7 +80,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 			public void afterTextChanged(Editable e) {
 				s1 = etNewPass1.getText().toString();
 				s2 = etNewPass2.getText().toString();
-				if (!s1.isEmpty() && s1.compareTo(s2) == 0) {
+				if (!s1.isEmpty() && !s2.isEmpty() && s1.equals(s2)) {
 					tvPasswordMatcher.setText(R.string.passwordsmatch);
 					tvPasswordMatcher.setTextColor(getResources().getColor(R.color.green));
 					btnChangePass.setEnabled(true);

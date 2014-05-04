@@ -16,7 +16,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 
 	public NavigationDrawerAdapter(Context context) {
 		super(context, 0);
-		this.intent = ((Activity) context).getIntent();
+		this.intent = ((Activity)context).getIntent();
 	}
 
 	public void addMasterHeader(int title) {
@@ -96,26 +96,15 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			view = LayoutInflater.from(getContext()).inflate(layout, null);
 			avatarView = view;
 
-				
 			TextView text1 = (TextView)view.findViewById(R.id.menurow_title);
 			ImageView image1 = (ImageView)view.findViewById(R.id.menurow_icon);
-			
-			if(layout==R.layout.menu_master_header)
-			{
+
+			if (layout == R.layout.menu_master_header) {
 				ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
-				
-				int id = intent.getIntExtra(LoginActivity.INTENT_KEY_USERID, 0);
-				switch(id){
-				case 18: avatar.setImageResource(R.drawable.ic_action_person_collin);
-				break;
-				case 19:avatar.setImageResource(R.drawable.ic_action_person_robert);
-				break;
-				case 30: avatar.setImageResource(R.drawable.ic_action_person_josh);
-				break;
-				default: avatar.setImageResource(R.drawable.ic_action_person);
-				}
-				
-				
+
+				//int id = intent.getIntExtra(LoginActivity.INTENT_KEY_USERID, 0);
+				avatar.setImageResource(R.drawable.ic_action_person);
+
 			}
 
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);
