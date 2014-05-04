@@ -1,50 +1,60 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("ValidFragment")//takes care of problem with line 46(stupid irrelevant constructor issue that appeared even with no changes)
 public class ScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
 
 	private ViewGroup root;
+	private EditText etScheduleName;
+	private Button btnAddSchedule;
 	private LinearLayout llAddClass;
 	private LinearLayout llNoClass;
 	private LinearLayout llSchedule;
-	
-	private boolean outside_source=false;
+	private LinearLayout llNoSchedule;
+
+	private boolean outside_source = false;
 	private final int friend_id;
-	
-	public ScheduleFragment(int user_id)
-	{
+
+	public ScheduleFragment() {
+		friend_id = 0;
+	}
+
+	public ScheduleFragment(int user_id) {
 		outside_source = true;
 		friend_id = user_id;
-	}
-	
-	public ScheduleFragment()
-	{
-		friend_id = 0;
 	}
 
 	@Override
@@ -52,89 +62,166 @@ public class ScheduleFragment extends Fragment {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
 
 		final int id;
-		if(outside_source)
-		{
+		if (outside_source) {
 			id = friend_id;
-		}
-		else
+		} else {
 			id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+		}
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
-		RequestParams params = new RequestParams();
+		final RequestParams params = new RequestParams();
 		params.put("user_id", Integer.toString(id));
 
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/getusernumclasses.php", params, new AsyncHttpResponseHandler() {
+		final AsyncHttpClient client = new AsyncHttpClient();
+		client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
+
 			@Override
 			public void onSuccess(String response) {
 				llProgressBar.setVisibility(View.GONE);
 
-				int numClasses;
+				int numSchedules;
 				try {
-					numClasses = Integer.parseInt(response);
+					numSchedules = Integer.parseInt(response);
 				} catch (NumberFormatException e) {
-					numClasses = 0;
+					numSchedules = 0;
 				}
 
-				if (numClasses == 0) {
-					
-					if(outside_source)
-					{
-						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
-						llNoClass.setVisibility(View.VISIBLE);
-					}
-					else
-					{
-						llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
-						llAddClass.setVisibility(View.VISIBLE);
-	
-						ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
-						btnAddClass.setOnClickListener(new View.OnClickListener() {
-							public void onClick(View v) {
-								Intent i = new Intent(getActivity(), AddClassActivity.class);
-								i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-								startActivityForResult(i, CODE_ADD_CLASS);
-							}
-						});
-					}
-				} else {
-					llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
-					llSchedule.setVisibility(View.VISIBLE);
+				if (numSchedules == 0) {
+					llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
+					llNoSchedule.setVisibility(View.VISIBLE);
 
-					Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
-					
-					if(outside_source)
-					{
-						btnAddClass2.setVisibility(View.GONE);
-					}
-					
-					btnAddClass2.setOnClickListener(new View.OnClickListener() {
+					etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
+					btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
+					btnAddSchedule.setEnabled(false);
+
+					TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
+						String s1;
+
+						@Override
+						public void afterTextChanged(Editable e) {
+							s1 = etScheduleName.getText().toString();
+
+							if (!s1.isEmpty()) {
+								btnAddSchedule.setEnabled(true);
+							} else {
+								btnAddSchedule.setEnabled(false);
+							}
+
+							// TODO: Safely clear strings from memory using some char array
+						}
+					};
+
+					etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
+
+					btnAddSchedule.setOnClickListener(new View.OnClickListener() {
 						public void onClick(View v) {
-							Intent i = new Intent(getActivity(), AddClassActivity.class);
-							i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-							startActivityForResult(i, CODE_ADD_CLASS);
+
+							String scheduleName = etScheduleName.getText().toString();
+							String firstSchedule = Integer.toString(1);
+
+							params.put("user_id", Integer.toString(id));
+							params.put("title", scheduleName);
+							params.put("new", firstSchedule);
+
+							client.get("http://www.lol-fc.com/classmate/adduserschedule.php", params, new AsyncHttpResponseHandler() {
+								@Override
+								public void onSuccess(String response) {
+
+									etScheduleName.setText("");
+
+									llNoSchedule.setVisibility(View.GONE);
+
+									llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
+									llNoClass.setVisibility(View.VISIBLE);
+
+									Button btnAddClass3 = (Button)root.findViewById(R.id.btnAddClass3);
+									btnAddClass3.setOnClickListener(new View.OnClickListener() {
+										public void onClick(View v) {
+											Intent i = new Intent(getActivity(), AddClassActivity.class);
+											i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+											startActivityForResult(i, CODE_ADD_CLASS);
+										}
+									});
+
+								}
+							});
+
 						}
 					});
 
-					final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
-					llProgressBarClasses.setVisibility(View.VISIBLE);
-
-					RequestParams params = new RequestParams();
-					params.put("full", "yes");
-					params.put("user_id", Integer.toString(id));
-
-					AsyncHttpClient client = new AsyncHttpClient();
-					client.get("http://lol-fc.com/classmate/getuserclasses.php", params, new AsyncHttpResponseHandler() {
+				} else {
+					client.get("http://www.lol-fc.com/classmate/getusernumclasses2.php", params, new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(String response) {
-							setupSchedule(response);
-							llProgressBarClasses.setVisibility(View.GONE);
+							llProgressBar.setVisibility(View.GONE);
+
+							int numClasses;
+							try {
+								numClasses = Integer.parseInt(response);
+							} catch (NumberFormatException e) {
+								numClasses = 0;
+							}
+
+							if (numClasses == 0) {
+
+								if (outside_source) {
+									llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
+									llNoClass.setVisibility(View.VISIBLE);
+								} else {
+									llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
+									llAddClass.setVisibility(View.VISIBLE);
+
+									ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
+									btnAddClass.setOnClickListener(new View.OnClickListener() {
+										public void onClick(View v) {
+											Intent i = new Intent(getActivity(), AddClassActivity.class);
+											i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+											startActivityForResult(i, CODE_ADD_CLASS);
+										}
+									});
+								}
+							} else {
+								llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
+								llSchedule.setVisibility(View.VISIBLE);
+
+								Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
+
+								if (outside_source) {
+									btnAddClass2.setVisibility(View.GONE);
+								}
+
+								btnAddClass2.setOnClickListener(new View.OnClickListener() {
+									public void onClick(View v) {
+										Intent i = new Intent(getActivity(), AddClassActivity.class);
+										i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+										startActivityForResult(i, CODE_ADD_CLASS);
+									}
+								});
+
+								final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
+								llProgressBarClasses.setVisibility(View.VISIBLE);
+
+								RequestParams params = new RequestParams();
+								params.put("full", "yes");
+								params.put("user_id", Integer.toString(id));
+
+								AsyncHttpClient client = new AsyncHttpClient();
+								//CHANGED TO VERSION2
+								client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
+									@Override
+									public void onSuccess(String response) {
+										setupSchedule(response);
+										llProgressBarClasses.setVisibility(View.GONE);
+									}
+								});
+							}
 						}
 					});
 				}
 			}
+
 		});
 
 		return root;
@@ -175,15 +262,13 @@ public class ScheduleFragment extends Fragment {
 		}
 
 		ScheduleAdapter adapter;
-		
-		if(outside_source)
-		{
-			adapter = new ScheduleAdapter(getActivity(), schedule, outside_source);
-		}
-		else
-			adapter = new ScheduleAdapter(getActivity(), schedule);
 
-		
+		if (outside_source) {
+			adapter = new ScheduleAdapter(getActivity(), schedule, outside_source);
+		} else {
+			adapter = new ScheduleAdapter(getActivity(), schedule);
+		}
+
 		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
 		lvSchedule.setAdapter(adapter);
 		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -218,7 +303,6 @@ public class ScheduleFragment extends Fragment {
 			llAddClass.setVisibility(View.GONE);
 		}
 
-
 		if (llSchedule == null) {
 			llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
 
@@ -242,7 +326,8 @@ public class ScheduleFragment extends Fragment {
 		params.put("user_id", Integer.toString(id));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://lol-fc.com/classmate/getuserclasses.php", params, new AsyncHttpResponseHandler() {
+		//CHANGED TO GETUSERCLASSES2
+		client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				setupSchedule(response);

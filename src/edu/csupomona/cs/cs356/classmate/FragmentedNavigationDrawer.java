@@ -21,254 +21,256 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class FragmentedNavigationDrawer extends DrawerLayout {
-	private ActionBarDrawerToggle drawerToggle;
 
-	private ListView lvDrawer;
-	private NavigationDrawerAdapter drawerAdapter;
-	private ArrayList<FragmentNavigationItem> drawerItemList;
-	private int drawerContainerRes;
+private ActionBarDrawerToggle drawerToggle;
 
-	private int selectedItemPosition;
+private ListView lvDrawer;
+private NavigationDrawerAdapter drawerAdapter;
+private ArrayList<FragmentNavigationItem> drawerItemList;
+private int drawerContainerRes;
 
-	private static CharSequence lastTitle;
+private int selectedItemPosition;
 
-	private View selectedItem;
+private static CharSequence lastTitle;
 
-	public FragmentedNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+private View selectedItem;
 
-	public FragmentedNavigationDrawer(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+public FragmentedNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
+super(context, attrs, defStyle);
+}
 
-	public FragmentedNavigationDrawer(Context context) {
-		super(context);
-	}
+public FragmentedNavigationDrawer(Context context, AttributeSet attrs) {
+super(context, attrs);
+}
 
-	public void setupDrawerConfiguration(ListView drawerListView, int drawerContainerRes) {
-		drawerItemList = new ArrayList<FragmentNavigationItem>();
-		drawerAdapter = new NavigationDrawerAdapter(getActivity());
+public FragmentedNavigationDrawer(Context context) {
+super(context);
+}
 
-		this.drawerContainerRes = drawerContainerRes;
+public void setupDrawerConfiguration(ListView drawerListView, int drawerContainerRes) {
+drawerItemList = new ArrayList<FragmentNavigationItem>();
+drawerAdapter = new NavigationDrawerAdapter(getActivity());
 
-		lvDrawer = drawerListView;
-		lvDrawer.setAdapter(drawerAdapter);
-		lvDrawer.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		lvDrawer.setOnItemClickListener(new FragmentDrawerItemListener());
+this.drawerContainerRes = drawerContainerRes;
 
-		drawerToggle = setupDrawerToggle();
-		setDrawerListener(drawerToggle);
-		setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+lvDrawer = drawerListView;
+lvDrawer.setAdapter(drawerAdapter);
+lvDrawer.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+lvDrawer.setOnItemClickListener(new FragmentDrawerItemListener());
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-	}
+drawerToggle = setupDrawerToggle();
+setDrawerListener(drawerToggle);
+setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_MENU:
-				if (isDrawerOpen()) {
-					closeDrawer(lvDrawer);
-				} else {
-					openDrawer(lvDrawer);
-				}
+getActionBar().setDisplayHomeAsUpEnabled(true);
+getActionBar().setHomeButtonEnabled(true);
+}
 
-				return true;
-		}
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+switch (keyCode) {
+case KeyEvent.KEYCODE_MENU:
+if (isDrawerOpen()) {
+closeDrawer(lvDrawer);
+} else {
+openDrawer(lvDrawer);
+}
 
-		return super.onKeyDown(keyCode, event);
-	}
+return true;
+}
 
-	private ActionBarDrawerToggle setupDrawerToggle() {
-		return new ActionBarDrawerToggle(
-			getActivity(),
-			this,
-			R.drawable.ic_drawer,
-			R.string.drawerOpen,
-			R.string.drawerClose
-		) {
-			@Override
-			public void onDrawerClosed(View view) {
-				setTitle(lastTitle);
-				//getActivity().invalidateOptionsMenu();
-			}
+return super.onKeyDown(keyCode, event);
+}
 
-			@Override
-			public void onDrawerOpened(View drawerView) {
-				setTitle(R.string.ClassmateAppName);
-				((MainActivity)getActivity()).updateFriendRequestsNum();
-				//getActivity().invalidateOptionsMenu();
-			}
-		};
-	}
+private ActionBarDrawerToggle setupDrawerToggle() {
+return new ActionBarDrawerToggle(
+getActivity(),
+this,
+R.drawable.ic_drawer,
+R.string.drawerOpen,
+R.string.drawerClose
+) {
+@Override
+public void onDrawerClosed(View view) {
+setTitle(lastTitle);
+//getActivity().invalidateOptionsMenu();
+}
 
-	public int getSelectedItemPosition() {
-		return selectedItemPosition;
-	}
+@Override
+public void onDrawerOpened(View drawerView) {
+setTitle(R.string.ClassmateAppName);
+((MainActivity)getActivity()).updateFriendRequestsNum();
+//getActivity().invalidateOptionsMenu();
+}
+};
+}
 
-	public void selectDrawerItem(int position) {
-		FragmentNavigationItem navItem = drawerItemList.get(position);
-		if (navItem.titleRes == R.string.app_menu_logout) {
-			attemptLogout();
-			return;
-		}
+public int getSelectedItemPosition() {
+return selectedItemPosition;
+}
 
-		Fragment fragment = null;
-		try {
-			fragment = navItem.fragmentClass.newInstance();
-			Bundle args = navItem.fragmentArgs;
-			if (args != null) {
-				fragment.setArguments(args);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+public void selectDrawerItem(int position) {
+FragmentNavigationItem navItem = drawerItemList.get(position);
+if (navItem.titleRes == R.string.app_menu_logout) {
+attemptLogout();
+return;
+}
 
-		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
+Fragment fragment = null;
+try {
+fragment = navItem.fragmentClass.newInstance();
+Bundle args = navItem.fragmentArgs;
+if (args != null) {
+fragment.setArguments(args);
+}
+} catch (Exception e) {
+e.printStackTrace();
+}
 
-		lvDrawer.setItemChecked(position, true);
-		if (navItem.title == null) {
-			setTitle(navItem.titleRes);
-		} else {
-			setTitle(navItem.title);
-		}
+FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
-		lastTitle = getActionBar().getTitle();
-		closeDrawer(lvDrawer);
-		selectedItemPosition = position;
-	}
+lvDrawer.setItemChecked(position, true);
+if (navItem.title == null) {
+setTitle(navItem.titleRes);
+} else {
+setTitle(navItem.title);
+}
 
-	public void setDrawerHeader(int title) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, true));
-		drawerItemList.add(null);
-	}
+lastTitle = getActionBar().getTitle();
+closeDrawer(lvDrawer);
+selectedItemPosition = position;
+}
 
-	public void setDrawerHeader(CharSequence title) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, true));
-		drawerItemList.add(null);
-	}
+public void setDrawerHeader(int title) {
+drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, true));
+drawerItemList.add(null);
+}
 
-	public void addHeader(int title) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, false));
-		drawerItemList.add(null);
-	}
+public void setDrawerHeader(CharSequence title) {
+drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, true));
+drawerItemList.add(null);
+}
 
-	public void addHeader(CharSequence title) {
-		drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, false));
-		drawerItemList.add(null);
-	}
+public void addHeader(int title) {
+drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, false));
+drawerItemList.add(null);
+}
 
-	public NavigationDrawerItemModel addItem(int title, int icon, Class<? extends Fragment> fragmentClass) {
-		NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
-		drawerAdapter.add(item);
-		drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
-		return item;
-	}
+public void addHeader(CharSequence title) {
+drawerAdapter.add(new NavigationDrawerItemModel(title, -1, true, false));
+drawerItemList.add(null);
+}
 
-	public NavigationDrawerItemModel addItem(CharSequence title, int icon, Class<? extends Fragment> fragmentClass) {
-		NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
-		drawerAdapter.add(item);
-		drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
-		return item;
-	}
+public NavigationDrawerItemModel addItem(int title, int icon, Class<? extends Fragment> fragmentClass) {
+NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
+drawerAdapter.add(item);
+drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
+return item;
+}
 
-	private FragmentActivity getActivity() {
-		return (FragmentActivity)getContext();
-	}
+public NavigationDrawerItemModel addItem(CharSequence title, int icon, Class<? extends Fragment> fragmentClass) {
+NavigationDrawerItemModel item = new NavigationDrawerItemModel(title, icon, false, false);
+drawerAdapter.add(item);
+drawerItemList.add(new FragmentNavigationItem(title, fragmentClass));
+return item;
+}
 
-	private ActionBar getActionBar() {
-		return getActivity().getActionBar();
-	}
+private FragmentActivity getActivity() {
+return (FragmentActivity)getContext();
+}
 
-	public NavigationDrawerAdapter getAdapter() {
-		return drawerAdapter;
-	}
+private ActionBar getActionBar() {
+return getActivity().getActionBar();
+}
 
-	public ListView getListView() {
-		return lvDrawer;
-	}
+public NavigationDrawerAdapter getAdapter() {
+return drawerAdapter;
+}
 
-	public ActionBarDrawerToggle getDrawerToggle() {
-		return drawerToggle;
-	}
+public ListView getListView() {
+return lvDrawer;
+}
 
-	private void setTitle(CharSequence title) {
-		getActionBar().setTitle(title);
-	}
+public ActionBarDrawerToggle getDrawerToggle() {
+return drawerToggle;
+}
 
-	private void setTitle(int title) {
-		getActionBar().setTitle(title);
-	}
+private void setTitle(CharSequence title) {
+getActionBar().setTitle(title);
+}
 
-	public boolean isDrawerOpen() {
-		return isDrawerOpen(lvDrawer);
-	}
+private void setTitle(int title) {
+getActionBar().setTitle(title);
+}
 
-	private class FragmentNavigationItem {
-		private int titleRes;
-		private CharSequence title;
-		private Class<? extends Fragment> fragmentClass;
-		private Bundle fragmentArgs;
+public boolean isDrawerOpen() {
+return isDrawerOpen(lvDrawer);
+}
 
-		public FragmentNavigationItem(int title, Class<? extends Fragment> fragmentClass) {
-			this(title, fragmentClass, null);
-		}
+private class FragmentNavigationItem {
+private int titleRes;
+private CharSequence title;
+private Class<? extends Fragment> fragmentClass;
+private Bundle fragmentArgs;
 
-		public FragmentNavigationItem(CharSequence title, Class<? extends Fragment> fragmentClass) {
-			this(title, fragmentClass, null);
-		}
+public FragmentNavigationItem(int title, Class<? extends Fragment> fragmentClass) {
+this(title, fragmentClass, null);
+}
 
-		public FragmentNavigationItem(int title, Class<? extends Fragment> fragmentClass, Bundle args) {
-			this.titleRes = title;
-			this.fragmentClass = fragmentClass;
-			this.fragmentArgs = args;
-		}
+public FragmentNavigationItem(CharSequence title, Class<? extends Fragment> fragmentClass) {
+this(title, fragmentClass, null);
+}
 
-		public FragmentNavigationItem(CharSequence title, Class<? extends Fragment> fragmentClass, Bundle args) {
-			this.title = title;
-			this.fragmentClass = fragmentClass;
-			this.fragmentArgs = args;
-		}
-	}
+public FragmentNavigationItem(int title, Class<? extends Fragment> fragmentClass, Bundle args) {
+this.titleRes = title;
+this.fragmentClass = fragmentClass;
+this.fragmentArgs = args;
+}
 
-	private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			if (selectedItem == null) {
-				selectedItem = drawerAdapter.firstListItem;
-			}
+public FragmentNavigationItem(CharSequence title, Class<? extends Fragment> fragmentClass, Bundle args) {
+this.title = title;
+this.fragmentClass = fragmentClass;
+this.fragmentArgs = args;
+}
+}
 
-			selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(0);
+private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
+@Override
+public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+if (selectedItem == null) {
+selectedItem = drawerAdapter.firstListItem;
+}
 
-			selectedItem = view;
-			selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(R.color.cppgold_trans_darker);
+selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(0);
 
-			selectDrawerItem(position);
-		}
-	}
+selectedItem = view;
+selectedItem.findViewById(R.id.menuitem_content).setBackgroundResource(R.color.cppgold_trans_darker);
 
-	private void attemptLogout() {
-		AlertDialog d = new AlertDialog.Builder(getActivity()).create();
-		d.setTitle(R.string.logoutConfirmationTitle);
-		d.setMessage(getResources().getString(R.string.logoutConfirmation));
-		d.setIcon(android.R.drawable.ic_dialog_info);
-		d.setCanceledOnTouchOutside(true);
-		d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				getActivity().setResult(RESULT_OK);
-				getActivity().finish();
-			}
-		});
+selectDrawerItem(position);
+}
+}
 
-		d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				getActivity().setResult(RESULT_CANCELED);
-			}
-		});
+private void attemptLogout() {
+AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+d.setTitle(R.string.logoutConfirmationTitle);
+d.setMessage(getResources().getString(R.string.logoutConfirmation));
+d.setIcon(android.R.drawable.ic_dialog_info);
+d.setCanceledOnTouchOutside(true);
+d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int which) {
+getActivity().setResult(RESULT_OK);
+getActivity().finish();
+}
+});
 
-		d.show();
-	}
+d.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+public void onClick(DialogInterface dialog, int which) {
+getActivity().setResult(RESULT_CANCELED);
+}
+});
+
+d.show();
+
+}
 }
