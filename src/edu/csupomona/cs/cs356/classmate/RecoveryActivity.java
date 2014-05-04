@@ -40,7 +40,12 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 	}
 
 	public void onClick(View v) {
-		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.recover), getResources().getString(R.string.loginLoading));
+		final ProgressDialog loadingDialog = new ProgressDialog(this);
+		loadingDialog.setTitle(getString(R.string.recover));
+		loadingDialog.setMessage(getString(R.string.loginLoading));
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		//loadingDialog.setCancelable(true);
+		loadingDialog.show();
 
 		String emailAddress = etEmailAddress.getText().toString();
 
@@ -51,7 +56,11 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 		client.get("http://www.lol-fc.com/classmate/email.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				pg.dismiss();
+				if (!loadingDialog.isShowing()) {
+					return;
+				}
+
+				loadingDialog.dismiss();
 
 				int result;
 				try {

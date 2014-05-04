@@ -5,19 +5,20 @@
 	android:layout_height="wrap_content"
 	android:gravity="center_vertical"
 >
-	<RelativeLayout
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="wrap_content"
 		android:id="@+id/header"
+		android:orientation="horizontal"
 	>
-		<ImageView
-			android:id="@+id/ivAvatar"
-			android:scaleType="fitXY"
-			android:layout_width="48dp"
-			android:layout_height="48dp"
-			android:layout_marginLeft="5dp"
-			android:layout_alignParentLeft="true"
-			android:src="@drawable/ic_action_person"
+		<include
+			layout="@layout/user_avatar_layout"
+			android:layout_width="42dp"
+			android:layout_height="42dp"
+			android:layout_marginLeft="4dp"
+			android:layout_marginTop="4dp"
+			android:layout_marginBottom="4dp"
+			android:layout_marginRight="4dp"
 		/>
 
 		<TextView
@@ -25,14 +26,12 @@
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:gravity="center_vertical"
-			android:layout_marginLeft="5dp"
 			android:singleLine="true"
 			android:textAppearance="@android:style/TextAppearance.Medium"
 			android:textStyle="bold"
 			android:textColor="@color/cppgold_trans"
-			android:layout_toRightOf="@+id/ivAvatar"
 		/>
-	</RelativeLayout>
+	</LinearLayout>
 
 	<View
 		android:layout_width="match_parent"

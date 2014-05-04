@@ -13,14 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
+import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Group;
-import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import static edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment.INTENT_KEY_GROUP;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
@@ -126,7 +124,12 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 	public void onClick(View v) {
 		//assert etEmailSubject.getText().toString().compareTo(etPass2.getText().toString()) == 0;
 
-		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.register), getResources().getString(R.string.registerLoading));
+		final ProgressDialog loadingDialog = new ProgressDialog(this);
+		//loadingDialog.setTitle("");
+		loadingDialog.setMessage("Sending...");
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		//loadingDialog.setCancelable(true);
+		loadingDialog.show();
 
 		final String subject = etEmailSubject.getText().toString();
 		final String message = etEmailMessage.getText().toString();
@@ -143,7 +146,11 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 		client.get("http://www.lol-fc.com/classmate/emailgroup.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				pg.dismiss();
+				if (!loadingDialog.isShowing()) {
+					return;
+				}
+
+				loadingDialog.dismiss();
 
 				int id;
 				try {
