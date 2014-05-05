@@ -142,9 +142,32 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         		Thread thread = new Thread(new Runnable(){
         		    @Override
         		    public void run() {
+        		    	   
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
+                    		
+                    		if(drawable !=null)
+                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
         		        try {
         		        	System.out.println("async runnable");
                          	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpg");
+                    		
+                    		if(drawable !=null)
+                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpeg");
                     		
                     		if(drawable !=null)
                     			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
@@ -163,18 +186,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         		        {
         		            e.printStackTrace();
         		        }
-        		        
-        		        try {
-        		        	System.out.println("async runnable");
-                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
-                    		
-                    		if(drawable !=null)
-                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
-        		        } catch (Exception e)
-        		        {
-        		            e.printStackTrace();
-        		        }
-        		    }
+        		     }
         		});
 
         		thread.start(); 
@@ -401,8 +413,13 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         	case R.id.btnChangePass:
                 assert etNewPass1.getText().toString().compareTo(etNewPass2.getText().toString()) == 0;
 
-                final ProgressDialog pg = ProgressDialog.show(getActivity(), getResources().getString(R.string.changePass), getResources().getString(R.string.changePassLoading));
-
+                final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
+                loadingDialog.setTitle(getString(R.string.changePass));
+                loadingDialog.setMessage(getString(R.string.changePassLoading));
+                loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                //loadingDialog.setCancelable(true);
+                loadingDialog.show();
+                
                 String newpassword = etNewPass1.getText().toString();
                 String oldpassword = etOldPass.getText().toString();
                 
@@ -413,7 +430,13 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 client.get("http://www.lol-fc.com/classmate/changepass.php", params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(String response) {
-                                pg.dismiss();
+
+                        		if(!loadingDialog.isShowing())
+                        		{
+                        			return;
+                        		}
+                        		
+                        		loadingDialog.dismiss();
 
                                 long id;
                                 try {
@@ -537,15 +560,17 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         		System.out.println("Clicked the save button");
         		
         		 dialog = ProgressDialog.show(getActivity(), "", "Uploading file...", true);
+        		 Toast.makeText(getActivity(), "USER ID: " + Long.toString(id), Toast.LENGTH_SHORT).show();
+                 
                  
                  new Thread(new Runnable() {
                          public void run() {
                               getActivity().runOnUiThread(new Runnable() {
                                      public void run() {
                                          System.out.println("uploading started.....");
-                                     }
+                                         }
                                  });                      
-                            
+                             
                               uploadFile(imageFile);
                                                        
                          }
@@ -591,8 +616,8 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
             else
             {
                  try { 
-                	  int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
-                      String urlParameters = "user_id="+Integer.toString(id)+"&fname="+fileName;
+                	  long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                      String urlParameters = "user_id="+Long.toString(id)+"&fname="+fileName;
                        // open a URL connection to the Servlet
                      FileInputStream fileInputStream = new FileInputStream(sourceFile);
                      URL url = new URL(upLoadServerUri+"?"+urlParameters);
@@ -736,8 +761,8 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
             else
             {
                  try { 
-                	  int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
-                      String urlParameters = "user_id="+Integer.toString(id)+"&fname="+sourceFile.toURI();
+                	  long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                      String urlParameters = "user_id="+Long.toString(id)+"&fname="+sourceFile.toURI();
                        // open a URL connection to the Servlet
                      FileInputStream fileInputStream = new FileInputStream(sourceFile);
                      URL url = new URL(upLoadServerUriFB+"?"+urlParameters);

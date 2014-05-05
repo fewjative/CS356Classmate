@@ -3,10 +3,13 @@ package edu.csupomona.cs.cs356.classmate;
 import java.io.InputStream;
 import java.net.URL;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,14 +129,39 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 				final long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
 
 				Thread thread = new Thread(new Runnable(){
-        		    @Override
+        		    @SuppressLint("NewApi")//allows us to use setBackground without moving our min api from 14 to 16
+					@Override
         		    public void run() {
+        		    	
+        		        
         		        try {
         		        	System.out.println("async runnable");
-                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpg");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
                     		
                     		if(drawable !=null)
-                    			avatar.setImageDrawable(drawable);
+                    			avatar.setBackground(drawable);
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		    
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpg"); 
+                         	
+                    		if(drawable !=null)
+                    			avatar.setBackground(drawable);//avatar.setImageDrawable(drawable);
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpeg");
+                    		
+                    		if(drawable !=null)
+                    			avatar.setBackground(drawable);
         		        } catch (Exception e)
         		        {
         		            e.printStackTrace();
@@ -142,20 +170,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
         		        try {
         		        	System.out.println("async runnable");
                          	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".png");
-                    		
+                         	                         	
                     		if(drawable !=null)
-                    			avatar.setImageDrawable(drawable);
-        		        } catch (Exception e)
-        		        {
-        		            e.printStackTrace();
-        		        }
-        		        
-        		        try {
-        		        	System.out.println("async runnable");
-                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
-                    		
-                    		if(drawable !=null)
-                    			avatar.setImageDrawable(drawable);
+                    			avatar.setBackground(drawable);
         		        } catch (Exception e)
         		        {
         		            e.printStackTrace();
@@ -164,6 +181,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
         		});
 
         		thread.start(); 
+			//	avatar.setImageResource(R.drawable.ic_action_person);
+        		avatar.setImageResource(R.drawable.user_avatar_border);
 			}
 
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);

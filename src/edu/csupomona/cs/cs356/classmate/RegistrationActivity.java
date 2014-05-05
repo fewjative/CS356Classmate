@@ -52,7 +52,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 			public void afterTextChanged(Editable e) {
 				s1 = etPass1.getText().toString();
 				s2 = etPass2.getText().toString();
-				if (!s1.isEmpty() && s1.compareTo(s2) == 0) {
+				if (!s1.isEmpty() && !s2.isEmpty() && s1.equals(s2)) {
 					tvPasswordMatcher.setText(R.string.passwordsmatch);
 					tvPasswordMatcher.setTextColor(getResources().getColor(R.color.green));
 					btnRegister.setEnabled(true);
@@ -84,9 +84,14 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 	public void onClick(View v) {
 		assert etPass1.getText().toString().compareTo(etPass2.getText().toString()) == 0;
-
-		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.register), getResources().getString(R.string.registerLoading));
-
+		
+		final ProgressDialog loadingDialog = new ProgressDialog(this);
+		loadingDialog.setTitle(getString(R.string.register));
+		loadingDialog.setMessage(getString(R.string.registerLoading));
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		//loadingDialog.setCancelable(false);
+		loadingDialog.show();
+		
 		final String emailAddress = etEmailAddress.getText().toString();
 		final String username = etUsername.getText().toString();
 		String password = etPass1.getText().toString();
@@ -102,7 +107,13 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 		client.get("http://www.lol-fc.com/classmate/register.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				pg.dismiss();
+				
+				if(!loadingDialog.isShowing())
+				{
+					return;
+				}
+				
+				loadingDialog.dismiss();
 
 				long id;
 				try {

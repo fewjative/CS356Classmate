@@ -133,7 +133,12 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	}
 	
 	private void attemptLogin(String emailAddress, final String password) {
-		final ProgressDialog pg = ProgressDialog.show(this, getResources().getString(R.string.login), getResources().getString(R.string.loginLoading));
+		final ProgressDialog loadingDialog = new ProgressDialog(this);
+		loadingDialog.setTitle(getString(R.string.login));
+		loadingDialog.setMessage(getString(R.string.loginLoading));
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		loadingDialog.setCancelable(true);
+		loadingDialog.show();
 
 		String device = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 
@@ -149,7 +154,13 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 		client.get("http://www.lol-fc.com/classmate/login.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				pg.dismiss();
+				
+				if(!loadingDialog.isShowing())
+				{
+					return;
+				}
+				
+				loadingDialog.dismiss();
 
 				long id = NULL_USER;
 				String username = null;

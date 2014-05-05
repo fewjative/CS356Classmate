@@ -63,7 +63,13 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 	}
 
 	public void onClick(View v) {
-		final ProgressDialog pg = ProgressDialog.show(this, "Submitting Review", "Pushing review to server.");
+		
+		final ProgressDialog loadingDialog = new ProgressDialog(this);
+		loadingDialog.setTitle("Submitting Review");
+		loadingDialog.setMessage("Pushing review to server.");
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		//loadingDialog.setCancelable(true);
+		loadingDialog.show();
 
 		RequestParams params = new RequestParams();
 		params.put("class_id", Integer.toString(section.getClassID()));
@@ -76,7 +82,14 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 		client.get("http://lol-fc.com/classmate/createreview.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				pg.dismiss();
+				
+				if(!loadingDialog.isShowing())
+				{
+					return;
+				}
+				
+				loadingDialog.dismiss();
+				
 				setResult(RESULT_OK);
 				finish();
 			}
