@@ -19,14 +19,14 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_AUTOLOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_NAME;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USERID;
+import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
 import static edu.csupomona.cs.cs356.classmate.Constants.NO_USER;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_DEVICEID;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_EMAIL;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_NAME;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_PASSWORD;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
@@ -138,7 +138,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 				loadingDialog.dismiss();
 
-				int id = NO_USER;
+				long id = NO_USER;
 				try {
 					id = Integer.parseInt(response);
 				} catch (NumberFormatException e) {
@@ -172,9 +172,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 						errorDialog.show();
 					} else {
 						Intent i = new Intent();
-						i.putExtra(INTENT_KEY_USERID, id);
-						i.putExtra(INTENT_KEY_EMAIL, email);
-						i.putExtra(INTENT_KEY_NAME, name);
+						i.putExtra(INTENT_KEY_USER, new User(id, name, email));
 						i.putExtra(INTENT_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
 						setResult(RESULT_OK, i);
 						finish();

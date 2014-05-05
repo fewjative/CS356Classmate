@@ -54,7 +54,6 @@
 			android:layout_height="match_parent"
 			android:divider="@color/gray"
 			android:dividerHeight="2dp"
-			android:animateLayoutChanges="true"
 			android:background="@android:color/transparent"
 		/>
 	</LinearLayout>

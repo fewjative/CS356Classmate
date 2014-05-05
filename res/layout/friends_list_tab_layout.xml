@@ -56,7 +56,6 @@
 			android:background="@android:color/transparent"
 			android:divider="@color/gray"
 			android:dividerHeight="2dp"
-			android:animateLayoutChanges="true"
 		/>
 	</LinearLayout>
 </LinearLayout>

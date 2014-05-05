@@ -21,13 +21,12 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import static edu.csupomona.cs.cs356.classmate.Constants.CODE_LOGIN;
+import static edu.csupomona.cs.cs356.classmate.Constants.CODE_MAIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.CODE_RECOVER;
 import static edu.csupomona.cs.cs356.classmate.Constants.CODE_REGISTER;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_AUTOLOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_NAME;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USERID;
+import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
 import static edu.csupomona.cs.cs356.classmate.Constants.NO_USER;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_ADDRESS_LOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
@@ -39,6 +38,7 @@ import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_USERID;
 import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_KEY_AUTOLOGIN;
 import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_KEY_EMAIL;
 import static edu.csupomona.cs.cs356.classmate.Constants.PREFS_WHICH;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,7 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case CODE_LOGIN:
+			case CODE_MAIN:
 				switch (resultCode) {
 					case Activity.RESULT_OK:
 						etEmailAddress.setText("");
@@ -141,12 +141,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				break;
 			case CODE_REGISTER:
 				if (resultCode == Activity.RESULT_OK) {
-					etEmailAddress.setText(data.getStringExtra(INTENT_KEY_EMAIL));
+					User user = data.getParcelableExtra(INTENT_KEY_USER);
+					etEmailAddress.setText(user.getEmail());
 					cbAutoLogin.setChecked(data.getBooleanExtra(INTENT_KEY_AUTOLOGIN, false));
 
-					int id = data.getIntExtra(INTENT_KEY_USERID, NO_USER);
-					String username = data.getStringExtra(INTENT_KEY_NAME);
-					login(id, username);
+					//int id = data.getIntExtra(INTENT_KEY_USERID, NO_USER);
+					//String username = data.getStringExtra(INTENT_KEY_NAME);
+					login(user);
 				}
 
 				break;
@@ -199,11 +200,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 				loadingDialog.dismiss();
 
-				int id = NO_USER;
+				long id = NO_USER;
 				String name = null;
 				try {
 					JSONObject json = jsona.getJSONObject(0);
-					id = json.getInt(PHP_PARAM_USERID);
+					id = json.getLong(PHP_PARAM_USERID);
 					name = json.getString(PHP_PARAM_NAME);
 				} catch (JSONException e) {
 					id = NO_USER;
@@ -224,7 +225,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 							errorDialog.show();
 						}
 					} else {
-						login(id, name);
+						login(new User(id, name, email));
 					}
 				}
 			}
@@ -244,22 +245,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		startActivityForResult(i, CODE_REGISTER);
 	}
 
-	private void login(int id, String name) {
-		assert id != NO_USER;
+	private void login(User user) {
+		assert user.getID() != NO_USER;
 
 		String email = etEmailAddress.getText().toString();
 		if (email.isEmpty()) {
 			email = prefs.getString(PREFS_KEY_EMAIL, null);
 			assert email != null;
 
-			String welcomeMessage = getString(R.string.login_welcome_back, name);
+			String welcomeMessage = getString(R.string.login_welcome_back, user.getUsername());
 			Toast.makeText(this, welcomeMessage, Toast.LENGTH_LONG).show();
 		}
 
 		Intent i = new Intent(this, MainActivity.class);
-		i.putExtra(Constants.INTENT_KEY_USERID, id);
-		i.putExtra(Constants.INTENT_KEY_EMAIL, email);
-		i.putExtra(Constants.INTENT_KEY_NAME, name);
-		startActivityForResult(i, CODE_LOGIN);
+		i.putExtra(INTENT_KEY_USER, user);
+		startActivityForResult(i, CODE_MAIN);
 	}
 }

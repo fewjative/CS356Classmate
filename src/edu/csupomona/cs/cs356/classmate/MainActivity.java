@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.widget.ListView;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_NAME;
+import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import edu.csupomona.cs.cs356.classmate.drawer.FragmentNavigationDrawer;
 import edu.csupomona.cs.cs356.classmate.drawer.Header;
 import edu.csupomona.cs.cs356.classmate.drawer.Item;
@@ -21,18 +22,20 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.main_activity_layout);
 
 		setupDrawer();
+		if (savedInstanceState == null) {
+			dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
+		}
 	}
 
 	private void setupDrawer() {
-		String temp = getIntent().getStringExtra(INTENT_KEY_NAME);
 		dlDrawer = (FragmentNavigationDrawer)findViewById(R.id.dlDrawer);
 		dlDrawer.setupDrawerConfiguration(
-			new UserHeader(temp, R.drawable.ic_action_person),
+			new UserHeader((User)getIntent().getParcelableExtra(INTENT_KEY_USER)),
 			(ListView)findViewById(R.id.lvDrawer),
 			R.id.flContentFrame
 		);
 
-		temp = getString(R.string.nd_schedule_today);
+		String temp = getString(R.string.nd_schedule_today);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
 
 		temp = getString(R.string.nd_schedule_full_schedule);
@@ -55,8 +58,6 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_app_logout);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
-
-		dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
 	}
 
 	@Override

@@ -13,22 +13,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import java.util.List;
 
-public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
-	public FriendListAdapter(Context context, List<Friend> friends) {
+public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+	public FriendListAdapter(Context context, List<User> friends) {
 		super(context, 0, friends);
 	}
 
 	private static class ViewHolder {
-		final ImageView avatar;
+		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
 		final ImageButton btnViewSchedule;
 		final ImageButton btnRemove;
 
-		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnViewSchedule, ImageButton btnRemove) {
-			this.avatar = avatar;
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnViewSchedule, ImageButton btnRemove) {
+			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
 			this.btnViewSchedule = btnViewSchedule;
 			this.btnRemove = btnRemove;
@@ -37,7 +37,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Friend f = getItem(position);
+		User f = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 
@@ -79,9 +79,9 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 				holder.tvItemTextUsername.setText(builder);
 			}
 
-			if (holder.avatar != null) {
-				holder.avatar.setVisibility(View.VISIBLE);
-				holder.avatar.setImageResource(f.getAvatar());
+			if (holder.ivAvatar != null) {
+				holder.ivAvatar.setVisibility(View.VISIBLE);
+				f.loadAvatar(holder.ivAvatar);
 			}
 		}
 
@@ -89,7 +89,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 	}
 
 	public void onClick(View v) {
-		Friend r = (Friend)v.getTag();
+		User r = (User)v.getTag();
 		switch (v.getId()) {
 			case R.id.btnViewSchedule:
 				viewSchedule(r);
@@ -100,7 +100,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 		}
 	}
 
-	public void viewSchedule(final Friend f) {
+	public void viewSchedule(final User f) {
 		/*if (getContext() instanceof FragmentActivity) {
 			// We can get the fragment manager
 			int id = f.getID();
@@ -117,7 +117,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
 		}*/
 	}
 
-	public void removeFriend(final Friend f) {
+	public void removeFriend(final User f) {
 		/*AlertDialog d = new AlertDialog.Builder(((FragmentActivity)getContext())).create();
 		d.setTitle(R.string.removeTitle);
 		d.setMessage(getContext().getResources().getString(R.string.removeConfirmation));

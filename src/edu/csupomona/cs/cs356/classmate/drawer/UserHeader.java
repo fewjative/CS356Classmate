@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 
 public class UserHeader extends Header {
-	int iconResId;
+	private final User USER;
 
-	public UserHeader(String title, int iconResId) {
-		super(title);
-		this.iconResId = iconResId;
+	public UserHeader(User user) {
+		super(user.getUsername());
+		this.USER = user;
 	}
 
 	@Override
@@ -28,13 +29,7 @@ public class UserHeader extends Header {
 		tvTitle.setText(title);
 
 		ImageView ivAvatar = (ImageView)v.findViewById(R.id.ivAvatar);
-		if (0 < iconResId) {
-			ivAvatar.setVisibility(View.VISIBLE);
-			ivAvatar.setImageResource(iconResId);
-		} else {
-			ivAvatar.setVisibility(View.GONE);
-		}
-
+		USER.loadAvatar(ivAvatar);
 		return v;
 	}
 }

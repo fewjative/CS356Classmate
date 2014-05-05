@@ -17,23 +17,24 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.Constants;
+import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
+import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import java.util.List;
 
-public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements View.OnClickListener {
-	public FriendRequestsListAdapter(Context context, List<Friend> requests) {
+public class FriendRequestsListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+	public FriendRequestsListAdapter(Context context, List<User> requests) {
 		super(context, 0, requests);
 	}
 
 	private static class ViewHolder {
-		final ImageView avatar;
+		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
 		final ImageButton btnAccept;
 		final ImageButton btnReject;
 
 		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAccept, ImageButton btnReject) {
-			this.avatar = avatar;
+			this.ivAvatar = avatar;
 			this.tvItemTextUsername = tvItemTextUsername;
 			this.btnAccept = btnAccept;
 			this.btnReject = btnReject;
@@ -42,7 +43,7 @@ public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements V
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Friend f = getItem(position);
+		User f = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 
@@ -84,9 +85,9 @@ public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements V
 				holder.tvItemTextUsername.setText(builder);
 			}
 
-			if (holder.avatar != null) {
-				holder.avatar.setVisibility(View.VISIBLE);
-				holder.avatar.setImageResource(f.getAvatar());
+			if (holder.ivAvatar != null) {
+				holder.ivAvatar.setVisibility(View.VISIBLE);
+				f.loadAvatar(holder.ivAvatar);
 			}
 		}
 
@@ -94,7 +95,7 @@ public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements V
 	}
 
 	public void onClick(View v) {
-		Friend r = (Friend)v.getTag();
+		User r = (User)v.getTag();
 		switch (v.getId()) {
 			case R.id.btnAccept:
 				acceptInvite(r);
@@ -105,12 +106,12 @@ public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements V
 		}
 	}
 
-	public void acceptInvite(final Friend f) {
-		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(Constants.INTENT_KEY_EMAIL);
+	public void acceptInvite(final User f) {
+		User user = ((FragmentActivity)getContext()).getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, emailAddress);
-		params.put(Constants.PHP_PARAM_USERID, Integer.toString(f.getID()));
+		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_ACCEPTFRIEND, params, new AsyncHttpResponseHandler() {
@@ -123,12 +124,12 @@ public class FriendRequestsListAdapter extends ArrayAdapter<Friend> implements V
 		});
 	}
 
-	public void rejectInvite(final Friend f) {
-		String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(Constants.INTENT_KEY_EMAIL);
+	public void rejectInvite(final User f) {
+		User user = ((FragmentActivity)getContext()).getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, emailAddress);
-		params.put(Constants.PHP_PARAM_USERID, Integer.toString(f.getID()));
+		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_DISMISSFRIEND, params, new AsyncHttpResponseHandler() {
