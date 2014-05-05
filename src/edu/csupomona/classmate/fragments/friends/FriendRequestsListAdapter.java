@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragments.friends;
+package edu.csupomona.classmate.fragments.friends;
 
 import android.content.Context;
 import android.text.Spannable;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.cs.cs356.classmate.Constants;
-import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.abstractions.User;
+import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
 public class FriendRequestsListAdapter extends ArrayAdapter<User> implements View.OnClickListener {

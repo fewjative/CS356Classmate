@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate;
+package edu.csupomona.classmate;
 
 public interface Constants {
 	long NO_USER = 0;

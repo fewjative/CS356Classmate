@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.drawer;
+package edu.csupomona.classmate.drawer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.classmate.R;
 
 public class FragmentNavigationDrawer extends DrawerLayout {
 	private ActionBarDrawerToggle toggle;

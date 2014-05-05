@@ -1,11 +1,11 @@
-package edu.csupomona.cs.cs356.classmate.drawer;
+package edu.csupomona.classmate.drawer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.classmate.R;
 
 public class Header extends DrawerListItem {
 	public Header(String title) {

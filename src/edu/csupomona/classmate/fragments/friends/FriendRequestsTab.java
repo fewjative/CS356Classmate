@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragments.friends;
+package edu.csupomona.classmate.fragments.friends;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +10,10 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.cs.cs356.classmate.Constants;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
-import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.abstractions.User;
+import edu.csupomona.classmate.Constants;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;

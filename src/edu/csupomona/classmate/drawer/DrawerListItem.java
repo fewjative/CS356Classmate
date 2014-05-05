@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.drawer;
+package edu.csupomona.classmate.drawer;
 
 import android.content.Context;
 import android.view.View;

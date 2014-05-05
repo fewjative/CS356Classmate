@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragments.friends;
+package edu.csupomona.classmate.fragments.friends;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.cs.cs356.classmate.Constants;
-import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.abstractions.User;
+import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
 public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
@@ -113,7 +113,7 @@ public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClic
 		/*if (getContext() instanceof FragmentActivity) {
 			// We can get the fragment manager
 			int id = f.getID();
-			Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment(id);
+			Fragment newFragment = new edu.csupomona.classmate.fragments.ScheduleFragment(id);
 			FragmentActivity activity = ((FragmentActivity)getContext());
 			FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
 			t.replace(R.id.flContentFrame, newFragment);//wtf is the first parameter supposed to be

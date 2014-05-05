@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.utils;
+package edu.csupomona.classmate.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import edu.csupomona.cs.cs356.classmate.R;
+import edu.csupomona.classmate.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

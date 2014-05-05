@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.utils;
+package edu.csupomona.classmate.utils;
 
 import android.text.Editable;
 import android.text.TextWatcher;

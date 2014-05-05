@@ -1,12 +1,12 @@
-package edu.csupomona.cs.cs356.classmate.abstractions;
+package edu.csupomona.classmate.abstractions;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
-import edu.csupomona.cs.cs356.classmate.Constants;
-import edu.csupomona.cs.cs356.classmate.utils.AsyncReadImageTask;
+import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.utils.AsyncReadImageTask;
 
 public class User implements Parcelable {
 	private final long ID;

@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.ui;
+package edu.csupomona.classmate.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;

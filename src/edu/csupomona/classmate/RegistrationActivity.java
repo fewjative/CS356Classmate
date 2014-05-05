@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate;
+package edu.csupomona.classmate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,17 +17,18 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_AUTOLOGIN;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
-import static edu.csupomona.cs.cs356.classmate.Constants.NO_USER;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_DEVICEID;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_EMAIL;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_NAME;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_PASSWORD;
-import edu.csupomona.cs.cs356.classmate.abstractions.User;
-import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+import edu.csupomona.classmate.R;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_AUTOLOGIN;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_EMAIL;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import static edu.csupomona.classmate.Constants.NO_USER;
+import static edu.csupomona.classmate.Constants.PHP_BASE_ADDRESS;
+import static edu.csupomona.classmate.Constants.PHP_PARAM_DEVICEID;
+import static edu.csupomona.classmate.Constants.PHP_PARAM_EMAIL;
+import static edu.csupomona.classmate.Constants.PHP_PARAM_NAME;
+import static edu.csupomona.classmate.Constants.PHP_PARAM_PASSWORD;
+import edu.csupomona.classmate.abstractions.User;
+import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 public class RegistrationActivity extends Activity implements View.OnClickListener {
 	private Button btnRegister;

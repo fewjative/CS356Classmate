@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate;
+package edu.csupomona.classmate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,11 +12,12 @@ import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_EMAIL;
-import static edu.csupomona.cs.cs356.classmate.Constants.NO_USER;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_BASE_ADDRESS;
-import static edu.csupomona.cs.cs356.classmate.Constants.PHP_PARAM_EMAIL;
-import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
+import edu.csupomona.classmate.R;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_EMAIL;
+import static edu.csupomona.classmate.Constants.NO_USER;
+import static edu.csupomona.classmate.Constants.PHP_BASE_ADDRESS;
+import static edu.csupomona.classmate.Constants.PHP_PARAM_EMAIL;
+import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 public class RecoveryActivity extends Activity implements View.OnClickListener {
 	private Button btnRecover;

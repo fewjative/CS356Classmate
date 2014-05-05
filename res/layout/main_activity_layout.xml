@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<edu.csupomona.cs.cs356.classmate.drawer.FragmentNavigationDrawer
+<edu.csupomona.classmate.drawer.FragmentNavigationDrawer
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/dlDrawer"
 	android:layout_width="match_parent"
@@ -22,4 +22,4 @@
 			android:dividerHeight="0dp"
 			android:background="@color/cppgreen_trans"
 	/>
-</edu.csupomona.cs.cs356.classmate.drawer.FragmentNavigationDrawer>
+</edu.csupomona.classmate.drawer.FragmentNavigationDrawer>

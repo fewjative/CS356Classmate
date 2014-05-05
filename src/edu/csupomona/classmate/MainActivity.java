@@ -1,18 +1,19 @@
-package edu.csupomona.cs.cs356.classmate;
+package edu.csupomona.classmate;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.widget.ListView;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
-import edu.csupomona.cs.cs356.classmate.abstractions.User;
-import edu.csupomona.cs.cs356.classmate.drawer.FragmentNavigationDrawer;
-import edu.csupomona.cs.cs356.classmate.drawer.Header;
-import edu.csupomona.cs.cs356.classmate.drawer.Item;
-import edu.csupomona.cs.cs356.classmate.drawer.UserHeader;
-import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
-import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.R;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import edu.csupomona.classmate.abstractions.User;
+import edu.csupomona.classmate.drawer.FragmentNavigationDrawer;
+import edu.csupomona.classmate.drawer.Header;
+import edu.csupomona.classmate.drawer.Item;
+import edu.csupomona.classmate.drawer.UserHeader;
+import edu.csupomona.classmate.fragments.FriendsFragment;
+import edu.csupomona.classmate.fragments.GroupsFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;
