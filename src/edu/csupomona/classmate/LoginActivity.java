@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.classmate.R;
 import static edu.csupomona.classmate.Constants.CODE_MAIN;
 import static edu.csupomona.classmate.Constants.CODE_RECOVER;
 import static edu.csupomona.classmate.Constants.CODE_REGISTER;
@@ -145,9 +144,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 					User user = data.getParcelableExtra(INTENT_KEY_USER);
 					etEmailAddress.setText(user.getEmail());
 					cbAutoLogin.setChecked(data.getBooleanExtra(INTENT_KEY_AUTOLOGIN, false));
-
-					//int id = data.getIntExtra(INTENT_KEY_USERID, NO_USER);
-					//String username = data.getStringExtra(INTENT_KEY_NAME);
 					login(user);
 				}
 
