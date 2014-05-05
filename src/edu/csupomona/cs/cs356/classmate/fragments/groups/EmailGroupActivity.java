@@ -175,14 +175,6 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 					return;
 				}
 
-
-
-				/*Intent i = new Intent();
-				i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-				i.putExtra(LoginActivity.INTENT_KEY_EMAIL, emailAddress);
-				i.putExtra(LoginActivity.INTENT_KEY_USERNAME, username);
-				i.putExtra(LoginActivity.INTENT_KEY_REMEMBER, cbRememberMe.isChecked());
-				setResult(RESULT_OK, i);*/
 				finish();
 			}
 		});

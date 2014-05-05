@@ -104,17 +104,21 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			{
 				ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
 				
-				int id = intent.getIntExtra(LoginActivity.INTENT_KEY_USERID, 0);
-				switch(id){
-				case 18: avatar.setImageResource(R.drawable.ic_action_person_collin);
-				break;
-				case 19:avatar.setImageResource(R.drawable.ic_action_person_robert);
-				break;
-				case 30: avatar.setImageResource(R.drawable.ic_action_person_josh);
-				break;
-				default: avatar.setImageResource(R.drawable.ic_action_person);
-				}
+				long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
 				
+				if(id==18)
+				{
+					avatar.setImageResource(R.drawable.ic_action_person_collin);
+				}else if(id==19)
+				{
+					avatar.setImageResource(R.drawable.ic_action_person_robert);
+				}else if(id==30)
+				{
+					avatar.setImageResource(R.drawable.ic_action_person_josh);
+				}else
+				{
+					avatar.setImageResource(R.drawable.ic_action_person);
+				}
 				
 			}
 

@@ -26,7 +26,7 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 	private Button btnSubmitReview;
 
 	private Section section;
-	private int id;
+	private long id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 		setResult(RESULT_CANCELED);
 
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
-		id = getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER);
+		id = getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER);
 
 		rbRating = (RatingBar)findViewById(R.id.rbRating);
 		rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -67,7 +67,7 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 
 		RequestParams params = new RequestParams();
 		params.put("class_id", Integer.toString(section.getClassID()));
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 		params.put("text", etReview.getText().toString());
 		params.put("rating", Float.toString(rbRating.getRating()));
 		params.put("title", etTitle.getText().toString());

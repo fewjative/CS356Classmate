@@ -132,15 +132,15 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USERID, ((FragmentActivity)getContext()).getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER));
+		i.putExtra(INTENT_KEY_USERID, ((FragmentActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER));
 		((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEW_SECTION);
 	}
 
 	private void removeClass(final Section s) {
-		int id = ((FragmentActivity)getContext()).getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+		long id = ((FragmentActivity)getContext()).getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 
 		RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

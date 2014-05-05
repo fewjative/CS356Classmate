@@ -15,7 +15,7 @@ public class ClassmateProvider extends AppWidgetProvider {
     public static final String TOAST_ACTION = "edu.csupomona.cs.cs356.classmate.TOAST_ACTION";
     public static final String EXTRA_ITEM = "edu.csupomona.cs.cs356.classmate.EXTRA_ITEM";
     public static final String UPDATE_ID = "edu.csupomona.cs.cs356.classmate.ClassmateProvider.UPDATE_ID";
-    static int id;
+    static long id;
 
 
     @Override
@@ -40,7 +40,7 @@ public class ClassmateProvider extends AppWidgetProvider {
    		super.onReceive(context, intent);
    		System.out.println("getAction() = " + intent.getAction().toString());
    		if(intent.getAction().equals(UPDATE_ID)){
-   			id = intent.getIntExtra(LoginActivity.INTENT_KEY_USERID, 0);
+   			id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
    			System.out.println("Provider: THE USER ID = " + id); 	
    		}else{
    			System.out.println("Provider: UPDATE_ID is not working");

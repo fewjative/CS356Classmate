@@ -23,6 +23,7 @@
         <string name="stayloggedin">Stay signed in</string>
         <string name="loginLoading">Verifying user credentials.</string>
         <string name="loginError">Sorry, either your username or password is incorrect.</string>
+        <string name="fbloginError">Sorry, we had a problem automatically logging you in through facebook.</string>
         <string name="loginErrorTitle">Login Problem</string>
         <string name="welcomeBack">Welcome back!</string>
 

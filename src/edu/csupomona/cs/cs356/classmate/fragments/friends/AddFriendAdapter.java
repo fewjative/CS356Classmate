@@ -135,7 +135,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(f.getID()));
+				params.put("user_id", Long.toString(f.getID()));
 				params.put("version", "1");
 
 				AsyncHttpClient client = new AsyncHttpClient();
@@ -156,7 +156,7 @@ public class AddFriendAdapter extends ArrayAdapter<Friend> implements View.OnCli
 
 				RequestParams params = new RequestParams();
 				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(f.getID()));
+				params.put("user_id", Long.toString(f.getID()));
 				params.put("version", "2");
 
 				AsyncHttpClient client = new AsyncHttpClient();

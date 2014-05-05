@@ -8,6 +8,14 @@ import com.facebook.Session;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.SessionState;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +31,17 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
@@ -53,9 +68,11 @@ import com.facebook.widget.ProfilePictureView;
 
 //allow for a user to upload a photo/choose a photo for their profile picture
 //allow a user to make multiple schedules and choose the schedule from the settings fragment
+//TODO: prevent a user from clicking the save button if a photo has not been selected
 
 public class SettingsFragment extends PictureHandlerFragment implements View.OnClickListener{
         private Button btnChangePass;
+        private Button btnSavePhoto;
         private ProfilePictureView settingsProfilePicture;
         private TextView displayName;
         private TextView displayID; 
@@ -74,6 +91,13 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         
         private boolean isFirst = true;
         private boolean isFbLoggedIn = false;
+        
+        private int serverResponseCode = 0;
+        ProgressDialog dialog = null;
+        String upLoadServerUri = null;
+        String upLoadServerUriFB = null;
+        
+        String imageFile;
     	
         private UiLifecycleHelper uiHelper;
         private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -92,6 +116,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         		super.onCreateView(inflater, container, savedInstanceState);
         		schActive = null;
                 root = (ViewGroup)inflater.inflate(R.layout.settings_fragment, null);
+                final long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
         		
                 btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
                 btnChangePass.setOnClickListener(this);
@@ -105,10 +130,55 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 btnSetActiveSchedule.setOnClickListener(this);
                 btnSetActiveSchedule.setEnabled(true);
                 
+                btnSavePhoto = (Button)root.findViewById(R.id.btnSavePhoto);
+                btnSavePhoto.setOnClickListener(this);
+                btnSavePhoto.setEnabled(true);
+                
                 // facebook stuff
         		settingsProfilePicture = (ProfilePictureView)root.findViewById(R.id.settingsProfilePicture);
         		// set default profile pic to specified bitmap
         		settingsProfilePicture.setDefaultProfilePicture(getBitmap(R.drawable.ic_action_person));
+        		
+        		Thread thread = new Thread(new Runnable(){
+        		    @Override
+        		    public void run() {
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpg");
+                    		
+                    		if(drawable !=null)
+                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".png");
+                    		
+                    		if(drawable !=null)
+                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
+                    		
+                    		if(drawable !=null)
+                    			settingsProfilePicture.setDefaultProfilePicture(drawableToBitmap(drawable));
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		    }
+        		});
+
+        		thread.start(); 
+        		       		
         		settingsProfilePicture.setOnClickListener(this);
         		settingsProfilePicture.setEnabled(true);
         		
@@ -116,6 +186,9 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 displayID = (TextView)root.findViewById(R.id.displayID);
         		displayName.setText(null);
         		displayID.setText(null);
+        		
+        		upLoadServerUri = "http://www.lol-fc.com/classmate/UploadToServer.php";
+        		upLoadServerUriFB = "http://www.lol-fc.com/classmate/UploadToServerFB.php";
                 //-----------------
                 
                 etOldPass = (EditText)root.findViewById(R.id.etOldPass);
@@ -175,9 +248,9 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 etNewPass2.addTextChangedListener(textWatcher);
                 etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
              
-                final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                
                 RequestParams params = new RequestParams();
-                params.put("user_id", Integer.toString(id));
+                params.put("user_id", Long.toString(id));
 
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
@@ -188,7 +261,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                                 	numSchedules = Integer.parseInt(response);
                                 } catch (NumberFormatException e) {
                                 	numSchedules = 0;
-                                }
+                                }//because we are using ints and FBOOK needs a long, it is checking for the wrong user_id and thus finding schedules returns -1
 
                                 if (numSchedules == 0) {
                                         
@@ -207,6 +280,34 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 });
         
                 return root;
+        }
+        
+        private Drawable LoadImageFromWebOperations(String url)
+        {
+	        try
+	        {
+		        InputStream is = (InputStream) new URL(url).getContent();
+		        Drawable d = Drawable.createFromStream(is, "src name");
+		        if(d!=null)
+		        	System.out.println("The Drawable is not null!");
+		        return d;
+	        }catch (Exception e) {
+		        System.out.println("Exc="+e);
+		        return null;
+	        }
+        }
+        
+        public static Bitmap drawableToBitmap (Drawable drawable) {
+            if (drawable instanceof BitmapDrawable) {
+                return ((BitmapDrawable)drawable).getBitmap();
+            }
+
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap); 
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+
+            return bitmap;
         }
         
     	@Override
@@ -232,8 +333,8 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
 
     		AsyncHttpClient client = new AsyncHttpClient();
     		RequestParams params = new RequestParams();
-    		final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
-    		params.put("user_id", Integer.toString(id));
+    		final long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+    		params.put("user_id", Long.toString(id));
             
     		client.get("http://www.lol-fc.com/classmate/getuserschedules.php",params, new AsyncHttpResponseHandler() {
     			@Override
@@ -274,7 +375,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         public void onClick(View v) {
 
         	RequestParams params = new RequestParams();
-        	int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);;
+        	long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);;
         	AsyncHttpClient client = new AsyncHttpClient();
         	 
         	switch(v.getId()){
@@ -305,7 +406,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 String newpassword = etNewPass1.getText().toString();
                 String oldpassword = etOldPass.getText().toString();
                 
-                params.put("user_id", Integer.toString(id));
+                params.put("user_id", Long.toString(id));
                 params.put("oldpassword", oldpassword);
                 params.put("newpassword", newpassword);
                 
@@ -314,9 +415,9 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                         public void onSuccess(String response) {
                                 pg.dismiss();
 
-                                int id;
+                                long id;
                                 try {
-                                        id = Integer.parseInt(response);
+                                        id = Long.parseLong(response);
                                 } catch (NumberFormatException e) {
                                         id = NULL_USER;
                                 }
@@ -370,16 +471,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                                         return;
                                 }
 
-                        
-
-                        /*        Intent i = new Intent();
-                                i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-                                i.putExtra(LoginActivity.INTENT_KEY_EMAIL, emailAddress);
-                                i.putExtra(LoginActivity.INTENT_KEY_USERNAME, username);
-                                i.putExtra(LoginActivity.INTENT_KEY_REMEMBER, cbRememberMe.isChecked());
-                                setResult(RESULT_OK, i);
-                                finish();
-                                */
+                       
                         }
                 });
                 break;
@@ -397,9 +489,9 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         			firstSchedule ="doesnt matter";
         		}
 
-                id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
                 
-                params.put("user_id", Integer.toString(id));
+                params.put("user_id", Long.toString(id));
                 params.put("title",scheduleName);
                 params.put("new", firstSchedule);
                 
@@ -428,7 +520,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
         	{
                 Toast.makeText(getActivity(), "Button Clicked", Toast.LENGTH_SHORT).show();
            
-                  params.put("user_id", Integer.toString(id));
+                  params.put("user_id", Long.toString(id));
                   params.put("schedule_id",Integer.toString(schActive.getScheduleID()));
                   
                   client.get("http://www.lol-fc.com/classmate/setuserschedule.php", params, new AsyncHttpResponseHandler() {
@@ -441,9 +533,326 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
 
             }
         	break;
-        	
+        	case R.id.btnSavePhoto:
+        		System.out.println("Clicked the save button");
+        		
+        		 dialog = ProgressDialog.show(getActivity(), "", "Uploading file...", true);
+                 
+                 new Thread(new Runnable() {
+                         public void run() {
+                              getActivity().runOnUiThread(new Runnable() {
+                                     public void run() {
+                                         System.out.println("uploading started.....");
+                                     }
+                                 });                      
+                            
+                              uploadFile(imageFile);
+                                                       
+                         }
+                       }).start();        
+                 
+        		
+        	break;
         	}
         }
+        
+        //==================FOR UPLOADING PICTURES
+        //
+        public int uploadFile(String sourceFileUri) {
+            
+            System.out.println(sourceFileUri);
+            String fileName = sourceFileUri;
+    
+            HttpURLConnection conn = null;
+            DataOutputStream dos = null;  
+            String lineEnd = "\r\n";
+            String twoHyphens = "--";
+            String boundary = "*****";
+            int bytesRead, bytesAvailable, bufferSize;
+            byte[] buffer;
+            int maxBufferSize = 1 * 1024 * 1024; 
+            File sourceFile = new File(sourceFileUri); 
+             
+            if (!sourceFile.isFile()) {
+                 
+                 dialog.dismiss(); 
+                  
+                 Log.e("uploadFile", "Source File not exist :");
+                  
+                 getActivity().runOnUiThread(new Runnable() {
+                     public void run() {
+                         System.out.println("Source File not exist :");
+                     }
+                 }); 
+                  
+                 return 0;
+              
+            }
+            else
+            {
+                 try { 
+                	  int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                      String urlParameters = "user_id="+Integer.toString(id)+"&fname="+fileName;
+                       // open a URL connection to the Servlet
+                     FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                     URL url = new URL(upLoadServerUri+"?"+urlParameters);
+                      
+                     // Open a HTTP  connection to  the URL
+                     conn = (HttpURLConnection) url.openConnection(); 
+                     conn.setDoInput(true); // Allow Inputs
+                     conn.setDoOutput(true); // Allow Outputs
+                     conn.setUseCaches(false); // Don't use a Cached Copy
+                     conn.setRequestMethod("POST");
+                     conn.setRequestProperty("Connection", "Keep-Alive");
+                     conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                     conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                     conn.setRequestProperty("uploaded_file", fileName); 
+                   
+                    // conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+                      
+                     dos = new DataOutputStream(conn.getOutputStream());
+                                      
+                     dos.writeBytes(twoHyphens + boundary + lineEnd); 
+                    // dos.writeBytes("Content-Disposition: form-data; name="+uploaded_file+";filename=\""+ fileName + """ + lineEnd);
+                   
+                    dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+ fileName + "\"" + lineEnd);		 
+                    dos.writeBytes(lineEnd);
+            
+                     // create a buffer of  maximum size
+                     bytesAvailable = fileInputStream.available(); 
+            
+                     bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                     buffer = new byte[bufferSize];
+            
+                     // read file and write it into form...
+                     bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
+                        
+                     while (bytesRead > 0) {
+                          
+                       dos.write(buffer, 0, bufferSize);
+                       bytesAvailable = fileInputStream.available();
+                       bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                       bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
+                        
+                      }
+            
+                     // send multipart form data necesssary after file data...
+                     dos.writeBytes(lineEnd);
+                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                     
+                     //SEND EXTRA PARAMS
+                     //dos.writeBytes(urlParameters);
+            
+                     // Responses from the server (code and message)
+                     serverResponseCode = conn.getResponseCode();
+                     String serverResponseMessage = conn.getResponseMessage();
+                       
+                     Log.i("uploadFile", "HTTP Response is : "
+                             + serverResponseMessage + ": " + serverResponseCode);
+                      
+                     if(serverResponseCode == 200){
+                          
+                         getActivity().runOnUiThread(new Runnable() {
+                              public void run() {
+                                   
+                                  String msg = "File Upload Completed.";
+                                   
+                                  System.out.println(msg);
+                                  Toast.makeText(getActivity(), "File Upload Complete.", 
+                                               Toast.LENGTH_SHORT).show();
+                              }
+                          });                
+                     }    
+                      
+                     //close the streams //
+                     fileInputStream.close();
+                     dos.flush();
+                     dos.close();
+                       
+                } catch (MalformedURLException ex) {
+                     
+                    dialog.dismiss();  
+                    ex.printStackTrace();
+                     
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            System.out.println("MalformedURLException Exception : check script url.");
+                            Toast.makeText(getActivity(), "MalformedURLException", 
+                                                                Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                     
+                    Log.e("Upload file to server", "error: " + ex.getMessage(), ex);  
+                } catch (Exception e) {
+                     
+                    dialog.dismiss();  
+                    e.printStackTrace();
+                     
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                        	System.out.println("Got Exception : see logcat ");
+                            Toast.makeText(getActivity(), "Got Exception : see logcat ", 
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    Log.e("Upload file to server Exception", "Exception : "
+                                                     + e.getMessage(), e);  
+                }
+                dialog.dismiss();       
+                return serverResponseCode; 
+                 
+             } // End else block 
+           } 
+        //=============================================================
+        
+      //==================FOR UPLOADING PICTURES
+        //
+        public int uploadFileFacebook(File fbSourceFile) {
+            
+          
+            HttpURLConnection conn = null;
+            DataOutputStream dos = null;  
+            String lineEnd = "\r\n";
+            String twoHyphens = "--";
+            String boundary = "*****";
+            int bytesRead, bytesAvailable, bufferSize;
+            byte[] buffer;
+            int maxBufferSize = 1 * 1024 * 1024; 
+            File sourceFile = fbSourceFile; 
+             
+            if (!sourceFile.isFile()) {
+                                   
+                 Log.e("uploadFile", "Source File not exist :");
+                  
+                 getActivity().runOnUiThread(new Runnable() {
+                     public void run() {
+                         System.out.println("Source File not exist :");
+                     }
+                 }); 
+                  
+                 return 0;
+              
+            }
+            else
+            {
+                 try { 
+                	  int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                      String urlParameters = "user_id="+Integer.toString(id)+"&fname="+sourceFile.toURI();
+                       // open a URL connection to the Servlet
+                     FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                     URL url = new URL(upLoadServerUriFB+"?"+urlParameters);
+                      
+                     // Open a HTTP  connection to  the URL
+                     conn = (HttpURLConnection) url.openConnection(); 
+                     conn.setDoInput(true); // Allow Inputs
+                     conn.setDoOutput(true); // Allow Outputs
+                     conn.setUseCaches(false); // Don't use a Cached Copy
+                     conn.setRequestMethod("POST");
+                     conn.setRequestProperty("Connection", "Keep-Alive");
+                     conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                     conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                     conn.setRequestProperty("uploaded_file", sourceFile.toURI().toString()); 
+                   
+                    // conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+                      
+                     dos = new DataOutputStream(conn.getOutputStream());
+                                      
+                     dos.writeBytes(twoHyphens + boundary + lineEnd); 
+                    // dos.writeBytes("Content-Disposition: form-data; name="+uploaded_file+";filename=\""+ fileName + """ + lineEnd);
+                   
+                    dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+ sourceFile.toURI() + "\"" + lineEnd);		 
+                    dos.writeBytes(lineEnd);
+            
+                     // create a buffer of  maximum size
+                     bytesAvailable = fileInputStream.available(); 
+            
+                     bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                     buffer = new byte[bufferSize];
+            
+                     // read file and write it into form...
+                     bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
+                        
+                     while (bytesRead > 0) {
+                          
+                       dos.write(buffer, 0, bufferSize);
+                       bytesAvailable = fileInputStream.available();
+                       bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                       bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
+                        
+                      }
+            
+                     // send multipart form data necesssary after file data...
+                     dos.writeBytes(lineEnd);
+                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                     
+                     //SEND EXTRA PARAMS
+                     //dos.writeBytes(urlParameters);
+            
+                     // Responses from the server (code and message)
+                     serverResponseCode = conn.getResponseCode();
+                     String serverResponseMessage = conn.getResponseMessage();
+                       
+                     Log.i("uploadFile", "HTTP Response is : "
+                             + serverResponseMessage + ": " + serverResponseCode);
+                      
+                     if(serverResponseCode == 200){
+                          
+                         getActivity().runOnUiThread(new Runnable() {
+                              public void run() {
+                                   
+                                  String msg = "File Upload Completed.";
+                                   
+                                  System.out.println(msg);
+                                  
+                                  File f = new File("/mnt/sdcard/delete.png");
+                                  
+                                  if(f.exists())
+                            	  {
+                            	  f.delete();//delete photo once it was been uploaded to our server
+                            	  System.out.println("File has been deleted");
+                            	   }
+                                  //Toast.makeText(getActivity(), "File Upload Complete.", Toast.LENGTH_SHORT).show();
+                              }
+                          });                
+                     }    
+                      
+                     //close the streams //
+                     fileInputStream.close();
+                     dos.flush();
+                     dos.close();
+                       
+                } catch (MalformedURLException ex) {
+                     
+                    ex.printStackTrace();
+                     
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            System.out.println("MalformedURLException Exception : check script url.");
+                            Toast.makeText(getActivity(), "MalformedURLException", 
+                                                                Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                     
+                    Log.e("Upload file to server", "error: " + ex.getMessage(), ex);  
+                } catch (Exception e) {
+                     
+                    e.printStackTrace();
+                     
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                        	System.out.println("Got Exception : see logcat ");
+                            Toast.makeText(getActivity(), "Got Exception : see logcat ", 
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    Log.e("Upload file to server Exception", "Exception : "
+                                                     + e.getMessage(), e);  
+                }      
+                return serverResponseCode; 
+                 
+             } // End else block 
+           } 
+        //=============================================================
         
         // methods required for facebook stuff------------
     	@Override
@@ -464,9 +873,16 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	    super.onActivityResult(requestCode, resultCode, data);
     	    uiHelper.onActivityResult(requestCode, resultCode, data);
+    	    //System.out.println("Request Code: " +requestCode);
+    	    //System.out.println("Result Code: " + resultCode);
+    	    //System.out.println("Intent: " + data.toString());
+    	    if(data==null)return;
     	    
     	    switch(requestCode) {
     	    //display picture captured in ProfilePictureView
+    	    case 0:
+    	    	System.out.println("The user pressed the back button while in the gallery");
+    	    	break;
     	    case CODE_CAMERA_REQUEST:
     	        if(resultCode == getActivity().RESULT_OK) {
     	           Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
@@ -479,6 +895,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	    case CODE_GALLERY_REQUEST:
     	        try { //if data != null
 	    	       Uri photoUri = data.getData();
+	    	       imageFile =getRealPathFromURI(photoUri);
 	    	       // Do something with the photo based on Uri
 	    	       Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
 	    	       // Load the selected image into a preview
@@ -491,6 +908,17 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	        break;
     	    }
     	}
+    	
+    	 private String getRealPathFromURI(Uri contentURI) {
+    		    Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
+    		    if (cursor == null) { // Source is Dropbox or other similar local file path
+    		        return contentURI.getPath();
+    		    } else { 
+    		        cursor.moveToFirst(); 
+    		        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA); 
+    		        return cursor.getString(idx); 
+    		    }
+    		}
 
     	@Override
     	public void onPause() {
@@ -524,6 +952,49 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
 //    		                Bitmap bitmap = ((BitmapDrawable) fbImage.getDrawable()).getBitmap();
     		                displayName.setText(user.getName());
     		                displayID.setText(user.getId());
+    		                
+    		                System.out.println("Attempting to upload fbook photo");
+    		        		
+    		        		 //dialog = ProgressDialog.show(getActivity(), "", "Uploading facebook profile img...", true);
+    		                 
+    		                 new Thread(new Runnable() {
+    		                         public void run() {
+    		                              getActivity().runOnUiThread(new Runnable() {
+    		                                     public void run() {
+    		                                         System.out.println("uploading started.....");
+    		                                     }
+    		                                 });                      
+    		                            
+    		                              String filename = "delete.png";
+    		                              File f = new File(Environment.getExternalStorageDirectory().getPath()+"/"+filename);
+    		                              if(f.exists())f.delete();
+    		                              
+    		                              try
+    		                              {
+    		                            	  SystemClock.sleep(7000);
+    		                            	  FileOutputStream out = new FileOutputStream(f);
+    		                            	  View content = root.findViewById(R.id.settingsProfilePicture);
+        		                              content.setDrawingCacheEnabled(true);
+        		                              Bitmap bitmap = content.getDrawingCache();
+        		                              
+        		                              System.out.println(bitmap.getHeight() + " " + bitmap.getWidth());
+        		                              bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+        		                              out.flush();
+        		                              out.close();
+        		                              System.out.println(f.getAbsolutePath());
+        		                              uploadFileFacebook(f);
+        		                                      		                                  		                            	  
+    		                              }catch(Exception e)
+    		                              {
+    		                            	  e.printStackTrace();
+    		                              }
+    		                            
+    		                                  //File file = new File(bitmap + ".png"); 
+    		                              
+    		                                                      
+    		                         }
+    		                       }).start();     
+    		                
     					}
     				}
     	        }).executeAsync();
@@ -537,3 +1008,7 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     	//---------------------------------------
 }
 //http://stackoverflow.com/questions/18268880/reset-reload-fragment-container
+//http://androidexample.com/Upload_File_To_Server_-_Android_Example/index.php?view=article_discription&aid=83&aaid=106
+//http://www.androidpeople.com/android-load-image-url-example
+//http://stackoverflow.com/questions/541966/how-do-i-do-a-lazy-load-of-images-in-listview
+//http://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap

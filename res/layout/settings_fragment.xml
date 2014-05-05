@@ -75,6 +75,13 @@
                 android:background="@android:color/transparent"
                 android:orientation="vertical"
                 android:padding="10dip" >
+                
+                <Button
+                    android:id="@+id/btnSavePhoto"
+                    style="@style/ClassmateButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save Profile Picture" />
 
                 <TextView
                     style="@style/ClassmateTextView"

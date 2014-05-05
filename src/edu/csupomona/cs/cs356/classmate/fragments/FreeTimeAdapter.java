@@ -115,7 +115,7 @@ public class FreeTimeAdapter extends ArrayAdapter<Friend> implements View.OnClic
                 
                 if (getContext() instanceof FragmentActivity) {
                     // We can get the fragment manager
-                        int id = f.getID();
+                        long id = f.getID();
                         Fragment newFragment = new edu.csupomona.cs.cs356.classmate.fragments.FreeTimeScheduleFragment(id);
                     FragmentActivity activity = ((FragmentActivity)getContext());
                     FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
@@ -140,7 +140,7 @@ public class FreeTimeAdapter extends ArrayAdapter<Friend> implements View.OnClic
 
                                 RequestParams params = new RequestParams();
                                 params.put("email", emailAddress);
-                                params.put("user_id", Integer.toString(f.getID()));
+                                params.put("user_id", Long.toString(f.getID()));
                                 params.put("version", "1");
 
                                 AsyncHttpClient client = new AsyncHttpClient();
@@ -161,7 +161,7 @@ public class FreeTimeAdapter extends ArrayAdapter<Friend> implements View.OnClic
 
                                 RequestParams params = new RequestParams();
                                 params.put("email", emailAddress);
-                                params.put("user_id", Integer.toString(f.getID()));
+                                params.put("user_id", Long.toString(f.getID()));
                                 params.put("version", "2");
 
                                 AsyncHttpClient client = new AsyncHttpClient();

@@ -1,5 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,13 +20,13 @@ import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
 import edu.csupomona.cs.cs356.classmate.abstractions.TimeSlot;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("ValidFragment")//gets rid of constructor error on line 43
 public class FreeTimeScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
@@ -36,10 +37,10 @@ public class FreeTimeScheduleFragment extends Fragment {
 	private LinearLayout llFreeTime;
 	
 	private boolean outside_source=false;
-	private final int friend_id;
-	private int user_id;
+	private final long friend_id;
+	private long user_id;
 	
-	public FreeTimeScheduleFragment(int friend_id)
+	public FreeTimeScheduleFragment(long friend_id)
 	{
 		this.friend_id = friend_id;
 		user_id = 0;
@@ -55,15 +56,15 @@ public class FreeTimeScheduleFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.freetime_schedule_fragment, null);
-		user_id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+		user_id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 		
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(user_id));
-		params.put("friend_id", Integer.toString(friend_id));
+		params.put("user_id", Long.toString(user_id));
+		params.put("friend_id", Long.toString(friend_id));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getfreetimetoday.php", params, new AsyncHttpResponseHandler() {

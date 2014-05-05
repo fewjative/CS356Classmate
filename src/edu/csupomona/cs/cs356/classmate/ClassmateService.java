@@ -34,7 +34,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
    private List<Section> classes = new ArrayList<Section>();
    private Context mContext;
    private int mAppWidgetId;
-   private int id;
+   private long id;
    private Intent intent;
 
    public ClassRemoteViewsFactory(Context context, Intent intent) {
@@ -42,8 +42,8 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
        mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                AppWidgetManager.INVALID_APPWIDGET_ID);
        this.intent = intent;
-       System.out.println("ClassRemoteVF constructor: " + intent.getIntExtra("userId", 0));
-       id = intent.getIntExtra("userId", 0);
+       System.out.println("ClassRemoteVF constructor: " + intent.getLongExtra("userId", 0));
+       id = intent.getLongExtra("userId", 0);
  	
    }
 
@@ -59,7 +59,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
        }*/
        
    	RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 		params.put("full", "yes");
 		AsyncHttpClient client = new AsyncHttpClient();
 
@@ -114,7 +114,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
        // interim.
        try {
            System.out.println("Loading view " + position);
-           id = intent.getIntExtra("userId", 0);
+           id = intent.getLongExtra("userId", 0);
      		System.out.println("In loading view, UserID = " + id);
            Thread.sleep(500);
        } catch (InterruptedException e) {
@@ -146,7 +146,7 @@ class ClassRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
    public void onDataSetChanged() {
    	//attempting to get the users id
    	
-      id = intent.getIntExtra("userId", 0);
+      id = intent.getLongExtra("userId", 0);
 		System.out.println("Line 27: UpdateService, UserID = " + id);
 		onCreate();
 		

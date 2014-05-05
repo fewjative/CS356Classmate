@@ -38,7 +38,7 @@ public class AddClassActivity extends Activity {
 		setContentView(R.layout.addclass_activity);
 		setResult(RESULT_CANCELED);
 
-		final int id = getIntent().getIntExtra("userID", NULL_USER);
+		final long id = getIntent().getIntExtra("userID", NULL_USER);
 
 		sTerm = (Spinner)findViewById(R.id.sTerm);
 		sCollege = (Spinner)findViewById(R.id.sCollege);

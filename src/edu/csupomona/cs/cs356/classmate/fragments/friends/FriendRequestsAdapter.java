@@ -111,7 +111,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 		RequestParams params = new RequestParams();
 		params.put("email", emailAddress);
-		params.put("user_id", Integer.toString(f.getID()));
+		params.put("user_id", Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/acceptfriend.php", params, new AsyncHttpResponseHandler() {
@@ -128,7 +128,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<Friend> implements View.
 
 		RequestParams params = new RequestParams();
 		params.put("email", emailAddress);
-		params.put("user_id", Integer.toString(f.getID()));
+		params.put("user_id", Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/dismissfriend.php", params, new AsyncHttpResponseHandler() {

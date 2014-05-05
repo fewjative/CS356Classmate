@@ -2,6 +2,8 @@ package edu.csupomona.cs.cs356.classmate;
 
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 
+import java.util.Arrays;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -42,6 +45,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	public static final String INTENT_KEY_USERNAME = "userName";
 	public static final String INTENT_KEY_REMEMBER = "remember";
 	public static final String INTENT_KEY_USERID = "userID";
+	public static final String INTENT_KEY_FBUSER = "fb_user";
 
 	private static final String PREFS_LOGIN = "login_activity_prefs";
 	private static final String PREFS_KEY_EMAIL = "emailAddress";
@@ -53,6 +57,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 	
 	private boolean remember;
 	private Button btnLogin;
+	private LoginButton authButton;
 	private EditText etEmailAddress;
 	private EditText etPassword;
 	private CheckBox cbRemember;
@@ -61,7 +66,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     private Session.StatusCallback callback = new Session.StatusCallback() {
     	@Override
     	public void call(Session session, SessionState state, Exception exception) {
-	    	onSessionStateChange(session, state, exception);
+    		onSessionStateChange(session, state, exception);
 	    }
 	};
 	
@@ -122,6 +127,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 			attemptLogin(emailAddress, null);
 		}
 		
+		authButton = (LoginButton) findViewById(R.id.btnFacebookLogin);
+		authButton.setReadPermissions(Arrays.asList("email"));
+		
 	}
 	
 	private void attemptLogin(String emailAddress, final String password) {
@@ -143,7 +151,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 			public void onSuccess(String response) {
 				pg.dismiss();
 
-				int id = NULL_USER;
+				long id = NULL_USER;
 				String username = null;
 				if (1 < response.length()) {
 					try {
@@ -151,7 +159,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 						JSONArray myjsonarray = new JSONArray(response);
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
-							id = jObj.getInt("user_id");
+							id = jObj.getLong("user_id");
 							username = jObj.getString("username");
 						}
 					} catch (JSONException e) {
@@ -180,7 +188,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 		});
 	}
 
-	private void login(int id, String username) {
+	private void login(long id, String username) {
 		assert NULL_USER < id;
 
 		String emailAddress = etEmailAddress.getText().toString();
@@ -197,6 +205,30 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 		i.putExtra(INTENT_KEY_USERID, id);
 		i.putExtra(INTENT_KEY_EMAIL, emailAddress);
 		i.putExtra(INTENT_KEY_USERNAME, username);
+		i.putExtra(INTENT_KEY_FBUSER,false);
+		startActivityForResult(i, CODE_MAINMENU);
+	}
+	
+	private void facebookLogin(long id, String username, String email) {
+		assert NULL_USER < id;
+
+		String emailAddress = email;
+		
+		if (emailAddress.isEmpty()) {
+			SharedPreferences preferences = getSharedPreferences(PREFS_LOGIN, MODE_PRIVATE);
+			emailAddress = preferences.getString(PREFS_KEY_EMAIL, null);
+		}
+		//as far as I know, every fbook account needs an email so the above if statement will never be called
+		Intent widgetIntent = new Intent(ClassmateProvider.UPDATE_ID);
+		widgetIntent.putExtra(INTENT_KEY_USERID, id);
+		sendBroadcast(widgetIntent);
+		System.out.println("Should have broadcasted id " + id);
+		
+		Intent i = new Intent(this, MainActivity.class);
+		i.putExtra(INTENT_KEY_USERID, id);
+		i.putExtra(INTENT_KEY_EMAIL, emailAddress);
+		i.putExtra(INTENT_KEY_USERNAME, username);
+		i.putExtra(INTENT_KEY_FBUSER,true);
 		startActivityForResult(i, CODE_MAINMENU);
 	}
 
@@ -266,7 +298,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 				etEmailAddress.setText(data.getStringExtra(INTENT_KEY_USERNAME));
 				cbRemember.setChecked(data.getBooleanExtra(INTENT_KEY_REMEMBER, false));
 
-				int id = data.getIntExtra(INTENT_KEY_USERID, NULL_USER);
+				long id = data.getLongExtra(INTENT_KEY_USERID, NULL_USER);
 				String username = data.getStringExtra(INTENT_KEY_USERNAME);
 				login(id, username);
 				break;
@@ -324,8 +356,62 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 				public void onCompleted(GraphUser user, Response response) {
 					if (user != null) {
 						// Log.i("FACEBOOK", user.getId()+" ***** "+user.getName());
-						Intent i = new Intent(getApplicationContext(), MainActivity.class);
-				    	startActivity(i);
+						
+						
+						String device = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+
+						RequestParams params = new RequestParams();
+						params.put("email", user.asMap().get("email").toString());
+						params.put("user_id", user.getId());
+						params.put("name", user.getName());
+						params.put("device_id", device);
+						
+						Toast.makeText(getApplicationContext(), user.getId()+" ***** "+user.getName()+" ***** "+user.asMap().get("email").toString()+" ***** "+device, Toast.LENGTH_SHORT).show();
+
+
+						AsyncHttpClient client = new AsyncHttpClient();
+						client.get("http://www.lol-fc.com/classmate/facebooklogin.php", params, new AsyncHttpResponseHandler() {
+							@Override
+							public void onSuccess(String response) {
+
+								long id = NULL_USER;
+								String username = null;
+								String email = null;
+								
+								if (1 < response.length()) {
+									try {
+										JSONObject jObj;
+										JSONArray myjsonarray = new JSONArray(response);
+										for (int i = 0; i < myjsonarray.length(); i++) {
+											jObj = myjsonarray.getJSONObject(i);
+											id = jObj.getLong("user_id");
+											username = jObj.getString("username");
+											email = jObj.getString("email");
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+
+								if (NULL_USER < id) {
+									facebookLogin(id, username,email);
+									Toast.makeText(LoginActivity.this, "Welcome back " + username + "!", Toast.LENGTH_LONG).show();
+								}
+								else
+								{
+									AlertDialog d = new AlertDialog.Builder(LoginActivity.this).create();
+									d.setTitle(R.string.loginErrorTitle);
+									d.setMessage(getResources().getString(R.string.fbloginError));
+									d.setIcon(android.R.drawable.ic_dialog_alert);
+									d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.okay), new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int which) {
+										}
+									});
+
+									d.show();
+								}
+							}
+						});
 					}
 				}
 	        }).executeAsync();

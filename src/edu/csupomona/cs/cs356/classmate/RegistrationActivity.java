@@ -104,9 +104,9 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 			public void onSuccess(String response) {
 				pg.dismiss();
 
-				int id;
+				long id;
 				try {
-					id = Integer.parseInt(response);
+					id = Long.parseLong(response);
 				} catch (NumberFormatException e) {
 					id = NULL_USER;
 				}

@@ -49,14 +49,14 @@ public class ScheduleFragment extends Fragment {
 	private LinearLayout llNoSchedule;
 	
 	private boolean outside_source=false;
-	private final int friend_id;
+	private final long friend_id;
 	
 	public ScheduleFragment()
 	{
 		friend_id = 0;
 	}
 	
-	public ScheduleFragment(int user_id)
+	public ScheduleFragment(long user_id)
 	{
 		outside_source = true;
 		friend_id = user_id;
@@ -67,19 +67,19 @@ public class ScheduleFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
 
-		final int id;
+		final long id;
 		if(outside_source)
 		{
 			id = friend_id;
 		}
 		else
-			id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+			id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		final RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 		
 		final AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
@@ -130,7 +130,7 @@ public class ScheduleFragment extends Fragment {
                     		String scheduleName = etScheduleName.getText().toString();
                     		String firstSchedule = Integer.toString(1);
                     		                                         
-                            params.put("user_id", Integer.toString(id));
+                            params.put("user_id", Long.toString(id));
                             params.put("title",scheduleName);
                             params.put("new", firstSchedule);
                             
@@ -222,7 +222,7 @@ public class ScheduleFragment extends Fragment {
 
             					RequestParams params = new RequestParams();
             					params.put("full", "yes");
-            					params.put("user_id", Integer.toString(id));
+            					params.put("user_id", Long.toString(id));
 
             					AsyncHttpClient client = new AsyncHttpClient();
             					//CHANGED TO VERSION2

@@ -53,9 +53,9 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 			public void onSuccess(String response) {
 				pg.dismiss();
 
-				int result;
+				long result;
 				try {
-					result = Integer.parseInt(response);
+					result = Long.parseLong(response);
 				} catch (NumberFormatException e) {
 					result = NULL_USER;
 				}

@@ -48,11 +48,11 @@ public class AddFriendTab extends Fragment {
 				llProgressBar.setVisibility(View.VISIBLE);
 				lvSearchResults.setAdapter(null);
 
-				int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER);
+				long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER);
 
 				RequestParams params = new RequestParams();
 				params.put("search", e.toString());
-				params.put("user_id", Integer.toString(id));
+				params.put("user_id", Long.toString(id));
 
 				AsyncHttpClient client = new AsyncHttpClient();
 				client.get("http://www.lol-fc.com/classmate/searchfriends.php", params, new AsyncHttpResponseHandler() {
@@ -65,7 +65,7 @@ public class AddFriendTab extends Fragment {
 								JSONArray myjsonarray = new JSONArray(response);
 								for (int i = 0; i < myjsonarray.length(); i++) {
 									jObj = myjsonarray.getJSONObject(i);
-									search_results.add(new Friend(jObj.getInt("user_id"), jObj.getString("username"), jObj.getString("email")));
+									search_results.add(new Friend(jObj.getLong("user_id"), jObj.getString("username"), jObj.getString("email")));
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();

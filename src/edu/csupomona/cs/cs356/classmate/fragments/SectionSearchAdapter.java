@@ -120,15 +120,15 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((Activity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USERID, ((Activity)getContext()).getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER));
+		i.putExtra(INTENT_KEY_USERID, ((Activity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER));
 		((Activity)getContext()).startActivity(i);
 	}
 
 	public void addClass(final Section s) {
-		int id = ((AddClassActivity)getContext()).getIntent().getIntExtra("userID", NULL_USER);
+		long id = ((AddClassActivity)getContext()).getIntent().getLongExtra("userID", NULL_USER);
 
 		RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

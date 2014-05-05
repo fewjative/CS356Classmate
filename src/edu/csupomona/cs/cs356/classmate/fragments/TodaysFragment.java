@@ -51,14 +51,14 @@ public class TodaysFragment extends Fragment {
                 root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
                 
                 
-                final int id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
+                final long id = getActivity().getIntent().getLongExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
                 
 
                 final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
                 llProgressBar.setVisibility(View.VISIBLE);
 
                 final RequestParams params = new RequestParams();
-                params.put("user_id", Integer.toString(id));
+                params.put("user_id", Long.toString(id));
 
                 final AsyncHttpClient client = new AsyncHttpClient();
                 client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
@@ -109,7 +109,7 @@ public class TodaysFragment extends Fragment {
                                  		String scheduleName = etScheduleName.getText().toString();
                                  		String firstSchedule = Integer.toString(1);
                                  		                                         
-                                         params.put("user_id", Integer.toString(id));
+                                         params.put("user_id", Long.toString(id));
                                          params.put("title",scheduleName);
                                          params.put("new", firstSchedule);
                                          
@@ -190,7 +190,7 @@ public class TodaysFragment extends Fragment {
 
                                                   RequestParams params = new RequestParams();
                                                   params.put("full", "yes");
-                                                  params.put("user_id", Integer.toString(id));
+                                                  params.put("user_id", Long.toString(id));
 
                                                   AsyncHttpClient client = new AsyncHttpClient();
                                                   client.get("http://lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {

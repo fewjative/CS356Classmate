@@ -83,7 +83,7 @@ public class ManageGroupActivity extends Activity {
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
 							people.add(new Friend(
-								jObj.getInt("user_id"),
+								jObj.getLong("user_id"),
 								jObj.getString("username"),
 								jObj.getString("email")
 							));

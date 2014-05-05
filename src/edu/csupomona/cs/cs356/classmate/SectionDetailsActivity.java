@@ -37,7 +37,7 @@ public class SectionDetailsActivity extends Activity {
 
 	private Button btnCreateReview;
 
-	private int id;
+	private long id;
 	private Section section;
 
 	@Override
@@ -45,7 +45,7 @@ public class SectionDetailsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.section_details_activity);
 
-		id = getIntent().getIntExtra(INTENT_KEY_USERID, NULL_USER);
+		id = getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
 
 		getActionBar().setTitle(String.format("%s Class Details", section.toString()));
@@ -73,7 +73,7 @@ public class SectionDetailsActivity extends Activity {
 
 		RequestParams params = new RequestParams();
 		params.put("class_id", Integer.toString(section.getClassID()));
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(id));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getfriendsinclass.php", params, new AsyncHttpResponseHandler() {
@@ -87,7 +87,7 @@ public class SectionDetailsActivity extends Activity {
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
 							friends.add(new Friend(
-								jObj.getInt("user_id"),
+								jObj.getLong("user_id"),
 								jObj.getString("username"),
 								jObj.getString("email")
 							));
