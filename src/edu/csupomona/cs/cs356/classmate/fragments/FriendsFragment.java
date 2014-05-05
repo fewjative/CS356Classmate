@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragment;
+package edu.csupomona.cs.cs356.classmate.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.fragment.friends.FriendRequestsTab;
-import edu.csupomona.cs.cs356.classmate.fragment.friends.FriendsListTab;
+import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendRequestsTab;
+import edu.csupomona.cs.cs356.classmate.fragments.friends.FriendsListTab;
 
 public class FriendsFragment extends Fragment {
 	@Override

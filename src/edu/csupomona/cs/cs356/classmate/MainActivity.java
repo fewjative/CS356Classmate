@@ -11,8 +11,8 @@ import edu.csupomona.cs.cs356.classmate.drawer.FragmentNavigationDrawer;
 import edu.csupomona.cs.cs356.classmate.drawer.Header;
 import edu.csupomona.cs.cs356.classmate.drawer.Item;
 import edu.csupomona.cs.cs356.classmate.drawer.UserHeader;
-import edu.csupomona.cs.cs356.classmate.fragment.FriendsFragment;
-import edu.csupomona.cs.cs356.classmate.fragment.GroupsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;

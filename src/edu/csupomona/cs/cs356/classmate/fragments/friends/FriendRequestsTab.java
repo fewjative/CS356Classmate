@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragment.friends;
+package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

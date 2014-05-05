@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragment.friends;
+package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
 import android.app.AlertDialog;
 import android.content.Context;

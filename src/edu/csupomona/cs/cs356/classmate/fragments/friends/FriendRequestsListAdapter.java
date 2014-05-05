@@ -1,4 +1,4 @@
-package edu.csupomona.cs.cs356.classmate.fragment.friends;
+package edu.csupomona.cs.cs356.classmate.fragments.friends;
 
 import android.content.Context;
 import android.text.Spannable;
