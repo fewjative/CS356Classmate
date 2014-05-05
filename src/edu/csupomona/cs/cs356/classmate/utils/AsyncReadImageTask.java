@@ -3,7 +3,10 @@ package edu.csupomona.cs.cs356.classmate.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import edu.csupomona.cs.cs356.classmate.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,6 +42,8 @@ public class AsyncReadImageTask extends AsyncTask<String, Void, Bitmap> {
 	@Override
 	protected void onPostExecute(Bitmap result) {
 		if (result != null) {
+			Animation animFadeIn = AnimationUtils.loadAnimation(IMAGEVIEW.getContext(), R.anim.user_avatar_fadein);
+			IMAGEVIEW.startAnimation(animFadeIn);
 			IMAGEVIEW.setImageBitmap(result);
 		}
 	}

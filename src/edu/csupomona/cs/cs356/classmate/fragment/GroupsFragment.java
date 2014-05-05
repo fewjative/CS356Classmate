@@ -12,19 +12,20 @@ import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.fragment.friends.FriendRequestsTab;
 import edu.csupomona.cs.cs356.classmate.fragment.friends.FriendsListTab;
 
-public class FriendsFragment extends Fragment {
+public class GroupsFragment extends Fragment {
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.groups_fragment_layout, container, false);
+		View root = inflater.inflate(R.layout.groups_fragment_layout, container, false);
 
-		ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
-		vpContentPane.setAdapter(new FriendsFragmentPagerAdapter(getChildFragmentManager()));
+		ViewPager vpContentPane = (ViewPager)root.findViewById(R.id.vpContentPane);
+		vpContentPane.setAdapter(new GroupsFragmentPagerAdapter(getChildFragmentManager()));
 
-		return ROOT;
+		return root;
 	}
 
-	private class FriendsFragmentPagerAdapter extends FragmentPagerAdapter {
-		FriendsFragmentPagerAdapter(FragmentManager fm) {
+	private static class GroupsFragmentPagerAdapter extends FragmentPagerAdapter {
+		GroupsFragmentPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
@@ -38,17 +39,17 @@ public class FriendsFragment extends Fragment {
 		}
 
 		@Override
-		public CharSequence getPageTitle(int i) {
-			switch (i) {
-				case 0: return getString(R.string.friends_tab_list);
-				case 1: return getString(R.string.friends_tab_requests);
-				default: throw new RuntimeException();
-			}
+		public int getCount() {
+			return 2;
 		}
 
 		@Override
-		public int getCount() {
-			return 2;
+		public CharSequence getPageTitle(int i) {
+			switch (i) {
+				case 0: return "My Friends";
+				case 1: return "Requests";
+				default: return "null";
+			}
 		}
 	}
 }

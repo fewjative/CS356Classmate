@@ -1,6 +1,8 @@
 package edu.csupomona.cs.cs356.classmate.fragment.friends;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -12,13 +14,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import edu.csupomona.cs.cs356.classmate.Constants;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import java.util.List;
 
 public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
-	public FriendListAdapter(Context context, List<User> friends) {
+	private final User USER;
+
+	public FriendListAdapter(Context context, User user, List<User> friends) {
 		super(context, 0, friends);
+		this.USER = user;
 	}
 
 	private static class ViewHolder {
@@ -100,7 +109,7 @@ public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClic
 		}
 	}
 
-	public void viewSchedule(final User f) {
+	private void viewSchedule(final User f) {
 		/*if (getContext() instanceof FragmentActivity) {
 			// We can get the fragment manager
 			int id = f.getID();
@@ -117,43 +126,20 @@ public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClic
 		}*/
 	}
 
-	public void removeFriend(final User f) {
-		/*AlertDialog d = new AlertDialog.Builder(((FragmentActivity)getContext())).create();
-		d.setTitle(R.string.removeTitle);
-		d.setMessage(getContext().getResources().getString(R.string.removeConfirmation));
-		d.setIcon(android.R.drawable.ic_dialog_info);
-		d.setButton(DialogInterface.BUTTON_POSITIVE, getContext().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+	private void removeFriend(final User f) {
+		AlertDialog.Builder removeDialog = new AlertDialog.Builder(getContext());
+		removeDialog.setTitle(R.string.dialog_friend_remove_title);
+		removeDialog.setMessage(getContext().getResources().getString(R.string.dialog_friend_remove, getContext().getResources().getString(R.string.global_action_yes), getContext().getResources().getString(R.string.global_action_no)));
+		removeDialog.setIcon(android.R.drawable.ic_dialog_info);
+		removeDialog.setPositiveButton(R.string.global_action_yes, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
-
 				RequestParams params = new RequestParams();
-				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(f.getID()));
-				params.put("version", "1");
+				params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
+				params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
+				params.put(Constants.PHP_PARAM_VERSION, "1");
 
 				AsyncHttpClient client = new AsyncHttpClient();
-				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-						remove(f);
-					}
-
-				});
-
-			}
-		});
-
-		d.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				String emailAddress = ((FragmentActivity)getContext()).getIntent().getStringExtra(LoginActivity.INTENT_KEY_EMAIL);
-
-				RequestParams params = new RequestParams();
-				params.put("email", emailAddress);
-				params.put("user_id", Integer.toString(f.getID()));
-				params.put("version", "2");
-
-				AsyncHttpClient client = new AsyncHttpClient();
-				client.get("http://www.lol-fc.com/classmate/removefriend.php", params, new AsyncHttpResponseHandler() {
+				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_REMOVEFRIEND, params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
 						remove(f);
@@ -162,11 +148,24 @@ public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClic
 			}
 		});
 
-		d.setButton(DialogInterface.BUTTON_NEUTRAL, getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+		removeDialog.setNegativeButton(R.string.global_action_no, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
+				RequestParams params = new RequestParams();
+				params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
+				params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
+				params.put(Constants.PHP_PARAM_VERSION, "2");
+
+				AsyncHttpClient client = new AsyncHttpClient();
+				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_REMOVEFRIEND, params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(String response) {
+						remove(f);
+					}
+				});
 			}
 		});
 
-		d.show();*/
+		removeDialog.setNeutralButton(R.string.global_action_cancel, null);
+		removeDialog.show();
 	}
 }

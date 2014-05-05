@@ -12,6 +12,7 @@ import edu.csupomona.cs.cs356.classmate.drawer.Header;
 import edu.csupomona.cs.cs356.classmate.drawer.Item;
 import edu.csupomona.cs.cs356.classmate.drawer.UserHeader;
 import edu.csupomona.cs.cs356.classmate.fragment.FriendsFragment;
+import edu.csupomona.cs.cs356.classmate.fragment.GroupsFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;
@@ -60,7 +61,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Item(FriendsFragment.class, temp, R.drawable.ic_action_person));
 
 		temp = getString(R.string.nd_social_groups);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_group));
+		dlDrawer.addItem(new Item(GroupsFragment.class, temp, R.drawable.ic_action_group));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));

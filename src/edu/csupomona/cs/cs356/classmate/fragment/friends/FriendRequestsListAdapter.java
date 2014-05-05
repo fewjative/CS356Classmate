@@ -1,7 +1,6 @@
 package edu.csupomona.cs.cs356.classmate.fragment.friends;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -17,14 +16,16 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.cs.cs356.classmate.Constants;
-import static edu.csupomona.cs.cs356.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.User;
 import java.util.List;
 
 public class FriendRequestsListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
-	public FriendRequestsListAdapter(Context context, List<User> requests) {
+	private final User USER;
+
+	public FriendRequestsListAdapter(Context context, User user, List<User> requests) {
 		super(context, 0, requests);
+		this.USER = user;
 	}
 
 	private static class ViewHolder {
@@ -107,10 +108,8 @@ public class FriendRequestsListAdapter extends ArrayAdapter<User> implements Vie
 	}
 
 	public void acceptInvite(final User f) {
-		User user = ((FragmentActivity)getContext()).getIntent().getParcelableExtra(INTENT_KEY_USER);
-
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
 		params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -125,10 +124,8 @@ public class FriendRequestsListAdapter extends ArrayAdapter<User> implements Vie
 	}
 
 	public void rejectInvite(final User f) {
-		User user = ((FragmentActivity)getContext()).getIntent().getParcelableExtra(INTENT_KEY_USER);
-
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
 		params.put(Constants.PHP_PARAM_USERID, Long.toString(f.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

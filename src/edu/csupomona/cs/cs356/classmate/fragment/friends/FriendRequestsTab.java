@@ -25,19 +25,18 @@ public class FriendRequestsTab extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View root = (ViewGroup)inflater.inflate(R.layout.friend_requests_tab_layout, null);
+		final View ROOT = (ViewGroup)inflater.inflate(R.layout.friend_requests_tab_layout, null);
 
-		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
+		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
-		User user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETREQUESTS, params, new JsonHttpResponseHandler() {
-
 			@Override
 			public void onSuccess(JSONArray jsona) {
 				List<User> requests = new ArrayList<User>();
@@ -56,10 +55,10 @@ public class FriendRequestsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				FriendRequestsListAdapter adapter = new FriendRequestsListAdapter(getActivity(), requests);
-				ListView lvRequestList = (ListView)root.findViewById(R.id.lvRequestList);
+				FriendRequestsListAdapter adapter = new FriendRequestsListAdapter(getActivity(), USER, requests);
+				ListView lvRequestList = (ListView)ROOT.findViewById(R.id.lvRequestList);
 				if (adapter.isEmpty()) {
-					LinearLayout llEmptyList = (LinearLayout)root.findViewById(R.id.llEmptyList);
+					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
 					lvRequestList.setAdapter(adapter);
@@ -71,6 +70,6 @@ public class FriendRequestsTab extends Fragment {
 			}
 		});
 
-		return root;
+		return ROOT;
 	}
 }

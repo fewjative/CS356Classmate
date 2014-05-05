@@ -4,4 +4,5 @@
 	<dimen name="nd_item_size">36dp</dimen>
 	<dimen name="nd_header_size">48dp</dimen>
 	<dimen name="nd_notification_size">32dp</dimen>
+	<dimen name="user_avatar_trim_size">2dp</dimen>
 </resources>

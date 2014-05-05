@@ -10,19 +10,22 @@ public interface Constants {
 	String PHP_ADDRESS_GETREQUESTS	= "getrequests.php";
 	String PHP_ADDRESS_ACCEPTFRIEND	= "acceptfriend.php";
 	String PHP_ADDRESS_DISMISSFRIEND	= "dismissfriend.php";
+	String PHP_ADDRESS_REMOVEFRIEND	= "removefriend.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
-	String PHP_PARAM_USERID			= "user_id";
-	String PHP_PARAM_NAME			= "username";
-	String PHP_PARAM_EMAIL			= "email";
-	String PHP_PARAM_PASSWORD		= "password";
 	String PHP_PARAM_DEVICEID		= "device_id";
+
+	String PHP_PARAM_EMAIL			= "email";
+	String PHP_PARAM_FRIENDEMAIL		= "femail";
 	String PHP_PARAM_FRIENDID		= "friend_id";
 	String PHP_PARAM_FRIENDUSERNAME	= "fusername";
-	String PHP_PARAM_FRIENDEMAIL		= "femail";
+	String PHP_PARAM_NAME			= "username";
+	String PHP_PARAM_PASSWORD		= "password";
+	String PHP_PARAM_USERID			= "user_id";
+	String PHP_PARAM_VERSION		= "version";
 
 	String PREFS_WHICH			= "loginActivityPreferences";
 	String PREFS_KEY_EMAIL			= PHP_PARAM_EMAIL;

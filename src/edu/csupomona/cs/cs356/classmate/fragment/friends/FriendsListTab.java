@@ -26,15 +26,15 @@ public class FriendsListTab extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View root = (ViewGroup)inflater.inflate(R.layout.friends_list_tab_layout, null);
+		final View ROOT = (ViewGroup)inflater.inflate(R.layout.friends_list_tab_layout, null);
 
-		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
+		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
-		User user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_EMAIL, user.getEmail());
+		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETFRIENDS, params, new JsonHttpResponseHandler() {
@@ -56,13 +56,13 @@ public class FriendsListTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				FriendListAdapter adapter = new FriendListAdapter(getActivity(), friends);
-				ListView lvFriendsList = (ListView)root.findViewById(R.id.lvFriendsList);
+				FriendListAdapter adapter = new FriendListAdapter(getActivity(), USER, friends);
+				ListView lvFriendsList = (ListView)ROOT.findViewById(R.id.lvFriendsList);
 				if (adapter.isEmpty()) {
-					TextView tvEmptyList = (TextView)root.findViewById(R.id.tvEmptyList);
+					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
 					tvEmptyList.setText(getResources().getString(R.string.friends_list_empty, getResources().getString(R.string.friends_add_friend)));
 
-					LinearLayout llEmptyList = (LinearLayout)root.findViewById(R.id.llEmptyList);
+					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
 					lvFriendsList.setAdapter(adapter);
@@ -72,6 +72,6 @@ public class FriendsListTab extends Fragment {
 			}
 		});
 
-		return root;
+		return ROOT;
 	}
 }
