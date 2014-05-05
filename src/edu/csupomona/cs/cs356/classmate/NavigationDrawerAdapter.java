@@ -126,7 +126,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			{
 				final ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
 				
-				final long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
+				/*final long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
 
 				Thread thread = new Thread(new Runnable(){
         		    @SuppressLint("NewApi")//allows us to use setBackground without moving our min api from 14 to 16
@@ -180,9 +180,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
         		    }
         		});
 
-        		thread.start(); 
-			//	avatar.setImageResource(R.drawable.ic_action_person);
-        		avatar.setImageResource(R.drawable.user_avatar_border);
+        		thread.start(); */
+				avatar.setImageResource(R.drawable.ic_action_person);
+        	//	avatar.setImageResource(R.drawable.user_avatar_border);
 			}
 
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);
