@@ -58,6 +58,11 @@
 	<string name="dialog_register_error">We are sorry, there is already an account with that email. Did you forget your password?</string>
 
 	<!--Navigation Drawer-->
+	<string name="nd_feed_header">Feeds</string>
+	<string name="nd_feed_events">Events</string>
+	<string name="nd_feed_activity">Recent Activity</string>
+	<string name="nd_feed_news">News</string>
+
 	<string name="nd_schedule_header">Schedule</string>
 	<string name="nd_schedule_today">Today</string>
 	<string name="nd_schedule_full_schedule">Full Schedule</string>

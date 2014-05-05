@@ -35,7 +35,19 @@ public class MainActivity extends FragmentActivity {
 			R.id.flContentFrame
 		);
 
-		String temp = getString(R.string.nd_schedule_today);
+		String temp = getString(R.string.nd_feed_activity);
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+
+		temp = getString(R.string.nd_feed_events);
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+
+		temp = getString(R.string.nd_feed_news);
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+
+		temp = getString(R.string.nd_schedule_header);
+		dlDrawer.addItem(new Header(temp));
+
+		temp = getString(R.string.nd_schedule_today);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
 
 		temp = getString(R.string.nd_schedule_full_schedule);
