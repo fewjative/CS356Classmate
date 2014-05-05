@@ -1,8 +1,12 @@
 package edu.csupomona.cs.cs356.classmate;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +78,21 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 		}
 	}
 
+    private Drawable LoadImageFromWebOperations(String url)
+    {
+        try
+        {
+	        InputStream is = (InputStream) new URL(url).getContent();
+	        Drawable d = Drawable.createFromStream(is, "src name");
+	        if(d!=null)
+	        	System.out.println("The Drawable is not null!");
+	        return d;
+        }catch (Exception e) {
+	        System.out.println("Exc="+e);
+	        return null;
+        }
+    }
+    
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		NavigationDrawerItemModel item = getItem(position);
@@ -102,24 +121,49 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavigationDrawerItemMo
 			
 			if(layout==R.layout.menu_master_header)
 			{
-				ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
+				final ImageView avatar = (ImageView)view.findViewById(R.id.ivAvatar);
 				
-				long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
-				
-				if(id==18)
-				{
-					avatar.setImageResource(R.drawable.ic_action_person_collin);
-				}else if(id==19)
-				{
-					avatar.setImageResource(R.drawable.ic_action_person_robert);
-				}else if(id==30)
-				{
-					avatar.setImageResource(R.drawable.ic_action_person_josh);
-				}else
-				{
-					avatar.setImageResource(R.drawable.ic_action_person);
-				}
-				
+				final long id = intent.getLongExtra(LoginActivity.INTENT_KEY_USERID, 0);
+
+				Thread thread = new Thread(new Runnable(){
+        		    @Override
+        		    public void run() {
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".jpg");
+                    		
+                    		if(drawable !=null)
+                    			avatar.setImageDrawable(drawable);
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/"+Long.toString(id)+".png");
+                    		
+                    		if(drawable !=null)
+                    			avatar.setImageDrawable(drawable);
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		        
+        		        try {
+        		        	System.out.println("async runnable");
+                         	Drawable drawable = LoadImageFromWebOperations("http://www.lol-fc.com/classmate/uploads/default.png");
+                    		
+                    		if(drawable !=null)
+                    			avatar.setImageDrawable(drawable);
+        		        } catch (Exception e)
+        		        {
+        		            e.printStackTrace();
+        		        }
+        		    }
+        		});
+
+        		thread.start(); 
 			}
 
 			TextView textcounter1 = (TextView)view.findViewById(R.id.menurow_counter);

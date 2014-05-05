@@ -99,6 +99,10 @@ public class FriendListAdapter extends ArrayAdapter<Friend> implements View.OnCl
                         if (holder.avatar != null) {
                                 holder.avatar.setVisibility(View.VISIBLE);
                                 holder.avatar.setImageResource(f.getAvatar());
+                                //can follow what I did inside 'NavigationDrawerAdapter' in order to create a drawable and
+                                //then set it to the avatar image view.
+                                //(We could also remove the switch statement from Friend.java since we dont need the avatar id, just the user ID
+                                //to get a picture
                         }
                 }
 
