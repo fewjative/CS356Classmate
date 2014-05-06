@@ -1,5 +1,6 @@
 package edu.csupomona.classmate;
 
+import edu.csupomona.classmate.fragments.UnderConstructionFragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

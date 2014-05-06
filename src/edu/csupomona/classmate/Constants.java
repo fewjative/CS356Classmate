@@ -18,6 +18,7 @@ public interface Constants {
 	String PHP_ADDRESS_EMAILGROUP		= "emailgroup.php";
 	String PHP_ADDRESS_SEARCHUSERS	= "searchfriends.php";
 	String PHP_ADDRESS_JOINGROUP		= "addtogroup.php";
+	String PHP_ADDRESS_REQUESTFRIEND	= "addfriend.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
@@ -26,6 +27,7 @@ public interface Constants {
 	String PHP_PARAM_DEVICEID		= "device_id";
 
 	String PHP_PARAM_EMAIL			= "email";
+	String PHP_PARAM_FRIEND			= "friend";
 	String PHP_PARAM_FRIENDEMAIL		= "femail";
 	String PHP_PARAM_FRIENDID		= "friend_id";
 	String PHP_PARAM_FRIENDUSERNAME	= "fusername";

@@ -137,8 +137,10 @@ public class MyGroupsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				adapter = new MyGroupsAdapter(getActivity(), user, groups);
 				ListView lvGroupsList = (ListView)root.findViewById(R.id.lvGroupsList);
+				lvGroupsList.setAdapter(null);
+				
+				adapter = new MyGroupsAdapter(getActivity(), user, groups);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)root.findViewById(R.id.tvEmptyList);
 					tvEmptyList.setText(getResources().getString(R.string.groups_list_empty, getResources().getString(R.string.groups_join_group), getResources().getString(R.string.groups_create_group)));

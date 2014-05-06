@@ -82,9 +82,14 @@
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
 	<string name="friends_tab_requests">Requests</string>
+	<string name="friends_tab_search">Search</string>
 	<string name="friends_add_friend">Add Friend</string>
-	<string name="friends_list_empty">Your friends list is empty. To add friends, press \'%1$s\'.</string>
+	<string name="friends_list_empty">Your friends list is empty. To add friends, go to the \'%1$s\' tab.</string>
 	<string name="friend_requests_empty">You have no friend requests.</string>
+	<string name="friend_search_hint">Enter an email address or username to search for:</string>
+
+	<string name="dialog_friend_request_title">Request Sent</string>
+	<string name="dialog_friend_request">A friend request has been dispatched to %1$s.</string>
 
 	<string name="dialog_friend_remove_title">Hold on a sec&#8230;</string>
 	<string name="dialog_friend_remove">Would you like to remove this friend from seeing your schedule? If so press \'%1$s\', otherwise pressing \'%2$s\' will only remove the person from your friends list.</string>
@@ -124,5 +129,5 @@
 
 	<!--Add Member Activity-->
 	<string name="add_member">Add Member</string>
-	<string name="add_member_hint">Enter an email address or username to search for</string>
+	<string name="add_member_hint">Enter an email address or username to search for:</string>
 </resources>
