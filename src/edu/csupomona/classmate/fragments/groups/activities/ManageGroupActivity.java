@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
+import static edu.csupomona.classmate.Constants.CODE_ADDMEMBER;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_GROUP;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Group;
@@ -26,9 +26,10 @@ import org.json.JSONObject;
 public class ManageGroupActivity extends Activity {
 	private Group group;
 
-	private TextView tvGroupName;
 	private ListView lvGroupMembers;
 	private LinearLayout llProgressBar;
+
+	private GroupMembersAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,9 @@ public class ManageGroupActivity extends Activity {
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);
 		btnAddMember.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(ManageGroupActivity.this, "Not implemented yet!", Toast.LENGTH_LONG).show();
-
-				// TODO: Implement
-				//Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
-				//i.putExtra(INTENT_KEY_GROUP, group);
-				//startActivityForResult(i, CODE_ADD_FRIEND);
+				Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
+				i.putExtra(INTENT_KEY_GROUP, group);
+				startActivityForResult(i, CODE_ADDMEMBER);
 			}
 		});
 
@@ -58,7 +56,7 @@ public class ManageGroupActivity extends Activity {
 			}
 		});
 
-		tvGroupName = (TextView)findViewById(R.id.tvGroupName);
+		TextView tvGroupName = (TextView)findViewById(R.id.tvGroupName);
 		tvGroupName.setText(group.getName());
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
@@ -95,7 +93,7 @@ public class ManageGroupActivity extends Activity {
 
 				group.setUsers(people);
 
-				GroupMembersAdapter adapter = new GroupMembersAdapter(ManageGroupActivity.this, group);
+				adapter = new GroupMembersAdapter(ManageGroupActivity.this, group);
 				lvGroupMembers.setAdapter(adapter);
 				llProgressBar.setVisibility(View.GONE);
 			}
@@ -105,8 +103,13 @@ public class ManageGroupActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case Constants.CODE_ADDMEMBER:
-				refreshMembers();
+			case CODE_ADDMEMBER:
+				if (resultCode == RESULT_OK) {
+					User added = data.getParcelableExtra(Constants.INTENT_KEY_USER);
+					adapter.add(added);
+					//refreshMembers();
+				}
+
 				break;
 		}
 	}

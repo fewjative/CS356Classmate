@@ -1,6 +1,9 @@
 package edu.csupomona.classmate.fragments.groups.activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -8,6 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,47 +23,48 @@ import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Group;
 import edu.csupomona.classmate.abstractions.User;
+import java.util.List;
 
-public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final Group GROUP;
+	private final IBinder WINDOW_TOKEN;
 
-	private boolean lock;
-
-	public GroupMembersAdapter(Context context, Group group) {
-		super(context, 0, group.getUsers());
+	public AddMemberAdapter(Context context, Group group, List<User> friends, IBinder windowToken) {
+		super(context, 0, friends);
 		this.GROUP = group;
+		this.WINDOW_TOKEN = windowToken;
 	}
 
 	private static class ViewHolder {
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnRemoveFromGroup;
+		final ImageButton btnAddToGroup;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnRemoveFromGroup) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAddToGroup) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnRemoveFromGroup = btnRemoveFromGroup;
+			this.btnAddToGroup = btnAddToGroup;
 		}
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		User u = getItem(position);
+		User user = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.group_member_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.add_member_activity_list_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnRemoveFromGroup = (ImageButton)view.findViewById(R.id.btnRemoveFromGroup);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnRemoveFromGroup));
+			ImageButton btnAddToGroup = (ImageButton)view.findViewById(R.id.btnAddToGroup);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAddToGroup));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnRemoveFromGroup.setTag(u);
-			btnRemoveFromGroup.setOnClickListener(this);
+			btnAddToGroup.setTag(user);
+			btnAddToGroup.setOnClickListener(this);
 		}
 
 		Object tag = view.getTag();
@@ -67,15 +72,15 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 			holder = (ViewHolder)tag;
 		}
 
-		if (u != null && holder != null) {
+		if (user != null && holder != null) {
 			if (holder.tvItemTextUsername != null) {
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-				SpannableString username = new SpannableString(u.getUsername());
+				SpannableString username = new SpannableString(user.getUsername());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 
-				SpannableString email = new SpannableString(String.format(" (%s)", u.getEmail()));
+				SpannableString email = new SpannableString(String.format(" (%s)", user.getEmail()));
 				email.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, email.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(email);
 
@@ -84,7 +89,7 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 
 			if (holder.ivAvatar != null) {
 				holder.ivAvatar.setVisibility(View.VISIBLE);
-				u.loadAvatar(holder.ivAvatar);
+				user.loadAvatar(holder.ivAvatar);
 			}
 		}
 
@@ -94,28 +99,31 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 	public void onClick(View v) {
 		User u = (User)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnRemoveFromGroup:
-				if (lock) {
-					return;
-				}
-
-				lock = true;
-				removeGroup(u);
+			case R.id.btnAddToGroup:
+				joinGroup(u);
 				break;
 		}
 	}
 
-	public void removeGroup(final User member) {
+	public void joinGroup(final User u) {
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_GROUPID, Long.toString(GROUP.getID()));
-		params.put(Constants.PHP_PARAM_EMAIL, member.getEmail());
+		params.put(Constants.PHP_PARAM_EMAIL, u.getEmail());
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_REMOVEGROUP, params, new AsyncHttpResponseHandler() {
+		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_JOINGROUP, params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				remove(member);
-				lock = false;
+				remove(u);
+
+				Activity a = (Activity)getContext();
+				InputMethodManager imm = (InputMethodManager)a.getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(WINDOW_TOKEN, 0);
+
+				Intent i = new Intent(getContext(), AddMemberAdapter.class);
+				i.putExtra(Constants.INTENT_KEY_USER, u);
+				a.setResult(Activity.RESULT_OK, i);
+				a.finish();
 			}
 		});
 	}

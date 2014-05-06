@@ -64,5 +64,11 @@
 			android:windowSoftInputMode="stateVisible"
 		>
 		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.groups.activities.AddMemberActivity"
+			android:label="@string/add_member"
+			android:windowSoftInputMode="stateVisible"
+		>
+		</activity>
 	</application>
 </manifest>

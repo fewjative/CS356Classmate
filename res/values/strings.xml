@@ -121,4 +121,8 @@
 
 	<string name="email_group_ready">You are ready to send the email</string>
 	<string name="email_group_missing_field">Subject and message required!</string>
+
+	<!--Add Member Activity-->
+	<string name="add_member">Add Member</string>
+	<string name="add_member_hint">Enter an email address or username to search for</string>
 </resources>
