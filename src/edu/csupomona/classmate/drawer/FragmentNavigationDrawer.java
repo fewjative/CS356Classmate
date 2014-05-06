@@ -65,11 +65,19 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		) {
 			@Override
 			public void onDrawerClosed(View view) {
+				if (getActivity() == null) {
+					return;
+				}
+
 				getActivity().getActionBar().setTitle(selectedItem.title);
 			}
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
+				if (getActivity() == null) {
+					return;
+				}
+
 				getActivity().getActionBar().setTitle(R.string.global_classmate);
 			}
 		};
