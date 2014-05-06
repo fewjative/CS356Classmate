@@ -65,7 +65,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		) {
 			@Override
 			public void onDrawerClosed(View view) {
-				if (getActivity() == null) {
+				if (getActivity().getActionBar() == null) {
 					return;
 				}
 
@@ -74,7 +74,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
-				if (getActivity() == null) {
+				if (getActivity().getActionBar() == null) {
 					return;
 				}
 

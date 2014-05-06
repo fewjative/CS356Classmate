@@ -39,6 +39,8 @@ public class EmailGroupActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.email_group_activity_layout);
 
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+
 		final Group GROUP = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);

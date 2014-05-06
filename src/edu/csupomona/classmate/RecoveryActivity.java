@@ -12,7 +12,6 @@ import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.classmate.R;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.NO_USER;
 import static edu.csupomona.classmate.Constants.PHP_BASE_ADDRESS;
@@ -27,6 +26,8 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recovery_activity_layout);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
 		etEmailAddress.setText(getIntent().getStringExtra(INTENT_KEY_EMAIL));

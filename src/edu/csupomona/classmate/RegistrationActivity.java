@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.classmate.R;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_AUTOLOGIN;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
@@ -43,6 +42,8 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registration_activity_layout);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		btnRegister = (Button)findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);

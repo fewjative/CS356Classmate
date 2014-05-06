@@ -36,6 +36,8 @@ public class ManageGroupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_group_activity_layout);
 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		group = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);

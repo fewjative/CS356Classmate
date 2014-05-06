@@ -37,13 +37,23 @@
 			android:name="edu.csupomona.classmate.RecoveryActivity"
 			android:label="@string/recovery_action_recover"
 			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.LoginActivity"
+			/>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.RegistrationActivity"
 			android:label="@string/registration_action_register"
 			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.LoginActivity"
+			/>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.MainActivity"
@@ -56,19 +66,34 @@
 			android:name="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 			android:label="@string/manage_group"
 			android:windowSoftInputMode="stateHidden"
+			android:parentActivityName="edu.csupomona.classmate.MainActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.MainActivity"
+			/>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
 			android:label="@string/email_group"
 			android:windowSoftInputMode="stateVisible"
-		>d
+			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			/>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.AddMemberActivity"
 			android:label="@string/add_member"
 			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			/>
 		</activity>
 	</application>
 </manifest>

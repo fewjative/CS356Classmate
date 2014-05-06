@@ -28,6 +28,8 @@ public class AddMemberActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_member_activity_layout);
 
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+
 		final Group GROUP = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		final LinearLayout llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
