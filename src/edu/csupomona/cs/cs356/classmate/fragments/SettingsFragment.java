@@ -73,6 +73,7 @@ import com.facebook.widget.ProfilePictureView;
 public class SettingsFragment extends PictureHandlerFragment implements View.OnClickListener{
         private Button btnChangePass;
         private Button btnSavePhoto;
+        private Button btnFBUpload;
         private ProfilePictureView settingsProfilePicture;
         private TextView displayName;
         private TextView displayID; 
@@ -131,13 +132,19 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                 btnSetActiveSchedule.setEnabled(true);
                 
                 btnSavePhoto = (Button)root.findViewById(R.id.btnSavePhoto);
-                btnSavePhoto.setOnClickListener(this);
-                btnSavePhoto.setEnabled(true);
+                btnSavePhoto.setVisibility(View.GONE);
                 
                 // facebook stuff
         		settingsProfilePicture = (ProfilePictureView)root.findViewById(R.id.settingsProfilePicture);
         		// set default profile pic to specified bitmap
         		settingsProfilePicture.setDefaultProfilePicture(getBitmap(R.drawable.ic_action_person));
+        		
+        		if(!getActivity().getIntent().getBooleanExtra(LoginActivity.INTENT_KEY_FBUSER, false))
+        		{
+                      btnSavePhoto.setOnClickListener(this);
+                      btnSavePhoto.setEnabled(true);
+                      btnSavePhoto.setVisibility(View.VISIBLE);
+        		}
         		
         		Thread thread = new Thread(new Runnable(){
         		    @Override
@@ -578,6 +585,38 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                  
         		
         	break;
+        	//this was used before we disabled fbook users from changing their profile picture
+        	/*case R.id.btnFBUpload:
+        		System.out.println("Clicked the upload fb profile button");
+        		
+        		//set the current photo to be that of the one from delete.png
+        		BitmapFactory.Options options = new BitmapFactory.Options();
+        		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        		Bitmap thumbnail = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath()+"/delete.png",options);
+        		
+ 	           // set default profile pic to specified bitmap
+ 	           settingsProfilePicture.setDefaultProfilePicture(thumbnail);
+ 	           ImageView iv = (ImageView)root.findViewById(R.id.imageView1);
+ 	           iv.setImageBitmap(thumbnail);
+  	           
+        		 dialog = ProgressDialog.show(getActivity(), "", "Uploading file...", true);
+        		 Toast.makeText(getActivity(), "USER ID: " + Long.toString(id), Toast.LENGTH_SHORT).show();
+                 
+                 
+                 new Thread(new Runnable() {
+                         public void run() {
+                              getActivity().runOnUiThread(new Runnable() {
+                                     public void run() {
+                                         System.out.println("uploading started.....");
+                                         }
+                                 });                      
+                             
+                              uploadFile(Environment.getExternalStorageDirectory().getPath()+"/delete.png");
+                                                       
+                         }
+                       }).start();   
+                 
+        		break;*/
         	}
         }
         
@@ -829,13 +868,15 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
                                    
                                   System.out.println(msg);
                                   
-                                  File f = new File("/mnt/sdcard/delete.png");
+                                  //=====DELETING THE PICTURE
+                                  //
+                                  /*File f = new File("/mnt/sdcard/delete.png");
                                   
                                   if(f.exists())
                             	  {
                             	  f.delete();//delete photo once it was been uploaded to our server
                             	  System.out.println("File has been deleted");
-                            	   }
+                            	   }*/
                                   //Toast.makeText(getActivity(), "File Upload Complete.", Toast.LENGTH_SHORT).show();
                               }
                           });                
@@ -972,7 +1013,12 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     					//set facebook details(picture, name, id) in the layout if logged in
     					if (user != null) {
     						isFbLoggedIn = true;
-    		                settingsProfilePicture.setProfileId(user.getId());
+    		                
+    						if(!getActivity().getIntent().getBooleanExtra(LoginActivity.INTENT_KEY_FBUSER, false))
+    		        		{
+    							settingsProfilePicture.setProfileId(user.getId());
+    		        		}
+    						
 //    		                ImageView fbImage = ((ImageView)settingsProfilePicture.getChildAt( 0));
 //    		                Bitmap bitmap = ((BitmapDrawable) fbImage.getDrawable()).getBitmap();
     		                displayName.setText(user.getName());
@@ -982,7 +1028,9 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     		        		
     		        		 //dialog = ProgressDialog.show(getActivity(), "", "Uploading facebook profile img...", true);
     		                 
-    		                 new Thread(new Runnable() {
+    		                if(!getActivity().getIntent().getBooleanExtra(LoginActivity.INTENT_KEY_FBUSER, false))
+    		        		{
+    		                	new Thread(new Runnable() {
     		                         public void run() {
     		                              getActivity().runOnUiThread(new Runnable() {
     		                                     public void run() {
@@ -1018,7 +1066,8 @@ public class SettingsFragment extends PictureHandlerFragment implements View.OnC
     		                              
     		                                                      
     		                         }
-    		                       }).start();     
+    		                       }).start();    
+    						}
     		                
     					}
     				}
