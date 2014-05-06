@@ -79,13 +79,46 @@
 	<string name="dialog_logout_title">Logout?</string>
 	<string name="dialog_logout">Are you sure you want to log out?</string>
 
-	<!--Friends List Tab-->
+	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
 	<string name="friends_tab_requests">Requests</string>
 	<string name="friends_add_friend">Add Friend</string>
-	<string name="friends_list_empty">Your friends list is empty. To add friends, press the \'%1$s\' button.</string>
+	<string name="friends_list_empty">Your friends list is empty. To add friends, press \'%1$s\'.</string>
 	<string name="friend_requests_empty">You have no friend requests.</string>
 
 	<string name="dialog_friend_remove_title">Hold on a sec&#8230;</string>
-	<string name="dialog_friend_remove">Would you like to remove this friend from seeing your schedule? If so click \'%1$s\', otherwise clicking \'%2$s\' will only remove the person from your friends list.</string>
+	<string name="dialog_friend_remove">Would you like to remove this friend from seeing your schedule? If so press \'%1$s\', otherwise pressing \'%2$s\' will only remove the person from your friends list.</string>
+
+	<!--Groups Tab-->
+	<string name="groups_tab_list">My Groups</string>
+	<string name="groups_list_empty">You do not belong to any groups yet. To join a group press \'%1$s\', otherwise press \'%2$s\' to create a new one.</string>
+	<string name="groups_join_group">Join a Group</string>
+	<string name="groups_create_group">Create a Group</string>
+
+	<string name="dialog_group_create_title">What would you like to name your group?</string>
+	<string name="dialog_group_create">null</string>
+
+	<string name="dialog_group_create_error_title">Group Exists</string>
+	<string name="dialog_group_create_error">There is already a group named \'%1$s\'!</string>
+
+	<string name="dialog_group_remove_title">Group Left</string>
+	<string name="dialog_group_remove">You have sucessfully left the \'%1$s\'!</string>
+
+	<!--Manage Group Activity-->
+	<string name="manage_group">Manage Group</string>
+
+	<!--Email Group Activity-->
+	<string name="email_group">Email Group</string>
+	<string name="email_group_subject">Subject</string>
+	<string name="email_group_message">Message</string>
+	<string name="email_group_send">Send</string>
+
+	<string name="dialog_email_group_sending_title">Sending&#8230;</string>
+	<string name="dialog_email_group_sending">Sending&#8230;</string>
+
+	<string name="dialog_email_group_sent_title">Email Sent</string>
+	<string name="dialog_email_group_sent">Your email has been sent to your group!</string>
+
+	<string name="email_group_ready">You are ready to send the email</string>
+	<string name="email_group_missing_field">Subject and message required!</string>
 </resources>

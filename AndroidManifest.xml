@@ -52,5 +52,17 @@
 			android:launchMode="singleInstance"
 		>
 		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			android:label="@string/manage_group"
+			android:windowSoftInputMode="stateHidden"
+		>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
+			android:label="@string/email_group"
+			android:windowSoftInputMode="stateVisible"
+		>
+		</activity>
 	</application>
 </manifest>

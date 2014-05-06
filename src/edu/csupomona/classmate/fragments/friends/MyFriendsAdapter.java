@@ -22,10 +22,10 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
-public class FriendListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
 
-	public FriendListAdapter(Context context, User user, List<User> friends) {
+	public MyFriendsAdapter(Context context, User user, List<User> friends) {
 		super(context, 0, friends);
 		this.USER = user;
 	}

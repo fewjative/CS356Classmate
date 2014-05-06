@@ -35,14 +35,7 @@
 	/>
 
 	<ImageButton
-		android:id="@+id/btnAccept"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/ic_action_accept"
-	/>
-
-	<ImageButton
-		android:id="@+id/btnReject"
+		android:id="@+id/btnRemoveFromGroup"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:src="@drawable/ic_action_cancel"

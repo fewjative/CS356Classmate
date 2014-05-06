@@ -4,19 +4,11 @@
 	android:layout_width="match_parent"
 	android:layout_height="48dp"
 	android:orientation="horizontal"
+	android:gravity="center_vertical"
 	android:background="@color/cppgreen"
-	android:paddingLeft="6dp"
 >
-	<include
-		layout="@layout/user_avatar_layout"
-		android:layout_width="36dp"
-		android:layout_height="36dp"
-		android:layout_marginTop="6dip"
-		android:layout_marginBottom="6dip"
-	/>
-
 	<TextView
-		android:id="@+id/tvItemTextUsername"
+		android:id="@+id/tvItemText"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:gravity="center_vertical"
@@ -35,14 +27,14 @@
 	/>
 
 	<ImageButton
-		android:id="@+id/btnAccept"
+		android:id="@+id/btnViewDetails"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:src="@drawable/ic_action_accept"
+		android:src="@drawable/ic_action_group"
 	/>
 
 	<ImageButton
-		android:id="@+id/btnReject"
+		android:id="@+id/btnRemove"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:src="@drawable/ic_action_cancel"

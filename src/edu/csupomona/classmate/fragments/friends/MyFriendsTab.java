@@ -21,17 +21,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class FriendsListTab extends Fragment {
-	private LinearLayout llProgressBar;
-
+public class MyFriendsTab extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View ROOT = (ViewGroup)inflater.inflate(R.layout.friends_list_tab_layout, null);
-
-		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
-		llProgressBar.setVisibility(View.VISIBLE);
-
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+
+		final LinearLayout llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
+		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());
@@ -56,7 +53,7 @@ public class FriendsListTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				FriendListAdapter adapter = new FriendListAdapter(getActivity(), USER, friends);
+				MyFriendsAdapter adapter = new MyFriendsAdapter(getActivity(), USER, friends);
 				ListView lvFriendsList = (ListView)ROOT.findViewById(R.id.lvFriendsList);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);

@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.fragments.friends.FriendRequestsTab;
-import edu.csupomona.classmate.fragments.friends.FriendsListTab;
+import edu.csupomona.classmate.fragments.groups.MyGroupsTab;
 
 public class GroupsFragment extends Fragment {
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.groups_fragment_layout, container, false);
@@ -24,7 +22,7 @@ public class GroupsFragment extends Fragment {
 		return root;
 	}
 
-	private static class GroupsFragmentPagerAdapter extends FragmentPagerAdapter {
+	private class GroupsFragmentPagerAdapter extends FragmentPagerAdapter {
 		GroupsFragmentPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -32,23 +30,21 @@ public class GroupsFragment extends Fragment {
 		@Override
 		public Fragment getItem(int i) {
 			switch (i) {
-				case 0: return new FriendsListTab();
-				case 1: return new FriendRequestsTab();
+				case 0: return new MyGroupsTab();
 				default: return null;
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 1;
 		}
 
 		@Override
 		public CharSequence getPageTitle(int i) {
 			switch (i) {
-				case 0: return "My Friends";
-				case 1: return "Requests";
-				default: return "null";
+				case 0: return getString(R.string.groups_tab_list);
+				default: throw new RuntimeException();
 			}
 		}
 	}

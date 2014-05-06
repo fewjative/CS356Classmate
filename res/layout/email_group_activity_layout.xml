@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true"
+>
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/cppgreen"
+	>
+		<LinearLayout
+			android:padding="10dip"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent"
+		>
+			<TextView
+				style="@style/style_textview"
+				android:text="@string/email_group_subject"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:labelFor="@+id/etEmailSubject"
+			/>
+			<EditText
+				style="@style/style_edittext"
+				android:id="@+id/etEmailSubject"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+			<TextView
+				style="@style/style_textview"
+				android:text="@string/email_group_message"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:labelFor="@+id/etEmailMessage"
+			/>
+			<EditText
+				style="@style/style_edittext"
+				android:id="@+id/etEmailMessage"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textMultiLine"
+				android:singleLine="false"
+			/>
+
+			<TextView
+				style="@style/style_textview"
+				android:id="@+id/tvSubjMessage"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:gravity="center"
+			/>
+
+			<Button
+				style="@style/style_button"
+				android:id="@+id/btnSendEmail"
+				android:text="@string/email_group_send"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+	</RelativeLayout>
+</ScrollView>

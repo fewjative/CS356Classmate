@@ -21,16 +21,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FriendRequestsTab extends Fragment {
-	private LinearLayout llProgressBar;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View ROOT = (ViewGroup)inflater.inflate(R.layout.friend_requests_tab_layout, null);
-
-		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
-		llProgressBar.setVisibility(View.VISIBLE);
-
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+
+		final LinearLayout llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
+		llProgressBar.setVisibility(View.VISIBLE);
 
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_EMAIL, USER.getEmail());

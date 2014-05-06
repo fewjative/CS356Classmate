@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsTab;
-import edu.csupomona.classmate.fragments.friends.FriendsListTab;
+import edu.csupomona.classmate.fragments.friends.MyFriendsTab;
 
 public class FriendsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.groups_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.friends_fragment_layout, container, false);
 
 		ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new FriendsFragmentPagerAdapter(getChildFragmentManager()));
@@ -31,7 +31,7 @@ public class FriendsFragment extends Fragment {
 		@Override
 		public Fragment getItem(int i) {
 			switch (i) {
-				case 0: return new FriendsListTab();
+				case 0: return new MyFriendsTab();
 				case 1: return new FriendRequestsTab();
 				default: return null;
 			}

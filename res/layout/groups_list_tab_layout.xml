@@ -26,7 +26,7 @@
 		/>
 
 		<ListView
-			android:id="@+id/lvFriendsList"
+			android:id="@+id/lvGroupsList"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:background="@android:color/transparent"
@@ -34,4 +34,12 @@
 			android:dividerHeight="2dp"
 		/>
 	</LinearLayout>
+
+	<Button
+		style="@style/style_button"
+		android:id="@+id/btnCreateGroup"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="10dp"
+		android:text="@string/groups_create_group"
+	/>
 </LinearLayout>
