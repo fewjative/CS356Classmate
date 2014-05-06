@@ -17,7 +17,7 @@ import static edu.csupomona.classmate.Constants.INTENT_KEY_GROUP;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Group;
 import edu.csupomona.classmate.abstractions.User;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +75,7 @@ public class ManageGroupActivity extends Activity {
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETGROUP, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsona) {
-				List<User> people = new ArrayList<User>();
+				List<User> people = new LinkedList<User>();
 
 				try {
 					JSONObject jObj;

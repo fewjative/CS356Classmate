@@ -19,14 +19,13 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
-import static edu.csupomona.classmate.Constants.CODE_MANAGEGROUP;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_GROUP;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Group;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +35,8 @@ public class MyGroupsTab extends Fragment {
 	private User user;
 	private View root;
 	private LinearLayout llProgressBar;
+
+	private MyGroupsAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,13 +97,16 @@ public class MyGroupsTab extends Fragment {
 
 					d.show();
 				} else {
-					Intent i = new Intent(getActivity(), ManageGroupActivity.class);
-					i.putExtra(INTENT_KEY_GROUP, new Group(
+					Group group = new Group(
 						  Long.parseLong(response),
 						  groupName
-					));
+					);
 
-					startActivityForResult(i, CODE_MANAGEGROUP);
+					adapter.add(group);
+
+					Intent i = new Intent(getActivity(), ManageGroupActivity.class);
+					i.putExtra(INTENT_KEY_GROUP, group);
+					startActivity(i);
 				}
 			}
 		});
@@ -118,7 +122,7 @@ public class MyGroupsTab extends Fragment {
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETGROUPS, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsona) {
-				List<Group> groups = new ArrayList<Group>();
+				List<Group> groups = new LinkedList<Group>();
 
 				try {
 					JSONObject jObj;
@@ -133,7 +137,7 @@ public class MyGroupsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				MyGroupsAdapter adapter = new MyGroupsAdapter(getActivity(), user, groups);
+				adapter = new MyGroupsAdapter(getActivity(), user, groups);
 				ListView lvGroupsList = (ListView)root.findViewById(R.id.lvGroupsList);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)root.findViewById(R.id.tvEmptyList);
@@ -148,14 +152,5 @@ public class MyGroupsTab extends Fragment {
 				llProgressBar.setVisibility(View.GONE);
 			}
 		});
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-			case Constants.CODE_MANAGEGROUP:
-				refreshGroups();
-				break;
-		}
 	}
 }

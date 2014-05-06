@@ -29,6 +29,8 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 	private final Group GROUP;
 	private final IBinder WINDOW_TOKEN;
 
+	private boolean lock;
+
 	public AddMemberAdapter(Context context, Group group, List<User> friends, IBinder windowToken) {
 		super(context, 0, friends);
 		this.GROUP = group;
@@ -100,6 +102,11 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 		User u = (User)v.getTag();
 		switch (v.getId()) {
 			case R.id.btnAddToGroup:
+				if (lock) {
+					return;
+				}
+
+				lock = true;
 				joinGroup(u);
 				break;
 		}
@@ -115,6 +122,7 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 			@Override
 			public void onSuccess(String response) {
 				remove(u);
+				lock = false;
 
 				Activity a = (Activity)getContext();
 				InputMethodManager imm = (InputMethodManager)a.getSystemService(Context.INPUT_METHOD_SERVICE);

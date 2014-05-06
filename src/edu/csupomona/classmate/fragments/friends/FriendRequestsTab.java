@@ -14,7 +14,7 @@ import edu.csupomona.classmate.Constants;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,7 @@ public class FriendRequestsTab extends Fragment {
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETREQUESTS, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsona) {
-				List<User> requests = new ArrayList<User>();
+				List<User> requests = new LinkedList<User>();
 
 				try {
 					JSONObject jObj;

@@ -16,7 +16,7 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Group;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,13 +52,13 @@ public class AddMemberActivity extends Activity {
 				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_SEARCHUSERS, params, new JsonHttpResponseHandler() {
 					@Override
 					public void onSuccess(JSONArray jsona) {
-						List<User> search_results = new ArrayList<User>();
+						List<User> searchResults = new LinkedList<User>();
 
 						try {
 							JSONObject jObj;
 							for (int i = 0; i < jsona.length(); i++) {
 								jObj = jsona.getJSONObject(i);
-								search_results.add(new User(
+								searchResults.add(new User(
 									jObj.getLong(Constants.PHP_PARAM_USERID),
 									jObj.getString(Constants.PHP_PARAM_NAME),
 									jObj.getString(Constants.PHP_PARAM_EMAIL)
@@ -68,7 +68,7 @@ public class AddMemberActivity extends Activity {
 							e.printStackTrace();
 						}
 
-						AddMemberAdapter adapter = new AddMemberAdapter(AddMemberActivity.this, GROUP, search_results, etFriendName.getWindowToken());
+						AddMemberAdapter adapter = new AddMemberAdapter(AddMemberActivity.this, GROUP, searchResults, etFriendName.getWindowToken());
 						lvSearchResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}

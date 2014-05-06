@@ -62,7 +62,7 @@
 			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
 			android:label="@string/email_group"
 			android:windowSoftInputMode="stateVisible"
-		>
+		>d
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.AddMemberActivity"
