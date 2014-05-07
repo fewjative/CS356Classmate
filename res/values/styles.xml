@@ -31,7 +31,7 @@
 		parent="@android:style/Widget.Holo.TextView"
 	>
 		<item name="android:textSize">18sp</item>
-		<item name="android:textColor">@color/cppgold</item>
+		<item name="android:textColor">@color/black</item>
 	</style>
 
 	<style

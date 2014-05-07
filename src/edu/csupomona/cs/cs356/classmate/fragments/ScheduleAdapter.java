@@ -1,13 +1,21 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
+import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -65,10 +73,13 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
 
+			LinearLayout innerLayout = (LinearLayout)view.findViewById(R.id.innerLayout);
+			GridLayout grid = (GridLayout)view.findViewById(R.id.gridForText);
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
 			TextView tvClassTitle = (TextView)view.findViewById(R.id.tvClassTitle);
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
+			TextView tvCellClassTime = (TextView)view.findViewById(R.id.tvCellClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
@@ -78,7 +89,52 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 			btnRemoveClass.setTag(s);
 			btnRemoveClass.setOnClickListener(this);
-
+			
+			DisplayMetrics displaymetrics = new DisplayMetrics();
+			((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+			int height = displaymetrics.heightPixels;
+			int width = displaymetrics.widthPixels;
+			
+			int cellHeight = (height / 5);
+			int squareDim = cellHeight - (cellHeight / 4);
+			
+			grid.setRowCount(4);
+			grid.setPadding((width / 10), (cellHeight / 8), 0, 0);
+			tvCellClassTime.setText("Time: " + s.getFullTime());
+			
+			// Make the textViews fancy here
+			tvClassNumber.setTextSize(cellHeight / 15);
+			tvClassTitle.setTextSize(cellHeight / 16);
+			tvClassDays.setTextSize(cellHeight / 16);
+			tvCellClassTime.setTextSize(cellHeight / 16);
+			
+			// Need to fix this still
+			int txtPad = (int)(squareDim - (tvClassNumber.getTextSize() + (3 * tvClassTitle.getTextSize()))) / 3;
+			System.out.println("******************************* " + squareDim);
+			System.out.println("*************************** " + tvClassNumber.getTextSize());
+			System.out.println("*********************** " + tvClassTitle.getTextSize());
+			System.out.println("******************** " + txtPad);
+			
+//			tvClassNumber.setPadding(0, 0, 0, txtPad);
+//			tvClassTitle.setPadding(0, 0, 0, txtPad);
+//			tvClassDays.setPadding(0, 0, 0, txtPad);
+			
+			innerLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,cellHeight));
+			
+			
+			Resources res = getContext().getResources();
+			int id = R.drawable.shader;
+			
+			DrawSquare pcc = new DrawSquare (this.getContext(), null, res, id);
+		    Bitmap result = Bitmap.createBitmap(squareDim, squareDim, Bitmap.Config.ARGB_8888);
+		    Canvas canvas = new Canvas(result);
+		    pcc.draw(canvas);
+		    pcc.setLayoutParams(new LayoutParams(squareDim, squareDim));
+		    
+		    innerLayout.addView(pcc, 0);
+			pcc.setX((float)(width / 18));
+			pcc.setY((float)(cellHeight / 8));
+			
 			btnViewSectionDetails.setVisibility(View.VISIBLE);
 			btnViewSectionDetails.setTag(s);
 			btnViewSectionDetails.setOnClickListener(this);
@@ -91,7 +147,11 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				if(Integer.parseInt(s.getSection()) < 10)
+				{
+					holder.tvClassNumber.setText(String.format("%s %s   0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				}else
+					holder.tvClassNumber.setText(String.format("%s %s   %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 
 			if (holder.tvClassTitle != null) {

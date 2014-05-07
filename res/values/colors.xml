@@ -22,4 +22,9 @@
 	<color name="cppgold_darker">#DBA20A</color>
 
 	<color name="cppgold_trans_darker">#CCDBA20A</color>
+	
+	<color name="UI_gray_base">#F5F5F5</color>
+	<color name="UI_gray_cell">#E9E9E9</color>
+	<color name="UI_red_placeholder">#FF0303</color>
+	<color name="UI_dark_gray">#2A2A2A</color>
 </resources>

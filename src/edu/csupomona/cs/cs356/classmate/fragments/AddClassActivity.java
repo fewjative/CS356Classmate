@@ -250,6 +250,7 @@ public class AddClassActivity extends Activity {
 				}
 
 				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this, schedule);
+				
 				lvSearchResults.setAdapter(adapter);
 				lvSearchResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override

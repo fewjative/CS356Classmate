@@ -1,14 +1,18 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
 import android.app.Activity;
+import android.app.ActionBar.LayoutParams;
 import static android.app.Activity.RESULT_OK;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -55,16 +59,37 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
 
+			LinearLayout innerLayout = (LinearLayout)view.findViewById(R.id.innerLayout);
+			GridLayout grid = (GridLayout)view.findViewById(R.id.gridForText);
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
 			TextView tvClassTitle = (TextView)view.findViewById(R.id.tvClassTitle);
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
+			TextView tvCellClassTime = (TextView)view.findViewById(R.id.tvCellClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			Button btnAddClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
 			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnAddClass, btnViewSectionDetails));
 
 			tvClassTitle.setSelected(true);
+			
+			DisplayMetrics displaymetrics = new DisplayMetrics();
+			((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+			int height = displaymetrics.heightPixels;
+			int width = displaymetrics.widthPixels;
+			
+			int cellHeight = (height / 8);
+			grid.setRowCount(4);
+			grid.setPadding((width / 16), (cellHeight / 9), 0, 0);
+			
+			tvCellClassTime.setText("Time: " + s.getFullTime());
+			
+			tvClassNumber.setTextSize(cellHeight / 10);
+			tvClassTitle.setTextSize(cellHeight / 10);
+			tvClassDays.setTextSize(cellHeight / 10);
+			tvCellClassTime.setTextSize(cellHeight / 10);
+			
+			innerLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,(cellHeight + (height / 32))));
 
 			btnAddClass.setTag(s);
 			btnAddClass.setOnClickListener(this);
@@ -82,7 +107,11 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				if(Integer.parseInt(s.getSection()) < 10)
+				{
+					holder.tvClassNumber.setText(String.format("%s %s   0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				}else
+					holder.tvClassNumber.setText(String.format("%s %s   %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 
 			if (holder.tvClassTitle != null) {

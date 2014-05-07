@@ -50,7 +50,8 @@ public class ScheduleFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
+	{
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_fragment, null);
 
 		final int id;
@@ -61,6 +62,7 @@ public class ScheduleFragment extends Fragment {
 		else
 			id = getActivity().getIntent().getIntExtra(LoginActivity.INTENT_KEY_USERID, NULL_USER);
 
+		// Progress Bar is loaded and made visible
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
@@ -70,7 +72,9 @@ public class ScheduleFragment extends Fragment {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getusernumclasses.php", params, new AsyncHttpResponseHandler() {
 			@Override
-			public void onSuccess(String response) {
+			public void onSuccess(String response) 
+			{
+				// Progress Bar is made invisible
 				llProgressBar.setVisibility(View.GONE);
 
 				int numClasses;
@@ -80,8 +84,8 @@ public class ScheduleFragment extends Fragment {
 					numClasses = 0;
 				}
 
-				if (numClasses == 0) {
-					
+				if (numClasses == 0) 
+				{
 					if(outside_source)
 					{
 						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
@@ -90,11 +94,13 @@ public class ScheduleFragment extends Fragment {
 					else
 					{
 						llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
-						llAddClass.setVisibility(View.VISIBLE);
+//						llAddClass.setVisibility(View.VISIBLE);
 	
 						ImageButton btnAddClass = (ImageButton)root.findViewById(R.id.btnAddClass);
-						btnAddClass.setOnClickListener(new View.OnClickListener() {
-							public void onClick(View v) {
+						btnAddClass.setOnClickListener(new View.OnClickListener() 
+						{
+							public void onClick(View v) 
+							{
 								Intent i = new Intent(getActivity(), AddClassActivity.class);
 								i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
 								startActivityForResult(i, CODE_ADD_CLASS);
