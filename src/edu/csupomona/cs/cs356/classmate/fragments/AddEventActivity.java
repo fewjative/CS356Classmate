@@ -61,13 +61,18 @@ public class AddEventActivity extends Activity {
 		setupEventButton();
 	}
 
+	//
 	private void setupEventButton() {
 		btnCreateEvent.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO write to database and check valid input
-
-			
+				//TODO write to database and check valid input\
+				System.out.println("IT WORKS!");
+				System.out.println(textFieldTitle.toString());
+				System.out.println(textFieldDescription.toString());
+				System.out.println(checkBoxPrivate.isChecked());
+				System.out.println(timePickerEvent.toString());
+				System.out.println(datePickerEvent.toString());
 			}
 		});
 	}
