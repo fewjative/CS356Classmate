@@ -36,6 +36,7 @@ import org.json.JSONObject;
 
 public class TodaysFragment extends Fragment {
         public static final int CODE_ADD_CLASS = 0x000D;
+        public static final int CODE_ADD_EVENT = 0x000E;
 
         private ViewGroup root;
         private EditText etScheduleName;
@@ -166,6 +167,16 @@ public class TodaysFragment extends Fragment {
                                                                           Intent i = new Intent(getActivity(), AddClassActivity.class);
                                                                           i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
                                                                           startActivityForResult(i, CODE_ADD_CLASS);
+                                                                  }
+                                                          });
+                                                          
+                                                          //Add Event
+                                                          Button btnAddEvent = (Button)root.findViewById(R.id.btnAddEvent);
+                                                          btnAddEvent.setOnClickListener(new View.OnClickListener() {
+                                                                  public void onClick(View v) {
+                                                                          Intent i = new Intent(getActivity(), AddEventActivity.class);
+                                                                          i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+                                                                          startActivityForResult(i, CODE_ADD_EVENT);
                                                                   }
                                                           });
                                                           
