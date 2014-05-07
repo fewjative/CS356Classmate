@@ -24,16 +24,16 @@
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/llAddClass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-        >
+            android:id="@+id/llAddClass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/dashed_border"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone" >
+
                         <TextView
                                 style="@style/ClassmateTextView"
                                 android:text="You currently have no classes added to your schedule. To add some, touch the button below"
@@ -53,16 +53,16 @@
         </LinearLayout>
         
         <LinearLayout
-                android:id="@+id/llNoClass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-        >
+            android:id="@+id/llNoClass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/dashed_border"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone" >
+
                         <TextView
                                 style="@style/ClassmateTextView"
                                 android:text="No classes to be viewed."
@@ -81,19 +81,25 @@
                                 android:text="Add Class"
                         />
 
+                        <Button
+                            android:id="@+id/btnAddEvent"
+                            android:layout_width="244dp"
+                            android:layout_height="wrap_content"
+                            android:text="Add Event" />
+
         </LinearLayout>
 
           <LinearLayout
-                android:id="@+id/llNoSchedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-        >
+              android:id="@+id/llNoSchedule"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="10dp"
+              android:background="@drawable/dashed_border"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="10dp"
+              android:visibility="gone" >
+
                         <TextView
                                 style="@style/ClassmateTextView"
                                 android:text="You have not created a schedule yet. You must create at least one schedule before attempting to add content. Create one now!"

@@ -36,6 +36,7 @@ import org.json.JSONObject;
 public class ScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
+	public static final int CODE_ADD_EVENT = 0x000E;
 
 	private ViewGroup root;
 	private EditText etScheduleName;

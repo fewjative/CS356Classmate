@@ -16,7 +16,7 @@
         />
 
         <application
-                android:debuggable="true"
+               
                 android:allowBackup="true"
                 android:icon="@drawable/classmate_icon_cpp"
                 android:label="@string/ClassmateAppName"
@@ -54,6 +54,12 @@
                 <activity
                         android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
                         android:label="Add Class"
+                >
+                </activity>
+                
+                <activity
+                        android:name="edu.csupomona.cs.cs356.classmate.fragments.AddEventActivity"
+                        android:label="Add Event"
                 >
                 </activity>
 
