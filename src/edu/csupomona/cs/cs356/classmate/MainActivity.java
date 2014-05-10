@@ -6,16 +6,22 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import edu.csupomona.cs.cs356.classmate.fragments.AddItemFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.FreeTimeFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.FriendsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.GroupsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.ScheduleFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.ScheduleTabFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.SettingsFragment;
 import edu.csupomona.cs.cs356.classmate.fragments.TodaysFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.CPPNewsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.CPPEventsFragment;
+import edu.csupomona.cs.cs356.classmate.fragments.ActivityFeedFragment;
 
 public class MainActivity extends FragmentActivity {
 	private static final String STATE_FRAGMENT = "fragment";
@@ -49,25 +55,25 @@ public class MainActivity extends FragmentActivity {
 
 		name = getResources().getIdentifier("feeds_menu_activity", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, TodaysFragment.class);
+		dlDrawer.addItem(name, icon, ActivityFeedFragment.class);
 
 		name = getResources().getIdentifier("feeds_menu_events", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, TodaysFragment.class);
+		dlDrawer.addItem(name, icon, CPPEventsFragment.class);
 
 		name = getResources().getIdentifier("feeds_menu_news", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, TodaysFragment.class);
+		dlDrawer.addItem(name, icon, CPPNewsFragment.class);
 
 		dlDrawer.addHeader(R.string.schedule_menu_header);
 
-		name = getResources().getIdentifier("schedule_menu_today", "string", this.getPackageName());
+		name = getResources().getIdentifier("schedule_menu_schedule_tab", "string", this.getPackageName());
 		icon = getResources().getIdentifier("ic_action_go_to_today", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, TodaysFragment.class);
+		dlDrawer.addItem(name, icon, ScheduleTabFragment.class);
 
-		name = getResources().getIdentifier("schedule_menu_schedule", "string", this.getPackageName());
-		icon = getResources().getIdentifier("ic_action_go_to_schedule", "drawable", this.getPackageName());
-		dlDrawer.addItem(name, icon, ScheduleFragment.class);
+		name = getResources().getIdentifier("schedule_menu_schedule_add_tab", "string", this.getPackageName());
+		icon = getResources().getIdentifier("ic_action_go_to_schedule", "drawable", this.getPackageName());//change this to a plus sign or so
+		dlDrawer.addItem(name, icon, AddItemFragment.class);
 
 		dlDrawer.addHeader(R.string.user_menu_header);
 

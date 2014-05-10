@@ -5,6 +5,10 @@
 	<color name="red">#FF0000</color>
 	<color name="green">#00FF00</color>
 	<color name="gray">#808080</color>
+	
+	<color name="spotify_gray">#686868</color>
+	<color name="spotify_green">#9FE025</color>
+	<color name="spotify_inverted">#7E48E5</color>
 
 	<color name="not_background">#E6FF0000</color>
 	<color name="not_highlight">#E6FFFFFF</color>

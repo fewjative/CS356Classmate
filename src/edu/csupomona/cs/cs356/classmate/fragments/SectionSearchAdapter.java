@@ -10,15 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
 import static edu.csupomona.cs.cs356.classmate.LoginActivity.INTENT_KEY_USERID;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.SectionDetailsActivity;
 import static edu.csupomona.cs.cs356.classmate.SectionDetailsActivity.INTENT_KEY_SECTION;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import edu.csupomona.cs.cs356.classmate.fragments.additem.AddClassTab;
+
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener {

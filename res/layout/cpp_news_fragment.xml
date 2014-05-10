@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/cppgreen_darker"
+	android:orientation="vertical"
+>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:orientation="vertical"
+		android:background="@android:color/transparent"
+	>
+		<LinearLayout
+			android:id="@+id/llEmptyList"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<TextView
+				style="@style/ClassmateTextView"
+				android:text="No News :("
+				android:gravity="center"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llProgressBar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:visibility="gone"
+			android:background="@android:color/transparent"
+		>
+			<ProgressBar
+				style="Widget.ProgressBar.Large.Inverse"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			>
+			</ProgressBar>
+		</LinearLayout>
+
+		<ListView
+			android:id="@+id/lvNewList"
+			android:background="@android:color/transparent"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:divider="@color/gray"
+			android:dividerHeight="2dp"
+			android:animateLayoutChanges="true"
+		/>
+	</LinearLayout>
+</LinearLayout>

@@ -1,10 +1,16 @@
-package edu.csupomona.cs.cs356.classmate.fragments;
+package edu.csupomona.cs.cs356.classmate.fragments.additem;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -14,13 +20,15 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import static edu.csupomona.cs.cs356.classmate.Constants.NULL_USER;
+import static edu.csupomona.cs.cs356.classmate.LoginActivity.INTENT_KEY_USERID;
 import edu.csupomona.cs.cs356.classmate.R;
-import edu.csupomona.cs.cs356.classmate.R.id;
-import edu.csupomona.cs.cs356.classmate.R.layout;
 import edu.csupomona.cs.cs356.classmate.abstractions.College;
 import edu.csupomona.cs.cs356.classmate.abstractions.Course;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
 import edu.csupomona.cs.cs356.classmate.abstractions.Term;
+import edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity;
+import edu.csupomona.cs.cs356.classmate.fragments.SectionSearchAdapter;
+import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// TODO rewrite this thing
-public class AddClassActivity extends Activity {
+public class AddClassTab extends Fragment {
 	private Spinner sTerm;
 	private Spinner sCollege;
 	private Spinner sCourse;
@@ -39,23 +46,23 @@ public class AddClassActivity extends Activity {
 	private ListView lvSearchResults;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addclass_activity);
-		setResult(RESULT_CANCELED);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.addclass_activity, null);
+		
+		long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NULL_USER);
 
-		final long id = getIntent().getIntExtra("userID", NULL_USER);
+		sTerm = (Spinner)root.findViewById(R.id.sTerm);
+		sCollege = (Spinner)root.findViewById(R.id.sCollege);
+		sCourse = (Spinner)root.findViewById(R.id.sCourse);
 
-		sTerm = (Spinner)findViewById(R.id.sTerm);
-		sCollege = (Spinner)findViewById(R.id.sCollege);
-		sCourse = (Spinner)findViewById(R.id.sCourse);
-
-		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
-		lvSearchResults = (ListView)findViewById(R.id.lvSearchResults);
+		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
+		lvSearchResults = (ListView)root.findViewById(R.id.lvSearchResults);
 
 		setupTermSpinner();
-	}
 
+		return root;
+	}
+	
 	private void setupTermSpinner() {
 		sTerm.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,7 +100,7 @@ public class AddClassActivity extends Activity {
 					}
 				}
 
-				ArrayAdapter<Term> adapter = new ArrayAdapter<Term>(AddClassActivity.this, android.R.layout.simple_spinner_item, terms);
+				ArrayAdapter<Term> adapter = new ArrayAdapter<Term>(getActivity(), android.R.layout.simple_spinner_item, terms);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sTerm.setAdapter(adapter);
@@ -142,7 +149,7 @@ public class AddClassActivity extends Activity {
 					}
 				}
 
-				ArrayAdapter<College> adapter = new ArrayAdapter<College>(AddClassActivity.this, android.R.layout.simple_spinner_item, colleges);
+				ArrayAdapter<College> adapter = new ArrayAdapter<College>(getActivity(), android.R.layout.simple_spinner_item, colleges);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sCollege.setAdapter(adapter);
@@ -196,7 +203,7 @@ public class AddClassActivity extends Activity {
 					}
 				}
 
-				ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(AddClassActivity.this, android.R.layout.simple_spinner_item, courses);
+				ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(getActivity(), android.R.layout.simple_spinner_item, courses);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sCourse.setAdapter(adapter);
@@ -255,7 +262,7 @@ public class AddClassActivity extends Activity {
 					}
 				}
 
-				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this, schedule);
+				SectionSearchAdapter adapter = new SectionSearchAdapter(getActivity(), schedule);
 				lvSearchResults.setAdapter(adapter);
 				lvSearchResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override

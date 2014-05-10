@@ -21,14 +21,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.R;
-
 import edu.csupomona.cs.cs356.classmate.abstractions.Friend;
-import edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity;
+import edu.csupomona.cs.cs356.classmate.fragments.additem.AddClassTab;
 import edu.csupomona.cs.cs356.classmate.fragments.groups.ManageGroupActivity;
 
 import java.util.List;

@@ -67,7 +67,7 @@
                 </TableRow>
             </TableLayout>
 
-            <LinearLayout
+           <LinearLayout
                 android:id="@+id/llSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Save Profile Picture" />
-
+                
                 <TextView
                     style="@style/ClassmateTextView"
                     android:layout_width="match_parent"

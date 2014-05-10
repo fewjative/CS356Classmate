@@ -36,23 +36,14 @@
         >
                         <TextView
                                 style="@style/ClassmateTextView"
-                                android:text="You currently have no classes added to your schedule. To add some, touch the button below"
+                                android:text="You currently have no classes added to your schedule."
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                         />
-
-                        <ImageButton
-                                android:id="@+id/btnAddClass"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_add_classes"
-                                android:background="@drawable/circular_button"
-                                android:layout_margin="10dp"
-                        />
         </LinearLayout>
         
-        <LinearLayout
+       <LinearLayout
                 android:id="@+id/llNoClass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,16 +62,6 @@
                                 android:gravity="center"
                         />
                         
-                        <Button
-                                style="@style/ClassmateButton"
-                                android:id="@+id/btnAddClass3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:text="Add Class"
-                        />
-
         </LinearLayout>
 
           <LinearLayout
@@ -146,7 +127,7 @@
                         </ProgressBar>
                 </LinearLayout>
 
-                <LinearLayout
+               <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
@@ -160,15 +141,6 @@
                                 android:background="@color/cppgreen_darker"
                         >
                         </ListView>
-                        <Button
-                                style="@style/ClassmateButton"
-                                android:id="@+id/btnAddClass2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:text="Add Class"
-                        />
                 </LinearLayout>
         </LinearLayout>
 </LinearLayout>

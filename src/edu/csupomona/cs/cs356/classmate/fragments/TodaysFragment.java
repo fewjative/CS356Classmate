@@ -25,6 +25,7 @@ import edu.csupomona.cs.cs356.classmate.LoginActivity;
 import edu.csupomona.cs.cs356.classmate.MainActivity;
 import edu.csupomona.cs.cs356.classmate.R;
 import edu.csupomona.cs.cs356.classmate.abstractions.Section;
+import edu.csupomona.cs.cs356.classmate.fragments.additem.AddClassTab;
 import edu.csupomona.cs.cs356.classmate.utils.TextWatcherAdapter;
 
 import java.util.ArrayList;
@@ -100,44 +101,7 @@ public class TodaysFragment extends Fragment {
                                   }
                           };
                           
-                          etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
-                             
-                            
-                             btnAddSchedule.setOnClickListener(new View.OnClickListener() {
-                                     public void onClick(View v) {
-                                    	 
-                                 		String scheduleName = etScheduleName.getText().toString();
-                                 		String firstSchedule = Integer.toString(1);
-                                 		                                         
-                                         params.put("user_id", Long.toString(id));
-                                         params.put("title",scheduleName);
-                                         params.put("new", firstSchedule);
-                                         
-                                         client.get("http://www.lol-fc.com/classmate/adduserschedule.php", params, new AsyncHttpResponseHandler() {
-                                             @Override
-                                             public void onSuccess(String response) {
-                                             	
-                                             etScheduleName.setText("");
-                                             
-                                             llNoSchedule.setVisibility(View.GONE);
-                                             
-                                             llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
-                                             llNoClass.setVisibility(View.VISIBLE);
-                                             
-                                             Button btnAddClass3 = (Button)root.findViewById(R.id.btnAddClass3);
-                                             btnAddClass3.setOnClickListener(new View.OnClickListener() {
-                                                     public void onClick(View v) {
-                                                             Intent i = new Intent(getActivity(), AddClassActivity.class);
-                                                             i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-                                                             startActivityForResult(i, CODE_ADD_CLASS);
-                                                     }
-                                             });
-                                           
-                                             }
-                                     });
-                                    
-                                     }
-                             });
+                          etScheduleName.addTextChangedListener(scheduleNameTextWatcher);                                                 
                              
                          }
                          else
@@ -160,30 +124,10 @@ public class TodaysFragment extends Fragment {
                                                           llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
                                                           llNoClass.setVisibility(View.VISIBLE);
                                                           
-                                                          Button btnAddClass3 = (Button)root.findViewById(R.id.btnAddClass3);
-                                                          btnAddClass3.setOnClickListener(new View.OnClickListener() {
-                                                                  public void onClick(View v) {
-                                                                          Intent i = new Intent(getActivity(), AddClassActivity.class);
-                                                                          i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-                                                                          startActivityForResult(i, CODE_ADD_CLASS);
-                                                                  }
-                                                          });
-                                                          
                                                   
                                           } else {
                                                   llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
                                                   llSchedule.setVisibility(View.VISIBLE);
-
-                                                  Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
-                                                  
-                                                  
-                                                  btnAddClass2.setOnClickListener(new View.OnClickListener() {
-                                                          public void onClick(View v) {
-                                                                  Intent i = new Intent(getActivity(), AddClassActivity.class);
-                                                                  i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-                                                                  startActivityForResult(i, CODE_ADD_CLASS);
-                                                          }
-                                                  });
 
                                                   final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
                                                   llProgressBarClasses.setVisibility(View.VISIBLE);
@@ -277,15 +221,6 @@ public class TodaysFragment extends Fragment {
 
                                 if (llSchedule == null) {
                                         llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
-
-                                        Button btnAddClass2 = (Button)root.findViewById(R.id.btnAddClass2);
-                                        btnAddClass2.setOnClickListener(new View.OnClickListener() {
-                                                public void onClick(View v) {
-                                                        Intent i = new Intent(getActivity(), AddClassActivity.class);
-                                                        i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-                                                        startActivityForResult(i, CODE_ADD_CLASS);
-                                                }
-                                        });
                                 }
 
                                 llSchedule.setVisibility(View.VISIBLE);

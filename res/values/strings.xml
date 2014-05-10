@@ -7,7 +7,7 @@
         <string name="no">No</string>
         <string name="cancel">Cancel</string>
         <string name="search">Search</string>
-        <string name="author">Written by the Scrum Dogs</string>
+        <string name="author">Written by the Poly Dogs</string>
 	
         <!--Facebook Stuff -->
         <string name="app_id">240568556150736</string>
@@ -65,6 +65,8 @@
         <string name="schedule_menu_header">Schedule</string>
         <string name="schedule_menu_today">Today</string>
         <string name="schedule_menu_schedule">Full Schedule</string>
+        <string name="schedule_menu_schedule_tab">View Schedule</string>
+        <string name="schedule_menu_schedule_add_tab">Add Class or Event</string>
 
         <string name="feeds_menu_header">Event Feeds</string>
         <string name="feeds_menu_activity">Activity</string>

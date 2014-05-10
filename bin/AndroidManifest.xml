@@ -60,7 +60,7 @@
                 </activity>
 
                 <activity
-                        android:name="edu.csupomona.cs.cs356.classmate.fragments.AddClassActivity"
+                        android:name="edu.csupomona.cs.cs356.classmate.fragments.additem.AddClassTab"
                         android:label="Add Class"
                 >
                 </activity>
