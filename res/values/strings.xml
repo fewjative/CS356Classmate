@@ -135,4 +135,15 @@
 	<!--Add Member Activity-->
 	<string name="add_member">Add Member</string>
 	<string name="add_member_hint">Enter an email address or username to search for:</string>
+	
+	<!--Settings Fragment-->
+	<string name="oldPass">Old Password</string>
+   	<string name="newPass">New Password</string>
+   	<string name="changePass">Change Password</string>
+   	<string name="changePassLoading">Changing Your Password</string>
+   	<string name="confirmPass">Confirm New Password</string>
+   	
+   	<!--Schedule Fragment-->
+   	<string name="createSchedule">Create Schedule</string>
+   	<string name="setActiveSchedule">Set Active Schedule</string>
 </resources>

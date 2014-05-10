@@ -10,11 +10,12 @@
 		parent="ClassmateBaseTheme"
 	>
 	</style>
-
+	
 	<style
 		name="style_button"
 		parent="@android:style/Widget.Holo.Button"
 	>
+		<item name="android:textColor">@color/white</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 	</style>

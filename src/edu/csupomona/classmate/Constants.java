@@ -1,7 +1,7 @@
 package edu.csupomona.classmate;
 
 public interface Constants {
-	long NO_USER = 0;
+	int NO_USER = 0;
 
 	String PHP_BASE_ADDRESS			= "http://www.lol-fc.com/classmate/2/";
 

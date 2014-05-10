@@ -17,7 +17,6 @@
 
 	<!-- SDK Specifications -->
 	<application
-		android:debuggable="true"
 		android:allowBackup="true"
 		android:icon="@drawable/classmate_icon_cpp"
 		android:label="@string/global_classmate"

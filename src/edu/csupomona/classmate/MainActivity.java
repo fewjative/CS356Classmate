@@ -15,6 +15,7 @@ import edu.csupomona.classmate.drawer.Item;
 import edu.csupomona.classmate.drawer.UserHeader;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.fragments.SettingsFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;
@@ -69,7 +70,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_app_settings);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_settings));
+		dlDrawer.addItem(new Item(SettingsFragment.class, temp, R.drawable.ic_action_settings));
 
 		temp = getString(R.string.nd_app_logout);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));

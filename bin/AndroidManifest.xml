@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="edu.csupomona.cs.cs356.classmate"
+	package="edu.csupomona.classmate"
 	android:versionCode="1"
 	android:versionName="1.0.0"
 >
 	<!-- SDK Specifications -->
 	<uses-sdk
 		android:minSdkVersion="14"
-		android:targetSdkVersion="18"
+		android:targetSdkVersion="19"
 	/>
 
 	<!--  Internet Permissions -->
@@ -17,14 +17,13 @@
 
 	<!-- SDK Specifications -->
 	<application
-		android:debuggable="true"
 		android:allowBackup="true"
 		android:icon="@drawable/classmate_icon_cpp"
 		android:label="@string/global_classmate"
 		android:theme="@style/ClassmateTheme"
 	>
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.LoginActivity"
+			android:name="edu.csupomona.classmate.LoginActivity"
 			android:label="@string/global_classmate"
 			android:windowSoftInputMode="stateHidden"
 		>
@@ -34,22 +33,66 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RecoveryActivity"
+			android:name="edu.csupomona.classmate.RecoveryActivity"
 			android:label="@string/recovery_action_recover"
 			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.LoginActivity"
+			/>
 		</activity>
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.RegistrationActivity"
+			android:name="edu.csupomona.classmate.RegistrationActivity"
 			android:label="@string/registration_action_register"
 			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
+		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.LoginActivity"
+			/>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.MainActivity"
+			android:label="@string/global_classmate"
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleInstance"
 		>
 		</activity>
 		<activity
-			android:name="edu.csupomona.cs.cs356.classmate.MainActivity"
-			android:label="@string/global_classmate"
+			android:name="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			android:label="@string/manage_group"
 			android:windowSoftInputMode="stateHidden"
+			android:parentActivityName="edu.csupomona.classmate.MainActivity"
 		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.MainActivity"
+			/>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
+			android:label="@string/email_group"
+			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			/>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.groups.activities.AddMemberActivity"
+			android:label="@string/add_member"
+			android:windowSoftInputMode="stateVisible"
+			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+		>
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
+			/>
 		</activity>
 	</application>
 </manifest>
