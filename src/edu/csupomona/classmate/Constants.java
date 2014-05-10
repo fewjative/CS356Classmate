@@ -19,6 +19,7 @@ public interface Constants {
 	String PHP_ADDRESS_SEARCHUSERS	= "searchfriends.php";
 	String PHP_ADDRESS_JOINGROUP		= "addtogroup.php";
 	String PHP_ADDRESS_REQUESTFRIEND	= "addfriend.php";
+	String PHP_ADDRESS_SEARCHGROUPS	= "searchgroups.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };

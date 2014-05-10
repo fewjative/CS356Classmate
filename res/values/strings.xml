@@ -96,9 +96,11 @@
 
 	<!--Groups Tab-->
 	<string name="groups_tab_list">My Groups</string>
+	<string name="groups_tab_search">Search</string>
 	<string name="groups_list_empty">You do not belong to any groups yet. To join a group press \'%1$s\', otherwise press \'%2$s\' to create a new one.</string>
 	<string name="groups_join_group">Join a Group</string>
 	<string name="groups_create_group">Create a Group</string>
+	<string name="search_groups_hint">Enter the name of the group you\'re looking for:</string>
 
 	<string name="dialog_group_create_title">What would you like to name your group?</string>
 	<string name="dialog_group_create">null</string>
@@ -108,6 +110,9 @@
 
 	<string name="dialog_group_remove_title">Group Left</string>
 	<string name="dialog_group_remove">You have sucessfully left the \'%1$s\'!</string>
+
+	<string name="dialog_group_join_title">Group Joined</string>
+	<string name="dialog_group_join">You have sucessfully joined the \'%1$s\'!</string>
 
 	<!--Manage Group Activity-->
 	<string name="manage_group">Manage Group</string>
