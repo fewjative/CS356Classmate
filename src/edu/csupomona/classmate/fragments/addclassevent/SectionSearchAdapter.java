@@ -2,6 +2,7 @@ package edu.csupomona.classmate.fragments.addclassevent;
 
 import android.app.Activity;
 import static android.app.Activity.RESULT_OK;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,12 +21,16 @@ import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
-	public SectionSearchAdapter(Context context, List<Section> schedule) {
+	private final User USER;
+	
+	public SectionSearchAdapter(Context context,User user, List<Section> schedule) {
 		super(context, 0, schedule);
+		this.USER = user;
 	}
 
 	private static class ViewHolder {
@@ -122,15 +127,13 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((Activity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USERID, ((Activity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER));
+		i.putExtra(INTENT_KEY_USER, USER.getID());
 		((Activity)getContext()).startActivity(i);
 	}
 
 	public void addClass(final Section s) {
-		long id = ((AddClassActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
-
 		RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(id));
+		params.put("user_id", Long.toString(USER.getID()));
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -138,8 +141,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		client.get("http://lol-fc.com/classmate/addclass2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				((AddClassActivity)getContext()).setResult(RESULT_OK);
-				((AddClassActivity)getContext()).finish();
+
 			}
 		});
 	}

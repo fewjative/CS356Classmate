@@ -17,6 +17,7 @@ import edu.csupomona.classmate.abstractions.College;
 import edu.csupomona.classmate.abstractions.Course;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.Term;
+import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.addclassevent.SectionSearchAdapter;
 
 import java.util.ArrayList;
@@ -251,8 +252,8 @@ public class AddClassActivity extends Activity implements Constants{
 						e.printStackTrace();
 					}
 				}
-
-				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this, schedule);
+				
+				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this,null,schedule);//temporarily set too null, I dont think we need this activity anymore
 				lvSearchResults.setAdapter(adapter);
 				lvSearchResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override
