@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/cppgreen"
+	android:padding="5dp"
+>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@drawable/dashed_border"
+		android:padding="10dp"
+		android:layout_margin="10dp"
+		android:gravity="center"
+	>
+			<TextView
+				style="@style/style_textview"
+				android:text="@string/dialog_schedule_no_class_added"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+			/>
+
+	</LinearLayout>
+</LinearLayout>

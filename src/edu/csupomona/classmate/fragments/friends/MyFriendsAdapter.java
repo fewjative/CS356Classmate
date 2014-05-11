@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
-
+	
 	public MyFriendsAdapter(Context context, User user, List<User> friends) {
 		super(context, 0, friends);
 		this.USER = user;

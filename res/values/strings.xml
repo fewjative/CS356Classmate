@@ -56,7 +56,8 @@
 
 	<string name="dialog_register_error_title">Registration Failed</string>
 	<string name="dialog_register_error">We are sorry, there is already an account with that email. Did you forget your password?</string>
-
+	<string name="button_create_schedule">Create Your First Schedule</string>
+	
 	<!--Navigation Drawer-->
 	<string name="nd_feed_header">Feeds</string>
 	<string name="nd_feed_events">Events</string>
@@ -64,8 +65,8 @@
 	<string name="nd_feed_news">News</string>
 
 	<string name="nd_schedule_header">Schedule</string>
-	<string name="nd_schedule_today">Today</string>
-	<string name="nd_schedule_full_schedule">Full Schedule</string>
+	<string name="nd_schedule_view">View Schedule</string>
+	<string name="nd_schedule_event_add">Add Class or Event</string>
 
 	<string name="nd_social_header">Social</string>
 	<string name="nd_social_friends">Friends</string>
@@ -78,7 +79,22 @@
 	<!--Logout-->
 	<string name="dialog_logout_title">Logout?</string>
 	<string name="dialog_logout">Are you sure you want to log out?</string>
-
+	
+	<!--Schedule Fragment-->
+   	<string name="createSchedule">Create Schedule</string>
+   	<string name="setActiveSchedule">Set Active Schedule</string>
+	<string name="schedule_tab_daily">Daily Schedule</string>
+	<string name="schedule_tab_weekly">Weekly Schedule</string>
+	
+	<string name="dialog_schedule_no_class_added">You currently have no classes added to your schedule.</string>
+	<string name="dialog_schedule_no_class_view">No classes to be viewed.</string>
+	<string name="dialog_schedule_create_schedule">You have not created a schedule yet. You must create at least one schedule before attempting to add content. Create one now!</string>
+	
+	<!--Add Class or Event Fragment-->
+	<string name="add_class_event_addclass">Add Class</string>
+	<string name="add_class_event_addevent">Add Event</string>
+	<string name="add_class_event_search_event">Search Event</string>
+	
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
 	<string name="friends_tab_requests">Requests</string>
@@ -143,7 +159,4 @@
    	<string name="changePassLoading">Changing Your Password</string>
    	<string name="confirmPass">Confirm New Password</string>
    	
-   	<!--Schedule Fragment-->
-   	<string name="createSchedule">Create Schedule</string>
-   	<string name="setActiveSchedule">Set Active Schedule</string>
 </resources>

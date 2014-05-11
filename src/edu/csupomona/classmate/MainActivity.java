@@ -13,8 +13,10 @@ import edu.csupomona.classmate.drawer.FragmentNavigationDrawer;
 import edu.csupomona.classmate.drawer.Header;
 import edu.csupomona.classmate.drawer.Item;
 import edu.csupomona.classmate.drawer.UserHeader;
+import edu.csupomona.classmate.fragments.AddClassEventFragment;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.fragments.ScheduleFragment;
 import edu.csupomona.classmate.fragments.SettingsFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -51,11 +53,11 @@ public class MainActivity extends FragmentActivity {
 		temp = getString(R.string.nd_schedule_header);
 		dlDrawer.addItem(new Header(temp));
 
-		temp = getString(R.string.nd_schedule_today);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		temp = getString(R.string.nd_schedule_view);
+		dlDrawer.addItem(new Item(ScheduleFragment.class, temp, R.drawable.ic_action_go_to_today));
 
-		temp = getString(R.string.nd_schedule_full_schedule);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_schedule));
+		temp = getString(R.string.nd_schedule_event_add);
+		dlDrawer.addItem(new Item(AddClassEventFragment.class, temp, R.drawable.ic_action_go_to_schedule));
 
 		temp = getString(R.string.nd_social_header);
 		dlDrawer.addItem(new Header(temp));
