@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsTab;
 import edu.csupomona.classmate.fragments.friends.MyFriendsTab;
-import edu.csupomona.classmate.fragments.friends.SearchTab;
+import edu.csupomona.classmate.fragments.friends.SearchUsersTab;
 
 public class FriendsFragment extends Fragment {
 	@Override
@@ -49,7 +49,7 @@ public class FriendsFragment extends Fragment {
 			switch (i) {
 				case 0: return new FriendRequestsTab();
 				case 1: return new MyFriendsTab();
-				case 2: return new SearchTab();
+				case 2: return new SearchUsersTab();
 				default: return null;
 			}
 		}

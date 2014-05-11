@@ -24,13 +24,13 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
-public class SearchAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+public class SearchUsersAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
 	private final IBinder WINDOW_TOKEN;
 
 	private boolean lock;
 
-	public SearchAdapter(Context context, User user, List<User> users, IBinder windowToken) {
+	public SearchUsersAdapter(Context context, User user, List<User> users, IBinder windowToken) {
 		super(context, 0, users);
 		this.USER = user;
 		this.WINDOW_TOKEN = windowToken;

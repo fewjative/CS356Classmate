@@ -25,7 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchTab extends Fragment {
+public class SearchUsersTab extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ViewGroup ROOT = (ViewGroup)inflater.inflate(R.layout.friend_search_tab_layout, null);
@@ -67,7 +67,7 @@ public class SearchTab extends Fragment {
 							e.printStackTrace();
 						}
 
-						SearchAdapter adapter = new SearchAdapter(getActivity(), USER, searchResults, etFriendName.getWindowToken());
+						SearchUsersAdapter adapter = new SearchUsersAdapter(getActivity(), USER, searchResults, etFriendName.getWindowToken());
 						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
@@ -75,7 +75,7 @@ public class SearchTab extends Fragment {
 			}
 		});
 
-		//etFriendName.requestFocus();
+		etFriendName.requestFocus();
 		etFriendName.setFocusableInTouchMode(true);
 		etFriendName.setOnTouchListener(new OnTouchListener() {
 			@Override
