@@ -18,7 +18,7 @@ import com.loopj.android.http.RequestParams;
 
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.friends.FriendRequestsListAdapter;
+import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
@@ -77,7 +77,7 @@ public class SearchEventTab extends Fragment implements Constants{
 							}
 						}
 
-						FriendRequestsListAdapter adapter = new FriendRequestsListAdapter(getActivity(), USER, search_results);
+						FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), USER, search_results);
 						lvSearchResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
