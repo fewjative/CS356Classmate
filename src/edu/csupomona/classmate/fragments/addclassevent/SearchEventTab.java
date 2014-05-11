@@ -53,14 +53,14 @@ public class SearchEventTab extends Fragment implements Constants{
 				llProgressBar.setVisibility(View.VISIBLE);
 				lvSearchResults.setAdapter(null);
 
-				long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
+				final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 				RequestParams params = new RequestParams();
 				params.put("search", e.toString());
-				params.put("user_id", Long.toString(id));
+				params.put("user_id", Long.toString(USER.getID()));
 
 				AsyncHttpClient client = new AsyncHttpClient();
-				client.get("http://www.lol-fc.com/classmate/searchfriends.php", params, new AsyncHttpResponseHandler() {
+				client.get("http://www.lol-fc.com/classmate/searchevents.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
 						List<User> search_results = new ArrayList<User>();

@@ -23,26 +23,6 @@
                 </ProgressBar>
         </LinearLayout>
 
-        <LinearLayout
-                android:id="@+id/llAddClass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-        >
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/dialog_schedule_no_class_added"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                        />
-        </LinearLayout>
-        
        <LinearLayout
                 android:id="@+id/llNoClass"
                 android:layout_width="match_parent"

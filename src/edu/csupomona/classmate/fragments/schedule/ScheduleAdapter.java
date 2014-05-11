@@ -19,6 +19,7 @@ import edu.csupomona.classmate.LoginActivity;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 
 import java.util.List;
 

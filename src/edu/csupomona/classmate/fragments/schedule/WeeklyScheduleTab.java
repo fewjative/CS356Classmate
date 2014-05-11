@@ -25,6 +25,7 @@ import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.LoginActivity;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 import java.util.ArrayList;
@@ -65,14 +66,15 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_weekly_tab_layout, null);
-
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		
 		final long id;
 		if(outside_source)
 		{
 			id = friend_id;
 		}
 		else
-			id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
+			id = USER.getID();
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
@@ -81,7 +83,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 		params.put("user_id", Long.toString(id));
 		
 		final AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
 			
 			@Override
 			public void onSuccess(String response) {
@@ -125,7 +127,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
                 }
                 else
                 {
-                	client.get("http://www.lol-fc.com/classmate/getusernumclasses2.php", params, new AsyncHttpResponseHandler() {
+                	client.get("http://www.lol-fc.com/classmate/2/getusernumclasses2.php", params, new AsyncHttpResponseHandler() {
             			@Override
             			public void onSuccess(String response) {
             				llProgressBar.setVisibility(View.GONE);
@@ -139,17 +141,9 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 
             				if (numClasses == 0) {
             					
-            					if(outside_source)
-            					{
+            				
             						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
             						llNoClass.setVisibility(View.VISIBLE);
-            					}
-            					else
-            					{
-            						llAddClass = (LinearLayout)root.findViewById(R.id.llAddClass);
-            						llAddClass.setVisibility(View.VISIBLE);
-            	
-            					}
             				} 
             				else 
             				{
@@ -165,7 +159,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 
             					AsyncHttpClient client = new AsyncHttpClient();
             					//CHANGED TO VERSION2
-            					client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
+            					client.get("http://lol-fc.com/classmate/2/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
             						@Override
             						public void onSuccess(String response) {
             							setupSchedule(response);
@@ -257,7 +251,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 	}
 
 	private void addClass() {
-		final int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USERID, NO_USER);
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		if (llAddClass != null) {
 			llAddClass.setVisibility(View.GONE);
@@ -275,11 +269,11 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 
 		RequestParams params = new RequestParams();
 		params.put("full", "yes");
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(USER.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		//CHANGED TO GETUSERCLASSES2
-		client.get("http://lol-fc.com/classmate/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://lol-fc.com/classmate/2/getuserclasses2.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				setupSchedule(response);

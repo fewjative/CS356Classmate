@@ -25,6 +25,7 @@ import edu.csupomona.classmate.abstractions.College;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.Term;
 import edu.csupomona.classmate.abstractions.Course;
+import edu.csupomona.classmate.abstractions.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +46,6 @@ public class AddClassTab extends Fragment implements Constants{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.addclassevent_class_fragment_tab_layout, null);
 		
-		long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
-
 		sTerm = (Spinner)root.findViewById(R.id.sTerm);
 		sCollege = (Spinner)root.findViewById(R.id.sCollege);
 		sCourse = (Spinner)root.findViewById(R.id.sCourse);

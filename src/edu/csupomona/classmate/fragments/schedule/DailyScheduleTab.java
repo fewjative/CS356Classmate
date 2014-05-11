@@ -24,6 +24,7 @@ import edu.csupomona.classmate.LoginActivity;
 import edu.csupomona.classmate.MainActivity;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 import java.util.ArrayList;
@@ -47,19 +48,17 @@ public class DailyScheduleTab extends Fragment implements Constants {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
                 root = (ViewGroup)inflater.inflate(R.layout.schedule_daily_tab_layout, null);
+                         
+                final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
                 
-                
-                final long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
-                
-
                 final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
                 llProgressBar.setVisibility(View.VISIBLE);
 
                 final RequestParams params = new RequestParams();
-                params.put("user_id", Long.toString(id));
+                params.put("user_id", Long.toString(USER.getID()));
 
                 final AsyncHttpClient client = new AsyncHttpClient();
-                client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
+                client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
                 	 @Override
                      public void onSuccess(String response) {
                 		 
@@ -103,7 +102,7 @@ public class DailyScheduleTab extends Fragment implements Constants {
                          }
                          else
                          {
-                        	  client.get("http://www.lol-fc.com/classmate/getusernumclassestoday2.php", params, new AsyncHttpResponseHandler() {
+                        	  client.get("http://www.lol-fc.com/classmate/2/getusernumclassestoday2.php", params, new AsyncHttpResponseHandler() {
                                   @Override
                                   public void onSuccess(String response) {
                                           llProgressBar.setVisibility(View.GONE);
@@ -131,10 +130,10 @@ public class DailyScheduleTab extends Fragment implements Constants {
 
                                                   RequestParams params = new RequestParams();
                                                   params.put("full", "yes");
-                                                  params.put("user_id", Long.toString(id));
+                                                  params.put("user_id", Long.toString(USER.getID()));
 
                                                   AsyncHttpClient client = new AsyncHttpClient();
-                                                  client.get("http://lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
+                                                  client.get("http://lol-fc.com/classmate/2/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
                                                           @Override
                                                           public void onSuccess(String response) {
                                                                   setupSchedule(response);
@@ -209,12 +208,11 @@ public class DailyScheduleTab extends Fragment implements Constants {
                                 //        break;
                                 //}
 
-                            	final long id = getActivity().getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
+                        		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
                                 if (llAddClass != null) {
                                         llAddClass.setVisibility(View.GONE);
                                 }
-
 
                                 if (llSchedule == null) {
                                         llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
@@ -227,10 +225,10 @@ public class DailyScheduleTab extends Fragment implements Constants {
 
                                 RequestParams params = new RequestParams();
                                 params.put("full", "yes");
-                                params.put("user_id", Long.toString(id));
+                                params.put("user_id", Long.toString(USER.getID()));
 
                                 AsyncHttpClient client = new AsyncHttpClient();
-                                client.get("http://lol-fc.com/classmate/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
+                                client.get("http://lol-fc.com/classmate/2/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
                                         @Override
                                         public void onSuccess(String response) {
                                                 setupSchedule(response);

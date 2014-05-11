@@ -1,6 +1,7 @@
 package edu.csupomona.classmate.fragments;
 
 
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Schedule;
+import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 import java.util.ArrayList;
@@ -56,6 +58,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		schActive = null;
 		root = (ViewGroup)inflater.inflate(R.layout.settings_fragment_layout, null);
+		
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
 		btnChangePass.setOnClickListener(this);
@@ -125,15 +129,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		etNewPass2.addTextChangedListener(textWatcher);
 		etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
 
-		final int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USER, NO_USER);
 		RequestParams params = new RequestParams();
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(USER.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-
+								
 				int numSchedules;
 				try {
 					numSchedules = Integer.parseInt(response);
@@ -172,17 +175,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				//...
 			}
 		});
-
+		
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		final int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USER, NO_USER);
-		params.put("user_id", Integer.toString(id));
+		params.put("user_id", Long.toString(USER.getID()));
 
-		client.get("http://www.lol-fc.com/classmate/getuserschedules.php", params, new AsyncHttpResponseHandler() {
+		client.get("http://www.lol-fc.com/classmate/2/getuserschedules.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				System.out.println(response);
-				System.out.println(id);
+				System.out.println(USER.getID());
 				List<Schedule> schedules = new ArrayList<Schedule>();
 				if (1 < response.length()) {
 					try {
@@ -216,7 +219,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	public void onClick(View v) {
 
 		RequestParams params = new RequestParams();
-		int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USER, NO_USER);
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		AsyncHttpClient client = new AsyncHttpClient();
 
 		switch (v.getId()) {
@@ -233,7 +236,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				String newpassword = etNewPass1.getText().toString();
 				String oldpassword = etOldPass.getText().toString();
 
-				params.put("user_id", Integer.toString(id));
+				params.put("user_id", Long.toString(USER.getID()));
 				params.put("oldpassword", oldpassword);
 				params.put("newpassword", newpassword);
 
@@ -322,13 +325,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 					firstSchedule = "doesnt matter";
 				}
 
-				id = getActivity().getIntent().getIntExtra(INTENT_KEY_USER, NO_USER);
-
-				params.put("user_id", Integer.toString(id));
+				params.put("user_id", Long.toString(USER.getID()));
 				params.put("title", scheduleName);
 				params.put("new", firstSchedule);
 
-				client.get("http://www.lol-fc.com/classmate/adduserschedule.php", params, new AsyncHttpResponseHandler() {
+				client.get("http://www.lol-fc.com/classmate/2/adduserschedule.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
 
@@ -351,10 +352,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				if (schActive != null) {
 					Toast.makeText(getActivity(), "Button Clicked", Toast.LENGTH_SHORT).show();
 
-					params.put("user_id", Integer.toString(id));
+					params.put("user_id", Long.toString(USER.getID()));
 					params.put("schedule_id", Integer.toString(schActive.getScheduleID()));
 
-					client.get("http://www.lol-fc.com/classmate/setuserschedule.php", params, new AsyncHttpResponseHandler() {
+					client.get("http://www.lol-fc.com/classmate/2/setuserschedule.php", params, new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(String response) {
 
