@@ -24,29 +24,12 @@
 			android:textSize="24dp"
 		/>
 
-		<LinearLayout
+		<include
+			layout="@layout/http_query_listview_layout"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			android:layout_weight="1"
-			android:orientation="vertical"
-			android:background="@color/cppgreen_darker"
-		>
-			<include
-				layout="@layout/http_query_spinner_layout"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-			/>
-
-			<ListView
-				android:id="@+id/lvGroupMembers"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:background="@android:color/transparent"
-				android:divider="@color/gray"
-				android:dividerHeight="2dp"
-			>
-			</ListView>
-		</LinearLayout>
+		/>
 
 		<Button
 			style="@style/style_button"
@@ -55,7 +38,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp"
 			android:layout_marginBottom="10dp"
-			android:text="Add Member"
+			android:text="@string/add_member"
 			android:textColor="@color/black"
 		/>
 
@@ -66,7 +49,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp"
 			android:layout_marginBottom="10dp"
-			android:text="Email Group"
+			android:text="@string/email_group"
 			android:textColor="@color/black"
 		/>
 	</LinearLayout>

@@ -4,6 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="48dp"
 	android:orientation="horizontal"
+	android:gravity="center_vertical"
 	android:background="@color/cppgreen"
 	android:paddingLeft="6dp"
 >
@@ -16,35 +17,41 @@
 	/>
 
 	<TextView
+		style="@style/style_textview_marquee"
 		android:id="@+id/tvItemTextUsername"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:gravity="center_vertical"
-		android:minHeight="?android:attr/listPreferredItemHeightLarge"
-		android:textAppearance="?android:attr/textAppearanceListItemSmall"
-		android:textColor="@color/white"
 		android:layout_marginLeft="6dip"
 		android:layout_marginRight="6dip"
-		android:layout_weight="1"
-		android:singleLine="true"
-		android:ellipsize="marquee"
-		android:marqueeRepeatLimit ="marquee_forever"
-		android:scrollHorizontally="true"
-		android:focusable="true"
-		android:focusableInTouchMode="true"
 	/>
 
 	<ImageButton
+		style="@style/style_imagebutton"
 		android:id="@+id/btnViewSchedule"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
 		android:src="@drawable/ic_action_go_to_schedule"
+		android:contentDescription="@null"
+		android:visibility="gone"
 	/>
 
 	<ImageButton
-		android:id="@+id/btnRemove"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		style="@style/style_imagebutton"
+		android:id="@+id/btnAccept"
+		android:src="@drawable/ic_action_accept"
+		android:contentDescription="@null"
+		android:visibility="gone"
+	/>
+
+	<ImageButton
+		style="@style/style_imagebutton"
+		android:id="@+id/btnCancel"
 		android:src="@drawable/ic_action_cancel"
+		android:contentDescription="@null"
+		android:visibility="gone"
+	/>
+
+	<ImageButton
+		style="@style/style_imagebutton"
+		android:id="@+id/btnAdd"
+		android:src="@drawable/ic_action_new"
+		android:contentDescription="@null"
+		android:visibility="gone"
 	/>
 </LinearLayout>

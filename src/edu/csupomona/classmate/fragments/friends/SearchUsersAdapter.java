@@ -3,7 +3,6 @@ package edu.csupomona.classmate.fragments.friends;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.IBinder;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -24,27 +23,27 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
-public class SearchAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+public class SearchUsersAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
-	private final IBinder WINDOW_TOKEN;
+	private final View ATTACHED_VIEW;
 
 	private boolean lock;
 
-	public SearchAdapter(Context context, User user, List<User> users, IBinder windowToken) {
+	public SearchUsersAdapter(Context context, User user, List<User> users, View attached) {
 		super(context, 0, users);
 		this.USER = user;
-		this.WINDOW_TOKEN = windowToken;
+		this.ATTACHED_VIEW = attached;
 	}
 
 	private static class ViewHolder {
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnSendInvite;
+		final ImageButton btnAdd;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnSendInvite) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAdd) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnSendInvite = btnSendInvite;
+			this.btnAdd = btnAdd;
 		}
 	}
 
@@ -55,17 +54,18 @@ public class SearchAdapter extends ArrayAdapter<User> implements View.OnClickLis
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.friend_search_tab_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnSendInvite = (ImageButton)view.findViewById(R.id.btnSendRequest);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnSendInvite));
+			ImageButton btnAdd = (ImageButton)view.findViewById(R.id.btnAdd);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAdd));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnSendInvite.setTag(user);
-			btnSendInvite.setOnClickListener(this);
+			btnAdd.setTag(user);
+			btnAdd.setOnClickListener(this);
+			btnAdd.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -100,7 +100,7 @@ public class SearchAdapter extends ArrayAdapter<User> implements View.OnClickLis
 	public void onClick(View v) {
 		User u = (User)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnSendRequest:
+			case R.id.btnAdd:
 				if (lock) {
 					return;
 				}
@@ -109,7 +109,8 @@ public class SearchAdapter extends ArrayAdapter<User> implements View.OnClickLis
 				sendRequest(u);
 
 				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(WINDOW_TOKEN, 0);
+				imm.hideSoftInputFromWindow(ATTACHED_VIEW.getWindowToken(), 0);
+				ATTACHED_VIEW.clearFocus();
 				break;
 		}
 	}

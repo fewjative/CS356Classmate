@@ -32,7 +32,7 @@ public class SearchGroupsTab extends Fragment {
 		final User USER = (User)getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		final LinearLayout llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
-		final ListView lvSearchResults = (ListView)ROOT.findViewById(R.id.lvSearchResults);
+		final ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 		final EditText etGroupName = (EditText)ROOT.findViewById(R.id.etGroupName);
 		etGroupName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
@@ -42,7 +42,7 @@ public class SearchGroupsTab extends Fragment {
 				}
 
 				llProgressBar.setVisibility(View.VISIBLE);
-				lvSearchResults.setAdapter(null);
+				lvQueryResults.setAdapter(null);
 
 				RequestParams params = new RequestParams();
 				params.put(Constants.PHP_PARAM_SEARCH, e.toString());
@@ -68,7 +68,7 @@ public class SearchGroupsTab extends Fragment {
 						}
 
 						SearchGroupsAdapter adapter = new SearchGroupsAdapter(getActivity(), USER, searchResults);
-						lvSearchResults.setAdapter(adapter);
+						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
 				});

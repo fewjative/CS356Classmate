@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsTab;
 import edu.csupomona.classmate.fragments.friends.MyFriendsTab;
-import edu.csupomona.classmate.fragments.friends.SearchTab;
+import edu.csupomona.classmate.fragments.friends.SearchUsersTab;
 
 public class FriendsFragment extends Fragment {
 	@Override
@@ -30,6 +30,7 @@ public class FriendsFragment extends Fragment {
 				if (previous == 2 && previous != position) {
 					InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(vpContentPane.getWindowToken(), 0);
+					ROOT.clearFocus();
 				}
 
 				previous = position;
@@ -49,7 +50,7 @@ public class FriendsFragment extends Fragment {
 			switch (i) {
 				case 0: return new FriendRequestsTab();
 				case 1: return new MyFriendsTab();
-				case 2: return new SearchTab();
+				case 2: return new SearchUsersTab();
 				default: return null;
 			}
 		}

@@ -21,6 +21,14 @@
 	</style>
 
 	<style
+		name="style_imagebutton"
+		parent="@android:style/Widget.Holo.ImageButton"
+	>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style
 		name="style_textview"
 		parent="@android:style/Widget.Holo.TextView"
 	>
@@ -28,6 +36,25 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/cppgold</item>
+	</style>
+
+	<style
+		name="style_textview_marquee"
+		parent="@android:style/Widget.Holo.TextView"
+	>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:focusable">true</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">marquee</item>
+		<item name="android:textColor">@color/white</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:scrollHorizontally">true</item>
+		<item name="android:focusableInTouchMode">true</item>
+		<item name="android:marqueeRepeatLimit">marquee_forever</item>
+		<item name="android:minHeight">?android:attr/listPreferredItemHeightLarge</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
 	</style>
 
 	<style
@@ -72,5 +99,16 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/cppgold</item>
+	</style>
+
+	<style
+		name="style_listview"
+		parent="@android:style/Widget.Holo.ListView"
+	>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:background">@android:color/transparent</item>
+		<item name="android:divider">@color/gray</item>
+		<item name="android:dividerHeight">2dp</item>
 	</style>
 </resources>

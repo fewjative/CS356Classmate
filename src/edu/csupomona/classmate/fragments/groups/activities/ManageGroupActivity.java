@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class ManageGroupActivity extends Activity {
 	private Group group;
 
-	private ListView lvGroupMembers;
+	private ListView lvQueryResults;
 	private LinearLayout llProgressBar;
 
 	private GroupMembersAdapter adapter;
@@ -63,7 +63,7 @@ public class ManageGroupActivity extends Activity {
 
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
 
-		lvGroupMembers = (ListView)findViewById(R.id.lvGroupMembers);
+		lvQueryResults = (ListView)findViewById(R.id.lvQueryResults);
 		refreshMembers();
 	}
 
@@ -96,7 +96,7 @@ public class ManageGroupActivity extends Activity {
 				group.setUsers(people);
 
 				adapter = new GroupMembersAdapter(ManageGroupActivity.this, group);
-				lvGroupMembers.setAdapter(adapter);
+				lvQueryResults.setAdapter(adapter);
 				llProgressBar.setVisibility(View.GONE);
 			}
 		});

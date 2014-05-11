@@ -13,48 +13,10 @@
 		android:orientation="vertical"
 		android:background="@android:color/transparent"
 	>
-		<LinearLayout
-			android:id="@+id/llEmptyList"
+		<include
+			layout="@layout/http_query_listview_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="vertical"
-			android:visibility="gone"
-			android:background="@android:color/transparent"
-		>
-			<TextView
-				style="@style/style_textview"
-				android:text="@string/friend_requests_empty"
-				android:gravity="center"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
-		</LinearLayout>
-
-		<LinearLayout
-			android:id="@+id/llProgressBar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="vertical"
-			android:visibility="gone"
-			android:background="@android:color/transparent"
-		>
-			<ProgressBar
-				style="Widget.ProgressBar.Large.Inverse"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-			>
-			</ProgressBar>
-		</LinearLayout>
-
-		<ListView
-			android:id="@+id/lvRequestList"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@android:color/transparent"
-			android:divider="@color/gray"
-			android:dividerHeight="2dp"
 		/>
 	</LinearLayout>
 </LinearLayout>

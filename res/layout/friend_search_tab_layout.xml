@@ -22,27 +22,9 @@
 		android:layout_marginBottom="5dip"
 	/>
 
-	<LinearLayout
+	<include
+		layout="@layout/http_query_listview_layout"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:orientation="vertical"
-		android:background="@color/cppgreen_darker"
-	>
-		<include
-			layout="@layout/http_query_spinner_layout"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-		/>
-
-		<ListView
-			android:id="@+id/lvSearchResults"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@android:color/transparent"
-			android:divider="@color/gray"
-			android:dividerHeight="2dp"
-		>
-		</ListView>
-	</LinearLayout>
+		android:layout_height="match_parent"
+	/>
 </LinearLayout>

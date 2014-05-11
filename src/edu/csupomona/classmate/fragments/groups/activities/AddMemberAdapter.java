@@ -3,7 +3,6 @@ package edu.csupomona.classmate.fragments.groups.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -27,25 +26,25 @@ import java.util.List;
 
 public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final Group GROUP;
-	private final IBinder WINDOW_TOKEN;
+	private final View ATTACHED_VIEW;
 
 	private boolean lock;
 
-	public AddMemberAdapter(Context context, Group group, List<User> friends, IBinder windowToken) {
+	public AddMemberAdapter(Context context, Group group, List<User> friends, View attachedView) {
 		super(context, 0, friends);
 		this.GROUP = group;
-		this.WINDOW_TOKEN = windowToken;
+		this.ATTACHED_VIEW = attachedView;
 	}
 
 	private static class ViewHolder {
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnAddToGroup;
+		final ImageButton btnAdd;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAddToGroup) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAdd) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnAddToGroup = btnAddToGroup;
+			this.btnAdd = btnAdd;
 		}
 	}
 
@@ -56,17 +55,18 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.add_member_activity_list_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnAddToGroup = (ImageButton)view.findViewById(R.id.btnAddToGroup);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAddToGroup));
+			ImageButton btnAdd = (ImageButton)view.findViewById(R.id.btnAdd);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAdd));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnAddToGroup.setTag(user);
-			btnAddToGroup.setOnClickListener(this);
+			btnAdd.setTag(user);
+			btnAdd.setOnClickListener(this);
+			btnAdd.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -101,7 +101,7 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 	public void onClick(View v) {
 		User u = (User)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnAddToGroup:
+			case R.id.btnAdd:
 				if (lock) {
 					return;
 				}
@@ -126,7 +126,8 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 
 				Activity a = (Activity)getContext();
 				InputMethodManager imm = (InputMethodManager)a.getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(WINDOW_TOKEN, 0);
+				imm.hideSoftInputFromWindow(ATTACHED_VIEW.getWindowToken(), 0);
+				ATTACHED_VIEW.clearFocus();
 
 				Intent i = new Intent(getContext(), AddMemberAdapter.class);
 				i.putExtra(Constants.INTENT_KEY_USER, u);

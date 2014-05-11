@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -52,13 +53,16 @@ public class FriendRequestsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				FriendRequestsListAdapter adapter = new FriendRequestsListAdapter(getActivity(), USER, requests);
-				ListView lvRequestList = (ListView)ROOT.findViewById(R.id.lvRequestList);
+				FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), USER, requests);
+				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
+					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
+					tvEmptyList.setText(R.string.friend_requests_empty);
+
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
-					lvRequestList.setAdapter(adapter);
+					lvQueryResults.setAdapter(adapter);
 					// TODO uncomment
 					//((MainActivity)getActivity()).updateFriendRequestsNum();
 				}
