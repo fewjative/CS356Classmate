@@ -72,4 +72,15 @@
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/cppgold</item>
 	</style>
+
+	<style
+		name="style_listview"
+		parent="@android:style/Widget.Holo.ListView"
+	>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:background">@android:color/transparent</item>
+		<item name="android:divider">@color/gray</item>
+		<item name="android:dividerHeight">2dp</item>
+	</style>
 </resources>

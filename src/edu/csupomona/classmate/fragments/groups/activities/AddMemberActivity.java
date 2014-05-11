@@ -33,7 +33,7 @@ public class AddMemberActivity extends Activity {
 		final Group GROUP = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
 
 		final LinearLayout llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
-		final ListView lvSearchResults = (ListView)findViewById(R.id.lvSearchResults);
+		final ListView lvQueryResults = (ListView)findViewById(R.id.lvQueryResults);
 
 		final EditText etFriendName = (EditText)findViewById(R.id.etFriendName);
 		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
@@ -44,7 +44,7 @@ public class AddMemberActivity extends Activity {
 				}
 
 				llProgressBar.setVisibility(View.VISIBLE);
-				lvSearchResults.setAdapter(null);
+				lvQueryResults.setAdapter(null);
 
 				RequestParams params = new RequestParams();
 				params.put(Constants.PHP_PARAM_SEARCH, e.toString());
@@ -71,7 +71,7 @@ public class AddMemberActivity extends Activity {
 						}
 
 						AddMemberAdapter adapter = new AddMemberAdapter(AddMemberActivity.this, GROUP, searchResults, etFriendName.getWindowToken());
-						lvSearchResults.setAdapter(adapter);
+						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
 				});

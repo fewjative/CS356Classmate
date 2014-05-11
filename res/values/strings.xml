@@ -21,6 +21,7 @@
 	<string name="example_email">johndoe@csupomona.edu</string>
 	<string name="example_name">John</string>
 	<string name="example_password">password</string>
+	<string name="example_group">Poly Dogs</string>
 
 	<string name="login_welcome_back">Hello %1$s, welcome back!</string>
 

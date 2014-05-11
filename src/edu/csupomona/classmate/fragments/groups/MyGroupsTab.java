@@ -137,9 +137,9 @@ public class MyGroupsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				ListView lvGroupsList = (ListView)root.findViewById(R.id.lvGroupsList);
-				lvGroupsList.setAdapter(null);
-				
+				ListView lvQueryResults = (ListView)root.findViewById(R.id.lvQueryResults);
+				lvQueryResults.setAdapter(null);
+
 				adapter = new MyGroupsAdapter(getActivity(), user, groups);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)root.findViewById(R.id.tvEmptyList);
@@ -148,7 +148,7 @@ public class MyGroupsTab extends Fragment {
 					LinearLayout llEmptyList = (LinearLayout)root.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
-					lvGroupsList.setAdapter(adapter);
+					lvQueryResults.setAdapter(adapter);
 				}
 
 				llProgressBar.setVisibility(View.GONE);

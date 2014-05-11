@@ -31,7 +31,7 @@ public class SearchTab extends Fragment {
 		final ViewGroup ROOT = (ViewGroup)inflater.inflate(R.layout.friend_search_tab_layout, null);
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		final LinearLayout llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
-		final ListView lvSearchResults = (ListView)ROOT.findViewById(R.id.lvSearchResults);
+		final ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 		final EditText etFriendName = (EditText)ROOT.findViewById(R.id.etFriendName);
 		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
@@ -41,7 +41,7 @@ public class SearchTab extends Fragment {
 				}
 
 				llProgressBar.setVisibility(View.VISIBLE);
-				lvSearchResults.setAdapter(null);
+				lvQueryResults.setAdapter(null);
 
 				RequestParams params = new RequestParams();
 				params.put(Constants.PHP_PARAM_SEARCH, e.toString());
@@ -68,7 +68,7 @@ public class SearchTab extends Fragment {
 						}
 
 						SearchAdapter adapter = new SearchAdapter(getActivity(), USER, searchResults, etFriendName.getWindowToken());
-						lvSearchResults.setAdapter(adapter);
+						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
 				});

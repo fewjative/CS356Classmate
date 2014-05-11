@@ -54,7 +54,7 @@ public class MyFriendsTab extends Fragment {
 				}
 
 				MyFriendsAdapter adapter = new MyFriendsAdapter(getActivity(), USER, friends);
-				ListView lvFriendsList = (ListView)ROOT.findViewById(R.id.lvFriendsList);
+				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
 					tvEmptyList.setText(getResources().getString(R.string.friends_list_empty, getResources().getString(R.string.friends_tab_search)));
@@ -62,7 +62,7 @@ public class MyFriendsTab extends Fragment {
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
-					lvFriendsList.setAdapter(adapter);
+					lvQueryResults.setAdapter(adapter);
 				}
 
 				llProgressBar.setVisibility(View.GONE);
