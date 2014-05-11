@@ -214,13 +214,14 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 		}
 
 		ScheduleAdapter adapter;
+		User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		
 		if(outside_source)
 		{
-			adapter = new ScheduleAdapter(getActivity(), schedule, outside_source);
+			adapter = new ScheduleAdapter(getActivity(), USER, schedule, outside_source);
 		}
 		else
-			adapter = new ScheduleAdapter(getActivity(), schedule);
+			adapter = new ScheduleAdapter(getActivity(), USER, schedule);
 
 		
 		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
