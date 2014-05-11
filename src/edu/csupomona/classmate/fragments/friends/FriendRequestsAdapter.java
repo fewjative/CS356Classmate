@@ -20,10 +20,10 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
-public class FriendRequestsListAdapter extends ArrayAdapter<User> implements View.OnClickListener {
+public class FriendRequestsAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
 
-	public FriendRequestsListAdapter(Context context, User user, List<User> requests) {
+	public FriendRequestsAdapter(Context context, User user, List<User> requests) {
 		super(context, 0, requests);
 		this.USER = user;
 	}
@@ -32,13 +32,13 @@ public class FriendRequestsListAdapter extends ArrayAdapter<User> implements Vie
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
 		final ImageButton btnAccept;
-		final ImageButton btnReject;
+		final ImageButton btnCancel;
 
-		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAccept, ImageButton btnReject) {
+		ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnAccept, ImageButton btnCancel) {
 			this.ivAvatar = avatar;
 			this.tvItemTextUsername = tvItemTextUsername;
 			this.btnAccept = btnAccept;
-			this.btnReject = btnReject;
+			this.btnCancel = btnCancel;
 		}
 	}
 
@@ -49,21 +49,23 @@ public class FriendRequestsListAdapter extends ArrayAdapter<User> implements Vie
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.friend_requests_tab_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
 			ImageButton btnAccept = (ImageButton)view.findViewById(R.id.btnAccept);
-			ImageButton btnReject = (ImageButton)view.findViewById(R.id.btnReject);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAccept, btnReject));
+			ImageButton btnCancel = (ImageButton)view.findViewById(R.id.btnCancel);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAccept, btnCancel));
 
 			tvItemTextUsername.setSelected(true);
 
 			btnAccept.setTag(f);
 			btnAccept.setOnClickListener(this);
+			btnAccept.setVisibility(View.VISIBLE);
 
-			btnReject.setTag(f);
-			btnReject.setOnClickListener(this);
+			btnCancel.setTag(f);
+			btnCancel.setOnClickListener(this);
+			btnCancel.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -101,7 +103,7 @@ public class FriendRequestsListAdapter extends ArrayAdapter<User> implements Vie
 			case R.id.btnAccept:
 				acceptInvite(r);
 				break;
-			case R.id.btnReject:
+			case R.id.btnCancel:
 				rejectInvite(r);
 				break;
 		}

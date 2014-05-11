@@ -53,7 +53,7 @@ public class FriendRequestsTab extends Fragment {
 					e.printStackTrace();
 				}
 
-				FriendRequestsListAdapter adapter = new FriendRequestsListAdapter(getActivity(), USER, requests);
+				FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), USER, requests);
 				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);

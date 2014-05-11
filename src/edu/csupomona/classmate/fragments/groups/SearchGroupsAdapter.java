@@ -30,11 +30,11 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 
 	private static class ViewHolder {
 		final TextView tvItemText;
-		final ImageButton btnJoinGroup;
+		final ImageButton btnAdd;
 
-		ViewHolder(TextView tvItemText, ImageButton btnJoinGroup) {
+		ViewHolder(TextView tvItemText, ImageButton btnAdd) {
 			this.tvItemText = tvItemText;
-			this.btnJoinGroup = btnJoinGroup;
+			this.btnAdd = btnAdd;
 		}
 	}
 
@@ -45,16 +45,17 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.groups_search_tab_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.group_item_layout, null);
 
 			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
-			ImageButton btnJoinGroup = (ImageButton)view.findViewById(R.id.btnJoinGroup);
-			view.setTag(new ViewHolder(tvItemText, btnJoinGroup));
+			ImageButton btnAdd = (ImageButton)view.findViewById(R.id.btnAdd);
+			view.setTag(new ViewHolder(tvItemText, btnAdd));
 
 			tvItemText.setSelected(true);
 
-			btnJoinGroup.setTag(g);
-			btnJoinGroup.setOnClickListener(this);
+			btnAdd.setTag(g);
+			btnAdd.setOnClickListener(this);
+			btnAdd.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -74,7 +75,7 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 	public void onClick(View v) {
 		Group g = (Group)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnJoinGroup:
+			case R.id.btnAdd:
 				if (lock) {
 					return;
 				}

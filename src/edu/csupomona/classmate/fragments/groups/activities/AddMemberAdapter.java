@@ -39,12 +39,12 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 	private static class ViewHolder {
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnAddToGroup;
+		final ImageButton btnAdd;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAddToGroup) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnAdd) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnAddToGroup = btnAddToGroup;
+			this.btnAdd = btnAdd;
 		}
 	}
 
@@ -55,17 +55,18 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.add_member_activity_list_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnAddToGroup = (ImageButton)view.findViewById(R.id.btnAddToGroup);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAddToGroup));
+			ImageButton btnAdd = (ImageButton)view.findViewById(R.id.btnAdd);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnAdd));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnAddToGroup.setTag(user);
-			btnAddToGroup.setOnClickListener(this);
+			btnAdd.setTag(user);
+			btnAdd.setOnClickListener(this);
+			btnAdd.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -100,7 +101,7 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 	public void onClick(View v) {
 		User u = (User)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnAddToGroup:
+			case R.id.btnAdd:
 				if (lock) {
 					return;
 				}

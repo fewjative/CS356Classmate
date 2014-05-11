@@ -34,12 +34,12 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 	private static class ViewHolder {
 		final TextView tvItemText;
 		final ImageButton btnViewDetails;
-		final ImageButton btnRemove;
+		final ImageButton btnCancel;
 
-		ViewHolder(TextView tvItemText, ImageButton btnViewDetails, ImageButton btnRemove) {
+		ViewHolder(TextView tvItemText, ImageButton btnViewDetails, ImageButton btnCancel) {
 			this.tvItemText = tvItemText;
 			this.btnViewDetails = btnViewDetails;
-			this.btnRemove = btnRemove;
+			this.btnCancel = btnCancel;
 		}
 	}
 
@@ -50,20 +50,22 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.groups_list_tab_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.group_item_layout, null);
 
 			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
 			ImageButton btnViewDetails = (ImageButton)view.findViewById(R.id.btnViewDetails);
-			ImageButton btnRemove = (ImageButton)view.findViewById(R.id.btnRemove);
-			view.setTag(new ViewHolder(tvItemText, btnViewDetails, btnRemove));
+			ImageButton btnCancel = (ImageButton)view.findViewById(R.id.btnCancel);
+			view.setTag(new ViewHolder(tvItemText, btnViewDetails, btnCancel));
 
 			tvItemText.setSelected(true);
 
 			btnViewDetails.setTag(g);
 			btnViewDetails.setOnClickListener(this);
+			btnViewDetails.setVisibility(View.VISIBLE);
 
-			btnRemove.setTag(g);
-			btnRemove.setOnClickListener(this);
+			btnCancel.setTag(g);
+			btnCancel.setOnClickListener(this);
+			btnCancel.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -86,7 +88,7 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 			case R.id.btnViewDetails:
 				viewDetails(g);
 				break;
-			case R.id.btnRemove:
+			case R.id.btnCancel:
 				removeGroup(g);
 				break;
 		}

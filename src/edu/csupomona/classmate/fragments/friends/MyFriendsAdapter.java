@@ -34,13 +34,13 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
 		final ImageButton btnViewSchedule;
-		final ImageButton btnRemove;
+		final ImageButton btnCancel;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnViewSchedule, ImageButton btnRemove) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnViewSchedule, ImageButton btnCancel) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
 			this.btnViewSchedule = btnViewSchedule;
-			this.btnRemove = btnRemove;
+			this.btnCancel = btnCancel;
 		}
 	}
 
@@ -51,21 +51,23 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.friends_list_tab_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
 			ImageButton btnViewSchedule = (ImageButton)view.findViewById(R.id.btnViewSchedule);
-			ImageButton btnRemove = (ImageButton)view.findViewById(R.id.btnRemove);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnViewSchedule, btnRemove));
+			ImageButton btnCancel = (ImageButton)view.findViewById(R.id.btnCancel);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnViewSchedule, btnCancel));
 
 			tvItemTextUsername.setSelected(true);
 
 			btnViewSchedule.setTag(f);
 			btnViewSchedule.setOnClickListener(this);
+			btnViewSchedule.setVisibility(View.VISIBLE);
 
-			btnRemove.setTag(f);
-			btnRemove.setOnClickListener(this);
+			btnCancel.setTag(f);
+			btnCancel.setOnClickListener(this);
+			btnCancel.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -103,7 +105,7 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 			case R.id.btnViewSchedule:
 				viewSchedule(r);
 				break;
-			case R.id.btnRemove:
+			case R.id.btnCancel:
 				removeFriend(r);
 				break;
 		}

@@ -33,12 +33,12 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 	private static class ViewHolder {
 		final ImageView ivAvatar;
 		final TextView tvItemTextUsername;
-		final ImageButton btnRemoveFromGroup;
+		final ImageButton btnCancel;
 
-		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnRemoveFromGroup) {
+		ViewHolder(ImageView ivAvatar, TextView tvItemTextUsername, ImageButton btnCancel) {
 			this.ivAvatar = ivAvatar;
 			this.tvItemTextUsername = tvItemTextUsername;
-			this.btnRemoveFromGroup = btnRemoveFromGroup;
+			this.btnCancel = btnCancel;
 		}
 	}
 
@@ -49,17 +49,18 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.group_member_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvItemTextUsername = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			ImageButton btnRemoveFromGroup = (ImageButton)view.findViewById(R.id.btnRemoveFromGroup);
-			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnRemoveFromGroup));
+			ImageButton btnCancel = (ImageButton)view.findViewById(R.id.btnCancel);
+			view.setTag(new ViewHolder(ivAvatar, tvItemTextUsername, btnCancel));
 
 			tvItemTextUsername.setSelected(true);
 
-			btnRemoveFromGroup.setTag(u);
-			btnRemoveFromGroup.setOnClickListener(this);
+			btnCancel.setTag(u);
+			btnCancel.setOnClickListener(this);
+			btnCancel.setVisibility(View.VISIBLE);
 		}
 
 		Object tag = view.getTag();
@@ -94,7 +95,7 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 	public void onClick(View v) {
 		User u = (User)v.getTag();
 		switch (v.getId()) {
-			case R.id.btnRemoveFromGroup:
+			case R.id.btnCancel:
 				if (lock) {
 					return;
 				}
