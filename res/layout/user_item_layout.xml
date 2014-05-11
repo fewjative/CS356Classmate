@@ -5,6 +5,7 @@
 	android:layout_height="48dp"
 	android:orientation="horizontal"
 	android:gravity="center_vertical"
+	android:baselineAligned="false"
 	android:background="@color/cppgreen"
 	android:paddingLeft="6dp"
 >
