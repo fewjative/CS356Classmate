@@ -3,7 +3,6 @@ package edu.csupomona.classmate.fragments.friends;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.IBinder;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -26,14 +25,14 @@ import java.util.List;
 
 public class SearchUsersAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
-	private final IBinder WINDOW_TOKEN;
+	private final View ATTACHED_VIEW;
 
 	private boolean lock;
 
-	public SearchUsersAdapter(Context context, User user, List<User> users, IBinder windowToken) {
+	public SearchUsersAdapter(Context context, User user, List<User> users, View attached) {
 		super(context, 0, users);
 		this.USER = user;
-		this.WINDOW_TOKEN = windowToken;
+		this.ATTACHED_VIEW = attached;
 	}
 
 	private static class ViewHolder {
@@ -109,7 +108,8 @@ public class SearchUsersAdapter extends ArrayAdapter<User> implements View.OnCli
 				sendRequest(u);
 
 				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(WINDOW_TOKEN, 0);
+				imm.hideSoftInputFromWindow(ATTACHED_VIEW.getWindowToken(), 0);
+				ATTACHED_VIEW.clearFocus();
 				break;
 		}
 	}

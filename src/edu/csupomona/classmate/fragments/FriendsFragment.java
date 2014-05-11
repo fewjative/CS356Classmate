@@ -30,6 +30,7 @@ public class FriendsFragment extends Fragment {
 				if (previous == 2 && previous != position) {
 					InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(vpContentPane.getWindowToken(), 0);
+					ROOT.clearFocus();
 				}
 
 				previous = position;

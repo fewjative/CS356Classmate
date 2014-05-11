@@ -67,7 +67,7 @@ public class SearchUsersTab extends Fragment {
 							e.printStackTrace();
 						}
 
-						SearchUsersAdapter adapter = new SearchUsersAdapter(getActivity(), USER, searchResults, etFriendName.getWindowToken());
+						SearchUsersAdapter adapter = new SearchUsersAdapter(getActivity(), USER, searchResults, etFriendName);
 						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
@@ -75,7 +75,7 @@ public class SearchUsersTab extends Fragment {
 			}
 		});
 
-		etFriendName.requestFocus();
+		//etFriendName.requestFocus();
 		etFriendName.setFocusableInTouchMode(true);
 		etFriendName.setOnTouchListener(new OnTouchListener() {
 			@Override

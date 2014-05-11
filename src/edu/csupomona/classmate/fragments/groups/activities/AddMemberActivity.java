@@ -70,7 +70,7 @@ public class AddMemberActivity extends Activity {
 							e.printStackTrace();
 						}
 
-						AddMemberAdapter adapter = new AddMemberAdapter(AddMemberActivity.this, GROUP, searchResults, etFriendName.getWindowToken());
+						AddMemberAdapter adapter = new AddMemberAdapter(AddMemberActivity.this, GROUP, searchResults, etFriendName);
 						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}

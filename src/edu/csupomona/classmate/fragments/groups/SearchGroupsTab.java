@@ -75,7 +75,7 @@ public class SearchGroupsTab extends Fragment {
 			}
 		});
 
-		etGroupName.requestFocus();
+		//etGroupName.requestFocus();
 		etGroupName.setFocusableInTouchMode(true);
 		etGroupName.setOnTouchListener(new View.OnTouchListener() {
 			@Override
