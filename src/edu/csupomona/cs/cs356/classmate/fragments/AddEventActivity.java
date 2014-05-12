@@ -31,6 +31,8 @@ import edu.csupomona.cs.cs356.classmate.abstractions.Term;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,7 +81,7 @@ public class AddEventActivity extends Activity {
 				
 				//check if title max length is under database specs and if empty
 				stringMaxLength = (textFieldTitle.getText().toString().length() < 256) ? textFieldTitle.getText().toString().length():256;
-				String titleString = textFieldTitle.getText().toString().substring(0, stringMaxLength);
+				final String titleString = textFieldTitle.getText().toString().substring(0, stringMaxLength);
 				System.out.println(titleString);
 				if (!titleString.isEmpty())
 				{
@@ -89,7 +91,7 @@ public class AddEventActivity extends Activity {
 				
 				//check if description max is under database specs
 				stringMaxLength = (textFieldDescription.getText().toString().length() < 256)?textFieldDescription.getText().toString().length():256;
-				String descriptionString = textFieldDescription.getText().toString().substring(0, stringMaxLength);
+				final String descriptionString = textFieldDescription.getText().toString().substring(0, stringMaxLength);
 				System.out.println(descriptionString);
 				if (!descriptionString.isEmpty())
 				{
@@ -98,20 +100,33 @@ public class AddEventActivity extends Activity {
 				}
 				
 				//return privacy setting
-				System.out.println(radioButtonOPublic.isChecked());
-				System.out.println(radioButtonFPublic.isChecked());
-				System.out.println(radioButtonPrivate.isChecked());
+				String case1 = "0", case2 = "0", case3 = "0";
+				if (radioButtonOPublic.isChecked())
+				{
+					case1 = "1";
+				} else if (radioButtonFPublic.isChecked()) {
+					case2 = "1";
+				} else {
+					case3 = "1";
+				}
+				final String oPublic = case1, fPublic = case2, Private = case3;
+				System.out.println(oPublic);
+				System.out.println(fPublic);
+				System.out.println(Private);
+				
 				
 				//check if start date is after end date
-				startDay =datePickerStartDate.getDayOfMonth();
+				startDay = datePickerStartDate.getDayOfMonth();
 				startMonth = datePickerStartDate.getMonth();
-				startYear =datePickerStartDate.getYear();
-				endDay =datePickerEndDate.getDayOfMonth();
+				startYear = datePickerStartDate.getYear();
+				endDay = datePickerEndDate.getDayOfMonth();
 				endMonth = datePickerEndDate.getMonth();
-				endYear =datePickerEndDate.getYear();
-						
-				System.out.println(startMonth + "/" + startDay + "/" + startYear);
-				System.out.println(endMonth + "/" + endDay + "/" + endYear);
+				endYear = datePickerEndDate.getYear();
+				final String startDate = startMonth + "/" + startDay + "/" + startYear;
+				final String endDate = endMonth + "/" + endDay + "/" + endYear;
+				
+				System.out.println(startDate);
+				System.out.println(endDate);
 				
 				if (startYear <= endYear && startMonth <= endMonth && startDay <= endDay)
 				{
@@ -124,9 +139,11 @@ public class AddEventActivity extends Activity {
 				startMinute = timePickerStartTime.getCurrentMinute();
 				endHour = timePickerEndTime.getCurrentHour();
 				endMinute = timePickerEndTime.getCurrentMinute();
+				final String startTime = startHour + ":" + startMinute;
+				final String endTime = endHour + ":" + endMinute;
 
-				System.out.println(startHour + ":" + startMinute);
-				System.out.println(endHour + ":" + endMinute);
+				System.out.println(startTime);
+				System.out.println(endTime);
 				if (startYear == endYear && startMonth == endMonth && startDay == endDay)
 				{
 					if (startHour <= endHour && startMinute <= endMinute)
@@ -148,7 +165,30 @@ public class AddEventActivity extends Activity {
 					AlertDialog alertDialog = alertDialogBuilder.create();
 					alertDialog.show();
 				} else {
+					
 					//TODO write verified event data to database
+					AsyncHttpClient writeEventClient = new AsyncHttpClient();
+					RequestParams params = new RequestParams();
+					List<NameValuePair> params1 = new ArrayList<NameValuePair>();
+					params1.add(new BasicNameValuePair("title", titleString));
+					params1.add(new BasicNameValuePair("description", descriptionString));
+					params1.add(new BasicNameValuePair("time_start", startTime));
+					params1.add(new BasicNameValuePair("time_end", endTime));
+					params1.add(new BasicNameValuePair("date_start", startDate));
+					params1.add(new BasicNameValuePair("date_end", endDate));
+					params1.add(new BasicNameValuePair("weekdays", "???"));
+					params1.add(new BasicNameValuePair("fpublic", fPublic));
+					params1.add(new BasicNameValuePair("opublic", oPublic));
+					params1.add(new BasicNameValuePair("private", Private));
+					AsyncHttpClient client = new AsyncHttpClient();
+					client.get("http://www.lol-fc.com/classmate/getevents.php", params, new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(String response) {
+
+							
+							
+						}
+					});
 					
 				}
 			}
