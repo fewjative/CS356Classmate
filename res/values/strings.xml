@@ -95,6 +95,10 @@
 	<string name="add_class_event_addclass">Add Class</string>
 	<string name="add_class_event_addevent">Add Event</string>
 	<string name="add_class_event_search_event">Search Event</string>
+	<string name="dialog_event_acceptance_title">Added an Event</string>
+	<string name="dialog_event_acceptance">You have added %1$s to your schedule.</string>
+	<string name ="add_event_hint">Enter a title or description to search for:</string>
+	<string name="example_event">CPP BBQ</string>
 	
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>

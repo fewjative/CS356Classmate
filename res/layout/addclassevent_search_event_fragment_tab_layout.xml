@@ -11,7 +11,7 @@
 	<TextView
 		style="@style/style_textview"
 		android:id="@+id/tvAddFriendHint"
-		android:text="@string/add_member_hint"
+		android:text="@string/add_event_hint"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
@@ -20,10 +20,10 @@
 
 	<EditText
 		style="@style/style_edittext"
-		android:id="@+id/etFriendName"
+		android:id="@+id/etEventName"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:hint="@string/example_email"
+		android:hint="@string/example_event"
 		android:textColor="@color/black"
 		android:layout_marginBottom="5dip"
 	/>
