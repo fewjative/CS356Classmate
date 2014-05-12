@@ -26,7 +26,6 @@ public interface Constants {
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
 	String PHP_PARAM_DEVICEID		= "device_id";
-
 	String PHP_PARAM_EMAIL			= "email";
 	String PHP_PARAM_FRIEND			= "friend";
 	String PHP_PARAM_FRIENDEMAIL		= "femail";
@@ -41,8 +40,7 @@ public interface Constants {
 	String PHP_PARAM_SUBJECT		= "subject";
 	String PHP_PARAM_USERID			= "user_id";
 	String PHP_PARAM_VERSION		= "version";
-	String INTENT_KEY_SECTION 		= "section";
-	
+
 	String PREFS_WHICH			= "loginActivityPreferences";
 	String PREFS_KEY_EMAIL			= PHP_PARAM_EMAIL;
 	String PREFS_KEY_AUTOLOGIN		= "autologin";
@@ -51,6 +49,8 @@ public interface Constants {
 	String INTENT_KEY_GROUP			= "group";
 	String INTENT_KEY_EMAIL			= PREFS_KEY_EMAIL;
 	//String INTENT_KEY_NAME		= PHP_PARAM_NAME;
+	String INTENT_KEY_SECTION 		= "section";
+	String INTENT_KEY_SELECTEDITEMPOS	= "selectedItemPos";
 	String INTENT_KEY_USER			= "user";
 	String INTENT_KEY_USERID		= "userID";
 	//String INTENT_KEY_USERID		= PHP_PARAM_USERID;

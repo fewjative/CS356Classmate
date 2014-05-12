@@ -29,6 +29,8 @@ public class MainActivity extends FragmentActivity {
 		setupDrawer();
 		if (savedInstanceState == null) {
 			dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
+		} else {
+			dlDrawer.selectItem(savedInstanceState.getInt(Constants.INTENT_KEY_SELECTEDITEMPOS, dlDrawer.getFirstSelectableItem()));
 		}
 	}
 
@@ -75,6 +77,11 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_app_logout);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt(Constants.INTENT_KEY_SELECTEDITEMPOS, dlDrawer.getSelectedItemPos());
 	}
 
 	@Override
