@@ -34,10 +34,8 @@
 		<Button
 			style="@style/style_button"
 			android:id="@+id/btnAddMember"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			android:layout_marginBottom="10dp"
+			android:layout_marginTop="6dp"
+			android:layout_marginBottom="6dp"
 			android:text="@string/add_member"
 			android:textColor="@color/black"
 		/>
@@ -45,10 +43,7 @@
 		<Button
 			style="@style/style_button"
 			android:id="@+id/btnEmailGroup"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			android:layout_marginBottom="10dp"
+			android:layout_marginBottom="6dp"
 			android:text="@string/email_group"
 			android:textColor="@color/black"
 		/>
