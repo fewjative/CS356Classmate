@@ -15,27 +15,36 @@
 		android:layout_marginRight="6dip"
 	/>
 
-	<ImageButton
-		style="@style/style_imagebutton"
-		android:id="@+id/btnViewDetails"
-		android:src="@drawable/ic_action_group"
-		android:contentDescription="@null"
-		android:visibility="gone"
-	/>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@android:color/transparent"
+		android:divider="@drawable/vertical_divider"
+		android:dividerPadding="6dp"
+		android:showDividers="middle"
+	>
+		<ImageButton
+			style="@style/style_imagebutton"
+			android:id="@+id/btnViewDetails"
+			android:src="@drawable/ic_action_group"
+			android:contentDescription="@null"
+			android:visibility="gone"
+		/>
 
-	<ImageButton
-		style="@style/style_imagebutton"
-		android:id="@+id/btnAdd"
-		android:src="@drawable/ic_action_new"
-		android:contentDescription="@null"
-		android:visibility="gone"
-	/>
+		<ImageButton
+			style="@style/style_imagebutton"
+			android:id="@+id/btnAdd"
+			android:src="@drawable/ic_action_new"
+			android:contentDescription="@null"
+			android:visibility="gone"
+		/>
 
-	<ImageButton
-		style="@style/style_imagebutton"
-		android:id="@+id/btnCancel"
-		android:src="@drawable/ic_action_cancel"
-		android:contentDescription="@null"
-		android:visibility="gone"
-	/>
+		<ImageButton
+			style="@style/style_imagebutton"
+			android:id="@+id/btnCancel"
+			android:src="@drawable/ic_action_cancel"
+			android:contentDescription="@null"
+			android:visibility="gone"
+		/>
+	</LinearLayout>
 </LinearLayout>

@@ -23,8 +23,9 @@
 		name="style_imagebutton"
 		parent="@android:style/Widget.Holo.ImageButton"
 	>
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">48dp</item>
+		<item name="android:layout_height">48dp</item>
+		<item name="android:background">?android:attr/selectableItemBackground</item>
 	</style>
 
 	<style
