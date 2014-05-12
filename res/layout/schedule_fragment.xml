@@ -83,7 +83,8 @@
 
                         <Button
                             android:id="@+id/btnAddEvent"
-                            android:layout_width="244dp"
+                            style="@style/ClassmateButton"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Add Event" />
 
@@ -128,13 +129,13 @@
         </LinearLayout>
         
         <LinearLayout
-                android:id="@+id/llSchedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/cppgreen"
-                android:visibility="gone"
-        >
+            android:id="@+id/llSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cppgreen"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
                 <LinearLayout
                         android:id="@+id/llProgressBarClasses"
                         android:layout_width="match_parent"
@@ -175,6 +176,14 @@
                                 android:layout_marginBottom="10dp"
                                 android:text="Add Class"
                         />
+
+                        <Button
+                            android:id="@+id/btnAddEvent2"
+                            style="@style/ClassmateButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Add Event" />
+
                 </LinearLayout>
         </LinearLayout>
 </LinearLayout>

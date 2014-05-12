@@ -1,6 +1,8 @@
 package edu.csupomona.cs.cs356.classmate.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -32,14 +35,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// TODO rewrite this thing
 public class AddEventActivity extends Activity {
 	private EditText textFieldDescription;
 	private EditText textFieldTitle;
-	private CheckBox checkBoxPrivate;
-	private TimePicker timePickerEvent;
-	private DatePicker datePickerEvent;
+	private RadioButton radioButtonOPublic;
+	private RadioButton radioButtonFPublic;
+	private RadioButton radioButtonPrivate;
+	private TimePicker timePickerStartTime, timePickerEndTime;
+	private DatePicker datePickerStartDate, datePickerEndDate;
 	private Button btnCreateEvent;
+	final Context context = this;
 	
 
 	@Override
@@ -52,12 +57,14 @@ public class AddEventActivity extends Activity {
 
 		textFieldDescription = (EditText)findViewById(R.id.textFieldDescription);
 		textFieldTitle = (EditText)findViewById(R.id.textFieldTitle);
-		checkBoxPrivate = (CheckBox)findViewById(R.id.checkBoxPrivate);
-		timePickerEvent = (TimePicker)findViewById(R.id.timePickerEvent);
-		datePickerEvent = (DatePicker)findViewById(R.id.datePickerEvent);
+		radioButtonOPublic = (RadioButton)findViewById(R.id.radioButtonOPublic);
+		radioButtonFPublic = (RadioButton)findViewById(R.id.radioButtonFPublic);
+		radioButtonPrivate = (RadioButton)findViewById(R.id.radioButtonPrivate);
+		timePickerStartTime = (TimePicker)findViewById(R.id.timePickerStartTime);
+		timePickerEndTime = (TimePicker)findViewById(R.id.timePickerEndTime);
+		datePickerStartDate = (DatePicker)findViewById(R.id.datePickerStartDate);
+		datePickerEndDate = (DatePicker)findViewById(R.id.datePickerEndDate);
 		btnCreateEvent = (Button)findViewById(R.id.btnCreateEvent);
-		
-		
 		setupEventButton();
 	}
 
@@ -66,13 +73,84 @@ public class AddEventActivity extends Activity {
 		btnCreateEvent.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO write to database and check valid input\
-				System.out.println("IT WORKS!");
-				System.out.println(textFieldTitle.toString());
-				System.out.println(textFieldDescription.toString());
-				System.out.println(checkBoxPrivate.isChecked());
-				System.out.println(timePickerEvent.toString());
-				System.out.println(datePickerEvent.toString());
+				
+				int stringMaxLength, startDay, startMonth, startYear, endDay, endMonth, endYear, startHour, startMinute, endHour, endMinute;
+				boolean validDate = false, validTime = false, validTitle = false, validDescription = false;
+				
+				//check if title max length is under database specs and if empty
+				stringMaxLength = (textFieldTitle.getText().toString().length() < 256) ? textFieldTitle.getText().toString().length():256;
+				String titleString = textFieldTitle.getText().toString().substring(0, stringMaxLength);
+				System.out.println(titleString);
+				if (!titleString.isEmpty())
+				{
+					System.out.println("Title is valid");
+					validTitle = true;
+				}
+				
+				//check if description max is under database specs
+				stringMaxLength = (textFieldDescription.getText().toString().length() < 256)?textFieldDescription.getText().toString().length():256;
+				String descriptionString = textFieldDescription.getText().toString().substring(0, stringMaxLength);
+				System.out.println(descriptionString);
+				if (!descriptionString.isEmpty())
+				{
+					System.out.println("Description is valid");
+					validDescription = true;
+				}
+				
+				//return privacy setting
+				System.out.println(radioButtonOPublic.isChecked());
+				System.out.println(radioButtonFPublic.isChecked());
+				System.out.println(radioButtonPrivate.isChecked());
+				
+				//check if start date is after end date
+				startDay =datePickerStartDate.getDayOfMonth();
+				startMonth = datePickerStartDate.getMonth();
+				startYear =datePickerStartDate.getYear();
+				endDay =datePickerEndDate.getDayOfMonth();
+				endMonth = datePickerEndDate.getMonth();
+				endYear =datePickerEndDate.getYear();
+						
+				System.out.println(startMonth + "/" + startDay + "/" + startYear);
+				System.out.println(endMonth + "/" + endDay + "/" + endYear);
+				
+				if (startYear <= endYear && startMonth <= endMonth && startDay <= endDay)
+				{
+					System.out.println("Dates are valid");
+					validDate = true;
+				}
+				
+				//if date validation passes, check if start time is after end time if same day
+				startHour = timePickerStartTime.getCurrentHour();
+				startMinute = timePickerStartTime.getCurrentMinute();
+				endHour = timePickerEndTime.getCurrentHour();
+				endMinute = timePickerEndTime.getCurrentMinute();
+
+				System.out.println(startHour + ":" + startMinute);
+				System.out.println(endHour + ":" + endMinute);
+				if (startYear == endYear && startMonth == endMonth && startDay == endDay)
+				{
+					if (startHour <= endHour && startMinute <= endMinute)
+					{
+						System.out.println("Times are valid");
+						validTime = true;
+					}
+				} else if (validDate == true) {
+					System.out.println("Times are valid");
+					validTime = true;
+				}
+				
+				
+				if (validDate == false || validTime == false || validDescription == false || validTitle == false)
+				{
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+					alertDialogBuilder.setTitle("Wrong Input");
+					alertDialogBuilder.setMessage("Please input valid data");
+					AlertDialog alertDialog = alertDialogBuilder.create();
+					alertDialog.show();
+				} else {
+					//TODO write verified event data to database
+					
+				}
 			}
 		});
 	}

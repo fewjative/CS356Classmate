@@ -170,7 +170,7 @@ public class TodaysFragment extends Fragment {
                                                                   }
                                                           });
                                                           
-                                                          //Add Event
+                                                          //TODO New Add Event Button
                                                           Button btnAddEvent = (Button)root.findViewById(R.id.btnAddEvent);
                                                           btnAddEvent.setOnClickListener(new View.OnClickListener() {
                                                                   public void onClick(View v) {
@@ -193,6 +193,15 @@ public class TodaysFragment extends Fragment {
                                                                   Intent i = new Intent(getActivity(), AddClassActivity.class);
                                                                   i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
                                                                   startActivityForResult(i, CODE_ADD_CLASS);
+                                                          }
+                                                  });
+                                                  
+                                                  Button btnAddEvent2 = (Button)root.findViewById(R.id.btnAddEvent2);
+                                                  btnAddEvent2.setOnClickListener(new View.OnClickListener() {
+                                                          public void onClick(View v) {
+                                                                  Intent i = new Intent(getActivity(), AddEventActivity.class);
+                                                                  i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+                                                                  startActivityForResult(i, CODE_ADD_EVENT);
                                                           }
                                                   });
 
