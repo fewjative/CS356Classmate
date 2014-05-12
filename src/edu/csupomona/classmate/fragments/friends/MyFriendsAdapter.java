@@ -112,6 +112,7 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 	}
 
 	private void viewSchedule(final User f) {
+		// TODO: Fix me 
 		/*if (getContext() instanceof FragmentActivity) {
 			// We can get the fragment manager
 			int id = f.getID();
