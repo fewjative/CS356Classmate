@@ -1,12 +1,10 @@
 package edu.csupomona.classmate;
 
-import edu.csupomona.classmate.fragments.UnderConstructionFragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.widget.ListView;
-import edu.csupomona.classmate.R;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.drawer.FragmentNavigationDrawer;
@@ -18,6 +16,7 @@ import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
 import edu.csupomona.classmate.fragments.ScheduleFragment;
 import edu.csupomona.classmate.fragments.SettingsFragment;
+import edu.csupomona.classmate.fragments.UnderConstructionFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;

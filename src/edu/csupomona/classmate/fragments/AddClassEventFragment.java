@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.fragments.addclassevent.*;
+import edu.csupomona.classmate.fragments.addclassevent.AddClassTab;
+import edu.csupomona.classmate.fragments.addclassevent.AddEventTab;
+import edu.csupomona.classmate.fragments.addclassevent.SearchEventTab;
 
 public class AddClassEventFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.friends_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new ScheduleFragmentPagerAdapter(getChildFragmentManager()));

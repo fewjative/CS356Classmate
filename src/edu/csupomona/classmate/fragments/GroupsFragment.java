@@ -17,7 +17,7 @@ import edu.csupomona.classmate.fragments.groups.SearchGroupsTab;
 public class GroupsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.groups_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new GroupsFragmentPagerAdapter(getChildFragmentManager()));

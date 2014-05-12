@@ -212,7 +212,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 		logoutDialog.setNegativeButton(R.string.global_action_no, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				getActivity().setResult(Activity.RESULT_CANCELED);
 				selectItem(lastSelectedItemPosition, false);
 			}
 		});

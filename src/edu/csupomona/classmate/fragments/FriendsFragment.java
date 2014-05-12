@@ -18,7 +18,7 @@ import edu.csupomona.classmate.fragments.friends.SearchUsersTab;
 public class FriendsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.friends_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new FriendsFragmentPagerAdapter(getChildFragmentManager()));

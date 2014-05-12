@@ -11,15 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.fragments.friends.FriendRequestsTab;
-import edu.csupomona.classmate.fragments.friends.MyFriendsTab;
 import edu.csupomona.classmate.fragments.schedule.DailyScheduleTab;
 import edu.csupomona.classmate.fragments.schedule.WeeklyScheduleTab;
 
 public class ScheduleFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.friends_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new ScheduleFragmentPagerAdapter(getChildFragmentManager()));
