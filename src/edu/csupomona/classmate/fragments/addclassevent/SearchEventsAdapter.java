@@ -56,7 +56,7 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 		View view = convertView;
 
 		if (view == null) {
-			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
+			view = LayoutInflater.from(getContext()).inflate(R.layout.event_item_layout, null);
 
 			TextView tvSnippit = (TextView)view.findViewById(R.id.tvSnippit);
 			ImageButton btnAdd = (ImageButton)view.findViewById(R.id.btnAdd);
@@ -78,8 +78,8 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 			if (holder.tvSnippit != null) {
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-				SpannableString snippit = new SpannableString(event.getFullTime());
-				snippit.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, event.getFullTime().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				SpannableString snippit = new SpannableString(event.getFullTime() + " " + event.getTitle());
+				snippit.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, event.getFullTime().length()+event.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(snippit);
 				
 				holder.tvSnippit.setText(builder);
