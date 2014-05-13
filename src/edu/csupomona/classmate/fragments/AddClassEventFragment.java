@@ -21,7 +21,7 @@ public class AddClassEventFragment extends Fragment {
 		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
-		vpContentPane.setAdapter(new ScheduleFragmentPagerAdapter(getChildFragmentManager()));
+		vpContentPane.setAdapter(new AddClassEventFragmentPagerAdapter(getChildFragmentManager()));
 		vpContentPane.setCurrentItem(0);
 		vpContentPane.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			private int previous;
@@ -39,8 +39,8 @@ public class AddClassEventFragment extends Fragment {
 		return ROOT;
 	}
 
-	private class ScheduleFragmentPagerAdapter extends FragmentPagerAdapter {
-		ScheduleFragmentPagerAdapter(FragmentManager fm) {
+	private class AddClassEventFragmentPagerAdapter extends FragmentPagerAdapter {
+		AddClassEventFragmentPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
@@ -59,7 +59,7 @@ public class AddClassEventFragment extends Fragment {
 			switch (i) {
 				case 0: return getString(R.string.add_class_event_addclass);
 				case 1: return getString(R.string.add_class_event_addevent);
-				case 2: return getString(R.string.add_class_event_search_event);
+				case 2: return getString(R.string.add_class_event_searchevent);
 				default: throw new RuntimeException();
 			}
 		}

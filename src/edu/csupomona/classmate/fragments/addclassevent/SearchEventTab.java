@@ -11,38 +11,34 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
-import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SearchEventTab extends Fragment implements Constants{
 	private EditText etFriendName;
-	private ListView lvSearchResults;
+	private ListView lvQueryResults;
 	private LinearLayout llProgressBar;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ViewGroup root = (ViewGroup)inflater.inflate(R.layout.addclassevent_search_event_fragment_tab_layout, null);
+		final ViewGroup ROOT = (ViewGroup)inflater.inflate(R.layout.addclassevent_search_event_fragment_tab_layout, null);
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
-		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
-		lvSearchResults = (ListView)root.findViewById(R.id.lvSearchResults);
+		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
+		lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 
-		etFriendName = (EditText)root.findViewById(R.id.etFriendName);
+		etFriendName = (EditText)ROOT.findViewById(R.id.etFriendName);
 		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
 			public void afterTextChanged(Editable e) {
@@ -51,34 +47,34 @@ public class SearchEventTab extends Fragment implements Constants{
 				}
 
 				llProgressBar.setVisibility(View.VISIBLE);
-				lvSearchResults.setAdapter(null);
-
-				final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+				lvQueryResults.setAdapter(null);
 
 				RequestParams params = new RequestParams();
-				params.put("search", e.toString());
-				params.put("user_id", Long.toString(USER.getID()));
+				params.put(Constants.PHP_PARAM_SEARCH, e.toString());
+				params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
 
 				AsyncHttpClient client = new AsyncHttpClient();
-				client.get("http://www.lol-fc.com/classmate/searchevents.php", params, new AsyncHttpResponseHandler() {
+				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_SEARCHEVENTS, params, new JsonHttpResponseHandler() {
 					@Override
-					public void onSuccess(String response) {
+					public void onSuccess(JSONArray jsona) {
 						List<User> search_results = new ArrayList<User>();
-						if (1 < response.length()) {
-							try {
-								JSONObject jObj;
-								JSONArray myjsonarray = new JSONArray(response);
-								for (int i = 0; i < myjsonarray.length(); i++) {
-									jObj = myjsonarray.getJSONObject(i);
-									search_results.add(new User(jObj.getLong("user_id"), jObj.getString("username"), jObj.getString("email")));
-								}
-							} catch (JSONException e) {
-								e.printStackTrace();
+
+						try {
+							JSONObject jObj;
+							for (int i = 0; i < jsona.length(); i++) {
+								jObj = jsona.getJSONObject(i);
+								search_results.add(new User(
+									jObj.getLong(Constants.PHP_PARAM_USERID),
+									jObj.getString(Constants.PHP_PARAM_NAME),
+									jObj.getString(Constants.PHP_PARAM_EMAIL)
+								));
 							}
+						} catch (JSONException e) {
+							e.printStackTrace();
 						}
 
 						FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), USER, search_results);
-						lvSearchResults.setAdapter(adapter);
+						lvQueryResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
 				});
@@ -96,6 +92,6 @@ public class SearchEventTab extends Fragment implements Constants{
 
 		});
 
-		return root;
+		return ROOT;
 	}
 }

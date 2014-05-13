@@ -10,17 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.AddClassActivity;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
-
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
@@ -70,7 +67,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 
 			btnAddClass.setTag(s);
 			btnAddClass.setOnClickListener(this);
-			btnAddClass.setText("Add Class");
+			btnAddClass.setText(R.string.add_class);
 
 			btnViewSectionDetails.setVisibility(View.VISIBLE);
 			btnViewSectionDetails.setTag(s);
@@ -130,16 +127,15 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		long id = ((AddClassActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
 
 		RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(id));
-		params.put("class_id", Integer.toString(s.getClassID()));
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(id));
+		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		//CHANGED TO ADDCLASS2
-		client.get("http://lol-fc.com/classmate/addclass2.php", params, new AsyncHttpResponseHandler() {
+		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_ADDCLASS2, params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				((AddClassActivity)getContext()).setResult(RESULT_OK);
-				((AddClassActivity)getContext()).finish();
+				((Activity)getContext()).setResult(RESULT_OK);
+				((Activity)getContext()).finish();
 			}
 		});
 	}

@@ -20,12 +20,19 @@ public interface Constants {
 	String PHP_ADDRESS_JOINGROUP		= "addtogroup.php";
 	String PHP_ADDRESS_REQUESTFRIEND	= "addfriend.php";
 	String PHP_ADDRESS_SEARCHGROUPS	= "searchgroups.php";
+	String PHP_ADDRESS_GETTERMS		= "getterms.php";
+	String PHP_ADDRESS_GETMAJORS		= "getmajors.php";
+	String PHP_ADDRESS_GETCOURSES		= "getclasses.php";
+	String PHP_ADDRESS_SEARCHEVENTS	= "searchevents.php";
+	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
+	String PHP_PARAM_CLASSNUM		= "class_num";
 	String PHP_PARAM_DEVICEID		= "device_id";
+	String PHP_PARAM_DISTINCT		= "distinct";
 	String PHP_PARAM_EMAIL			= "email";
 	String PHP_PARAM_FRIEND			= "friend";
 	String PHP_PARAM_FRIENDEMAIL		= "femail";
@@ -33,13 +40,29 @@ public interface Constants {
 	String PHP_PARAM_FRIENDUSERNAME	= "fusername";
 	String PHP_PARAM_GROUPID		= "group_id";
 	String PHP_PARAM_GROUPTITLE		= "title";
+	String PHP_PARAM_MAJOR			= "major";
+	String PHP_PARAM_MAJORLONG		= "major_long";
+	String PHP_PARAM_MAJORSHORT		= "major_short";
 	String PHP_PARAM_MESSAGE		= "message";
 	String PHP_PARAM_NAME			= "username";
 	String PHP_PARAM_PASSWORD		= "password";
 	String PHP_PARAM_SEARCH			= "search";
 	String PHP_PARAM_SUBJECT		= "subject";
+	String PHP_PARAM_TERM			= "term";
 	String PHP_PARAM_USERID			= "user_id";
 	String PHP_PARAM_VERSION		= "version";
+
+	String PHP_PARAM_CLASS_ID		= "class_id";
+	String PHP_PARAM_CLASS_TITLE		= "title";
+	String PHP_PARAM_CLASS_STARTTIME	= "time_start";
+	String PHP_PARAM_CLASS_ENDTIME	= "time_end";
+	String PHP_PARAM_CLASS_WEEKDAYS	= "weekdays";
+	String PHP_PARAM_CLASS_STARTDATE	= "date_start";
+	String PHP_PARAM_CLASS_ENDDATE	= "date_end";
+	String PHP_PARAM_CLASS_INSTRUCTOR	= "instructor";
+	String PHP_PARAM_CLASS_BUILDING	= "building";
+	String PHP_PARAM_CLASS_ROOM		= "room";
+	String PHP_PARAM_CLASS_SECTION	= "section";
 
 	String PREFS_WHICH			= "loginActivityPreferences";
 	String PREFS_KEY_EMAIL			= PHP_PARAM_EMAIL;

@@ -25,6 +25,7 @@
 		<activity
 			android:name="edu.csupomona.classmate.LoginActivity"
 			android:label="@string/global_classmate"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden"
 		>
 			<intent-filter>
@@ -35,6 +36,7 @@
 		<activity
 			android:name="edu.csupomona.classmate.RecoveryActivity"
 			android:label="@string/recovery_action_recover"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateVisible"
 			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
 		>
@@ -46,6 +48,7 @@
 		<activity
 			android:name="edu.csupomona.classmate.RegistrationActivity"
 			android:label="@string/registration_action_register"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateVisible"
 			android:parentActivityName="edu.csupomona.classmate.LoginActivity"
 		>
@@ -57,12 +60,14 @@
 		<activity
 			android:name="edu.csupomona.classmate.MainActivity"
 			android:label="@string/global_classmate"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden"
 		>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 			android:label="@string/manage_group"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden"
 			android:parentActivityName="edu.csupomona.classmate.MainActivity"
 		>
@@ -74,6 +79,7 @@
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
 			android:label="@string/email_group"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateVisible"
 			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 		>
@@ -85,6 +91,7 @@
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.AddMemberActivity"
 			android:label="@string/add_member"
+			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateVisible"
 			android:parentActivityName="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 		>
