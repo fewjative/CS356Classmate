@@ -65,7 +65,6 @@ public class AddClassActivity extends Activity implements Constants{
 			}
 		});
 
-		// TODO JSON HTTP SYNC REQUESTS?!
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getterms.php", new AsyncHttpResponseHandler() {
 			@Override

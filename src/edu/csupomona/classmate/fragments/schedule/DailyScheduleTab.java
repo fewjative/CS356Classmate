@@ -35,7 +35,19 @@ public class DailyScheduleTab extends Fragment implements Constants {
 	private LinearLayout llNoClass;
 	private LinearLayout llSchedule;
 	private LinearLayout llNoSchedule;
+
 	private boolean outside_source = false;
+	private final User VIEWER;
+
+	public DailyScheduleTab() {
+		this.VIEWER = null;
+	}
+
+	public DailyScheduleTab(User viewer) {
+		outside_source = true;
+		this.VIEWER = viewer;
+	}
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +58,15 @@ public class DailyScheduleTab extends Fragment implements Constants {
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
+		final long id;
+		if(outside_source) {
+			id = VIEWER.getID();
+		} else {
+			id = user.getID();
+		}
+		
 		final RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(user.getID()));
+		params.put("user_id", Long.toString(id));
 
 		final AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
@@ -83,8 +102,6 @@ public class DailyScheduleTab extends Fragment implements Constants {
 							} else {
 								btnAddSchedule.setEnabled(false);
 							}
-
-							// TODO: Safely clear strings from memory using some char array
 						}
 					};
 

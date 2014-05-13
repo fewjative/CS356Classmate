@@ -39,17 +39,15 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 	private LinearLayout llNoSchedule;
 
 	private boolean outside_source=false;
-	private final long friend_id;
+	private final User VIEWER;
 
-	public WeeklyScheduleTab()
-	{
-		friend_id = 0;
+	public WeeklyScheduleTab() {
+		this.VIEWER = null;
 	}
 
-	public WeeklyScheduleTab(long user_id)
-	{
+	public WeeklyScheduleTab(User viewer) {
 		outside_source = true;
-		friend_id = user_id;
+		this.VIEWER = viewer;
 	}
 
 
@@ -59,12 +57,11 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		final long id;
-		if(outside_source)
-		{
-			id = friend_id;
-		}
-		else
+		if(outside_source) {
+			id = VIEWER.getID();
+		} else {
 			id = user.getID();
+		}
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
@@ -107,8 +104,6 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
                              } else {
                            	  btnAddSchedule.setEnabled(false);
                              }
-
-                             // TODO: Safely clear strings from memory using some char array
                      }
              };
 

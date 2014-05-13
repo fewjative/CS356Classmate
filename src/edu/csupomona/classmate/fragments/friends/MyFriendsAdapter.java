@@ -3,6 +3,9 @@ package edu.csupomona.classmate.fragments.friends;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -20,11 +23,12 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
+import edu.csupomona.classmate.fragments.ScheduleFragment;
 import java.util.List;
 
 public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClickListener {
 	private final User USER;
-	
+
 	public MyFriendsAdapter(Context context, User user, List<User> friends) {
 		super(context, 0, friends);
 		this.USER = user;
@@ -112,11 +116,10 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 	}
 
 	private void viewSchedule(final User f) {
-		// TODO: Fix me 
-		/*if (getContext() instanceof FragmentActivity) {
+		// TODO: Fix me
+		if (getContext() instanceof FragmentActivity) {
 			// We can get the fragment manager
-			int id = f.getID();
-			Fragment newFragment = new edu.csupomona.classmate.fragments.ScheduleFragment(id);
+			Fragment newFragment = new ScheduleFragment(f);
 			FragmentActivity activity = ((FragmentActivity)getContext());
 			FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
 			t.replace(R.id.flContentFrame, newFragment);//wtf is the first parameter supposed to be
@@ -126,7 +129,7 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 			t.addToBackStack(null);
 
 			t.commit();
-		}*/
+		}
 	}
 
 	private void removeFriend(final User f) {
