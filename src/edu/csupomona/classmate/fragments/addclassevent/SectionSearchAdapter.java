@@ -13,16 +13,19 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import edu.csupomona.classmate.AddClassActivity;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
-	public SectionSearchAdapter(Context context, List<Section> schedule) {
+	private final User USER;
+
+	public SectionSearchAdapter(Context context, User user, List<Section> schedule) {
 		super(context, 0, schedule);
+		this.USER = user;
 	}
 
 	private static class ViewHolder {
@@ -119,15 +122,13 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((Activity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USERID, ((Activity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER));
+		i.putExtra(INTENT_KEY_USER, USER);
 		((Activity)getContext()).startActivity(i);
 	}
 
 	public void addClass(final Section s) {
-		long id = ((AddClassActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
-
 		RequestParams params = new RequestParams();
-		params.put(Constants.PHP_PARAM_USERID, Long.toString(id));
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
 		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

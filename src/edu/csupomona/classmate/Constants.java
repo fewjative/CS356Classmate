@@ -25,6 +25,7 @@ public interface Constants {
 	String PHP_ADDRESS_GETCOURSES		= "getclasses.php";
 	String PHP_ADDRESS_SEARCHEVENTS	= "searchevents.php";
 	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
+	String PHP_ADDRESS_REMOVECLASS2	= "removeclass2.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
@@ -75,7 +76,6 @@ public interface Constants {
 	String INTENT_KEY_SECTION 		= "section";
 	String INTENT_KEY_SELECTEDITEMPOS	= "selectedItemPos";
 	String INTENT_KEY_USER			= "user";
-	String INTENT_KEY_USERID		= "userID";
 	//String INTENT_KEY_USERID		= PHP_PARAM_USERID;
 
 	int CODE_REGISTER		= 0x0001;
@@ -83,6 +83,6 @@ public interface Constants {
 	int CODE_MAIN		= 0x0003;
 	int CODE_MANAGEGROUP	= 0x0004;
 	int CODE_ADDMEMBER	= 0x0005;
-	int CODE_ADD_CLASS = 0x000D;
-	int CODE_VIEW_SECTION = 0x1FC3;
+	int CODE_ADDCLASS		= 0x0006;
+	int CODE_VIEWSECTION	= 0x0007;
 }

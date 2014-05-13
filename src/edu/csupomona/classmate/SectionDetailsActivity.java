@@ -10,20 +10,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.abstractions.Review;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.friends.MyFriendsAdapter;
 import edu.csupomona.classmate.fragments.schedule.ReviewAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +35,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 
 	private Button btnCreateReview;
 
-	private long id;
+	private User user;
 	private Section section;
 
 	@Override
@@ -47,10 +43,10 @@ public class SectionDetailsActivity extends Activity implements Constants{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.section_details_activity_layout);
 
-		id = getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
+		user = getIntent().getParcelableExtra(INTENT_KEY_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
 		final User USER = this.getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+
 		getActionBar().setTitle(String.format("%s Class Details", section.toString()));
 
 		TextView tvCourseNum = (TextView)findViewById(R.id.tvCourseNum);
@@ -76,7 +72,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 
 		RequestParams params = new RequestParams();
 		params.put("class_id", Integer.toString(section.getClassID()));
-		params.put("user_id", Long.toString(id));
+		params.put("user_id", Long.toString(user.getID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getfriendsinclass.php", params, new AsyncHttpResponseHandler() {
@@ -175,7 +171,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 			public void onClick(View v) {
 				Intent i = new Intent(SectionDetailsActivity.this, SectionReviewActivity.class);
 				i.putExtra(INTENT_KEY_SECTION, section);
-				i.putExtra(INTENT_KEY_USERID, id);
+				i.putExtra(INTENT_KEY_USER, user.getID());
 				startActivityForResult(i, CODE_CREATE_REVIEW);
 			}
 		});

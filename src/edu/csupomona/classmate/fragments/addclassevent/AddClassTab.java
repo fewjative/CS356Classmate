@@ -20,6 +20,7 @@ import edu.csupomona.classmate.abstractions.College;
 import edu.csupomona.classmate.abstractions.Course;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.Term;
+import edu.csupomona.classmate.abstractions.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -27,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AddClassTab extends Fragment implements Constants{
+	private User user;
+
 	private Spinner sTerm;
 	private Spinner sCollege;
 	private Spinner sCourse;
@@ -37,6 +40,7 @@ public class AddClassTab extends Fragment implements Constants{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ViewGroup ROOT = (ViewGroup)inflater.inflate(R.layout.addclassevent_class_fragment_tab_layout, null);
+		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		TextView tvTerm = (TextView)ROOT.findViewById(R.id.tvTerm);
 		tvTerm.setText(getString(R.string.schedule_field, getString(R.string.schedule_term)));
@@ -248,7 +252,7 @@ public class AddClassTab extends Fragment implements Constants{
 					e.printStackTrace();
 				}
 
-				SectionSearchAdapter adapter = new SectionSearchAdapter(getActivity(), schedule);
+				SectionSearchAdapter adapter = new SectionSearchAdapter(getActivity(), user, schedule);
 				lvQueryResults.setAdapter(adapter);
 				lvQueryResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override
