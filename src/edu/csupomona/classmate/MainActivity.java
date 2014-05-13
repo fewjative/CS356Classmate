@@ -43,22 +43,22 @@ public class MainActivity extends FragmentActivity {
 		);
 
 		String temp = getString(R.string.nd_feed_activity);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_share));
 
 		temp = getString(R.string.nd_feed_events);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_chat));
 
 		temp = getString(R.string.nd_schedule_header);
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_schedule_view);
-		dlDrawer.addItem(new Item(ScheduleFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(ScheduleFragment.class, temp, R.drawable.ic_action_go_to_schedule));
 
 		temp = getString(R.string.nd_schedule_event_add);
-		dlDrawer.addItem(new Item(AddClassEventFragment.class, temp, R.drawable.ic_action_go_to_schedule));
+		dlDrawer.addItem(new Item(AddClassEventFragment.class, temp, R.drawable.ic_action_new_event));
 
 		temp = getString(R.string.nd_social_header);
 		dlDrawer.addItem(new Header(temp));
