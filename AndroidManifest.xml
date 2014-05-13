@@ -69,12 +69,7 @@
 			android:label="@string/manage_group"
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateHidden"
-			android:parentActivityName="edu.csupomona.classmate.MainActivity"
 		>
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="edu.csupomona.classmate.MainActivity"
-			/>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.groups.activities.EmailGroupActivity"
