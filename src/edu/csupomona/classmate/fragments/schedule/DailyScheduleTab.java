@@ -36,7 +36,6 @@ public class DailyScheduleTab extends Fragment implements Constants {
 	private LinearLayout llSchedule;
 	private LinearLayout llNoSchedule;
 
-	private boolean outside_source = false;
 	private final User VIEWER;
 
 	public DailyScheduleTab() {
@@ -44,7 +43,6 @@ public class DailyScheduleTab extends Fragment implements Constants {
 	}
 
 	public DailyScheduleTab(User viewer) {
-		outside_source = true;
 		this.VIEWER = viewer;
 	}
 
@@ -59,12 +57,12 @@ public class DailyScheduleTab extends Fragment implements Constants {
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		final long id;
-		if(outside_source) {
+		if (VIEWER != null) {
 			id = VIEWER.getID();
 		} else {
 			id = user.getID();
 		}
-		
+
 		final RequestParams params = new RequestParams();
 		params.put("user_id", Long.toString(id));
 
