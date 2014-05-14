@@ -1,86 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:fillViewport="true"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:fillViewport="true" 
 >
-<LinearLayout
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:baselineAligned="false"
-	android:background="@color/cppgreen"
->
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:background="@android:color/transparent"
-		android:gravity="top|left"
-		android:padding="10dp"
-	>
-		<TextView
-			style="@style/style_textview"
-			android:text="@string/email_address"
-			android:labelFor="@+id/etEmailAddress"
-		/>
-		<EditText
-			style="@style/style_edittext_email"
-			android:id="@+id/etEmailAddress"
-			android:layout_marginBottom="@dimen/login_component_spacing"
-		/>
-		<TextView
-			style="@style/style_textview"
-			android:text="@string/password"
-			android:labelFor="@+id/etPassword"
-		/>
-		<EditText
-			style="@style/style_edittext_password"
-			android:id="@+id/etPassword"
-			android:layout_marginBottom="@dimen/login_component_spacing"
-		/>
-		<CheckBox
-			style="@style/style_checkbox"
-			android:id="@+id/cbAutoLogin"
-			android:text="@string/autologin"
-			android:layout_marginBottom="@dimen/login_component_spacing"
-		/>
-		<Button
-			style="@style/style_button"
-			android:id="@+id/btnLogin"
-			android:text="@string/login_action_login"
-			android:textColor="@color/white"
-		/>
-		<Button
-			style="@style/style_button"
-			android:id="@+id/btnRecover"
-			android:text="@string/login_action_recover_account"
-			android:textColor="@color/white"
-		/>
-		<Button
-			style="@style/style_button"
-			android:id="@+id/btnRegister"
-			android:text="@string/login_action_register_account"
-			android:textColor="@color/white"
-		/>
-	</LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:orientation="vertical"
-		android:gravity="bottom|center_horizontal"
-		android:background="@android:color/transparent"
-		android:padding="5dp"
-	>
-		<TextView
-			style="@style/style_textview"
-			android:text="@string/global_authors"
-			android:textColor="@color/white"
-			android:textSize="12sp"
-		/>
-	</LinearLayout>
-</LinearLayout>
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:fillViewport="false" 
+    >
+	
+	    <com.flaviofaria.kenburnsview.KenBurnsView
+	        android:id="@+id/cla"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:src="@drawable/cpp_img" />
+	
+	    <LinearLayout
+	        android:id="@+id/relativeLayout1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:background="@drawable/squared_bg"
+	        android:layout_marginLeft="30dp"
+	        android:layout_marginRight="30dp"	        
+	        android:paddingLeft="15dp"
+	        android:paddingRight="15dp"
+	        android:orientation="vertical" 
+	    >
+	
+	        <ImageView
+	            android:id="@+id/imageViewLogo"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginBottom="20dp"
+	            android:layout_marginTop="20dp"
+	            android:adjustViewBounds="true"
+	            android:contentDescription="@string/global_classmate"
+	            android:src="@drawable/cppc_logo" />
+	
+			<EditText
+				android:id="@+id/etEmailAddress"
+	            style="@style/style_edittextClassic"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"	            
+	            android:hint="@string/prompt_email"
+	            android:imeOptions="flagNoFullscreen"
+	            android:ems="10" 
+	            android:inputType="textEmailAddress"
+            />        
+	        
+	        <EditText
+				android:id="@+id/etPassword"
+	            style="@style/style_edittextClassic"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+        	    android:layout_gravity="center"
+	            android:layout_marginTop="8dp"
+	            android:hint="@string/example_password"
+	            android:inputType="textPassword"
+	            android:imeOptions="flagNoFullscreen"
+	            android:ems="10"	            
+            />
+	
+	        <Button
+				android:id="@+id/btnLogin"
+	            style="@style/style_button"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginTop="8dp"
+	            android:layout_marginBottom="13dp"
+	            android:background="@drawable/rounded_button_selector"
+	            android:paddingLeft="49dp"
+	            android:paddingRight="49dp"
+	            android:text="@string/login_action_login" 
+            />
+	        
+	        <!-- <Button
+	            android:id="@+id/btnRegister"
+	            style="@style/style_button"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/button1"
+	            android:layout_alignRight="@+id/button1"
+	            android:layout_below="@+id/button1"
+	            android:layout_marginTop="10dp"
+				android:layout_marginBottom="13dp"	            
+	            android:layout_gravity="center" 
+	            android:background="@drawable/rounded_button_selector"
+	            android:paddingLeft="40dp"
+	            android:paddingRight="40dp"
+	            android:text="@string/login_action_sign_up" 
+            /> -->
+
+
+
+	            <TableRow
+	                android:id="@+id/tableRow1"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" 
+	                android:paddingBottom="10dp"
+                >
+
+	                <TextView
+	                    android:id="@+id/btnRegister"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="@string/login_action_sign_up"
+	                    android:paddingLeft="1dp"
+	                    android:textColor="@color/cppgreen_darker"
+                    />
+	                
+	                <TextView
+	            		android:id="@+id/btnRecover"
+	           			android:layout_width="wrap_content"
+	            		android:layout_height="wrap_content"
+	            		android:text="@string/login_action_recover_account" 
+                        android:layout_weight="1"            			
+            			android:gravity="right"
+            			android:paddingRight="1dp"
+            			android:textColor="@color/cppgreen_darker"
+            		/>
+	                
+	           </TableRow>
+	            
+	    </LinearLayout>
+	</RelativeLayout>
 </ScrollView>

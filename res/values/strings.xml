@@ -15,10 +15,12 @@
 	<string name="autologin">Stay signed in</string>
 
 	<string name="login_action_login">Login</string>
-	<string name="login_action_recover_account">Forgot Password?</string>
+	<string name="login_action_recover_account"><u>Forget Password?</u></string>
 	<string name="login_action_register_account">Create an Account</string>
-
+	<string name="login_action_sign_up"><u>Sign Up</u></string>
+	
 	<string name="example_email">johndoe@csupomona.edu</string>
+	<string name="prompt_email">e-mail</string>
 	<string name="example_name">John</string>
 	<string name="example_password">password</string>
 	<string name="example_group">Poly Dogs</string>

@@ -5,6 +5,8 @@
 	<color name="red">#FF0000</color>
 	<color name="green">#00FF00</color>
 	<color name="gray">#808080</color>
+	<color name="gray_shadow">#838383</color>
+	<color name="gray_shadow_lite">#B8B8B8</color>
 
 	<color name="not_background">#E6FF0000</color>
 	<color name="not_highlight">#E6FFFFFF</color>
@@ -18,6 +20,8 @@
 	<color name="menu_grey">#99333333</color>
 
 	<color name="cppgreen">#00512B</color>
+	<color name="cppgreen_lite">#006C3A</color>
+	<color name="cppgreen_lite_plus">#00B33C</color>
 	<color name="cppgold">#F5BC23</color>
 
 	<color name="cppgreen_darker">#003D21</color>

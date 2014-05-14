@@ -17,10 +17,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import static edu.csupomona.classmate.Constants.CODE_MAIN;
 import static edu.csupomona.classmate.Constants.CODE_RECOVER;
 import static edu.csupomona.classmate.Constants.CODE_REGISTER;
@@ -40,6 +43,7 @@ import static edu.csupomona.classmate.Constants.PREFS_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.PREFS_WHICH;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,8 +53,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 	private EditText etEmailAddress;
 	private EditText etPassword;
-	private CheckBox cbAutoLogin;
+//	private CheckBox cbAutoLogin;
 	private Button btnLogin;
+	private TextView btnRegister;
+	private TextView btnRecover;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,51 +64,54 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		setContentView(R.layout.login_activity_layout);
 
 		prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
-		boolean bAutoLogin = prefs.getBoolean(PREFS_KEY_AUTOLOGIN, false);
+		boolean bAutoLogin = prefs.getBoolean(PREFS_KEY_AUTOLOGIN, true);
 
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
-		btnLogin.setEnabled(false);
-
+//		btnLogin.setEnabled(false);
+		
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
 		etPassword = (EditText)findViewById(R.id.etPassword);
-		TextWatcher tw = new TextWatcherAdapter() {
-			@Override
-			public void afterTextChanged(Editable e) {
-				if (etEmailAddress.getText().length() == 0) {
-					btnLogin.setEnabled(false);
-					return;
-				}
+		
+//		TextWatcher tw = new TextWatcherAdapter() {
+//			@Override
+//			public void afterTextChanged(Editable e) {
+//				if (etEmailAddress.getText().length() == 0) {
+//					btnLogin.setEnabled(false);
+//					return;
+//				}
+//
+//				if (etPassword.getText().length() == 0) {
+//					btnLogin.setEnabled(false);
+//					return;
+//				}
+//
+//				btnLogin.setEnabled(true);
+//			}
+//		};
+//
+//		etEmailAddress.addTextChangedListener(tw);
+//		etPassword.addTextChangedListener(tw);
 
-				if (etPassword.getText().length() == 0) {
-					btnLogin.setEnabled(false);
-					return;
-				}
-
-				btnLogin.setEnabled(true);
-			}
-		};
-
-		etEmailAddress.addTextChangedListener(tw);
-		etPassword.addTextChangedListener(tw);
-
-		cbAutoLogin = (CheckBox)findViewById(R.id.cbAutoLogin);
-		cbAutoLogin.setChecked(bAutoLogin);
+//		cbAutoLogin = (CheckBox)findViewById(R.id.cbAutoLogin);
+//		cbAutoLogin.setChecked(bAutoLogin);
 
 		ActionBar actionBar = getActionBar();
-		actionBar.setCustomView(R.layout.login_activity_logo_layout);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
-		Button b = (Button)findViewById(R.id.btnRecover);
-		b.setOnClickListener(this);
-
-		b = (Button)findViewById(R.id.btnRegister);
-		b.setOnClickListener(this);
-
+		actionBar.hide();
+//		actionBar.setCustomView(R.layout.login_activity_logo_layout);
+//		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		
+		
+		btnRegister = (TextView)findViewById(R.id.btnRegister);
+		btnRegister.setOnClickListener(this);
+		btnRecover = (TextView)findViewById(R.id.btnRecover);
+		btnRecover.setOnClickListener(this);
+		
 		String emailAddress = prefs.getString(PREFS_KEY_EMAIL, null);
 		if (savedInstanceState == null && bAutoLogin && emailAddress != null) {
 			attemptLogin(emailAddress, null);
 		}
+	
 	}
 
 	@Override
@@ -115,7 +124,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			editor.putString(PREFS_KEY_EMAIL, email);
 		}
 
-		editor.putBoolean(PREFS_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
+//		editor.putBoolean(PREFS_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
 		editor.commit();
 	}
 
@@ -127,7 +136,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 					case Activity.RESULT_OK:
 						etEmailAddress.setText("");
 						etPassword.setText("");
-						cbAutoLogin.setChecked(false);
+//						cbAutoLogin.setChecked(false);
 						etEmailAddress.requestFocus();
 						break;
 					case Activity.RESULT_CANCELED:
@@ -143,7 +152,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				if (resultCode == Activity.RESULT_OK) {
 					User user = data.getParcelableExtra(INTENT_KEY_USER);
 					etEmailAddress.setText(user.getEmail());
-					cbAutoLogin.setChecked(data.getBooleanExtra(INTENT_KEY_AUTOLOGIN, false));
+//					cbAutoLogin.setChecked(data.getBooleanExtra(INTENT_KEY_AUTOLOGIN, false));
 					login(user);
 				}
 
@@ -158,7 +167,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			case R.id.btnLogin:
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(etEmailAddress.getWindowToken(), 0);
-				//imm.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
 
 				String password = etPassword.getText().toString();
 				attemptLogin(email, password);
@@ -168,7 +177,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				break;
 			case R.id.btnRegister:
 				registerAccount(email);
-				break;
+				break;	
 		}
 	}
 
@@ -238,7 +247,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private void registerAccount(String email) {
 		Intent i = new Intent(this, RegistrationActivity.class);
 		i.putExtra(INTENT_KEY_EMAIL, email);
-		i.putExtra(INTENT_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
+//		i.putExtra(INTENT_KEY_AUTOLOGIN, cbAutoLogin.isChecked());
 		startActivityForResult(i, CODE_REGISTER);
 	}
 
