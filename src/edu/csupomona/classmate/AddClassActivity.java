@@ -8,27 +8,25 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.abstractions.College;
 import edu.csupomona.classmate.abstractions.Course;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.Term;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.addclassevent.SectionSearchAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 // TODO rewrite this thing
 public class AddClassActivity extends Activity implements Constants{
+	private User user;
+
 	private Spinner sTerm;
 	private Spinner sCollege;
 	private Spinner sCourse;
@@ -42,7 +40,7 @@ public class AddClassActivity extends Activity implements Constants{
 		setContentView(R.layout.addclass_activity);
 		setResult(RESULT_CANCELED);
 
-		final long id = getIntent().getIntExtra(INTENT_KEY_USERID, NO_USER);
+		user = getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		sTerm = (Spinner)findViewById(R.id.sTerm);
 		sCollege = (Spinner)findViewById(R.id.sCollege);
@@ -67,7 +65,6 @@ public class AddClassActivity extends Activity implements Constants{
 			}
 		});
 
-		// TODO JSON HTTP SYNC REQUESTS?!
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/getterms.php", new AsyncHttpResponseHandler() {
 			@Override
@@ -252,8 +249,9 @@ public class AddClassActivity extends Activity implements Constants{
 						e.printStackTrace();
 					}
 				}
-				
-				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this,null,schedule);//temporarily set too null, I dont think we need this activity anymore
+
+				SectionSearchAdapter adapter = new SectionSearchAdapter(AddClassActivity.this, user, schedule);
+
 				lvSearchResults.setAdapter(adapter);
 				lvSearchResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override

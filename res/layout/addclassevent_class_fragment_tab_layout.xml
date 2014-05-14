@@ -12,10 +12,11 @@
 		android:stretchMode="columnWidth"
 	>
 		<TextView
+			android:id="@+id/tvTerm"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Term: "
+			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sTerm"
 		/>
@@ -28,10 +29,11 @@
 		/>
 
 		<TextView
+			android:id="@+id/tvCollege"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="College: "
+			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sCollege"
 		/>
@@ -43,11 +45,11 @@
 		/>
 
 		<TextView
-			android:id="@+id/courseView"
+			android:id="@+id/tvCourse"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Course: "
+			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sCourse"
 		/>
@@ -67,29 +69,10 @@
 		android:background="@color/cppgreen_darker"
 		android:layout_margin="5dp"
 	>
-		<LinearLayout
-			android:id="@+id/llProgressBar"
+		<include
+			layout="@layout/http_query_listview_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="vertical"
-			android:visibility="gone"
-			android:background="@android:color/transparent"
-		>
-			<ProgressBar
-				style="Widget.ProgressBar.Large.Inverse"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-			>
-			</ProgressBar>
-		</LinearLayout>
-
-		<ListView
-			android:id="@+id/lvSearchResults"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@android:color/transparent"
-		>
-		</ListView>
+		/>
 	</LinearLayout>
 </LinearLayout>

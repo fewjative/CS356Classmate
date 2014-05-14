@@ -29,6 +29,8 @@ public class MainActivity extends FragmentActivity {
 		setupDrawer();
 		if (savedInstanceState == null) {
 			dlDrawer.selectItem(dlDrawer.getFirstSelectableItem());
+		} else {
+			dlDrawer.selectItem(savedInstanceState.getInt(Constants.INTENT_KEY_SELECTEDITEMPOS, dlDrawer.getFirstSelectableItem()));
 		}
 	}
 
@@ -41,22 +43,22 @@ public class MainActivity extends FragmentActivity {
 		);
 
 		String temp = getString(R.string.nd_feed_activity);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_share));
 
 		temp = getString(R.string.nd_feed_events);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_chat));
 
 		temp = getString(R.string.nd_schedule_header);
 		dlDrawer.addItem(new Header(temp));
 
 		temp = getString(R.string.nd_schedule_view);
-		dlDrawer.addItem(new Item(ScheduleFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(ScheduleFragment.class, temp, R.drawable.ic_action_go_to_schedule));
 
 		temp = getString(R.string.nd_schedule_event_add);
-		dlDrawer.addItem(new Item(AddClassEventFragment.class, temp, R.drawable.ic_action_go_to_schedule));
+		dlDrawer.addItem(new Item(AddClassEventFragment.class, temp, R.drawable.ic_action_new_event));
 
 		temp = getString(R.string.nd_social_header);
 		dlDrawer.addItem(new Header(temp));
@@ -75,6 +77,11 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_app_logout);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_back));
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt(Constants.INTENT_KEY_SELECTEDITEMPOS, dlDrawer.getSelectedItemPos());
 	}
 
 	@Override

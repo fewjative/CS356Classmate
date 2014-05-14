@@ -11,24 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import edu.csupomona.classmate.AddClassActivity;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
-
 import java.util.List;
 
 public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
 	private final User USER;
-	
-	public SectionSearchAdapter(Context context,User user, List<Section> schedule) {
+
+	public SectionSearchAdapter(Context context, User user, List<Section> schedule) {
 		super(context, 0, schedule);
 		this.USER = user;
 	}
@@ -75,7 +71,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 
 			btnAddClass.setTag(s);
 			btnAddClass.setOnClickListener(this);
-			btnAddClass.setText("Add Class");
+			btnAddClass.setText(R.string.add_class);
 
 			btnViewSectionDetails.setVisibility(View.VISIBLE);
 			btnViewSectionDetails.setTag(s);
@@ -127,21 +123,22 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((Activity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USER, USER.getID());
+
+		i.putExtra(INTENT_KEY_USER, USER);
 		((Activity)getContext()).startActivity(i);
 	}
 
 	public void addClass(final Section s) {
 		RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(USER.getID()));
-		params.put("class_id", Integer.toString(s.getClassID()));
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
+		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();
-		//CHANGED TO ADDCLASS2
-		client.get("http://lol-fc.com/classmate/addclass2.php", params, new AsyncHttpResponseHandler() {
+		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_ADDCLASS2, params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-
+				((Activity)getContext()).setResult(RESULT_OK);
+				((Activity)getContext()).finish();
 			}
 		});
 	}

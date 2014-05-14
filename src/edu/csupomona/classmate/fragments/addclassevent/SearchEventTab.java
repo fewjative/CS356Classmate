@@ -54,8 +54,6 @@ public class SearchEventTab extends Fragment implements Constants{
 				llProgressBar.setVisibility(View.VISIBLE);
 				lvSearchResults.setAdapter(null);
 
-				final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-
 				RequestParams params = new RequestParams();
 				params.put("search", e.toString());
 				params.put("user_id", Long.toString(USER.getID()));

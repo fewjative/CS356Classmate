@@ -65,19 +65,11 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		) {
 			@Override
 			public void onDrawerClosed(View view) {
-				if (getActivity().getActionBar() == null) {
-					return;
-				}
-
 				getActivity().getActionBar().setTitle(selectedItem.title);
 			}
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
-				if (getActivity().getActionBar() == null) {
-					return;
-				}
-
 				getActivity().getActionBar().setTitle(R.string.global_classmate);
 			}
 		};
@@ -87,6 +79,10 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActivity().getActionBar().setHomeButtonEnabled(true);
+	}
+
+	public int getSelectedItemPos() {
+		return selectedItemPosition;
 	}
 
 	public void selectItem(int position) {

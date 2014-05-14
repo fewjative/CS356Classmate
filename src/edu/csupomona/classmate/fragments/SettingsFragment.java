@@ -1,7 +1,6 @@
 package edu.csupomona.classmate.fragments;
 
 
-import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -19,20 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Schedule;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +54,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		schActive = null;
 		root = (ViewGroup)inflater.inflate(R.layout.settings_fragment_layout, null);
-		
+
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
@@ -119,8 +115,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				} else {
 					btnCreateSchedule.setEnabled(false);
 				}
-
-				// TODO: Safely clear strings from memory using some char array
 			}
 		};
 
@@ -136,7 +130,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-								
+
 				int numSchedules;
 				try {
 					numSchedules = Integer.parseInt(response);
@@ -175,7 +169,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				//...
 			}
 		});
-		
+
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();

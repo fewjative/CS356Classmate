@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,33 +11,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.LoginActivity;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 @SuppressLint("ValidFragment")//takes care of problem with line 46(stupid irrelevant constructor issue that appeared even with no changes)
-public class WeeklyScheduleTab extends Fragment implements Constants{
-	public static final int CODE_ADD_CLASS = 0x000D;
-	public static final int CODE_VIEW_SECTION = 0x1FC3;
-
+public class WeeklyScheduleTab extends Fragment implements Constants {
+	private User user;
 	private ViewGroup root;
 	private EditText etScheduleName;
 	private Button btnAddSchedule;
@@ -47,83 +37,78 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 	private LinearLayout llNoClass;
 	private LinearLayout llSchedule;
 	private LinearLayout llNoSchedule;
-	
+
 	private boolean outside_source=false;
-	private final long friend_id;
-	
-	public WeeklyScheduleTab()
-	{
-		friend_id = 0;
+	private final User VIEWER;
+
+	public WeeklyScheduleTab() {
+		this.VIEWER = null;
 	}
-	
-	public WeeklyScheduleTab(long user_id)
-	{
+
+	public WeeklyScheduleTab(User viewer) {
 		outside_source = true;
-		friend_id = user_id;
+		this.VIEWER = viewer;
 	}
-	
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_weekly_tab_layout, null);
-		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+
 		final long id;
-		if(outside_source)
-		{
-			id = friend_id;
+		if(outside_source) {
+			id = VIEWER.getID();
+		} else {
+			id = user.getID();
 		}
-		else
-			id = USER.getID();
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
 		final RequestParams params = new RequestParams();
 		params.put("user_id", Long.toString(id));
-		
+
 		final AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
-			
+
 			@Override
 			public void onSuccess(String response) {
 				llProgressBar.setVisibility(View.GONE);
-				
+
 				int numSchedules;
                 try {
                	 numSchedules = Integer.parseInt(response);
                 } catch (NumberFormatException e) {
                	 numSchedules = 0;
                 }
-                
+
                 if(numSchedules==0)
                 {
                	 llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
                	 llNoSchedule.setVisibility(View.VISIBLE);
-                    
+
               etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
            	  btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
            	  btnAddSchedule.setEnabled(false);
-                 
+
            	  TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
                      String s1;
 
                      @Override
                      public void afterTextChanged(Editable e) {
                              s1 = etScheduleName.getText().toString();
-          
+
                              if (!s1.isEmpty()) {
                            	  btnAddSchedule.setEnabled(true);
                              } else {
                            	  btnAddSchedule.setEnabled(false);
                              }
-
-                             // TODO: Safely clear strings from memory using some char array
                      }
              };
-             
+
              etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
-                                    
+
                 }
                 else
                 {
@@ -140,16 +125,16 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
             				}
 
             				if (numClasses == 0) {
-            					
-            				
+
+
             						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
             						llNoClass.setVisibility(View.VISIBLE);
-            				} 
-            				else 
+            				}
+            				else
             				{
             					llSchedule = (LinearLayout)root.findViewById(R.id.llSchedule);
             					llSchedule.setVisibility(View.VISIBLE);
-           					
+
             					final LinearLayout llProgressBarClasses = (LinearLayout)llSchedule.findViewById(R.id.llProgressBarClasses);
             					llProgressBarClasses.setVisibility(View.VISIBLE);
 
@@ -171,10 +156,10 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
             		});
                 }
 			}
-			
+
 		});
 
-		
+
 
 		return root;
 	}
@@ -214,16 +199,13 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 		}
 
 		ScheduleAdapter adapter;
-		User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
-		if(outside_source)
-		{
-			adapter = new ScheduleAdapter(getActivity(), USER, schedule, outside_source);
-		}
-		else
-			adapter = new ScheduleAdapter(getActivity(), USER, schedule);
 
-		
+		if(outside_source) {
+			adapter = new ScheduleAdapter(getActivity(), user, schedule, outside_source);
+		} else {
+			adapter = new ScheduleAdapter(getActivity(), user, schedule);
+		}
+
 		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
 		lvSchedule.setAdapter(adapter);
 		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -238,14 +220,14 @@ public class WeeklyScheduleTab extends Fragment implements Constants{
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case CODE_ADD_CLASS:
+			case CODE_ADDCLASS:
 				//if (resultCode != RESULT_OK) {
 				//	break;
 				//}
 
 				addClass();
 				break;
-			case CODE_VIEW_SECTION:
+			case CODE_VIEWSECTION:
 				viewSection();
 				break;
 		}

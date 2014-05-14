@@ -85,17 +85,17 @@ public class Section implements Parcelable {
 		Integer endHoursInt = Integer.parseInt(endHour);
 		Integer startMinutesInt = Integer.parseInt(startMinutes);
 		Integer endMinutesInt = Integer.parseInt(endMinutes);
-		
-		
+
+
 		/*
 		 * 12-12 = 0
 		 * 24-12 = 12
 		 */
-		
+
 		ampmStart = " AM";
 		ampmEnd = " AM";
-		
-		
+
+
 		if(startHoursInt == 0){
 			startHoursInt = 12;
 		}else if (startHoursInt > 12) {
@@ -107,7 +107,7 @@ public class Section implements Parcelable {
 			}
 			ampmStart = " PM";
 		}
-		
+
 		if(endHoursInt == 0){
 			endHoursInt = 12;
 		}else if (endHoursInt > 12) {
@@ -119,7 +119,7 @@ public class Section implements Parcelable {
 			}
 			ampmEnd = " PM";
 		}
-		
+
 		startHour = startHoursInt.toString();
 		endHour = endHoursInt.toString();
 
@@ -162,7 +162,7 @@ public class Section implements Parcelable {
 	public String toString() {
 		return String.format("%s %s Section %s", major_short, class_num, section);
 	}
-	
+
 	public String toString(int override) {
 		return String.format("%s %s %s",getFullTime(), major_short, class_num);
 	}

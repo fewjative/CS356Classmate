@@ -9,12 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.abstractions.Section;
+import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
 public class SectionReviewActivity extends Activity implements View.OnClickListener, Constants {
@@ -23,8 +22,8 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 	private EditText etReview;
 	private Button btnSubmitReview;
 
+	private User user;
 	private Section section;
-	private long id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +31,8 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 		setContentView(R.layout.section_review_adapter_layout);
 		setResult(RESULT_CANCELED);
 
+		user = getIntent().getParcelableExtra(INTENT_KEY_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
-		id = getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
 
 		rbRating = (RatingBar)findViewById(R.id.rbRating);
 		rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -61,7 +60,7 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 	}
 
 	public void onClick(View v) {
-		
+
 		final ProgressDialog loadingDialog = new ProgressDialog(this);
 		loadingDialog.setTitle("Submitting Review");
 		loadingDialog.setMessage("Pushing review to server.");
@@ -71,7 +70,7 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 
 		RequestParams params = new RequestParams();
 		params.put("class_id", Integer.toString(section.getClassID()));
-		params.put("user_id", Long.toString(id));
+		params.put("user_id", Long.toString(user.getID()));
 		params.put("text", etReview.getText().toString());
 		params.put("rating", Float.toString(rbRating.getRating()));
 		params.put("title", etTitle.getText().toString());
@@ -80,14 +79,14 @@ public class SectionReviewActivity extends Activity implements View.OnClickListe
 		client.get("http://lol-fc.com/classmate/createreview.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				
+
 				if(!loadingDialog.isShowing())
 				{
 					return;
 				}
-				
+
 				loadingDialog.dismiss();
-				
+
 				setResult(RESULT_OK);
 				finish();
 			}

@@ -31,7 +31,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                         />
-                        
+
                         <TextView
                                 style="@style/style_textview"
                                 android:text="@string/newPass"
@@ -70,8 +70,6 @@
                                 style="@style/style_button"
                                 android:id="@+id/btnChangePass"
                                 android:text="@string/changePass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                         />
                          <TextView
                                 style="@style/style_textview"
@@ -87,29 +85,32 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                         />
-                           <Button
+
+				<Button
                                 style="@style/style_button"
                                 android:id="@+id/btnCreateSchedule"
                                 android:text="@string/createSchedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                         />
-                             <Spinner
-						android:id="@+id/sSchedules"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="gone"
-						/>
-                        
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/white"
+				>
+					<Spinner
+						 android:id="@+id/sSchedules"
+						 android:layout_width="match_parent"
+						 android:layout_height="wrap_content"
+						 android:visibility="gone"
+					 />
+				</LinearLayout>
+
                         <Button
                                 style="@style/style_button"
                                 android:id="@+id/btnSetActive"
                                 android:text="@string/setActiveSchedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:visibility="gone"
                         />
                 </LinearLayout>
-               
         </RelativeLayout>
 </ScrollView>
