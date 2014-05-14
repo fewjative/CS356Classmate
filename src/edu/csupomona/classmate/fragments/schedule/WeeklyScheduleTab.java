@@ -38,7 +38,6 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 	private LinearLayout llSchedule;
 	private LinearLayout llNoSchedule;
 
-	private boolean outside_source=false;
 	private final User VIEWER;
 
 	public WeeklyScheduleTab() {
@@ -46,7 +45,6 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 	}
 
 	public WeeklyScheduleTab(User viewer) {
-		outside_source = true;
 		this.VIEWER = viewer;
 	}
 
@@ -57,7 +55,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		final long id;
-		if(outside_source) {
+		if (VIEWER != null) {
 			id = VIEWER.getID();
 		} else {
 			id = user.getID();
@@ -200,8 +198,8 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 
 		ScheduleAdapter adapter;
 
-		if(outside_source) {
-			adapter = new ScheduleAdapter(getActivity(), user, schedule, outside_source);
+		if (VIEWER != null) {
+			adapter = new ScheduleAdapter(getActivity(), user, schedule, VIEWER);
 		} else {
 			adapter = new ScheduleAdapter(getActivity(), user, schedule);
 		}

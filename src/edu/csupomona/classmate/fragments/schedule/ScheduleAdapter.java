@@ -21,17 +21,19 @@ import java.util.List;
 
 public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
 	private final User USER;
-	private boolean outside_source = false;
+	private final User VIEWER;
+
 
 	public ScheduleAdapter(Context context, User user, List<Section> schedule) {
 		super(context, 0, schedule);
 		this.USER = user;
+		this.VIEWER = null;
 	}
 
-	public ScheduleAdapter(Context context, User user, List<Section> schedule, boolean outside_source) {
+	public ScheduleAdapter(Context context, User user, List<Section> schedule, User viewer) {
 		super(context,0,schedule);
 		this.USER = user;
-		this.outside_source = outside_source;
+		this.VIEWER = viewer;
 	}
 
 	private static class ViewHolder {
@@ -110,8 +112,9 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 			}
 		}
 
-		if(outside_source && btnRemoveClass!=null)
+		if (VIEWER != null && btnRemoveClass != null) {
 			btnRemoveClass.setVisibility(View.GONE);
+		}
 
 		return view;
 	}

@@ -19,7 +19,6 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.abstractions.Event;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
 
