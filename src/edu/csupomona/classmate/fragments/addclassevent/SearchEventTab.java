@@ -17,6 +17,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.abstractions.Event;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
 import edu.csupomona.classmate.R;
@@ -30,7 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SearchEventTab extends Fragment implements Constants{
-	private EditText etFriendName;
+	private EditText etEventName;
 	private ListView lvSearchResults;
 	private LinearLayout llProgressBar;
 
@@ -42,8 +43,8 @@ public class SearchEventTab extends Fragment implements Constants{
 		llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		lvSearchResults = (ListView)root.findViewById(R.id.lvSearchResults);
 
-		etFriendName = (EditText)root.findViewById(R.id.etFriendName);
-		etFriendName.addTextChangedListener(new TextWatcherAdapter() {
+		etEventName = (EditText)root.findViewById(R.id.etEventName);
+		etEventName.addTextChangedListener(new TextWatcherAdapter() {
 			@Override
 			public void afterTextChanged(Editable e) {
 				if (e.length() == 0) {
@@ -63,21 +64,21 @@ public class SearchEventTab extends Fragment implements Constants{
 				client.get("http://www.lol-fc.com/classmate/searchevents.php", params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						List<User> search_results = new ArrayList<User>();
+						List<Event> search_results = new ArrayList<Event>();
 						if (1 < response.length()) {
 							try {
 								JSONObject jObj;
 								JSONArray myjsonarray = new JSONArray(response);
 								for (int i = 0; i < myjsonarray.length(); i++) {
 									jObj = myjsonarray.getJSONObject(i);
-									search_results.add(new User(jObj.getLong("user_id"), jObj.getString("username"), jObj.getString("email")));
+									search_results.add(new Event(jObj.getInt("event_id"),jObj.getString("title"),jObj.getString("description"),jObj.getString("time_start"),jObj.getString("time_end"),jObj.getString("date_start"),jObj.getString("date_end"),jObj.getString("weekdays"),jObj.getString("fpublic"),jObj.getString("opublic"), jObj.getString("isprivate")));
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
 						}
 
-						FriendRequestsAdapter adapter = new FriendRequestsAdapter(getActivity(), USER, search_results);
+						SearchEventsAdapter adapter = new SearchEventsAdapter(getActivity(), USER, search_results,etEventName);
 						lvSearchResults.setAdapter(adapter);
 						llProgressBar.setVisibility(View.GONE);
 					}
@@ -85,12 +86,12 @@ public class SearchEventTab extends Fragment implements Constants{
 			}
 		});
 
-		etFriendName.requestFocus();
-		etFriendName.setFocusableInTouchMode(true);
-		etFriendName.setOnTouchListener(new OnTouchListener() {
+		etEventName.requestFocus();
+		etEventName.setFocusableInTouchMode(true);
+		etEventName.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				etFriendName.requestFocusFromTouch();
+				etEventName.requestFocusFromTouch();
 				return false;
 			}
 

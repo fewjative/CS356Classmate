@@ -256,8 +256,8 @@ public class AddClassTab extends Fragment implements Constants{
 						e.printStackTrace();
 					}
 				}
-
-				SectionSearchAdapter adapter = new SectionSearchAdapter(getActivity(), schedule);
+				User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+				SectionSearchAdapter adapter = new SectionSearchAdapter(getActivity(), USER, schedule);
 				lvSearchResults.setAdapter(adapter);
 				lvSearchResults.setOnItemClickListener(new ListView.OnItemClickListener() {
 					@Override

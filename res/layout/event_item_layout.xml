@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="48dp"
+	android:orientation="horizontal"
+	android:gravity="center_vertical"
+	android:background="@color/cppgreen"
+	android:paddingLeft="6dp"
+>
+	<TextView
+		style="@style/style_textview_marquee"
+		android:id="@+id/tvSnippit"
+		android:layout_marginLeft="6dip"
+		android:layout_marginRight="6dip"
+	/>
+
+	<ImageButton
+		style="@style/style_imagebutton"
+		android:id="@+id/btnAdd"
+		android:src="@drawable/ic_action_new"
+		android:contentDescription="@null"
+		android:visibility="gone"
+	/>
+</LinearLayout>

@@ -187,7 +187,8 @@ public class DailyScheduleTab extends Fragment implements Constants {
                         }
                 }
                 
-                ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), schedule);
+                User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+                ScheduleAdapter adapter = new ScheduleAdapter(getActivity(),USER, schedule);
                 
                 ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
                 lvSchedule.setAdapter(adapter);

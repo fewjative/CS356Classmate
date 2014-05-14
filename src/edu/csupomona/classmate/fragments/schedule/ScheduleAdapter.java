@@ -24,16 +24,19 @@ import edu.csupomona.classmate.abstractions.User;
 import java.util.List;
 
 public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
+	private final User USER;
 	private boolean outside_source = false;
 	
-	public ScheduleAdapter(Context context, List<Section> schedule) {
+	public ScheduleAdapter(Context context,User user, List<Section> schedule) {
 		super(context, 0, schedule);
+		this.USER = user;
 	}
 	
-	public ScheduleAdapter(Context context, List<Section> schedule, boolean outside_source)
+	public ScheduleAdapter(Context context, User user, List<Section> schedule, boolean outside_source)
 	{
 		super(context,0,schedule);
 		this.outside_source = outside_source;
+		this.USER = user;
 	}
 
 	private static class ViewHolder {
@@ -133,15 +136,14 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	private void viewSectionDetails(final Section s) {
 		Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
 		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USERID, ((FragmentActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER));
+		i.putExtra(INTENT_KEY_USER, USER.getID());
 		((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEW_SECTION);
 	}
 
 	private void removeClass(final Section s) {
-		long id = ((FragmentActivity)getContext()).getIntent().getLongExtra(INTENT_KEY_USERID, NO_USER);
-
+		
 		RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(id));
+		params.put("user_id", Long.toString(USER.getID()));
 		params.put("class_id", Integer.toString(s.getClassID()));
 
 		AsyncHttpClient client = new AsyncHttpClient();

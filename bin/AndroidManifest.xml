@@ -59,6 +59,21 @@
 			android:name="edu.csupomona.classmate.MainActivity"
 			android:label="@string/global_classmate"
 			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleInstance"
+		>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.SectionDetailsActivity"
+			android:label="@string/global_classmate"
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleInstance"
+		>
+		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.SectionReviewActivity"
+			android:label="@string/global_classmate"
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleInstance"
 		>
 		</activity>
 		<activity
