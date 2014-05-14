@@ -161,7 +161,11 @@ public class AddEventActivity extends Activity {
 				{
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 					alertDialogBuilder.setTitle("Wrong Input");
-					alertDialogBuilder.setMessage("Please input valid data");
+					if (validDate == false){alertDialogBuilder.setMessage("Please select correct dates");}
+					else if (validTime == false){alertDialogBuilder.setMessage("Please select correct times");}
+					else if (validTitle == false){alertDialogBuilder.setMessage("Please name your event");}
+					else if (validDescription == false){alertDialogBuilder.setMessage("Please give a description");}
+					
 					AlertDialog alertDialog = alertDialogBuilder.create();
 					alertDialog.show();
 				} else {

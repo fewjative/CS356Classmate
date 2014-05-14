@@ -11,8 +11,8 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnCount="2"
-            android:rowCount="19" >
+            android:columnCount="1"
+            android:rowCount="20" >
 
             <TextView
                 android:id="@+id/textViewTitle"
@@ -36,7 +36,8 @@
                 android:id="@+id/datePickerStartDate"
                 android:layout_column="0"
                 android:layout_gravity="left|top"
-                android:layout_row="11" />
+                android:layout_row="11" 
+                android:calendarViewShown="false"/>
 
             <EditText
                 android:id="@+id/textFieldTitle"
@@ -76,7 +77,8 @@
                 android:id="@+id/datePickerEndDate"
                 android:layout_column="0"
                 android:layout_gravity="left|top"
-                android:layout_row="13" />
+                android:layout_row="13" 
+                android:calendarViewShown="false"/>
 
             <TextView
                 android:id="@+id/textViewStartTime"
@@ -100,15 +102,15 @@
 
             <Button
                 android:id="@+id/btnCreateEvent"
-                android:layout_column="1"
-                android:layout_gravity="center"
-                android:layout_row="17"
+                android:layout_column="0"
+                android:layout_gravity="left|top"
+                android:layout_row="18"
                 android:text="Create" />
 
             <RadioGroup
                 android:id="@+id/radioGroupPrivacy"
                 android:layout_column="0"
-                android:layout_gravity="center_horizontal|top"
+                android:layout_gravity="left|top"
                 android:layout_row="4" >
 
                 <RadioButton
@@ -124,6 +126,7 @@
                     android:id="@+id/radioButtonPrivate"
                     android:text="Private" />
             </RadioGroup>
+
         </GridLayout>
 
     </LinearLayout>
