@@ -124,7 +124,6 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 
             				if (numClasses == 0) {
 
-
             						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
             						llNoClass.setVisibility(View.VISIBLE);
             				}
@@ -154,11 +153,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
             		});
                 }
 			}
-
 		});
-
-
-
 		return root;
 	}
 

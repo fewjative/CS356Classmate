@@ -37,6 +37,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	}
 
 	private static class ViewHolder {
+		final TextView tvMajor;
 		final TextView tvClassNumber;
 		final TextView tvClassTitle;
 		final TextView tvClassDays;
@@ -45,7 +46,8 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		final Button btnRemoveClass;
 		final Button btnViewSectionDetails;
 
-		ViewHolder(TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
+		ViewHolder(TextView tvMajor, TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
+			this.tvMajor = tvMajor;
 			this.tvClassNumber = tvClassNumber;
 			this.tvClassTitle = tvClassTitle;
 			this.tvClassDays = tvClassDays;
@@ -66,6 +68,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
 
+			TextView tvMajor = (TextView)view.findViewById(R.id.tvMajor);
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
 			TextView tvClassTitle = (TextView)view.findViewById(R.id.tvClassTitle);
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
@@ -73,7 +76,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
-			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
+			view.setTag(new ViewHolder(tvMajor, tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
 
 			tvClassTitle.setSelected(true);
 
@@ -91,8 +94,11 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		}
 
 		if (s != null && holder != null) {
+			if (holder.tvMajor != null) {
+				holder.tvMajor.setText(String.format(s.getMajorShort()));
+			}
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				holder.tvClassNumber.setText(String.format("%s.%s", s.getClassNum(), s.getSection()));
 			}
 
 			if (holder.tvClassTitle != null) {

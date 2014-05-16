@@ -29,4 +29,10 @@
 
 	<color name="cppgreen_trans_darker">#E6003D21</color>
 	<color name="cppgold_trans_darker">#E6DBA20A</color>
+	
+	<color name="custom_gray">#2f2f2f</color>
+	<color name="custom_green">#05f516</color>
+	<color name="custom_dark_back">#1b1b1b</color>
+	<color name="custom_divider">#717171</color>
+	<color name="custom_light_blue">#5fd9fc</color>
 </resources>

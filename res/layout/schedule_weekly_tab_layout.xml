@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/cppgreen"
+        android:background="@color/custom_dark_back"
 >
         <LinearLayout
                 android:id="@+id/llProgressBar"
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/cppgreen"
+                android:background="@color/custom_dark_back"
                 android:visibility="gone"
         >
                 <LinearLayout
@@ -118,7 +118,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:background="@color/cppgreen_darker"
+                                android:background="@color/custom_dark_back"
+                                android:divider="@color/custom_divider"
+                                android:dividerHeight="1dp"
                         >
                         </ListView>
                 </LinearLayout>
