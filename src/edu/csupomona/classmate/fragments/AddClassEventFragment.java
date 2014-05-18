@@ -14,6 +14,7 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.addclassevent.AddClassTab;
 import edu.csupomona.classmate.fragments.addclassevent.AddEventTab;
 import edu.csupomona.classmate.fragments.addclassevent.SearchEventTab;
+import edu.csupomona.classmate.fragments.addclassevent.CreateEventTab;
 
 public class AddClassEventFragment extends Fragment {
 	@Override
@@ -50,6 +51,7 @@ public class AddClassEventFragment extends Fragment {
 				case 0: return new AddClassTab();
 				case 1: return new AddEventTab();
 				case 2: return new SearchEventTab();
+				case 3: return new CreateEventTab();
 				default: return null;
 			}
 		}
