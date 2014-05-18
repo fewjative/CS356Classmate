@@ -19,7 +19,7 @@ public class AddClassEventFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
-
+		
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new AddClassEventFragmentPagerAdapter(getChildFragmentManager()));
 		vpContentPane.setCurrentItem(0);

@@ -6,6 +6,17 @@
         android:orientation="vertical"
         android:background="@color/custom_dark_back"
 >
+		<TextView
+			android:id="@+id/tvToday"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/white"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit ="marquee_forever"
+			android:scrollHorizontally="true"
+			android:focusable="false"
+		/>
         <LinearLayout
                 android:id="@+id/llProgressBar"
                 android:layout_width="match_parent"
@@ -113,7 +124,7 @@
                         android:orientation="vertical"
                         android:background="@android:color/transparent"
                 >
-                        <ListView
+                   <!--     <ListView
                                 android:id="@+id/lvSchedule"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
@@ -122,7 +133,14 @@
                                 android:divider="@color/custom_divider"
                                 android:dividerHeight="1dp"
                         >
-                        </ListView>
+                        </ListView>   -->
+                        <GridView
+                            android:id="@+id/gridSchedule"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:numColumns="2"
+                            >
+                        </GridView>
                 </LinearLayout>
         </LinearLayout>
 </LinearLayout>

@@ -1,13 +1,21 @@
 package edu.csupomona.classmate.fragments.schedule;
 
+import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -37,7 +45,6 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	}
 
 	private static class ViewHolder {
-		final TextView tvMajor;
 		final TextView tvClassNumber;
 		final TextView tvClassTitle;
 		final TextView tvClassDays;
@@ -46,8 +53,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		final Button btnRemoveClass;
 		final Button btnViewSectionDetails;
 
-		ViewHolder(TextView tvMajor, TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
-			this.tvMajor = tvMajor;
+		ViewHolder(TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
 			this.tvClassNumber = tvClassNumber;
 			this.tvClassTitle = tvClassTitle;
 			this.tvClassDays = tvClassDays;
@@ -64,19 +70,27 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		ViewHolder holder = null;
 		View view = convertView;
 		Button btnRemoveClass = null;
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
 
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
 
-			TextView tvMajor = (TextView)view.findViewById(R.id.tvMajor);
+			LinearLayout parentLayout = (LinearLayout)view.findViewById(R.id.menu_row);
+			LinearLayout innerLayout = (LinearLayout)view.findViewById(R.id.innerLayout);
+			GridLayout grid = (GridLayout)view.findViewById(R.id.gridForText);
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
 			TextView tvClassTitle = (TextView)view.findViewById(R.id.tvClassTitle);
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
+			TextView tvCellClassTime = (TextView)view.findViewById(R.id.tvCellClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
-			view.setTag(new ViewHolder(tvMajor, tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
+			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
 
 			tvClassTitle.setSelected(true);
 
@@ -86,6 +100,30 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 			btnViewSectionDetails.setVisibility(View.VISIBLE);
 			btnViewSectionDetails.setTag(s);
 			btnViewSectionDetails.setOnClickListener(this);
+			
+			int cellHeight = (width / 2);
+			
+			grid.setRowCount(4);
+			grid.setPadding((width / 14), (cellHeight / 16), 0, 0);
+			
+			String temp = s.getFullTime();
+			String[] part = temp.split(" - ");
+			
+			tvCellClassTime.setText(part[0]);
+			
+			tvClassNumber.setTextSize(cellHeight / 16);
+			tvClassTitle.setTextSize(cellHeight / 20);
+			tvClassDays.setTextSize(cellHeight / 20);
+			tvCellClassTime.setTextSize(cellHeight / 20);
+			
+			innerLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, cellHeight));
+			
+//			int dim = (width / 2) - (width / 16);
+			
+			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
+//			container = Bitmap.createScaledBitmap(container, dim, dim, true);
+			BitmapDrawable background = new BitmapDrawable(container);
+			innerLayout.setBackgroundDrawable(background);
 		}
 
 		Object tag = view.getTag();
@@ -94,15 +132,22 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		}
 
 		if (s != null && holder != null) {
-			if (holder.tvMajor != null) {
-				holder.tvMajor.setText(String.format(s.getMajorShort()));
-			}
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s.%s", s.getClassNum(), s.getSection()));
+				if(Integer.parseInt(s.getSection()) < 10)
+				{
+					holder.tvClassNumber.setText(String.format("%s %s  0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				}else
+					holder.tvClassNumber.setText(String.format("%s %s  %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 
-			if (holder.tvClassTitle != null) {
+			if (holder.tvClassTitle != null) // Formatting needed
+			{
 				holder.tvClassTitle.setText(s.getTitle());
+				String original = s.getTitle();
+				if(original.length() > 13)
+				{
+					
+				}
 			}
 
 			if (holder.tvClassDays != null) {
@@ -121,7 +166,6 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		if (VIEWER != null && btnRemoveClass != null) {
 			btnRemoveClass.setVisibility(View.GONE);
 		}
-
 		return view;
 	}
 

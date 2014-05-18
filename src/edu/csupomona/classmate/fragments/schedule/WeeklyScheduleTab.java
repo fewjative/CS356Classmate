@@ -1,18 +1,26 @@
 package edu.csupomona.classmate.fragments.schedule;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.format.DateFormat;
+import android.text.format.Time;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -21,11 +29,15 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 @SuppressLint("ValidFragment")//takes care of problem with line 46(stupid irrelevant constructor issue that appeared even with no changes)
 public class WeeklyScheduleTab extends Fragment implements Constants {
@@ -48,18 +60,30 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		this.VIEWER = viewer;
 	}
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_weekly_tab_layout, null);
 		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-
+		
 		final long id;
 		if (VIEWER != null) {
 			id = VIEWER.getID();
 		} else {
 			id = user.getID();
 		}
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		
+		TextView tvToday = (TextView)root.findViewById(R.id.tvToday);
+		tvToday.setTextSize(height / 26);
+		
+		SimpleDateFormat df = new SimpleDateFormat("EEE, MMM d, ''yy");
+		String date = df.format(Calendar.getInstance().getTime());
+		tvToday.setText(date);
+		tvToday.setPadding((width / 19), 0, 0, 0);
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
@@ -76,34 +100,34 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 
 				int numSchedules;
                 try {
-               	 numSchedules = Integer.parseInt(response);
+               	 	numSchedules = Integer.parseInt(response);
                 } catch (NumberFormatException e) {
-               	 numSchedules = 0;
+               	 	numSchedules = 0;
                 }
 
                 if(numSchedules==0)
                 {
-               	 llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
-               	 llNoSchedule.setVisibility(View.VISIBLE);
+               	 	llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
+               	 	llNoSchedule.setVisibility(View.VISIBLE);
 
-              etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
-           	  btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
-           	  btnAddSchedule.setEnabled(false);
+               	 	etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
+               	 	btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
+               	 	btnAddSchedule.setEnabled(false);
 
-           	  TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
-                     String s1;
+               	 	TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
+               	 		String s1;
 
-                     @Override
-                     public void afterTextChanged(Editable e) {
+               	 		@Override
+               	 		public void afterTextChanged(Editable e) {
                              s1 = etScheduleName.getText().toString();
 
                              if (!s1.isEmpty()) {
-                           	  btnAddSchedule.setEnabled(true);
+                           	  	btnAddSchedule.setEnabled(true);
                              } else {
-                           	  btnAddSchedule.setEnabled(false);
+                           	  	btnAddSchedule.setEnabled(false);
                              }
-                     }
-             };
+               	 		}
+               	 	};
 
              etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
 
@@ -124,8 +148,8 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 
             				if (numClasses == 0) {
 
-            						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
-            						llNoClass.setVisibility(View.VISIBLE);
+        						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
+        						llNoClass.setVisibility(View.VISIBLE);
             				}
             				else
             				{
@@ -199,13 +223,34 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 			adapter = new ScheduleAdapter(getActivity(), user, schedule);
 		}
 
-		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
-		lvSchedule.setAdapter(adapter);
-		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
+//		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
+//		lvSchedule.setAdapter(adapter); // populates the listView
+//		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
+//				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+//			}
+//		});
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		
+		int pad = (width / 38);
+		
+		GridView gridSchedule = (GridView)llSchedule.findViewById(R.id.gridSchedule);
+		gridSchedule.setPadding((pad / 2), (pad / 2), (pad / 2), 0);
+		gridSchedule.setVerticalSpacing(pad);
+		gridSchedule.setHorizontalSpacing(pad);
+		gridSchedule.setAdapter(adapter);
+		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
-				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+//				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
+//				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+				System.out.println("********* HELLO");
 			}
 		});
 	}
