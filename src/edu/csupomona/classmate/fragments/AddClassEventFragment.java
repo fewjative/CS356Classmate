@@ -62,13 +62,14 @@ public class AddClassEventFragment extends Fragment {
 				case 0: return getString(R.string.add_class_event_addclass);
 				case 1: return getString(R.string.add_class_event_addevent);
 				case 2: return getString(R.string.add_class_event_search_event);
+				case 3: return getString(R.string.add_class_event_create_event);
 				default: throw new RuntimeException();
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 4;
 		}
 	}
 }

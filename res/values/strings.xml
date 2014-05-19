@@ -173,5 +173,6 @@
 	<string name="schedule_college">College</string>
 	<string name="schedule_course">Course</string>
 	<string name="schedule_time">Time</string>
-	<string name="schedule_lecturer">Lecturer</string>
+	<string name="schedule_lecturer">Lecturer</string><string name="add_class_event_create_event">Create Event</string>
+	
 </resources>

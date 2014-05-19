@@ -127,6 +127,16 @@
                     android:text="Private" />
             </RadioGroup>
 
+            <TextView
+                android:id="@+id/textViewValid"
+                android:layout_width="160dp"
+                android:layout_column="0"
+                android:layout_gravity="center"
+                android:layout_row="18"
+                android:text="Invalid Data: Please try again"
+                android:textSize="10sp"
+                android:visibility="invisible" />
+
         </GridLayout>
 
     </LinearLayout>
