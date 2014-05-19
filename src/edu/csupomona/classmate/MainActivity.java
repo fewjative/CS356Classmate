@@ -14,6 +14,7 @@ import edu.csupomona.classmate.drawer.Item;
 import edu.csupomona.classmate.drawer.UserHeader;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.fragments.ActivityFeedFragment;
 
 public class MainActivity extends FragmentActivity {
 	private FragmentNavigationDrawer dlDrawer;
@@ -38,7 +39,7 @@ public class MainActivity extends FragmentActivity {
 		);
 
 		String temp = getString(R.string.nd_feed_activity);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
+		dlDrawer.addItem(new Item(ActivityFeedFragment.class, temp, R.drawable.ic_action_go_to_today));
 
 		temp = getString(R.string.nd_feed_events);
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_go_to_today));
