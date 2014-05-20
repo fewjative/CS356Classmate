@@ -40,4 +40,5 @@ public interface Constants {
 	int CODE_REGISTER	= 0x0001;
 	int CODE_RECOVER	= 0x0002;
 	int CODE_MAIN	= 0x0003;
+	int NULL_USER = 0;
 }
