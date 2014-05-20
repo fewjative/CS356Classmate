@@ -14,7 +14,6 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.addclassevent.AddClassTab;
 import edu.csupomona.classmate.fragments.addclassevent.AddEventTab;
 import edu.csupomona.classmate.fragments.addclassevent.SearchEventTab;
-import edu.csupomona.classmate.fragments.addclassevent.CreateEventTab;
 
 public class AddClassEventFragment extends Fragment {
 	@Override
@@ -51,7 +50,6 @@ public class AddClassEventFragment extends Fragment {
 				case 0: return new AddClassTab();
 				case 1: return new AddEventTab();
 				case 2: return new SearchEventTab();
-				case 3: return new CreateEventTab();
 				default: return null;
 			}
 		}
@@ -62,14 +60,13 @@ public class AddClassEventFragment extends Fragment {
 				case 0: return getString(R.string.add_class_event_addclass);
 				case 1: return getString(R.string.add_class_event_addevent);
 				case 2: return getString(R.string.add_class_event_search_event);
-				case 3: return getString(R.string.add_class_event_create_event);
 				default: throw new RuntimeException();
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 4;
+			return 3;
 		}
 	}
 }
