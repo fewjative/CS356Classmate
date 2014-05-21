@@ -12,7 +12,7 @@ public class User implements Parcelable {
 	private final long ID;
 	private final String USERNAME;
 	private final String EMAIL;
-	private Bitmap avatar = null;
+	private Bitmap avatar;
 
 	public User(long id, String username, String email) {
 		this.ID = id;
