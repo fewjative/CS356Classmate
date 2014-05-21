@@ -9,6 +9,7 @@
 >
 	<include
 		layout="@layout/user_avatar_layout"
+		android:id="@+id/ivAvatarFriend"
 		android:layout_width="36dp"
 		android:layout_height="36dp"
 		android:layout_marginTop="6dip"
@@ -16,6 +17,7 @@
 	/>
 	<include
 		layout="@layout/user_avatar_layout"
+		android:id="@+id/ivAvatarAdded"
 		android:layout_width="36dp"
 		android:layout_height="36dp"
 		android:layout_marginTop="6dip"
