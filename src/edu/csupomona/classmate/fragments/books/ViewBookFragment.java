@@ -22,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -77,16 +78,16 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		ROOT = (ViewGroup)inflater.inflate(R.layout.books_comments_layout, null);
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		tvTitle = (TextView)ROOT.findViewById(R.id.tvTitle);
-		tvTitle.setText(title);
+		tvTitle.setText("Book Title: " + title);
 		
 		tvClassname = (TextView)ROOT.findViewById(R.id.tvClassname);
-		tvClassname.setText(classname);
+		tvClassname.setText("For class: " + classname);
 		
 		tvCondition = (TextView)ROOT.findViewById(R.id.tvCondition);
-		tvCondition.setText(condition);
+		tvCondition.setText("In condition: " + condition);
 		
 		tvPrice = (TextView)ROOT.findViewById(R.id.tvPrice);
-		tvPrice.setText(price);
+		tvPrice.setText("For this price: " + price);
 		
 		etComment = (EditText)ROOT.findViewById(R.id.etComment);
 		btnComment = (Button)ROOT.findViewById(R.id.btnComment);
@@ -137,8 +138,6 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
 					lvQueryResults.setAdapter(adapter);
-					// TODO uncomment
-					//((MainActivity)getActivity()).updateFriendRequestsNum();
 				}
 
 				llProgressBar.setVisibility(View.GONE);
@@ -165,7 +164,8 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/2/addbookcomment.php",params, new JsonHttpResponseHandler() {
-			@Override
+			
+			/*@Override
 			public void onSuccess(String response) {
 				System.out.println("response: " + response);
 				if (!loadingDialog.isShowing()) {
@@ -208,7 +208,21 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 					return;
 				}
 			}
+			
+			public void onFailure(Throwable arg0, String arg1) {
+		         Log.d("TAG", "Failure");        
+		     }*/
+			
 		});
+		
+		if (!loadingDialog.isShowing()) {
+	
+		}
+
+		loadingDialog.dismiss();
+		
+		etComment.setText("");
+		setUpComments();
 		
 	}
 }

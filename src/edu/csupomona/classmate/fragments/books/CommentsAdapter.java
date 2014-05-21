@@ -1,34 +1,15 @@
 package edu.csupomona.classmate.fragments.books;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.abstractions.Book;
 import edu.csupomona.classmate.abstractions.BookComment;
-import edu.csupomona.classmate.abstractions.User;
-
 import java.util.List;
 
 public class CommentsAdapter extends ArrayAdapter<BookComment> {
@@ -61,8 +42,6 @@ public class CommentsAdapter extends ArrayAdapter<BookComment> {
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvUsername = (TextView)view.findViewById(R.id.tvUsername);
 			TextView tvComment = (TextView)view.findViewById(R.id.tvComment);
-	
-			ImageButton btnViewBook = (ImageButton)view.findViewById(R.id.btnViewBook);
 			
 			view.setTag(new ViewHolder(ivAvatar, tvUsername,tvComment));
 
@@ -78,6 +57,7 @@ public class CommentsAdapter extends ArrayAdapter<BookComment> {
 			if(holder.tvUsername !=null)
 			{
 				holder.tvUsername.setText(f.getCommenter());
+				System.out.println("Commenter: " + f.getCommenter());
 			}
 			
 			if(holder.tvComment !=null)
