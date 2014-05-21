@@ -56,22 +56,32 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 		}
 		
 		if (a != null && holder != null){
+			User friend = a.getFriend();
+			User added = a.getAdded();
+			
 			if (holder.tvItemName != null){
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 				
-				SpannableString username = new SpannableString(a.getFriend().getName());
+				SpannableString username = new SpannableString(friend.getName());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 				
+				friend.loadAvatar(ivAvatarFriend);
+				
 				builder.append(" added ");
-				if(!a.getFriendUsername().equals("0")){
+				if(added != null) {
 					SpannableString friendName = new SpannableString(a.getFriendUsername());
 					friendName.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, friendName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(friendName);
+					
+					ivAvatarAdded.setVisible(Activity.VISIBLE);
+					added.loadAvatar(ivAvatarAdded);
 				}else{
 					SpannableString className = new SpannableString(a.getClassName());
 					className.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, className.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(className);
+					
+					ivAvatarAdded.setVisible(Activity.GONE);
 				}
 				
 				builder.append(".");
