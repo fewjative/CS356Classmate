@@ -6,6 +6,7 @@ public interface Constants {
 	String PHP_BASE_ADDRESS			= "http://www.lol-fc.com/classmate/2/";
 
 	String PHP_ADDRESS_LOGIN		= "login.php";
+	String PHP_ADDRESS_GETACTIVITYFEED="getactivityfeed.php";
 	String PHP_ADDRESS_GETFRIENDS		= "getfriends.php";
 	String PHP_ADDRESS_GETREQUESTS	= "getrequests.php";
 	String PHP_ADDRESS_ACCEPTFRIEND	= "acceptfriend.php";

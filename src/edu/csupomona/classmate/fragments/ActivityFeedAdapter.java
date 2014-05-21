@@ -67,15 +67,17 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 				builder.append(username);
 				
 				builder.append(" added ");
+				if(!a.getFriendUsername().equals("0")){
+					SpannableString friendName = new SpannableString(a.getFriendUsername());
+					friendName.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, friendName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					builder.append(friendName);
+				}else{
+					SpannableString className = new SpannableString(a.getClassName());
+					className.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, className.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					builder.append(className);
+				}
 				
-				SpannableString friendName = new SpannableString(a.getFriendUsername());
-				friendName.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, friendName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				builder.append(friendName);
-				
-				SpannableString className = new SpannableString(a.getFriendUsername());
-				className.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, friendName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				builder.append(className);
-				
+				builder.append(".");
 				holder.textUserName.setText(builder);
 			}
 		}

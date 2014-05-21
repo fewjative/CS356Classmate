@@ -1,7 +1,5 @@
 package edu.csupomona.classmate.abstractions;
 
-import edu.csupomona.classmate.R;
-
 public class Activity {
 	private final String username;
 	private final String friendUsername;

@@ -8,12 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,6 @@ import android.widget.TextView;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.Constants;
-import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
-import static edu.csupomona.classmate.Constants.NULL_USER;
-import static edu.csupomona.classmate.Constants.PHP_PARAM_USERID;
 import edu.csupomona.classmate.abstractions.Activity;
 
 public class ActivityFeedFragment extends Fragment {
@@ -39,14 +34,14 @@ public class ActivityFeedFragment extends Fragment {
 		llProgressBar = (LinearLayout)ROOT.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 		
-		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		int id = getActivity().getIntent().getIntExtra(INTENT_KEY_USER, NULL_USER);
+		final User USER = getActivity().getIntent().getParcelableExtra(Constants.INTENT_KEY_USER);
+		long id = USER.getID();
 		RequestParams params = new RequestParams();
 		
-		params.put(PHP_PARAM_USERID, Integer.toString(id));
+		params.put(Constants.PHP_PARAM_USERID, Long.toString(id));
 		
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/getactivityfeed.php", params, new AsyncHttpResponseHandler() {
+		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETACTIVITYFEED, params, new JsonHttpResponseHandler() {
 			public void onSuccess(JSONArray response){
 				List<Activity> activities = new ArrayList<Activity>();
 				try {
@@ -54,7 +49,7 @@ public class ActivityFeedFragment extends Fragment {
 					
 					for (int i = 0; i < response.length(); i++){
 						jObj = response.getJSONObject(i);
-						activities.add(new Activity(jObj.getString("username"), jObj.getString("friendUsername"), jObj.getString("className")));
+						activities.add(new Activity(jObj.getString("user_id"), jObj.getString("friend_id"), jObj.getString("class_id")));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -63,7 +58,7 @@ public class ActivityFeedFragment extends Fragment {
 				ListView lvActivityList = (ListView)ROOT.findViewById(R.id.lvActivityList);
 				if (adapter.isEmpty()){
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
-					
+					tvEmptyList.setText(getResources().getString(R.string.activity_feed_empty));
 					
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
@@ -74,10 +69,6 @@ public class ActivityFeedFragment extends Fragment {
 				
 			}
 		});
-
-		ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
-		
-
 		return ROOT;
 	}
 	

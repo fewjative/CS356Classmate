@@ -88,4 +88,7 @@
 
 	<string name="dialog_friend_remove_title">Hold on a sec&#8230;</string>
 	<string name="dialog_friend_remove">Would you like to remove this friend from seeing your schedule? If so click \'%1$s\', otherwise clicking \'%2$s\' will only remove the person from your friends list.</string>
+	
+	<!--Activity Feed-->
+	<string name="activity_feed_empty">Your acivity feed is empty.</string>
 </resources>
