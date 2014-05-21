@@ -24,17 +24,14 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 	}
 	
 	private static class ViewHolder {
-		final TextView textUserName;
-		final TextView added;
-		final TextView textFriendUserName;
-		final TextView textClassName;
-		
-		ViewHolder(TextView textUserName, TextView added, TextView textFriendUserName, TextView textClassName){
-			this.textUserName = textUserName;
-			this.added = added;
-			this.textFriendUserName = textFriendUserName;
-			this.textClassName = textClassName;
-			
+		final ImageView ivAvatarFriend;
+		final ImageView ivAvatarAdded;
+		final TextView tvItemName;
+
+		ViewHolder(ImageView ivAvatarFriend, ImageView ivAvatarAdded, TextView tvItemName){
+			this.ivAvatarFriend = ivAvatarFriend;
+			this.ivAvatarAdded = ivAvatarAdded;
+			this.tvItemName = tvItemName;
 		}
 	}
 	
@@ -47,22 +44,22 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 		if (view == null){
 			view = LayoutInflater.from(getContext()).inflate(R.layout.activity_feed_item_layout, null);
 			
-			TextView textUserName = (TextView)view.findViewById(R.id.tvItemTextUsername);
-			TextView textFriendUserName = (TextView)view.findViewById(R.id.tvItemTextFriendUsername);
-			TextView textClassName = (TextView)view.findViewById(R.id.tvItemTextClassname);
-			TextView added = (TextView)view.findViewById(R.id.added);
-			view.setTag(new ViewHolder(textUserName, added, textFriendUserName, textClassName));
+			ImageView ivAvatarFriend = (ImageView)view.findViewById(R.id.ivAvatarFriend);
+			ImageView ivAvatarAdded = (ImageView)view.findViewById(R.id.ivAvatarAdded);
+			TextView tvItemName = (TextView)view.findViewById(R.id.tvItemName);
+			view.setTag(new ViewHolder(ivAvatarFriend, ivAvatarAdded, tvItemName));
 		}
 		
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder){
 			holder = (ViewHolder)tag;
 		}
+		
 		if (a != null && holder != null){
-			if (holder.textUserName != null){
+			if (holder.tvItemName != null){
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 				
-				SpannableString username = new SpannableString(a.getUsername());
+				SpannableString username = new SpannableString(a.getFriend().getName());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 				
