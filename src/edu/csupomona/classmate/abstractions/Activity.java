@@ -5,17 +5,17 @@ public class Activity {
 	private final String friendUsername;
 	private final String className;
 
-	public Activity(String username, String friendUsername, String className) {
+	public Activity(User friend, User added, String className) {
 		this.username = username;
 		this.friendUsername = friendUsername;
 		this.className = className;
 	}
 
-	public String getUsername() {
+	public String getAdded() {
 		return username;
 	}
 	
-	public String getFriendUsername(){
+	public String getFriend(){
 		return friendUsername;
 	}
 	
