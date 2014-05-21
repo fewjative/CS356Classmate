@@ -12,6 +12,7 @@ import edu.csupomona.classmate.drawer.Header;
 import edu.csupomona.classmate.drawer.Item;
 import edu.csupomona.classmate.drawer.UserHeader;
 import edu.csupomona.classmate.fragments.AddClassEventFragment;
+import edu.csupomona.classmate.fragments.BooksFragment;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
 import edu.csupomona.classmate.fragments.ScheduleFragment;
@@ -68,6 +69,9 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_social_groups);
 		dlDrawer.addItem(new Item(GroupsFragment.class, temp, R.drawable.ic_action_group));
+		
+		temp = getString(R.string.nd_social_books);
+		dlDrawer.addItem(new Item(BooksFragment.class, temp, R.drawable.ic_action_group));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));

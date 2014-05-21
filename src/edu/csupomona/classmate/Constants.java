@@ -27,6 +27,7 @@ public interface Constants {
 	String PHP_ADDRESS_GETCOURSES		= "getclasses.php";
 	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
 	String PHP_ADDRESS_REMOVECLASS2	= "removeclass2.php";
+	String PHP_ADDRESS_GETBOOKLIST = "getbooklist.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
@@ -37,7 +38,7 @@ public interface Constants {
 	String PHP_PARAM_DISTINCT		= "distinct";
 	String PHP_PARAM_EMAIL			= "email";
 	String PHP_PARAM_FRIEND			= "friend";
-	String PHP_PARAM_FRIENDEMAIL		= "femail";
+	String PHP_PARAM_FRIENDEMAIL	= "femail";
 	String PHP_PARAM_FRIENDID		= "friend_id";
 	String PHP_PARAM_FRIENDUSERNAME	= "fusername";
 	String PHP_PARAM_GROUPID		= "group_id";
@@ -53,6 +54,11 @@ public interface Constants {
 	String PHP_PARAM_SUBJECT		= "subject";
 	String PHP_PARAM_TERM			= "term";
 	String PHP_PARAM_USERID			= "user_id";
+	String PHP_PARAM_BOOKLISTID		= "booklist_id";
+	String PHP_PARAM_BOOKTITLE 		= "title";
+	String PHP_PARAM_BOOKCLASSNAME  = "classname";
+	String PHP_PARAM_BOOKCONDITION  = "condition";
+	String PHP_PARAM_BOOKPRICE 		= "price";
 	String PHP_PARAM_VERSION		= "version";
 
 	String PHP_PARAM_CLASS_ID		= "class_id";

@@ -74,6 +74,7 @@
 	<string name="nd_social_header">Social</string>
 	<string name="nd_social_friends">Friends</string>
 	<string name="nd_social_groups">Groups</string>
+	<string name="nd_social_books">Book Accomplice</string>
 
 	<string name="nd_app_header">Application</string>
 	<string name="nd_app_settings">Settings</string>
@@ -136,6 +137,17 @@
 
 	<string name="dialog_group_join_title">Group Joined</string>
 	<string name="dialog_group_join">You have sucessfully joined the \'%1$s\'!</string>
+
+	<!-- Book Accomplice Tab -->
+	<string name="books_tab_buy">Buy Books</string>
+	<string name="books_tab_sell">Sell Books</string>
+	<string name="book_title">Book Title:</string>
+	<string name="book_classname">What class is this book for?</string>
+	<string name="book_condition">What condition is the book in?</string>
+	<string name="book_price">How much are you selling this book for?</string>
+	<string name="book_sell_button">Sell Book</string>
+	<string name="listingBook">Listing your book!</string>
+	<string name="listingBookLoading">Your book is being listed as we speak!</string>
 
 	<!--Manage Group Activity-->
 	<string name="manage_group">Manage Group</string>
