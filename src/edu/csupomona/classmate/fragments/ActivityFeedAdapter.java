@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Activity;
+import edu.csupomona.classmate.abstractions.User;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
@@ -20,7 +22,6 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 	
 	public ActivityFeedAdapter(Context context, List<Activity> activities){
 		super(context, 0, activities);
-		
 	}
 	
 	private static class ViewHolder {
@@ -62,30 +63,36 @@ public class ActivityFeedAdapter extends ArrayAdapter<Activity>{
 			if (holder.tvItemName != null){
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 				
-				SpannableString username = new SpannableString(friend.getName());
+				SpannableString username = new SpannableString(friend.getUsername());
 				username.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, username.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(username);
 				
-				friend.loadAvatar(ivAvatarFriend);
+				
 				
 				builder.append(" added ");
-				if(added != null) {
-					SpannableString friendName = new SpannableString(a.getFriendUsername());
+				if(added.getID()!=0) {
+					SpannableString friendName = new SpannableString(added.getUsername());
 					friendName.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, friendName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(friendName);
 					
-					ivAvatarAdded.setVisible(Activity.VISIBLE);
-					added.loadAvatar(ivAvatarAdded);
+					
 				}else{
 					SpannableString className = new SpannableString(a.getClassName());
 					className.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, className.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(className);
 					
-					ivAvatarAdded.setVisible(Activity.GONE);
+					
 				}
 				
-				builder.append(".");
-				holder.textUserName.setText(builder);
+				holder.tvItemName.setText(builder);
+			}
+			if (holder.ivAvatarFriend != null) {
+				holder.ivAvatarFriend.setVisibility(View.VISIBLE);
+				friend.loadAvatar(holder.ivAvatarFriend);
+			}
+			if (holder.ivAvatarAdded != null) {
+				holder.ivAvatarAdded.setVisibility(View.VISIBLE);
+				added.loadAvatar(holder.ivAvatarAdded);
 			}
 		}
 		return view;

@@ -1,22 +1,22 @@
 package edu.csupomona.classmate.abstractions;
 
 public class Activity {
-	private final String username;
-	private final String friendUsername;
+	private final User friend;
+	private final User added;
 	private final String className;
 
 	public Activity(User friend, User added, String className) {
-		this.username = username;
-		this.friendUsername = friendUsername;
+		this.friend = friend;
+		this.added = added;
 		this.className = className;
 	}
 
-	public String getAdded() {
-		return username;
+	public User getAdded() {
+		return added;
 	}
 	
-	public String getFriend(){
-		return friendUsername;
+	public User getFriend(){
+		return friend;
 	}
 	
 	public String getClassName(){

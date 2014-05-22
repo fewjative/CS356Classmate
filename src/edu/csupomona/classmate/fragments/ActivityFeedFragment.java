@@ -49,7 +49,18 @@ public class ActivityFeedFragment extends Fragment {
 					
 					for (int i = 0; i < response.length(); i++){
 						jObj = response.getJSONObject(i);
-						activities.add(new Activity(jObj.getString("user_id"), jObj.getString("friend_id"), jObj.getString("class_id")));
+						activities.add(new Activity(
+								new User(
+										jObj.getLong(Constants.PHP_PARAM_USERID),
+										jObj.getString(Constants.PHP_PARAM_NAME),
+										""
+										),
+								new User(
+										jObj.getLong(Constants.PHP_PARAM_FRIENDID),
+										jObj.getString("friendname"),
+										""
+										),
+								jObj.getString("class_id")));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
