@@ -13,6 +13,8 @@ import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.fragments.books.BuyBooksTab;
 import edu.csupomona.classmate.fragments.books.SellBooksTab;
+import edu.csupomona.classmate.fragments.books.AdminBooksTab;
+
 
 public class BooksFragment extends Fragment {
 	@Override
@@ -49,6 +51,7 @@ public class BooksFragment extends Fragment {
 			switch (i) {
 				case 0: return new BuyBooksTab();
 				case 1: return new SellBooksTab();
+				case 2: return new AdminBooksTab();
 				default: return null;
 			}
 		}
@@ -58,13 +61,14 @@ public class BooksFragment extends Fragment {
 			switch (i) {
 				case 0: return getString(R.string.books_tab_buy);
 				case 1: return getString(R.string.books_tab_sell);
+				case 2: return getString(R.string.books_tab_admin);
 				default: throw new RuntimeException();
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 3;
 		}
 	}
 }

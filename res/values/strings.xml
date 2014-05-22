@@ -141,6 +141,7 @@
 	<!-- Book Accomplice Tab -->
 	<string name="books_tab_buy">Buy Books</string>
 	<string name="books_tab_sell">Sell Books</string>
+	<string name="books_tab_admin">Admin Panel</string>
 	<string name="book_title">Book Title:</string>
 	<string name="book_classname">What class is this book for?</string>
 	<string name="book_condition">What condition is the book in?</string>
@@ -148,6 +149,8 @@
 	<string name="book_sell_button">Sell Book</string>
 	<string name="listingBook">Listing your book!</string>
 	<string name="listingBookLoading">Your book is being listed as we speak!</string>
+	<string name="book_list_empty">There are no books to be listed.</string>
+	<string name="book_comment_list_empty">There are no comments to be listed.</string>
 
 	<!--Manage Group Activity-->
 	<string name="manage_group">Manage Group</string>

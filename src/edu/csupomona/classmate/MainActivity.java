@@ -71,7 +71,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Item(GroupsFragment.class, temp, R.drawable.ic_action_group));
 		
 		temp = getString(R.string.nd_social_books);
-		dlDrawer.addItem(new Item(BooksFragment.class, temp, R.drawable.ic_action_group));
+		dlDrawer.addItem(new Item(BooksFragment.class, temp, R.drawable.ic_action_books));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));

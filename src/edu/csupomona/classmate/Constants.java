@@ -28,6 +28,8 @@ public interface Constants {
 	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
 	String PHP_ADDRESS_REMOVECLASS2	= "removeclass2.php";
 	String PHP_ADDRESS_GETBOOKLIST = "getbooklist.php";
+	String PHP_ADDRESS_GETADMINBOOKLIST = "getadminbooklist.php";
+	String PHP_ADDRESS_REMOVEBOOK = "removebook.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };

@@ -132,7 +132,7 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
-					tvEmptyList.setText(R.string.friend_requests_empty);
+					tvEmptyList.setText(R.string.book_comment_list_empty);
 
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
