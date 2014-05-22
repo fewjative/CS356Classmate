@@ -102,6 +102,11 @@
 	<string name="dialog_event_acceptance">You have added %1$s to your schedule.</string>
 	<string name ="add_event_hint">Enter a title or description to search for:</string>
 	<string name="example_event">CPP BBQ</string>
+	<string name="invalid_event_header_hint">Sorry</string>
+	<string name="invalid_event_title_hint">Please give your event a title</string>
+	<string name="invalid_event_description_hint">Please give your event a description</string>
+	<string name="invalid_event_dates_hint">Please correct the event dates</string>
+	<string name="invalid_event_times_hint">Please correct the event times</string>
 
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
