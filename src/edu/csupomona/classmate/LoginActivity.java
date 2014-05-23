@@ -10,24 +10,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import static edu.csupomona.classmate.Constants.CODE_MAIN;
 import static edu.csupomona.classmate.Constants.CODE_RECOVER;
 import static edu.csupomona.classmate.Constants.CODE_REGISTER;
-import static edu.csupomona.classmate.Constants.INTENT_KEY_AUTOLOGIN;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import static edu.csupomona.classmate.Constants.NO_USER;
@@ -42,8 +36,6 @@ import static edu.csupomona.classmate.Constants.PREFS_KEY_AUTOLOGIN;
 import static edu.csupomona.classmate.Constants.PREFS_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.PREFS_WHICH;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,10 +61,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
 //		btnLogin.setEnabled(false);
-		
+
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
 		etPassword = (EditText)findViewById(R.id.etPassword);
-		
+
 //		TextWatcher tw = new TextWatcherAdapter() {
 //			@Override
 //			public void afterTextChanged(Editable e) {
@@ -100,18 +92,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		actionBar.hide();
 //		actionBar.setCustomView(R.layout.login_activity_logo_layout);
 //		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		
-		
+
+
 		btnRegister = (TextView)findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);
 		btnRecover = (TextView)findViewById(R.id.btnRecover);
 		btnRecover.setOnClickListener(this);
-		
+
 		String emailAddress = prefs.getString(PREFS_KEY_EMAIL, null);
 		if (savedInstanceState == null && bAutoLogin && emailAddress != null) {
 			attemptLogin(emailAddress, null);
 		}
-	
+
 	}
 
 	@Override
@@ -177,7 +169,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				break;
 			case R.id.btnRegister:
 				registerAccount(email);
-				break;	
+				break;
 		}
 	}
 

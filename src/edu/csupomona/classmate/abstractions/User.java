@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
 import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.utils.AsyncReadImageTask;
+import edu.csupomona.classmate.utils.AsyncGetAvatarTask;
 
 public class User implements Parcelable {
 	private final long ID;
@@ -42,7 +42,7 @@ public class User implements Parcelable {
 
 	public void loadAvatar(final ImageView iv) {
 		for (String ext : Constants.AVATAR_EXTENSIONS) {
-			new AsyncReadImageTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(ID) + "." + ext);
+			new AsyncGetAvatarTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(ID) + "." + ext);
 		}
 	}
 

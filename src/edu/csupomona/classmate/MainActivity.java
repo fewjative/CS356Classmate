@@ -15,6 +15,7 @@ import edu.csupomona.classmate.fragments.ActivityFeedFragment;
 import edu.csupomona.classmate.fragments.AddClassEventFragment;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.fragments.NewsFeedFragment;
 import edu.csupomona.classmate.fragments.ScheduleFragment;
 import edu.csupomona.classmate.fragments.SettingsFragment;
 import edu.csupomona.classmate.fragments.UnderConstructionFragment;
@@ -50,7 +51,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_chat));
+		dlDrawer.addItem(new Item(NewsFeedFragment.class, temp, R.drawable.ic_action_chat));
 
 		temp = getString(R.string.nd_schedule_header);
 		dlDrawer.addItem(new Header(temp));
