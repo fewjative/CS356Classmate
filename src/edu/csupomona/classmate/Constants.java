@@ -21,17 +21,19 @@ public interface Constants {
 	String PHP_ADDRESS_REQUESTFRIEND	= "addfriend.php";
 	String PHP_ADDRESS_SEARCHGROUPS	= "searchgroups.php";
 	String PHP_ADDRESS_SEARCHEVENTS	= "searchevents.php";
-	String PHP_ADDRESS_ADDEVENT	= "addevent.php";
+	String PHP_ADDRESS_ADDEVENT		= "addevent.php";
 	String PHP_ADDRESS_GETTERMS		= "getterms.php";
 	String PHP_ADDRESS_GETMAJORS		= "getmajors.php";
 	String PHP_ADDRESS_GETCOURSES		= "getclasses.php";
 	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
 	String PHP_ADDRESS_REMOVECLASS2	= "removeclass2.php";
+	String PHP_ADDRESS_GETACTIVITYFEED	= "getactivityfeed.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
+	String PHP_PARAM_ACTIVITYTYPE		= "activity_type";
 	String PHP_PARAM_CLASSNUM		= "class_num";
 	String PHP_PARAM_DEVICEID		= "device_id";
 	String PHP_PARAM_DISTINCT		= "distinct";
