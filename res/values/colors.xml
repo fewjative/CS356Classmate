@@ -26,6 +26,7 @@
 	<color name="cppgold">#F5BC23</color>
 
 	<color name="cppgreen_darker">#003D21</color>
+	<color name="cppgreen_darker_darker">#002816</color>
 	<color name="cppgold_darker">#DBA20A</color>
 
 	<color name="cppgreen_trans_darker">#E6003D21</color>
