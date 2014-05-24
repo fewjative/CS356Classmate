@@ -27,7 +27,7 @@
 			android:orientation="vertical"
 			android:baselineAligned="false"
 			android:padding="4dp"
-			android:background="@color/cppgreen_darker"
+			android:background="@drawable/green_gradient_background"
 			android:gravity="center"
 		>
 			<TextView
