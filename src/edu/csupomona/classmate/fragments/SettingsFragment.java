@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +33,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.LoginActivity;
-import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Schedule;
 import edu.csupomona.classmate.abstractions.User;
@@ -60,7 +60,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	private EditText etNewPass2;
 	private Button btnCreateSchedule;
 	private Button btnSetActiveSchedule;
-	private Button btnSavePhoto;
 	private ImageView ivProfilePic;
 	private EditText etScheduleName;
 	private LinearLayout llNoSchedule;
@@ -608,25 +607,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
               }).start();
 	}
 	
-	private Bitmap bitmapCrop(Bitmap bitmap) {
+	public static Bitmap bmCropMiddle(Bitmap bitmap) {
 		Bitmap result;
-		if (bitmap.getWidth() >= bitmap.getHeight()){
-			result = Bitmap.createBitmap(
-			bitmap, 
-			bitmap.getWidth()/2 - bitmap.getHeight()/2,
-			0,
-			bitmap.getHeight(), 
-			bitmap.getHeight()
-		);
-		} else {
-			result = Bitmap.createBitmap(
-				bitmap,
-				0, 
-				bitmap.getHeight()/2 - bitmap.getWidth()/2,
-				bitmap.getWidth(),
-				bitmap.getWidth() 
-			);
+		int smallestDimension = 0;
+		
+		if(bitmap.getWidth() == bitmap.getHeight()) {
+			return bitmap;
+		} else if (bitmap.getWidth() < bitmap.getHeight()) {
+			smallestDimension = bitmap.getWidth();
+		} else if (bitmap.getWidth() > bitmap.getHeight()) {
+			smallestDimension = bitmap.getHeight();
 		}
+		result = ThumbnailUtils.extractThumbnail(bitmap, smallestDimension, smallestDimension);
+		
 		return result;
 	}	
     //==================FOR UPLOADING PICTURES
@@ -647,12 +640,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		    	System.out.println("The user pressed the back button while in the gallery");
 		    	break;
 		    case CODE_CAMERA_REQUEST:
-		        if(resultCode == getActivity().RESULT_OK) {
+		        if(resultCode == FragmentActivity.RESULT_OK) {
 		            // Need to find a way to upload photo taken to server
 		        	// currently using fileinputstream, but since there is no saved directory for 
 		        	// photos taken with camera, need to upload the data directly
 		        	Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-		            thumbnail = bitmapCrop(thumbnail);
+		            thumbnail = bmCropMiddle(thumbnail);
 		        	// set default profile pic to specified bitmap
 		            ivProfilePic.setImageBitmap(thumbnail);
 		        }
@@ -663,7 +656,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	    	       imageFile = getRealPathFromURI(photoUri);	    	       
 	    	       // Do something with the photo based on Uri
 	    	       Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-	    	       thumbnail = bitmapCrop(thumbnail);
+	    	       thumbnail = bmCropMiddle(thumbnail);
 	    	       // Load the selected image into a preview
 		           ivProfilePic.setImageBitmap(thumbnail);
 		           uploadPhotoToServer();
