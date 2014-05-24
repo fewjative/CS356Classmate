@@ -8,6 +8,9 @@
 	<string name="global_action_yes">Yes</string>
 	<string name="global_action_no">No</string>
 
+    <!--Facebook Stuff -->
+    <string name="app_id">240568556150736</string>	
+    
 	<!--Login Activity-->
 	<string name="email_address">Email Address</string>
 	<string name="person_name">Name</string>
@@ -32,7 +35,9 @@
 
 	<string name="dialog_login_error_title">Login Failed</string>
 	<string name="dialog_login_error">Sorry, either your email or password was incorrect.</string>
-
+    <string name="dialog_login_loading">Verifying user credentials.</string>
+    <string name="dialog_fb_login_error">Sorry, we had a problem automatically logging you in through facebook.</string>
+	
 	<!--Recovery Activity-->
 	<string name="recovery_action_recover">Recover Password</string>
 

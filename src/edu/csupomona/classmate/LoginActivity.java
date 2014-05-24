@@ -1,5 +1,7 @@
 package edu.csupomona.classmate;
 
+import java.util.Arrays;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,15 +12,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.Response;
+import com.facebook.Request;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import static edu.csupomona.classmate.Constants.CODE_MAIN;
 import static edu.csupomona.classmate.Constants.CODE_RECOVER;
 import static edu.csupomona.classmate.Constants.CODE_REGISTER;
@@ -35,7 +48,9 @@ import static edu.csupomona.classmate.Constants.PHP_PARAM_USERID;
 import static edu.csupomona.classmate.Constants.PREFS_KEY_AUTOLOGIN;
 import static edu.csupomona.classmate.Constants.PREFS_KEY_EMAIL;
 import static edu.csupomona.classmate.Constants.PREFS_WHICH;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_FBUSER;
 import edu.csupomona.classmate.abstractions.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,21 +62,37 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private EditText etPassword;
 //	private CheckBox cbAutoLogin;
 	private Button btnLogin;
+	private LoginButton btnFbLogin;
 	private TextView btnRegister;
 	private TextView btnRecover;
 
+	private UiLifecycleHelper uiHelper;
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+    	@Override
+    	public void call(Session session, SessionState state, Exception exception) {
+    		onSessionStateChange(session, state, exception);
+	    }
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity_layout);
-
+		
+		uiHelper = new UiLifecycleHelper(this, callback);
+	    uiHelper.onCreate(savedInstanceState);
+	    
 		prefs = getSharedPreferences(PREFS_WHICH, Context.MODE_PRIVATE);
+		// enable auto-login by default
 		boolean bAutoLogin = prefs.getBoolean(PREFS_KEY_AUTOLOGIN, true);
 
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
 //		btnLogin.setEnabled(false);
-
+		
+		btnFbLogin = (LoginButton)findViewById(R.id.btnFbLogin);
+		btnFbLogin.setReadPermissions(Arrays.asList("email"));		
+		
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
 		etPassword = (EditText)findViewById(R.id.etPassword);
 
@@ -109,7 +140,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
+	    uiHelper.onPause();
+	    
 		SharedPreferences.Editor editor = prefs.edit();
 		String email = etEmailAddress.getText().toString();
 		if (!email.isEmpty()) {
@@ -122,6 +154,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);		
+		
 		switch (requestCode) {
 			case CODE_MAIN:
 				switch (resultCode) {
@@ -229,7 +264,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			}
 		});
 	}
-
+	
 	private void recoverAccount(String email) {
 		Intent i = new Intent(this, RecoveryActivity.class);
 		i.putExtra(INTENT_KEY_EMAIL, email);
@@ -259,4 +294,121 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		i.putExtra(INTENT_KEY_USER, user);
 		startActivityForResult(i, CODE_MAIN);
 	}
+	
+	private void facebookLogin(long id, String username, String email) {
+		assert NO_USER < id;
+
+		String emailAddress = email;
+		
+		if (emailAddress.isEmpty()) {
+			SharedPreferences preferences = getSharedPreferences(PREFS_WHICH, MODE_PRIVATE);
+			emailAddress = preferences.getString(PHP_PARAM_EMAIL, null);
+		}	
+		//as far as I know, every fbook account needs an email so the above if statement will never be called
+//		Intent widgetIntent = new Intent(ClassmateProvider.UPDATE_ID);
+//		widgetIntent.putExtra(INTENT_KEY_USER, id);
+//		sendBroadcast(widgetIntent);
+//		System.out.println("Should have broadcasted id " + id);
+		
+		Intent i = new Intent(this, MainActivity.class);
+		i.putExtra(PHP_PARAM_USERID, id);
+		i.putExtra(PHP_PARAM_EMAIL, emailAddress);
+		i.putExtra(PHP_PARAM_USERID, username);
+		i.putExtra(INTENT_KEY_FBUSER,true);
+		startActivityForResult(i, CODE_MAIN);
+	}
+	
+	@Override
+	public void onResume() {
+	    super.onResume();
+	    // For scenarios where the main activity is launched and user
+	    // session is not null, the session state change notification
+	    // may not be triggered. Trigger it if it's open/closed.
+	    uiHelper.onResume();
+	}
+
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    uiHelper.onDestroy();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    uiHelper.onSaveInstanceState(outState);
+	}
+	
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+		if (state.isOpened()) {
+	        Log.i("FACEBOOK", "Logged in...");
+
+	        // Request Facebook user data and start main activity
+	        Request.newMeRequest(session, new Request.GraphUserCallback() {
+				@Override
+				public void onCompleted(GraphUser user, Response response) {
+					if (user != null) {
+						// Log.i("FACEBOOK", user.getId()+" ***** "+user.getName());
+												
+						String device = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
+
+						RequestParams params = new RequestParams();
+						params.put("email", user.asMap().get("email").toString());
+						params.put("user_id", user.getId());
+						params.put("name", user.getName());
+						params.put("device_id", device);
+						
+						Toast.makeText(getApplicationContext(), user.getId()+" ***** "+user.getName()+" ***** "+user.asMap().get("email").toString()+" ***** "+device, Toast.LENGTH_SHORT).show();
+
+						AsyncHttpClient client = new AsyncHttpClient();
+						client.get("http://www.lol-fc.com/classmate/facebooklogin.php", params, new AsyncHttpResponseHandler() {
+							@Override
+							public void onSuccess(String response) {
+								
+								System.out.println("response: " + response);
+								System.out.println("response length: " + response.length());
+
+								long id = NO_USER;
+								String username = null;
+								String email = null;
+								if (response.length() > 1) {
+									try {
+										JSONObject jObj;
+										JSONArray myjsonarray = new JSONArray(response);
+										for (int i = 0; i < myjsonarray.length(); i++) {
+											jObj = myjsonarray.getJSONObject(i);
+											id = jObj.getLong("user_id");
+											username = jObj.getString("username");
+											email = jObj.getString("email");
+										}
+									} catch (JSONException e) {
+										e.printStackTrace();
+									}
+								}
+
+								if (NO_USER < id) {
+									login(new User(id, username, email));
+								}
+								else
+								{
+									AlertDialog d = new AlertDialog.Builder(LoginActivity.this).create();
+									d.setTitle(R.string.dialog_login_error);
+									d.setMessage(getResources().getString(R.string.dialog_fb_login_error));
+									d.setIcon(android.R.drawable.ic_dialog_alert);
+									d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int which) {
+										}
+									});
+									d.show();
+								}
+							}
+						});
+					}
+				}
+	        }).executeAsync();
+
+	    } else if (state.isClosed()) {
+	        Log.i("FACEBOOK", "Logged out...");
+	    }
+	}	
 }

@@ -76,13 +76,20 @@
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="center"
 	            android:layout_marginTop="8dp"
-	            android:layout_marginBottom="13dp"
 	            android:background="@drawable/rounded_button_selector"
 	            android:paddingLeft="49dp"
 	            android:paddingRight="49dp"
 	            android:text="@string/login_action_login" 
             />
 	        
+            <com.facebook.widget.LoginButton
+    			android:id="@+id/btnFbLogin"
+     			android:layout_width="match_parent"
+     			android:layout_height="wrap_content"
+     			android:layout_marginTop="8dp"
+     			android:layout_marginBottom="13dp"
+  			/>
+            
 	        <!-- <Button
 	            android:id="@+id/btnRegister"
 	            style="@style/style_button"

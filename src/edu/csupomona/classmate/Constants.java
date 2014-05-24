@@ -37,7 +37,7 @@ public interface Constants {
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
-	String PHP_PARAM_ACTIVITYTYPE		= "activity_type";
+	String PHP_PARAM_ACTIVITYTYPE	= "activity_type";
 	String PHP_PARAM_CLASSNUM		= "class_num";
 	String PHP_PARAM_DEVICEID		= "device_id";
 	String PHP_PARAM_DISTINCT		= "distinct";
@@ -83,7 +83,7 @@ public interface Constants {
 	String PHP_PARAM_CLASS_ROOM		= "room";
 	String PHP_PARAM_CLASS_SECTION	= "section";
 
-	String PREFS_WHICH			= "loginActivityPreferences";
+	String PREFS_WHICH				= "loginActivityPreferences";
 	String PREFS_KEY_EMAIL			= PHP_PARAM_EMAIL;
 	String PREFS_KEY_AUTOLOGIN		= "autologin";
 
@@ -95,15 +95,17 @@ public interface Constants {
 	String INTENT_KEY_SELECTEDITEMPOS	= "selectedItemPos";
 	String INTENT_KEY_USER			= "user";
 	//String INTENT_KEY_USERID		= PHP_PARAM_USERID;
-	String INTENT_KEY_NEWSARTICLE		= "newsArticle";
+	String INTENT_KEY_NEWSARTICLE	= "newsArticle";
+	String INTENT_KEY_FBUSER 		= "fb_user";
 
-	int CODE_REGISTER		= 0x0001;
-	int CODE_RECOVER		= 0x0002;
-	int CODE_MAIN		= 0x0003;
-	int CODE_MANAGEGROUP	= 0x0004;
-	int CODE_ADDMEMBER	= 0x0005;
-	int CODE_ADDCLASS		= 0x0006;
-	int CODE_VIEWSECTION	= 0x0007;
-	int CODE_CAMERA_REQUEST = 0x048;
-	int CODE_GALLERY_REQUEST = 0x058;
+
+	int CODE_REGISTER				= 0x0001;
+	int CODE_RECOVER				= 0x0002;
+	int CODE_MAIN					= 0x0003;
+	int CODE_MANAGEGROUP			= 0x0004;
+	int CODE_ADDMEMBER				= 0x0005;
+	int CODE_ADDCLASS				= 0x0006;
+	int CODE_VIEWSECTION			= 0x0007;
+	int CODE_CAMERA_REQUEST 		= 0x048;
+	int CODE_GALLERY_REQUEST 		= 0x058;
 }

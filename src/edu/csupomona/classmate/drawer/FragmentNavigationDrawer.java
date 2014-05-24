@@ -1,5 +1,7 @@
 package edu.csupomona.classmate.drawer;
 
+import com.facebook.Session;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -201,6 +203,11 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 		logoutDialog.setMessage(R.string.dialog_logout);
 		logoutDialog.setPositiveButton(R.string.global_action_yes, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
+				//logout of facebook session if there is one
+				Session session = Session.getActiveSession();
+				if (session != null) {
+					session.closeAndClearTokenInformation();
+				}
 				getActivity().setResult(Activity.RESULT_OK);
 				getActivity().finish();
 			}
