@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.fragments.books.AdminBooksTab;
 import edu.csupomona.classmate.fragments.books.BuyBooksTab;
 import edu.csupomona.classmate.fragments.books.SellBooksTab;
-import edu.csupomona.classmate.fragments.books.AdminBooksTab;
 
 
 public class BooksFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View ROOT = inflater.inflate(R.layout.books_fragment_layout, container, false);
+		final View ROOT = inflater.inflate(R.layout.viewpager_tab_layout, container, false);
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new BooksFragmentPagerAdapter(getChildFragmentManager()));
