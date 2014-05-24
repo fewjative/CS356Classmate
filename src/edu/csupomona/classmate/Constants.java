@@ -32,6 +32,7 @@ public interface Constants {
 	String PHP_ADDRESS_REMOVEBOOK = "removebook.php";
 	String PHP_ADDRESS_GETACTIVITYFEED	= "getactivityfeed.php";
 	String PHP_ADDRESS_GETNEWSFEED	= "getnewsfeed.php";
+	String PHP_ADDRESS_GETCPPEVENTSFEED = "getcppeventsfeed.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
