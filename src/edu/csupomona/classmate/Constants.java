@@ -95,4 +95,6 @@ public interface Constants {
 	int CODE_ADDMEMBER	= 0x0005;
 	int CODE_ADDCLASS		= 0x0006;
 	int CODE_VIEWSECTION	= 0x0007;
+	int CODE_CAMERA_REQUEST = 0x048;
+	int CODE_GALLERY_REQUEST = 0x058;
 }

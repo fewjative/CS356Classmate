@@ -185,6 +185,9 @@
    	<string name="changePass">Change Password</string>
    	<string name="changePassLoading">Changing Your Password</string>
    	<string name="confirmPass">Confirm New Password</string>
+   	<string name="dialog_change_profile_pic">Change profile picture</string>
+   	<string name="action_camera">Take picture with camera</string>
+	<string name="action_gallery">Choose from gallery</string>
 
 	<!--Add Class Activity-->
 	<string name="add_class">Add Class</string>

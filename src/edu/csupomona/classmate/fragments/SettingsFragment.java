@@ -4,9 +4,15 @@ package edu.csupomona.classmate.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +20,33 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.LoginActivity;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Schedule;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +60,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	private EditText etNewPass2;
 	private Button btnCreateSchedule;
 	private Button btnSetActiveSchedule;
+	private Button btnSavePhoto;
+	private ImageView ivProfilePic;
 	private EditText etScheduleName;
 	private LinearLayout llNoSchedule;
 	private LinearLayout llHasSchedule;
@@ -49,6 +69,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	private Spinner sSchedule;
 	private Schedule schActive = null;
 	private boolean isFirst = true;
+	ProgressDialog dialog = null;
+	private final String upLoadServerUri = "http://www.lol-fc.com/classmate/UploadToServer.php";
+	String imageFile;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +79,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		root = (ViewGroup)inflater.inflate(R.layout.settings_fragment_layout, null);
 
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-
+		
+		ivProfilePic = (ImageView)root.findViewById(R.id.ivProfilePic);
+		ivProfilePic.setOnClickListener(this);
+		ivProfilePic.setEnabled(true);
+		USER.loadAvatar(ivProfilePic);
+		
 		btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
 		btnChangePass.setOnClickListener(this);
 		btnChangePass.setEnabled(false);
@@ -75,7 +103,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
 
 		sSchedule = (Spinner)root.findViewById(R.id.sSchedules);
-
+		
 		final TextView tvPasswordMatcher = (TextView)root.findViewById(R.id.tvPasswordMatcher);
 		TextWatcherAdapter textWatcher = new TextWatcherAdapter() {
 			String s1, s2, oldpass;
@@ -217,6 +245,33 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		AsyncHttpClient client = new AsyncHttpClient();
 
 		switch (v.getId()) {
+	    	//profile picture clicked
+	    	case R.id.ivProfilePic:
+	    		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	            CharSequence[] options = new CharSequence[2];
+	            
+	            options[0] = getResources().getString(R.string.action_camera);
+	            options[1] = getResources().getString(R.string.action_gallery);
+	            builder.setCancelable(true);
+	            builder.setTitle(R.string.dialog_change_profile_pic)
+	            	   .setItems(options, new DialogInterface.OnClickListener() {
+	            		   public void onClick(DialogInterface dialog, int which) {
+	            			   if (which == 0) {
+	            				   startCamera();
+	            			   } else if (which == 1) {
+	            				   startGallery();
+	            			   }
+	            		   }
+	            	   })
+	            	   .setNegativeButton(R.string.global_action_cancel, new DialogInterface.OnClickListener() {
+	            		   @Override
+	            		   public void onClick(DialogInterface dialog, int id) {
+	            			   // ...
+	            		   }
+	            	   });
+	            builder.show(); 
+	    		break;	
+	    		
 			case R.id.btnChangePass:
 				assert etNewPass1.getText().toString().compareTo(etNewPass2.getText().toString()) == 0;
 
@@ -362,5 +417,262 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
 		}
 	}
+	
+	private void startCamera() {
+		Intent camera_intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+	    startActivityForResult(camera_intent, CODE_CAMERA_REQUEST);
+	}
+
+	private void startGallery() {
+		Intent gallery_intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(gallery_intent, CODE_GALLERY_REQUEST);
+	}
+	
+	private String getRealPathFromURI(Uri contentURI) {
+	    Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
+	    if (cursor == null) { // Source is Dropbox or other similar local file path
+	        return contentURI.getPath();
+	    } else { 
+	        cursor.moveToFirst(); 
+	        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA); 
+	        return cursor.getString(idx); 
+	    }
+	}
+	
+    
+    //==================FOR UPLOADING PICTURES
+    //
+    public int uploadFile(String sourceFileUri) {
+        
+        System.out.println(sourceFileUri);
+        String fileName = sourceFileUri;
+
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;  
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize;
+   	 	int serverResponseCode = 0;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024 * 1024; 
+        File sourceFile = new File(sourceFileUri); 
+         
+        if (!sourceFile.isFile()) {
+             
+             //dialog.dismiss(); 
+              
+             Log.e("uploadFile", "Source File not exist :");
+              
+             getActivity().runOnUiThread(new Runnable() {
+            	 public void run() {
+                     System.out.println("Source File not exist :");
+                 }
+             }); 
+              
+             return 0;
+          
+        }
+        else
+        {
+             try {
+         		 final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+                 String urlParameters = "user_id="+Long.toString(USER.getID())+"&fname="+fileName;
+                 // open a URL connection to the Servlet
+                 FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                 URL url = new URL(upLoadServerUri+"?"+urlParameters);
+                  
+                 // Open a HTTP  connection to  the URL
+                 conn = (HttpURLConnection) url.openConnection(); 
+                 conn.setDoInput(true); // Allow Inputs
+                 conn.setDoOutput(true); // Allow Outputs
+                 conn.setUseCaches(false); // Don't use a Cached Copy
+                 conn.setRequestMethod("POST");
+                 conn.setRequestProperty("Connection", "Keep-Alive");
+                 conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                 conn.setRequestProperty("uploaded_file", fileName); 
+               
+                // conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+                  
+                 dos = new DataOutputStream(conn.getOutputStream());
+                                  
+                 dos.writeBytes(twoHyphens + boundary + lineEnd); 
+                // dos.writeBytes("Content-Disposition: form-data; name="+uploaded_file+";filename=\""+ fileName + """ + lineEnd);
+               
+                 dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+ fileName + "\"" + lineEnd);		 
+                 dos.writeBytes(lineEnd);
+        
+                 // create a buffer of  maximum size
+                 bytesAvailable = fileInputStream.available(); 
+        
+                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                 buffer = new byte[bufferSize];
+        
+                 // read file and write it into form...
+                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
+                    
+                 while (bytesRead > 0) {
+                      
+                   dos.write(buffer, 0, bufferSize);
+                   bytesAvailable = fileInputStream.available();
+                   bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                   bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
+                    
+                  }
+        
+                 // send multipart form data necesssary after file data...
+                 dos.writeBytes(lineEnd);
+                 dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                 
+                 //SEND EXTRA PARAMS
+                 //dos.writeBytes(urlParameters);
+        
+                 // Responses from the server (code and message)
+                 serverResponseCode = conn.getResponseCode();
+                 String serverResponseMessage = conn.getResponseMessage();
+                   
+                 Log.i("uploadFile", "HTTP Response is : "
+                         + serverResponseMessage + ": " + serverResponseCode);
+                  
+                 if(serverResponseCode == 200){
+                      
+                     getActivity().runOnUiThread(new Runnable() {
+                          public void run() {
+                               
+                              String msg = "File Upload Completed.";
+                               
+                              System.out.println(msg);
+                              Toast.makeText(getActivity(), "File Upload Complete.", 
+                                           Toast.LENGTH_SHORT).show();
+                          }
+                      });                
+                 }    
+                  
+                 //close the streams //
+                 fileInputStream.close();
+                 dos.flush();
+                 dos.close();
+                   
+            } catch (MalformedURLException ex) {
+                 
+                dialog.dismiss();  
+                ex.printStackTrace();
+                 
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        System.out.println("MalformedURLException Exception : check script url.");
+                        Toast.makeText(getActivity(), "MalformedURLException", 
+                                                            Toast.LENGTH_SHORT).show();
+                    }
+                });
+                 
+                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);  
+            } catch (Exception e) {
+                 
+                dialog.dismiss();  
+                e.printStackTrace();
+                 
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                    	System.out.println("Got Exception : see logcat ");
+                        Toast.makeText(getActivity(), "Got Exception : see logcat ", 
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Log.e("Upload file to server Exception", "Exception : "
+                                                 + e.getMessage(), e);  
+            }
+            dialog.dismiss();       
+            return serverResponseCode; 
+             
+         } // End else block 
+       }
+    
+	private void uploadPhotoToServer() {		
+		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		dialog = ProgressDialog.show(getActivity(), "", "Uploading file...", true);
+		
+		Toast.makeText(getActivity(), "USER ID: " + Long.toString(USER.getID()), Toast.LENGTH_SHORT).show();
+        
+        new Thread(new Runnable() {
+              public void run() {
+                     getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                System.out.println("uploading started.....");
+                                }
+                        });                      
+                    
+                     uploadFile(imageFile);
+                }
+              }).start();
+	}
+	
+	private Bitmap bitmapCrop(Bitmap bitmap) {
+		Bitmap result;
+		if (bitmap.getWidth() >= bitmap.getHeight()){
+			result = Bitmap.createBitmap(
+			bitmap, 
+			bitmap.getWidth()/2 - bitmap.getHeight()/2,
+			0,
+			bitmap.getHeight(), 
+			bitmap.getHeight()
+		);
+		} else {
+			result = Bitmap.createBitmap(
+				bitmap,
+				0, 
+				bitmap.getHeight()/2 - bitmap.getWidth()/2,
+				bitmap.getWidth(),
+				bitmap.getWidth() 
+			);
+		}
+		return result;
+	}	
+    //==================FOR UPLOADING PICTURES
+	
+	//needs to upload server as soon as it is called
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+	    //System.out.println("Request Code: " +requestCode);
+	    //System.out.println("Result Code: " + resultCode);
+	    //System.out.println("Intent: " + data.toString());
+	    if(data==null) {
+	    	return;
+	    }
+	    
+	    switch(requestCode) {
+		    case 0:
+		    	System.out.println("The user pressed the back button while in the gallery");
+		    	break;
+		    case CODE_CAMERA_REQUEST:
+		        if(resultCode == getActivity().RESULT_OK) {
+		            // Need to find a way to upload photo taken to server
+		        	// currently using fileinputstream, but since there is no saved directory for 
+		        	// photos taken with camera, need to upload the data directly
+		        	Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+		            thumbnail = bitmapCrop(thumbnail);
+		        	// set default profile pic to specified bitmap
+		            ivProfilePic.setImageBitmap(thumbnail);
+		        }
+		        break;
+		    case CODE_GALLERY_REQUEST:
+		        try { //if data != null
+	    	       Uri photoUri = data.getData();
+	    	       imageFile = getRealPathFromURI(photoUri);	    	       
+	    	       // Do something with the photo based on Uri
+	    	       Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+	    	       thumbnail = bitmapCrop(thumbnail);
+	    	       // Load the selected image into a preview
+		           ivProfilePic.setImageBitmap(thumbnail);
+		           uploadPhotoToServer();
+		        } catch (Exception e) {
+		        	Log.i("GALLERY", e.getMessage());
+		        }
+		        break;
+	    }
+	}
+	
 }
 //http://stackoverflow.com/questions/18268880/reset-reload-fragment-container
