@@ -2,7 +2,7 @@ package edu.csupomona.classmate.abstractions;
 
 import android.widget.ImageView;
 import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.utils.AsyncReadImageTask;
+import edu.csupomona.classmate.utils.AsyncGetImageTask;
 
 public class Book {
 	private final long booklist_id;
@@ -54,7 +54,7 @@ public class Book {
 	
 	public void loadAvatar(final ImageView iv) {
 		for (String ext : Constants.AVATAR_EXTENSIONS) {
-			new AsyncReadImageTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(user_id) + "." + ext);
+			new AsyncGetImageTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(user_id) + "." + ext);
 		}
 	}
 }

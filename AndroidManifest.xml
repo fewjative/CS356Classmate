@@ -103,5 +103,12 @@
 				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 			/>
 		</activity>
+		<activity
+			android:name="edu.csupomona.classmate.fragments.NewsArticleActivity"
+			android:label="@null"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="stateHidden"
+		>
+		</activity>
 	</application>
 </manifest>
