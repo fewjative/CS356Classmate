@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.NewsArticle;
@@ -21,12 +22,14 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsArticle> {
 		final TextView tvTitle;
 		final TextView tvDesc;
 		final TextView tvDate;
+		final LinearLayout llProgressBar;
 
-		ViewHolder(ImageView ivImage, TextView tvTitle, TextView tvDesc, TextView tvDate) {
+		ViewHolder(ImageView ivImage, TextView tvTitle, TextView tvDesc, TextView tvDate, LinearLayout llProgressBar) {
 			this.ivImage = ivImage;
 			this.tvTitle = tvTitle;
 			this.tvDesc = tvDesc;
 			this.tvDate = tvDate;
+			this.llProgressBar = llProgressBar;
 		}
 	}
 
@@ -43,7 +46,8 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsArticle> {
 			TextView tvTitle = (TextView)view.findViewById(R.id.tvTitle);
 			TextView tvDesc = (TextView)view.findViewById(R.id.tvDesc);
 			TextView tvDate = (TextView)view.findViewById(R.id.tvDate);
-			view.setTag(new ViewHolder(ivImage, tvTitle, tvDesc, tvDate));
+			LinearLayout llProgressBar = (LinearLayout)view.findViewById(R.id.llProgressBar);
+			view.setTag(new ViewHolder(ivImage, tvTitle, tvDesc, tvDate, llProgressBar));
 		}
 
 		Object tag = view.getTag();
@@ -53,7 +57,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsArticle> {
 
 		if (article != null && holder != null) {
 			if (holder.ivImage != null) {
-				article.loadImage(holder.ivImage);
+				article.loadImage(holder.ivImage, holder.llProgressBar);
 			}
 
 			if (holder.tvTitle != null) {

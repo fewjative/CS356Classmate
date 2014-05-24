@@ -2,7 +2,9 @@ package edu.csupomona.classmate.abstractions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import edu.csupomona.classmate.utils.AsyncGetImageTask;
 
 public class NewsArticle implements Parcelable {
@@ -48,8 +50,9 @@ public class NewsArticle implements Parcelable {
 		return ARTICLEURL;
 	}
 
-	public void loadImage(final ImageView iv) {
-		new AsyncGetImageTask(iv).execute(IMAGEURL);
+	public void loadImage(final ImageView iv, final LinearLayout llProgressBar) {
+		llProgressBar.setVisibility(View.VISIBLE);
+		new AsyncGetImageTask(iv, llProgressBar).execute(IMAGEURL);
 	}
 
 	public int describeContents() {
