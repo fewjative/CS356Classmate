@@ -19,6 +19,7 @@ import edu.csupomona.classmate.fragments.GroupsFragment;
 import edu.csupomona.classmate.fragments.NewsFeedFragment;
 import edu.csupomona.classmate.fragments.ScheduleFragment;
 import edu.csupomona.classmate.fragments.SettingsFragment;
+import edu.csupomona.classmate.fragments.CPPEventsFeedFragment;
 import edu.csupomona.classmate.fragments.UnderConstructionFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Item(ActivityFeedFragment.class, temp, R.drawable.ic_action_share));
 
 		temp = getString(R.string.nd_feed_events);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
+		dlDrawer.addItem(new Item(CPPEventsFeedFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
 		dlDrawer.addItem(new Item(NewsFeedFragment.class, temp, R.drawable.ic_action_chat));
