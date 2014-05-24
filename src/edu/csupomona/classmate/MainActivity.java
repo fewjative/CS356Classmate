@@ -14,6 +14,7 @@ import edu.csupomona.classmate.drawer.UserHeader;
 import edu.csupomona.classmate.fragments.ActivityFeedFragment;
 import edu.csupomona.classmate.fragments.AddClassEventFragment;
 import edu.csupomona.classmate.fragments.BooksFragment;
+import edu.csupomona.classmate.fragments.CalendarFeedFragment;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
 import edu.csupomona.classmate.fragments.NewsFeedFragment;
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity {
 		dlDrawer.addItem(new Item(ActivityFeedFragment.class, temp, R.drawable.ic_action_share));
 
 		temp = getString(R.string.nd_feed_events);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
+		dlDrawer.addItem(new Item(CalendarFeedFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
 		dlDrawer.addItem(new Item(NewsFeedFragment.class, temp, R.drawable.ic_action_chat));
@@ -71,7 +72,7 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_social_groups);
 		dlDrawer.addItem(new Item(GroupsFragment.class, temp, R.drawable.ic_action_group));
-		
+
 		temp = getString(R.string.nd_social_books);
 		dlDrawer.addItem(new Item(BooksFragment.class, temp, R.drawable.ic_action_books));
 

@@ -20,7 +20,7 @@
 	<string name="login_action_sign_up"><u>Sign Up</u></string>
 
 	<string name="example_email">johndoe@csupomona.edu</string>
-	<string name="prompt_email">e-mail</string>	
+	<string name="prompt_email">e-mail</string>
 	<string name="example_name">John</string>
 	<string name="example_password">password</string>
 	<string name="example_group">Poly Dogs</string>
@@ -197,9 +197,15 @@
 	<string name="schedule_course">Course</string>
 	<string name="schedule_time">Time</string>
 	<string name="schedule_lecturer">Lecturer</string>
-	
+
 	<!--Activity Feed Fragment-->
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>
 	<string name="friend_added_event">%1$s added %2$s as a friend</string>
 	<string name="class_added_event">%1$s added %2$s to their schedule</string>
+
+	<!--News Feed Fragment-->
+	<string name="news_feed_empty">There are no recent news items</string>
+
+	<!--Calendar Events Feed Fragment-->
+	<string name="calendar_events_feed_empty">There are no upcomming</string>
 </resources>

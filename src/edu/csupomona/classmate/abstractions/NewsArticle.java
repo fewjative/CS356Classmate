@@ -22,7 +22,7 @@ public class NewsArticle implements Parcelable {
 		this.ARTICLEURL = articleURL;
 	}
 
-	private NewsArticle(Parcel source) {
+	protected NewsArticle(Parcel source) {
 		this.DATE = source.readString();
 		this.TITLE = source.readString();
 		this.DESC = source.readString();
