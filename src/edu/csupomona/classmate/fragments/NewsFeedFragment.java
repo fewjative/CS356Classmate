@@ -63,6 +63,7 @@ public class NewsFeedFragment extends Fragment {
 					llEmptyList.setVisibility(View.VISIBLE);
 				} else {
 					lvQueryResults.setAdapter(adapter);
+					lvQueryResults.setDivider(null);
 					lvQueryResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							NewsArticle article = adapter.getItem(position);
