@@ -101,7 +101,7 @@
 	<string name="dialog_event_acceptance_title">Added an Event</string>
 	<string name="dialog_event_acceptance">You have added %1$s to your schedule.</string>
 	<string name ="add_event_hint">Enter a title or description to search for:</string>
-<<<<<<< HEAD
+
 	<string name="example_event">CPP BBQ</string>
 
 	<!--Friends Fragment-->
@@ -177,48 +177,12 @@
 	<string name="schedule_time">Time</string>
 	<string name="schedule_lecturer">Lecturer</string>
 	<string name="section_details">Section Details</string>
-=======
-	<string name="example_event">CPP BBQ</string>
+
 	<string name="invalid_event_header_hint">Sorry</string>
 	<string name="invalid_event_title_hint">Please give your event a title</string>
 	<string name="invalid_event_description_hint">Please give your event a description</string>
 	<string name="invalid_event_dates_hint">Please correct the event dates</string>
 	<string name="invalid_event_times_hint">Please correct the event times</string>
-
-	<!--Friends Fragment-->
-	<string name="friends_tab_list">My Friends</string>
-	<string name="friends_tab_requests">Requests</string>
-	<string name="friends_tab_search">Search</string>
-	<string name="friends_add_friend">Add Friend</string>
-	<string name="friends_list_empty">Your friends list is empty. To add friends, go to the \'%1$s\' tab.</string>
-	<string name="friend_requests_empty">You have no friend requests.</string>
-	<string name="friend_search_hint">Enter an email address or username to search for:</string>
-
-	<string name="dialog_friend_request_title">Request Sent</string>
-	<string name="dialog_friend_request">A friend request has been dispatched to %1$s.</string>
-
-	<string name="dialog_friend_remove_title">Hold on a sec&#8230;</string>
-	<string name="dialog_friend_remove">Would you like to remove this friend from seeing your schedule? If so press \'%1$s\', otherwise pressing \'%2$s\' will only remove the person from your friends list.</string>
-
-	<!--Groups Tab-->
-	<string name="groups_tab_list">My Groups</string>
-	<string name="groups_tab_search">Search</string>
-	<string name="groups_list_empty">You do not belong to any groups yet. To join a group press \'%1$s\', otherwise press \'%2$s\' to create a new one.</string>
-	<string name="groups_join_group">Join a Group</string>
-	<string name="groups_create_group">Create a Group</string>
-	<string name="search_groups_hint">Enter the name of the group you\'re looking for:</string>
-
-	<string name="dialog_group_create_title">What would you like to name your group?</string>
-	<string name="dialog_group_create">null</string>
-
-	<string name="dialog_group_create_error_title">Group Exists</string>
-	<string name="dialog_group_create_error">There is already a group named \'%1$s\'!</string>
-
-	<string name="dialog_group_remove_title">Group Left</string>
-	<string name="dialog_group_remove">You have sucessfully left the \'%1$s\'!</string>
-
-	<string name="dialog_group_join_title">Group Joined</string>
-	<string name="dialog_group_join">You have sucessfully joined the \'%1$s\'!</string>
 
 	<!-- Book Accomplice Tab -->
 	<string name="books_tab_buy">Buy Books</string>
@@ -234,46 +198,9 @@
 	<string name="book_list_empty">There are no books to be listed.</string>
 	<string name="book_comment_list_empty">There are no comments to be listed.</string>
 
-	<!--Manage Group Activity-->
-	<string name="manage_group">Manage Group</string>
-
-	<!--Email Group Activity-->
-	<string name="email_group">Email Group</string>
-	<string name="email_group_subject">Subject</string>
-	<string name="email_group_message">Message</string>
-	<string name="email_group_send">Send</string>
-
-	<string name="dialog_email_group_sending_title">Sending&#8230;</string>
-	<string name="dialog_email_group_sending">Sending&#8230;</string>
-
-	<string name="dialog_email_group_sent_title">Email Sent</string>
-	<string name="dialog_email_group_sent">Your email has been sent to your group!</string>
-
-	<string name="email_group_ready">You are ready to send the email</string>
-	<string name="email_group_missing_field">Subject and message required!</string>
-
-	<!--Add Member Activity-->
-	<string name="add_member">Add Member</string>
-	<string name="add_member_hint">Enter an email address or username to search for:</string>
-
-	<!--Settings Fragment-->
-	<string name="oldPass">Old Password</string>
-   	<string name="newPass">New Password</string>
-   	<string name="changePass">Change Password</string>
-   	<string name="changePassLoading">Changing Your Password</string>
-   	<string name="confirmPass">Confirm New Password</string>
    	<string name="dialog_change_profile_pic">Change profile picture</string>
    	<string name="action_camera">Take picture with camera</string>
 	<string name="action_gallery">Choose from gallery</string>
-
-	<!--Add Class Activity-->
-	<string name="add_class">Add Class</string>
-	<string name="schedule_field">%1$s: </string>
-	<string name="schedule_term">Term</string>
-	<string name="schedule_college">College</string>
-	<string name="schedule_course">Course</string>
-	<string name="schedule_time">Time</string>
-	<string name="schedule_lecturer">Lecturer</string>
 
 	<!--Activity Feed Fragment-->
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>
@@ -285,5 +212,5 @@
 
 	<!--Calendar Events Feed Fragment-->
 	<string name="calendar_events_feed_empty">There are no upcomming</string>
->>>>>>> bef98d5fcf727573242e1e2afebb747dd5bf151a
+
 </resources>
