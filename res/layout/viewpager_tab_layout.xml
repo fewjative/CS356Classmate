@@ -10,7 +10,11 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="top"
+<<<<<<< HEAD
 		android:background="@color/custom_dark_back"
+=======
+		android:background="@drawable/green_gradient_background"
+>>>>>>> bef98d5fcf727573242e1e2afebb747dd5bf151a
 		android:textColor="@color/cppgold"
 		android:paddingTop="10dp"
 		android:paddingBottom="10dp"

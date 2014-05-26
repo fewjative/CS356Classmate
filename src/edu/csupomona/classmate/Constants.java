@@ -21,17 +21,24 @@ public interface Constants {
 	String PHP_ADDRESS_REQUESTFRIEND	= "addfriend.php";
 	String PHP_ADDRESS_SEARCHGROUPS	= "searchgroups.php";
 	String PHP_ADDRESS_SEARCHEVENTS	= "searchevents.php";
-	String PHP_ADDRESS_ADDEVENT	= "addevent.php";
+	String PHP_ADDRESS_ADDEVENT		= "addevent.php";
 	String PHP_ADDRESS_GETTERMS		= "getterms.php";
 	String PHP_ADDRESS_GETMAJORS		= "getmajors.php";
 	String PHP_ADDRESS_GETCOURSES		= "getclasses.php";
 	String PHP_ADDRESS_ADDCLASS2		= "addclass2.php";
 	String PHP_ADDRESS_REMOVECLASS2	= "removeclass2.php";
+	String PHP_ADDRESS_GETBOOKLIST	= "getbooklist.php";
+	String PHP_ADDRESS_GETADMINBOOKLIST = "getadminbooklist.php";
+	String PHP_ADDRESS_REMOVEBOOK		= "removebook.php";
+	String PHP_ADDRESS_GETACTIVITYFEED	= "getactivityfeed.php";
+	String PHP_ADDRESS_GETNEWSFEED	= "getnewsfeed.php";
+	String PHP_ADDRESS_GETCALENDARFEED	= "getcppeventsfeed.php";
 
 	String PHP_ADDRESS_UPLOADS		= "http://www.lol-fc.com/classmate/uploads/";
 	String[] AVATAR_EXTENSIONS		= { "jpg", "jpeg", "png" };
 	int AVATAR_DEFAULT_RESID		= R.drawable.ic_action_person;
 
+	String PHP_PARAM_ACTIVITYTYPE		= "activity_type";
 	String PHP_PARAM_CLASSNUM		= "class_num";
 	String PHP_PARAM_DEVICEID		= "device_id";
 	String PHP_PARAM_DISTINCT		= "distinct";
@@ -53,7 +60,20 @@ public interface Constants {
 	String PHP_PARAM_SUBJECT		= "subject";
 	String PHP_PARAM_TERM			= "term";
 	String PHP_PARAM_USERID			= "user_id";
+	String PHP_PARAM_BOOKLISTID		= "booklist_id";
+	String PHP_PARAM_BOOKTITLE 		= "title";
+	String PHP_PARAM_BOOKCLASSNAME	= "classname";
+	String PHP_PARAM_BOOKCONDITION	= "condition";
+	String PHP_PARAM_BOOKPRICE 		= "price";
 	String PHP_PARAM_VERSION		= "version";
+	String PHP_PARAM_DATE			= "date";
+	String PHP_PARAM_TITLE			= "title";
+	String PHP_PARAM_DESC			= "desc";
+	String PHP_PARAM_IMAGEURL		= "imageURL";
+	String PHP_PARAM_ARTICLEURL		= "articleURL";
+	String PHP_PARAM_STARTTIME		= "startTime";
+	String PHP_PARAM_ENDTIME		= "endTime";
+	String PHP_PARAM_ALLDAY			= "allDay";
 
 	String PHP_PARAM_CLASS_ID		= "class_id";
 	String PHP_PARAM_CLASS_TITLE		= "title";
@@ -79,6 +99,8 @@ public interface Constants {
 	String INTENT_KEY_SELECTEDITEMPOS	= "selectedItemPos";
 	String INTENT_KEY_USER			= "user";
 	//String INTENT_KEY_USERID		= PHP_PARAM_USERID;
+	String INTENT_KEY_NEWSARTICLE		= "newsArticle";
+	String INTENT_KEY_CALENDAREVENT	= "calendarEvent";
 
 	int CODE_REGISTER		= 0x0001;
 	int CODE_RECOVER		= 0x0002;
@@ -87,4 +109,6 @@ public interface Constants {
 	int CODE_ADDMEMBER	= 0x0005;
 	int CODE_ADDCLASS		= 0x0006;
 	int CODE_VIEWSECTION	= 0x0007;
+	int CODE_CAMERA_REQUEST = 0x048;
+	int CODE_GALLERY_REQUEST = 0x058;
 }

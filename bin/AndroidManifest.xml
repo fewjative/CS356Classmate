@@ -11,9 +11,18 @@
 	/>
 
 	<!--  Internet Permissions -->
-	<uses-permission
-		android:name="android.permission.INTERNET"
-	/>
+    <uses-permission
+        android:name="android.permission.INTERNET"
+    />
+    <uses-permission 
+    	android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    />
+    <uses-permission 
+       	android:name="android.permission.READ_EXTERNAL_STORAGE"
+    />
+	<uses-permission 
+    	android:name="android.permission.CAMERA" 
+   	/>
 
 	<!-- SDK Specifications -->
 	<application
@@ -94,6 +103,7 @@
 				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 			/>
 		</activity>
+<<<<<<< HEAD
 		<activity 
 		    android:name="edu.csupomona.classmate.SectionDetailsActivity" 
     		android:label="@string/section_details" 
@@ -103,4 +113,14 @@
     	>
 		</activity>
 	</application>
+=======
+		<activity
+			android:name="edu.csupomona.classmate.fragments.NewsArticleActivity"
+			android:label="@null"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="stateHidden"
+		>
+		</activity>
+	</application>
+>>>>>>> bef98d5fcf727573242e1e2afebb747dd5bf151a
 </manifest>

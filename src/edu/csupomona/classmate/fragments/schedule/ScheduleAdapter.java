@@ -1,5 +1,8 @@
 package edu.csupomona.classmate.fragments.schedule;
 
+import java.util.List;
+import java.util.Random;
+
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
@@ -16,25 +19,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.friends.MyFriendsAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 	private final User USER;

@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <include
+        android:id="@+id/user_avatar_layout_id"
+		layout="@layout/user_avatar_layout"
+		android:layout_width="36dp"
+		android:layout_height="36dp"
+		android:layout_marginTop="6dip"
+		android:layout_marginBottom="6dip"
+	/>
+    
+        <TextView
+        style="@style/style_textview"
+        android:id="@+id/tvUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toRightOf="@id/user_avatar_layout_id"
+        android:gravity="center_vertical"
+        android:text="HELLO"
+        android:textSize="16sp" />
+
+    <TextView
+        style="@style/style_textview"
+        android:id="@+id/tvComment"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/tvUsername"
+        android:layout_height="26dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/user_avatar_layout_id"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textSize="12sp" />
+
+</RelativeLayout>
+

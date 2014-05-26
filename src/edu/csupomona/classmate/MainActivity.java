@@ -11,9 +11,13 @@ import edu.csupomona.classmate.drawer.FragmentNavigationDrawer;
 import edu.csupomona.classmate.drawer.Header;
 import edu.csupomona.classmate.drawer.Item;
 import edu.csupomona.classmate.drawer.UserHeader;
+import edu.csupomona.classmate.fragments.ActivityFeedFragment;
 import edu.csupomona.classmate.fragments.AddClassEventFragment;
+import edu.csupomona.classmate.fragments.BooksFragment;
+import edu.csupomona.classmate.fragments.CalendarFeedFragment;
 import edu.csupomona.classmate.fragments.FriendsFragment;
 import edu.csupomona.classmate.fragments.GroupsFragment;
+import edu.csupomona.classmate.fragments.NewsFeedFragment;
 import edu.csupomona.classmate.fragments.ScheduleFragment;
 import edu.csupomona.classmate.fragments.SettingsFragment;
 import edu.csupomona.classmate.fragments.UnderConstructionFragment;
@@ -43,13 +47,13 @@ public class MainActivity extends FragmentActivity {
 		);
 
 		String temp = getString(R.string.nd_feed_activity);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_share));
+		dlDrawer.addItem(new Item(ActivityFeedFragment.class, temp, R.drawable.ic_action_share));
 
 		temp = getString(R.string.nd_feed_events);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_event));
+		dlDrawer.addItem(new Item(CalendarFeedFragment.class, temp, R.drawable.ic_action_event));
 
 		temp = getString(R.string.nd_feed_news);
-		dlDrawer.addItem(new Item(UnderConstructionFragment.class, temp, R.drawable.ic_action_chat));
+		dlDrawer.addItem(new Item(NewsFeedFragment.class, temp, R.drawable.ic_action_chat));
 
 		temp = getString(R.string.nd_schedule_header);
 		dlDrawer.addItem(new Header(temp));
@@ -68,6 +72,9 @@ public class MainActivity extends FragmentActivity {
 
 		temp = getString(R.string.nd_social_groups);
 		dlDrawer.addItem(new Item(GroupsFragment.class, temp, R.drawable.ic_action_group));
+
+		temp = getString(R.string.nd_social_books);
+		dlDrawer.addItem(new Item(BooksFragment.class, temp, R.drawable.ic_action_books));
 
 		temp = getString(R.string.nd_app_header);
 		dlDrawer.addItem(new Header(temp));

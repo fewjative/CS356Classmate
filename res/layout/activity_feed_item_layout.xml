@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="54dp"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:baselineAligned="false"
+	android:background="@android:color/transparent"
+	android:paddingTop="2dp"
+	android:paddingBottom="2dp"
+	android:paddingLeft="6dp"
+	android:paddingRight="6dp"
+>
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:baselineAligned="false"
+		android:background="@drawable/listview_item_background"
+		android:paddingLeft="6dp"
+		android:paddingRight="6dp"
+	>
+		<include
+			layout="@layout/user_avatar_layout"
+			android:id="@+id/ivFriendAvatar"
+			android:layout_width="42dp"
+			android:layout_height="42dp"
+			android:layout_marginTop="6dp"
+			android:layout_marginBottom="6dp"
+		/>
+
+		<include
+			layout="@layout/user_avatar_layout"
+			android:id="@+id/ivPersonAddedAvatar"
+			android:layout_width="42dp"
+			android:layout_height="42dp"
+			android:layout_marginLeft="6dp"
+			android:layout_marginTop="6dp"
+			android:layout_marginBottom="6dp"
+			android:visibility="gone"
+		/>
+
+		<TextView
+			style="@style/style_textview_marquee"
+			android:id="@+id/tvItemText"
+			android:layout_marginLeft="6dp"
+			android:layout_marginRight="6dp"
+		/>
+	</LinearLayout>
+</LinearLayout>

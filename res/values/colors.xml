@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="white">#FFFFFF</color>
+	<color name="white_smoke">#D0D0D0</color>
 	<color name="black">#000000</color>
 	<color name="red">#FF0000</color>
 	<color name="green">#00FF00</color>
@@ -25,6 +26,7 @@
 	<color name="cppgold">#F5BC23</color>
 
 	<color name="cppgreen_darker">#003D21</color>
+	<color name="cppgreen_darker_darker">#002816</color>
 	<color name="cppgold_darker">#DBA20A</color>
 
 	<color name="cppgreen_trans_darker">#E6003D21</color>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	android:padding="5dp"
+	android:orientation="vertical"
+>
+	<TextView
+		style="@style/style_textview"
+		android:id="@+id/tvBookTitle"
+		android:text="@string/book_title"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/black"
+	/>
+
+	<EditText
+		style="@style/style_edittext"
+		android:id="@+id/etBookTitle"
+		android:textColor="@color/black"
+		android:layout_marginBottom="5dip"
+	/>
+	
+	<TextView
+		style="@style/style_textview"
+		android:id="@+id/tvBookClassname"
+		android:text="@string/book_classname"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/black"
+	/>
+
+	<EditText
+		style="@style/style_edittext"
+		android:id="@+id/etBookClassname"
+		android:textColor="@color/black"
+		android:layout_marginBottom="5dip"
+	/>
+	
+	<TextView
+		style="@style/style_textview"
+		android:id="@+id/tvBookCondition"
+		android:text="@string/book_condition"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/black"
+	/>
+
+	<EditText
+		style="@style/style_edittext"
+		android:id="@+id/etBookCondition"
+		android:textColor="@color/black"
+		android:layout_marginBottom="5dip"
+	/>
+	
+	<TextView
+		style="@style/style_textview"
+		android:id="@+id/tvBookPrice"
+		android:text="@string/book_price"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/black"
+	/>
+
+	<EditText
+		style="@style/style_edittext"
+		android:id="@+id/etBookPrice"
+		android:textColor="@color/black"
+		android:layout_marginBottom="5dip"
+	/>
+	
+	<Button
+			style="@style/style_button"
+			android:id="@+id/btnSellBook"
+			android:text="@string/book_sell_button"
+			android:textColor="@color/white"
+		/>
+
+
+</LinearLayout>

@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-public class AsyncReadImageTask extends AsyncTask<String, Void, Bitmap> {
+public class AsyncGetAvatarTask extends AsyncTask<String, Void, Bitmap> {
 	private static LruCache<String, Bitmap> cache;
 
 	private final ImageView IMAGEVIEW;
 
-	public AsyncReadImageTask(ImageView iv) {
+	public AsyncGetAvatarTask(ImageView iv) {
 		this.IMAGEVIEW = iv;
 	}
 
