@@ -35,4 +35,6 @@
 	<color name="custom_dark_back">#1b1b1b</color>
 	<color name="custom_divider">#717171</color>
 	<color name="custom_light_blue">#5fd9fc</color>
+	<color name="custom_light_gray">#727272</color>
+	<color name="custom_light_green">#33cc4e</color>
 </resources>

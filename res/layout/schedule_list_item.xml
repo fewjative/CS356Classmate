@@ -27,37 +27,16 @@
 				android:id="@+id/tvClassNumber"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:minHeight="?android:attr/listPreferredItemHeightLarge"
-				android:textAppearance="?android:attr/textAppearanceListItemSmall"
-				android:textColor="@color/cppgold"
+				android:textColor="@color/white"
 				android:singleLine="true"
 			/>
 	
-			<TextView
-				android:id="@+id/tvClassTitle"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:textColor="@color/white"
-				android:singleLine="true"
-				android:ellipsize="marquee"
-				android:marqueeRepeatLimit ="marquee_forever"
-				android:scrollHorizontally="true"
-				android:focusable="false"
-			/>
-		<!--			android:focusable="true"
-					android:focusableInTouchMode="true"-->
 		
 			<TextView
 				android:id="@+id/tvClassDays"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:minHeight="?android:attr/listPreferredItemHeightLarge"
-				android:textAppearance="?android:attr/textAppearanceListItemSmall"
 				android:textColor="@color/custom_light_blue"
-				android:layout_marginRight="6dip"
 				android:singleLine="true"
 			/>
 			
@@ -68,6 +47,14 @@
 				android:textColor="@color/white"
 				android:singleLine="true"
 				android:fontFamily="serif"
+			/>
+			
+			<TextView
+				android:id="@+id/tvFriends"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:singleLine="true"
 			/>
 		</GridLayout>
 

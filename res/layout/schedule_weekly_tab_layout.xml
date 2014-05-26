@@ -17,6 +17,25 @@
 			android:scrollHorizontally="true"
 			android:focusable="false"
 		/>
+		
+		<LinearLayout
+                android:id="@+id/llLineContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:background="@color/custom_light_gray"
+        >
+        	<LinearLayout
+                android:id="@+id/llLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="left"
+                android:orientation="horizontal"
+                android:background="@color/custom_light_green"
+        	>
+        	</LinearLayout>
+        </LinearLayout>
+        
         <LinearLayout
                 android:id="@+id/llProgressBar"
                 android:layout_width="match_parent"

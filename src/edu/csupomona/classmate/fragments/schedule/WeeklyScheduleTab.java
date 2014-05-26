@@ -2,10 +2,12 @@ package edu.csupomona.classmate.fragments.schedule;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.format.DateFormat;
 import android.text.format.Time;
@@ -26,6 +28,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
@@ -84,6 +87,13 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		String date = df.format(Calendar.getInstance().getTime());
 		tvToday.setText(date);
 		tvToday.setPadding((width / 19), 0, 0, 0);
+		
+		int lineHeight = (height / 160);
+		int prog = (int)(width * 0.8);
+		LinearLayout llContainer = (LinearLayout)root.findViewById(R.id.llLineContainer);
+		llContainer.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineHeight));
+		LinearLayout llLine = (LinearLayout)root.findViewById(R.id.llLine);
+		llLine.setLayoutParams(new LinearLayout.LayoutParams(prog, LayoutParams.MATCH_PARENT));
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
@@ -215,7 +225,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 			}
 		}
 
-		ScheduleAdapter adapter;
+		final ScheduleAdapter adapter;
 
 		if (VIEWER != null) {
 			adapter = new ScheduleAdapter(getActivity(), user, schedule, VIEWER);
@@ -241,18 +251,30 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		int pad = (width / 38);
 		
 		GridView gridSchedule = (GridView)llSchedule.findViewById(R.id.gridSchedule);
-		gridSchedule.setPadding((pad / 2), (pad / 2), (pad / 2), 0);
+		gridSchedule.setPadding((pad / 2), pad, (pad / 2), 0);
 		gridSchedule.setVerticalSpacing(pad);
 		gridSchedule.setHorizontalSpacing(pad);
 		gridSchedule.setAdapter(adapter);
-		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener() {
+		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener() 
+		{	
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+			{
 //				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
 //				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-				System.out.println("********* HELLO");
+//				Section s = (Section)view.getTag();
+//				viewSectionDetails(s);
+				adapter.viewSectionDetails(position);
+				
 			}
 		});
+	}
+	
+	private void viewSectionDetails(final Section s) {
+		Intent i = new Intent((Activity)root.getContext(), SectionDetailsActivity.class);
+		i.putExtra(INTENT_KEY_SECTION, s);
+		i.putExtra(INTENT_KEY_USER, user);
+		((Activity)root.getContext()).startActivityForResult(i, CODE_VIEWSECTION);
 	}
 
 	@Override

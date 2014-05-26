@@ -20,6 +20,6 @@
 			android:listSelector="@drawable/drawer_item_selector"
 			android:divider="@android:color/transparent"
 			android:dividerHeight="0dp"
-			android:background="@color/cppgreen_trans"
+			android:background="@color/custom_gray"
 	/>
 </edu.csupomona.classmate.drawer.FragmentNavigationDrawer>

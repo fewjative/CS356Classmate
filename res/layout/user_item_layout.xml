@@ -6,7 +6,7 @@
 	android:orientation="horizontal"
 	android:gravity="center_vertical"
 	android:baselineAligned="false"
-	android:background="@color/cppgreen"
+	android:background="@color/custom_gray"
 	android:paddingLeft="6dp"
 	android:paddingRight="6dp"
 >

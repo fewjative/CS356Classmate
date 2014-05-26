@@ -17,12 +17,14 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 	}
 
 	private static class ViewHolder {
-		final TextView tvReviewer;
+		final TextView tvReviewTitle;
+		final TextView tvUser;
 		final TextView tvReview;
 		final RatingBar rbRating;
 
-		ViewHolder(TextView tvReviewer, TextView tvReview, RatingBar rbRating) {
-			this.tvReviewer = tvReviewer;
+		ViewHolder(TextView tvReviewTitle, TextView tvUser, TextView tvReview, RatingBar rbRating) {
+			this.tvReviewTitle = tvReviewTitle;
+			this.tvUser = tvUser;
 			this.tvReview = tvReview;
 			this.rbRating = rbRating;
 		}
@@ -37,10 +39,11 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.review_list_adapter_layout, null);
 
-			TextView tvReviewer = (TextView)view.findViewById(R.id.tvReviewer);
+			TextView tvReviewTitle = (TextView)view.findViewById(R.id.tvReviewTitle);
+			TextView tvUser = (TextView)view.findViewById(R.id.tvUser);
 			TextView tvReview = (TextView)view.findViewById(R.id.tvReview);
 			RatingBar rbRating = (RatingBar)view.findViewById(R.id.rbRating);
-			view.setTag(new ViewHolder(tvReviewer, tvReview, rbRating));
+			view.setTag(new ViewHolder(tvReviewTitle, tvUser, tvReview, rbRating));
 		}
 
 		Object tag = view.getTag();
@@ -49,8 +52,12 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 		}
 
 		if (r != null && holder != null) {
-			if (holder.tvReviewer != null) {
-				holder.tvReviewer.setText(String.format("%s by %s", r.getTitle(), r.getUsername()));
+			if (holder.tvReviewTitle != null) {
+				holder.tvReviewTitle.setText(String.format("%s by ", r.getTitle()));
+			}
+			
+			if (holder.tvUser != null) {
+				holder.tvUser.setText(r.getUsername());
 			}
 
 			if (holder.tvReview != null) {

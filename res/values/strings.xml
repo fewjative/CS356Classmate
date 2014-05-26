@@ -174,4 +174,5 @@
 	<string name="schedule_course">Course</string>
 	<string name="schedule_time">Time</string>
 	<string name="schedule_lecturer">Lecturer</string>
+	<string name="section_details">Section Details</string>
 </resources>
