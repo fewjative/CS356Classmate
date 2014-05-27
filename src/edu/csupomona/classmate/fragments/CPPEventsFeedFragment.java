@@ -57,7 +57,7 @@ public class CPPEventsFeedFragment extends Fragment {
 				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
-					tvEmptyList.setText(R.string.activity_feed_empty);
+					tvEmptyList.setText(R.string.cpp_feed_empty);
 
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);

@@ -116,18 +116,12 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 	}
 
 	private void viewSchedule(final User f) {
-		// TODO: Fix me
 		if (getContext() instanceof FragmentActivity) {
-			// We can get the fragment manager
 			Fragment newFragment = new ScheduleFragment(f);
 			FragmentActivity activity = ((FragmentActivity)getContext());
 			FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
-			t.replace(R.id.flContentFrame, newFragment);//wtf is the first parameter supposed to be
-			// t.replace(2131165220, newFragment);//wtf is the first parameter supposed to be
-			//2131165220
-			//2131165207
+			t.replace(R.id.flContentFrame, newFragment);
 			t.addToBackStack(null);
-
 			t.commit();
 		}
 	}

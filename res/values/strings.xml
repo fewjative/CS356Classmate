@@ -98,7 +98,8 @@
 	<string name="dialog_schedule_no_class_added">You currently have no classes added to your schedule.</string>
 	<string name="dialog_schedule_no_class_view">No classes to be viewed.</string>
 	<string name="dialog_schedule_create_schedule">You have not created a schedule yet. You must create at least one schedule before attempting to add content. Create one now!</string>
-
+	<string name="dialog_schedule_nofriend_schedule">Your friend does not have a schedule ready to be shared yet.</string>
+	
 	<!--Add Class or Event Fragment-->
 	<string name="add_class_event_addclass">Add Class</string>
 	<string name="add_class_event_addevent">Add Event</string>
@@ -207,4 +208,7 @@
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>
 	<string name="friend_added_event">%1$s added %2$s as a friend</string>
 	<string name="class_added_event">%1$s added %2$s to their schedule</string>
+	
+	<!--CPP Event Feed Fragment-->
+	<string name="cpp_feed_empty">There are no current events going on at school</string>
 </resources>

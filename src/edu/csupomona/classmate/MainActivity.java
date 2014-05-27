@@ -36,6 +36,7 @@ public class MainActivity extends FragmentActivity {
 		} else {
 			dlDrawer.selectItem(savedInstanceState.getInt(Constants.INTENT_KEY_SELECTEDITEMPOS, dlDrawer.getFirstSelectableItem()));
 		}
+		
 	}
 
 	private void setupDrawer() {

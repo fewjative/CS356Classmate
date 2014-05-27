@@ -37,6 +37,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 	private LinearLayout llNoClass;
 	private LinearLayout llSchedule;
 	private LinearLayout llNoSchedule;
+	private LinearLayout llNoFriendSchedule;
 
 	private final User VIEWER;
 
@@ -83,30 +84,38 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 
                 if(numSchedules==0)
                 {
-               	 llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
-               	 llNoSchedule.setVisibility(View.VISIBLE);
+                	if(VIEWER==null)
+                	{
+                		llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
+                		llNoSchedule.setVisibility(View.VISIBLE);
+	
+			            etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
+			           	btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
+			           	btnAddSchedule.setEnabled(false);
+	
+			           	TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
+	                     String s1;
+	
+	                     @Override
+	                     public void afterTextChanged(Editable e) {
+	                             s1 = etScheduleName.getText().toString();
+	
+	                             if (!s1.isEmpty()) {
+	                           	  btnAddSchedule.setEnabled(true);
+	                             } else {
+	                           	  btnAddSchedule.setEnabled(false);
+	                             }
+	                     	}
+			           	};
 
-              etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
-           	  btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
-           	  btnAddSchedule.setEnabled(false);
-
-           	  TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
-                     String s1;
-
-                     @Override
-                     public void afterTextChanged(Editable e) {
-                             s1 = etScheduleName.getText().toString();
-
-                             if (!s1.isEmpty()) {
-                           	  btnAddSchedule.setEnabled(true);
-                             } else {
-                           	  btnAddSchedule.setEnabled(false);
-                             }
-                     }
-             };
-
-             etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
-
+			           	etScheduleName.addTextChangedListener(scheduleNameTextWatcher);
+                	}
+                	else
+                	{
+                		llNoFriendSchedule = (LinearLayout)root.findViewById(R.id.llNoFriendSchedule);
+                		llNoFriendSchedule.setVisibility(View.VISIBLE);
+                	}
+               
                 }
                 else
                 {
