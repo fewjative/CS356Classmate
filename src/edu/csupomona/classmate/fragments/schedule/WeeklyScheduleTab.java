@@ -41,7 +41,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 @SuppressLint("ValidFragment")//takes care of problem with line 46(stupid irrelevant constructor issue that appeared even with no changes)
 public class WeeklyScheduleTab extends Fragment implements Constants {
 	private User user;
@@ -232,20 +231,9 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		} else {
 			adapter = new ScheduleAdapter(getActivity(), user, schedule);
 		}
-
-//		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
-//		lvSchedule.setAdapter(adapter); // populates the listView
-//		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
-//				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-//			}
-//		});
 		
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
 		
 		int pad = (width / 38);
@@ -260,21 +248,9 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
 			{
-//				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
-//				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-//				Section s = (Section)view.getTag();
-//				viewSectionDetails(s);
-				adapter.viewSectionDetails(position);
-				
+				adapter.viewSectionDetails(position);		
 			}
 		});
-	}
-	
-	private void viewSectionDetails(final Section s) {
-		Intent i = new Intent((Activity)root.getContext(), SectionDetailsActivity.class);
-		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USER, user);
-		((Activity)root.getContext()).startActivityForResult(i, CODE_VIEWSECTION);
 	}
 
 	@Override

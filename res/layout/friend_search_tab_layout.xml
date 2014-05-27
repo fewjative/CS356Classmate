@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
+	android:background="@color/custom_gray"
 	android:padding="5dp"
 	android:orientation="vertical"
 >
@@ -12,13 +12,13 @@
 		android:id="@+id/tvAddFriendHint"
 		android:text="@string/friend_search_hint"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 	/>
 
 	<EditText
 		style="@style/style_edittext_email"
 		android:id="@+id/etFriendName"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 		android:layout_marginBottom="5dip"
 	/>
 

@@ -1,18 +1,24 @@
 package edu.csupomona.classmate.fragments.schedule;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -21,7 +27,10 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +38,6 @@ import org.json.JSONObject;
 
 @SuppressLint("ValidFragment")
 public class DailyScheduleTab extends Fragment implements Constants {
-
 	private User user;
 	private ViewGroup root;
 	private EditText etScheduleName;
@@ -49,15 +57,10 @@ public class DailyScheduleTab extends Fragment implements Constants {
 		this.VIEWER = viewer;
 	}
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_daily_tab_layout, null);
-
 		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-
-		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
-		llProgressBar.setVisibility(View.VISIBLE);
 
 		final long id;
 		if (VIEWER != null) {
@@ -65,6 +68,29 @@ public class DailyScheduleTab extends Fragment implements Constants {
 		} else {
 			id = user.getID();
 		}
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		
+		TextView tvToday = (TextView)root.findViewById(R.id.tvToday);
+		tvToday.setTextSize(height / 26);
+		
+		SimpleDateFormat df = new SimpleDateFormat("EEE, MMM d, ''yy");
+		String date = df.format(Calendar.getInstance().getTime());
+		tvToday.setText(date);
+		tvToday.setPadding((width / 19), 0, 0, 0);
+		
+		int lineHeight = (height / 160);
+		int prog = (int)(width * 0.8);
+		LinearLayout llContainer = (LinearLayout)root.findViewById(R.id.llLineContainer);
+		llContainer.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineHeight));
+		LinearLayout llLine = (LinearLayout)root.findViewById(R.id.llLine);
+		llLine.setLayoutParams(new LinearLayout.LayoutParams(prog, LayoutParams.MATCH_PARENT));
+		
+		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
+		llProgressBar.setVisibility(View.VISIBLE);
 
 		final RequestParams params = new RequestParams();
 		params.put("user_id", Long.toString(id));
@@ -191,15 +217,31 @@ public class DailyScheduleTab extends Fragment implements Constants {
 			}
 		}
 
-		ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), user, schedule);
+		final ScheduleAdapter adapter;
 
-		ListView lvSchedule = (ListView)llSchedule.findViewById(R.id.lvSchedule);
-		lvSchedule.setAdapter(adapter);
-		lvSchedule.setOnItemClickListener(new ListView.OnItemClickListener() {
+		if (VIEWER != null) {
+			adapter = new ScheduleAdapter(getActivity(), user, schedule, VIEWER);
+		} else {
+			adapter = new ScheduleAdapter(getActivity(), user, schedule);
+		}
+
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int width = displayMetrics.widthPixels;
+		
+		int pad = (width / 38);
+		
+		GridView gridSchedule = (GridView)llSchedule.findViewById(R.id.gridSchedule);
+		gridSchedule.setPadding((pad / 2), pad, (pad / 2), 0);
+		gridSchedule.setVerticalSpacing(pad);
+		gridSchedule.setHorizontalSpacing(pad);
+		gridSchedule.setAdapter(adapter);
+		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener() 
+		{	
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				LinearLayout llExtendedInfo = (LinearLayout)view.findViewById(R.id.llExtendedInfo);
-				llExtendedInfo.setVisibility(llExtendedInfo.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+			{
+				adapter.viewSectionDetails(position);		
 			}
 		});
 	}
