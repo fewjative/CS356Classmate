@@ -83,7 +83,7 @@ public class DailyScheduleTab extends Fragment implements Constants {
 				} catch (NumberFormatException e) {
 					numSchedules = 0;
 				}
-				System.out.println("Viewing a friends schedule: " + VIEWER.getID());
+
 				if (numSchedules == 0) {
 					
 					if(VIEWER==null)
