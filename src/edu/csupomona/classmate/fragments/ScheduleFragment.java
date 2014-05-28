@@ -12,6 +12,7 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.schedule.DailyScheduleTab;
 import edu.csupomona.classmate.fragments.schedule.WeeklyScheduleTab;
+import edu.csupomona.classmate.fragments.schedule.FreeTimeTab;
 
 public class ScheduleFragment extends Fragment {
 	private final User VIEWER;
@@ -46,25 +47,57 @@ public class ScheduleFragment extends Fragment {
 
 		@Override
 		public Fragment getItem(int i) {
-			switch (i) {
+			
+			if(VIEWER==null)
+			{
+				switch (i) {
+					case 0: return new DailyScheduleTab(VIEWER);
+					case 1: return new WeeklyScheduleTab(VIEWER);
+					default: return null;
+				}
+			}
+			else
+			{
+				switch (i) {
 				case 0: return new DailyScheduleTab(VIEWER);
 				case 1: return new WeeklyScheduleTab(VIEWER);
+				case 2: return new FreeTimeTab(VIEWER);
 				default: return null;
+			}
 			}
 		}
 
 		@Override
 		public CharSequence getPageTitle(int i) {
-			switch (i) {
+			if(VIEWER==null)
+			{
+				switch (i) {
+					case 0: return getString(R.string.schedule_tab_daily);
+					case 1: return getString(R.string.schedule_tab_weekly);
+					default: throw new RuntimeException();
+				}
+			}
+			else
+			{
+				switch (i) {
 				case 0: return getString(R.string.schedule_tab_daily);
 				case 1: return getString(R.string.schedule_tab_weekly);
+				case 2: return getString(R.string.schedule_tab_freetime);
 				default: throw new RuntimeException();
+				}
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			if(VIEWER==null)
+			{
+				return 2;
+			}
+			else
+			{
+				return 3;
+			}
 		}
 	}
 }

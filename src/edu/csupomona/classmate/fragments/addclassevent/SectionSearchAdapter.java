@@ -137,8 +137,8 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_ADDCLASS2, params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				((Activity)getContext()).setResult(RESULT_OK);
-				((Activity)getContext()).finish();
+				//((Activity)getContext()).setResult(RESULT_OK);
+				//((Activity)getContext()).finish();
 			}
 		});
 	}

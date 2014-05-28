@@ -94,6 +94,7 @@
    	<string name="setActiveSchedule">Set Active Schedule</string>
 	<string name="schedule_tab_daily">Daily</string>
 	<string name="schedule_tab_weekly">Weekly</string>
+	<string name="schedule_tab_freetime">Freetime</string>
 
 	<string name="dialog_schedule_no_class_added">You currently have no classes added to your schedule.</string>
 	<string name="dialog_schedule_no_class_view">No classes to be viewed.</string>
@@ -211,4 +212,7 @@
 	
 	<!--CPP Event Feed Fragment-->
 	<string name="cpp_feed_empty">There are no current events going on at school</string>
+	
+	<!--  Section Details Activity -->
+	<string name="section_details">Section Details</string>
 </resources>
