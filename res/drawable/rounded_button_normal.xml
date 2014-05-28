@@ -1,15 +1,15 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!--     <item android:top="1dp">
+     <item android:top="1dp">
         <shape android:shape="rectangle" >
-            <corners android:radius="4dp" />
+            <corners android:radius="3dp" />
 
-            <solid android:color="@color/gray_shadow" />
+            <solid android:color="@color/cppgreen" />
         </shape>
-    </item> -->
+    </item>
     <item android:bottom="1dp" >
         <shape android:shape="rectangle" >
-            <corners android:radius="4dp" />
+            <corners android:radius="3dp" />
 
             <solid android:color="@color/cppgreen_lite" />
         </shape>
