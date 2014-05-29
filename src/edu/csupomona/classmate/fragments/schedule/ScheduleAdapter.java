@@ -9,28 +9,32 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
+import edu.csupomona.classmate.abstractions.ScheduleItem;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
+
 import java.util.List;
 
-public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnClickListener, Constants {
+public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.OnClickListener, Constants {
 	private final User USER;
 	private final User VIEWER;
 
 
-	public ScheduleAdapter(Context context, User user, List<Section> schedule) {
+	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule) {
 		super(context, 0, schedule);
 		this.USER = user;
 		this.VIEWER = null;
 	}
 
-	public ScheduleAdapter(Context context, User user, List<Section> schedule, User viewer) {
+	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule, User viewer) {
 		super(context,0,schedule);
 		this.USER = user;
 		this.VIEWER = viewer;
@@ -58,7 +62,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Section s = getItem(position);
+		ScheduleItem s = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 		Button btnRemoveClass = null;
@@ -92,7 +96,14 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-				holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				
+				//this is a fix to display events in the schedule
+				if(s.getClassID()==0)
+				{
+					holder.tvClassNumber.setText(String.format("%s","Event     "));
+				}
+				else
+					holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
 			}
 
 			if (holder.tvClassTitle != null) {
@@ -100,7 +111,14 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 			}
 
 			if (holder.tvClassDays != null) {
-				holder.tvClassDays.setText(s.getWeekdays());
+				
+				//this is a fix to display events in the schedule
+				if(s.getClassID()==0)
+				{
+					holder.tvClassDays.setText("M");
+				}
+				else
+					holder.tvClassDays.setText(s.getWeekdays());
 			}
 
 			if (holder.tvClassTime != null) {
@@ -120,7 +138,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 	}
 
 	public void onClick(View v) {
-		Section s = (Section)v.getTag();
+		ScheduleItem s = (ScheduleItem)v.getTag();
 		switch (v.getId()) {
 			case R.id.btnViewSectionDetails:
 				viewSectionDetails(s);
@@ -131,14 +149,18 @@ public class ScheduleAdapter extends ArrayAdapter<Section> implements View.OnCli
 		}
 	}
 
-	private void viewSectionDetails(final Section s) {
-		Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
-		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USER, USER);
-		((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
+	private void viewSectionDetails(final ScheduleItem s) {
+		if(s.getClassID()!=0)//if the object we clicked is a class
+		{		
+			Section sec = new Section(s.getClassID(),s.getTitle(),s.getStartTime(),s.getEndTime(),s.getWeekdays(),s.getDateStart(),s.getDateEnd(),s.getInstructor(),s.getBuilding(),s.getRoom(),s.getSection(),s.getMajorShort(),s.getMajorLong(),s.getClassNum(),s.getTerm());
+			Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
+			i.putExtra(INTENT_KEY_SECTION,sec);
+			i.putExtra(INTENT_KEY_USER, USER);
+			((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
+		}
 	}
 
-	private void removeClass(final Section s) {
+	private void removeClass(final ScheduleItem s) {
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
 		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));

@@ -13,16 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.ScheduleItem;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -148,7 +153,7 @@ public class DailyScheduleTab extends Fragment implements Constants {
 								params.put("user_id", Long.toString(user.getID()));
 
 								AsyncHttpClient client = new AsyncHttpClient();
-								client.get("http://lol-fc.com/classmate/2/getuserclassestoday2.php", params, new AsyncHttpResponseHandler() {
+								client.get("http://lol-fc.com/classmate/2/getuserscheduleitemstoday.php", params, new AsyncHttpResponseHandler() {
 									@Override
 									public void onSuccess(String response) {
 										setupSchedule(response);
@@ -168,33 +173,43 @@ public class DailyScheduleTab extends Fragment implements Constants {
 	}
 
 	private void setupSchedule(String response) {
-		List<Section> schedule = new ArrayList<Section>();
+		List<ScheduleItem> schedule = new ArrayList<ScheduleItem>();
 		if (1 < response.length()) {
 			try {
-				Section s;
+				ScheduleItem s;
 				JSONObject jObj;
 				JSONArray myjsonarray = new JSONArray(response);
 				for (int i = 0; i < myjsonarray.length(); i++) {
 					jObj = myjsonarray.getJSONObject(i);
-					s = new Section(
-						jObj.getInt("class_id"),
-						jObj.getString("title"),
-						jObj.getString("time_start"),
-						jObj.getString("time_end"),
-						jObj.getString("weekdays"),
-						jObj.getString("date_start"),
-						jObj.getString("date_end"),
-						jObj.getString("instructor"),
-						jObj.getString("building"),
-						jObj.getString("room"),
-						jObj.getString("section"),
-						jObj.getString("major_short"),
-						jObj.getString("major_long"),
-						jObj.getString("class_num"),
-						jObj.getString("term")
-					);
-
-					schedule.add(s);
+					
+					try{
+						schedule.add(new ScheduleItem(
+								jObj.getInt("class_id"),
+								jObj.getString("title"),
+								jObj.getString("time_start"),
+								jObj.getString("time_end"),
+								jObj.getString("weekdays"),
+								jObj.getString("date_start"),
+								jObj.getString("date_end"),
+								jObj.getString("instructor"),
+								jObj.getString("building"),
+								jObj.getString("room"),
+								jObj.getString("section"),
+								jObj.getString("major_short"),
+								jObj.getString("major_long"),
+								jObj.getString("class_num"),
+								jObj.getString("term"),
+								0,
+								"",
+								"",
+								"",
+								""
+							));
+					}catch (JSONException e)
+					{
+						schedule.add(new ScheduleItem(0,jObj.getString("title"),jObj.getString("time_start"),jObj.getString("time_end"),jObj.getString("weekdays"),jObj.getString("date_start"),jObj.getString("date_end"),"","","","","","","","",jObj.getInt("event_id"),jObj.getString("description"),jObj.getString("fpublic"),jObj.getString("opublic"), jObj.getString("isprivate")));
+					}
+					
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
