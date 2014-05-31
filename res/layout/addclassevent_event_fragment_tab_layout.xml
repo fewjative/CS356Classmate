@@ -252,7 +252,7 @@
             <Button
                 android:id="@+id/btnCreateEvent"
                 android:layout_column="0"
-                android:layout_gravity="left|top"
+                android:layout_gravity="center"
                 android:text="Create"
                 android:textColor="@color/white" />
         </GridLayout>

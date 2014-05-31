@@ -11,6 +11,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -77,6 +78,12 @@ import org.apache.http.message.BasicNameValuePair;
 		radioButtonFPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonFPublic);
 		radioButtonPrivate = (RadioButton)ROOT.findViewById(R.id.radioButtonPrivate);
 		btnCreateEvent = (Button)ROOT.findViewById(R.id.btnCreateEvent);
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		btnCreateEvent.setWidth(width / 3);
 		
 		OnClickListener listenerStartDate = new OnClickListener() {
 
