@@ -4,10 +4,16 @@ import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,7 +30,10 @@ import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -32,13 +41,22 @@ import org.apache.http.message.BasicNameValuePair;
 
  public class AddEventTab extends Fragment implements Constants{
 	 
-		private EditText textFieldDescription;
+	 	final int DATE_DIALOG_ID = 1;
+	 	private int start_year, start_month, start_day;
+	 	private int end_year, end_month, end_day;
+	 	private int start_hour, start_min;
+	 	private int end_hour, end_min;
+	 	private int FLAG = 0;
+	 	private String currentDate;
+	 	private Button setStartDateBtn;
+	 	private Button setEndDateBtn;
+	 	private Button setStartTimeBtn;
+	 	private Button setEndTimeBtn;
+	 	private EditText textFieldDescription;
 		private EditText textFieldTitle;
 		private RadioButton radioButtonOPublic;
 		private RadioButton radioButtonFPublic;
 		private RadioButton radioButtonPrivate;
-		private TimePicker timePickerStartTime, timePickerEndTime;
-		private DatePicker datePickerStartDate, datePickerEndDate;
 		private Button btnCreateEvent;
 		private User USER;
 		
@@ -49,20 +67,177 @@ import org.apache.http.message.BasicNameValuePair;
 		USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		
 
+		setStartDateBtn = (Button)ROOT.findViewById(R.id.setStartDateBtn);
+		setEndDateBtn = (Button)ROOT.findViewById(R.id.setEndDateBtn);
+		setStartTimeBtn = (Button)ROOT.findViewById(R.id.setStartTimeBtn);
+		setEndTimeBtn = (Button)ROOT.findViewById(R.id.setEndTimeBtn);
 		textFieldDescription = (EditText)ROOT.findViewById(R.id.textFieldDescription);
 		textFieldTitle = (EditText)ROOT.findViewById(R.id.textFieldTitle);
 		radioButtonOPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonOPublic);
 		radioButtonFPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonFPublic);
 		radioButtonPrivate = (RadioButton)ROOT.findViewById(R.id.radioButtonPrivate);
-		timePickerStartTime = (TimePicker)ROOT.findViewById(R.id.timePickerStartTime);
-		timePickerEndTime = (TimePicker)ROOT.findViewById(R.id.timePickerEndTime);
-		datePickerStartDate = (DatePicker)ROOT.findViewById(R.id.datePickerStartDate);
-		datePickerEndDate = (DatePicker)ROOT.findViewById(R.id.datePickerEndDate);
 		btnCreateEvent = (Button)ROOT.findViewById(R.id.btnCreateEvent);
+		
+		OnClickListener listenerStartDate = new OnClickListener() {
+
+			@Override
+	        public void onClick(View arg0) {
+
+	            final Calendar c = Calendar.getInstance();
+	            start_year = c.get(Calendar.YEAR);
+	            start_month = c.get(Calendar.MONTH);
+	            start_day = c.get(Calendar.DAY_OF_MONTH);
+	            FLAG = 1;
+	            DatePickerDialog d = new DatePickerDialog(getActivity(),
+	            		 mDateSetListener, start_year, start_month, start_day);
+	            d.show();
+	        }
+	    };
+	    
+	    OnClickListener listenerEndDate = new OnClickListener() {
+
+			@Override
+	        public void onClick(View arg0) {
+
+	            final Calendar c = Calendar.getInstance();
+	            end_year = c.get(Calendar.YEAR);
+	            end_month = c.get(Calendar.MONTH);
+	            end_day = c.get(Calendar.DAY_OF_MONTH);
+	            FLAG = 2;
+	            DatePickerDialog d = new DatePickerDialog(getActivity(),
+	            		 mDateSetListener, end_year, end_month, end_day);
+	            d.show();
+	        }
+	    };
+	    
+	    OnClickListener listenerStartTime = new OnClickListener() {
+
+			@Override
+	        public void onClick(View arg0) {
+
+	            final Calendar c = Calendar.getInstance();
+	            start_hour = c.get(Calendar.HOUR);
+	            start_min = c.get(Calendar.MINUTE);
+	            FLAG = 1;
+	            TimePickerDialog t = new TimePickerDialog(getActivity(),
+	            		 mTimeSetListener, start_hour, start_min, false);
+	            t.show();
+	        }
+	    };
+	    
+	    OnClickListener listenerEndTime = new OnClickListener() {
+
+			@Override
+	        public void onClick(View arg0) {
+
+	            final Calendar c = Calendar.getInstance();
+	            end_hour = c.get(Calendar.HOUR);
+	            end_min = c.get(Calendar.MINUTE);
+	            FLAG = 2;
+	            TimePickerDialog t = new TimePickerDialog(getActivity(),
+	            		 mTimeSetListener, end_hour, end_min, false);
+	            t.show();
+	        }
+	    };
+	    
+	    setStartDateBtn.setOnClickListener(listenerStartDate);
+	    setEndDateBtn.setOnClickListener(listenerEndDate);
+	    setStartTimeBtn.setOnClickListener(listenerStartTime);
+	    setEndTimeBtn.setOnClickListener(listenerEndTime);
+	    
 		setupEventButton();
 		return ROOT;
 	}
 	
+	DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+	    public void onDateSet(DatePicker view, int Year,
+	            int monthOfYear, int dayOfMonth) {
+	        if (FLAG == 1)
+	        {
+	        	start_year = Year;
+	        	start_month = monthOfYear;
+	        	start_day = dayOfMonth;
+	        }else if (FLAG == 2)
+	        	{
+		        	end_year = Year;
+		        	end_month = monthOfYear;
+		        	end_day = dayOfMonth;
+	        	}
+	        updateDisplay();
+	    }
+	};
+	
+	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+	    public void onTimeSet(TimePicker view, int Hour, int Minute) {
+	        if (FLAG == 1)
+	        {
+	        	start_hour = Hour;
+	        	start_min = Minute;
+	        }else if (FLAG == 2)
+	        	{
+		        	end_hour = Hour;
+		        	end_min = Minute;
+	        	}
+	        updateTimeDisplay();
+	    }
+	};
+	
+	private void updateDisplay() {
+
+	    GregorianCalendar c = null;
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+	    if (FLAG == 1)
+	    {
+	    	c = new GregorianCalendar(start_year, start_month, start_day);
+	    	setStartDateBtn.setText(sdf.format(c.getTime()));
+	    }else if (FLAG == 2)
+	    {
+	    	c = new GregorianCalendar(end_year, end_month, end_day);
+	    	setEndDateBtn.setText(sdf.format(c.getTime()));
+	    }
+	}
+	
+	private void updateTimeDisplay() {
+
+		String ampm = null;
+	    if (FLAG == 1)
+	    {
+	    	if (start_hour <= 12)
+	    	{
+	    		ampm = "AM";
+	    		setStartTimeBtn.setText(String.format("%d:%d %s", start_hour, start_min, ampm));
+	    	}else
+	    	{
+	    		ampm = "PM";
+	    		setStartTimeBtn.setText(String.format("%d:%d %s", (start_hour - 12), start_min, ampm));
+	    	}
+	    }else if (FLAG == 2)
+	    {
+	    	if (start_hour <= 12)
+	    	{
+	    		ampm = "AM";
+	    		setEndTimeBtn.setText(String.format("%d:%d %s", end_hour, end_min, ampm));
+	    	}else
+	    	{
+	    		ampm = "PM";
+	    		setEndTimeBtn.setText(String.format("%d:%d %s", (end_hour - 12), end_min, ampm));
+	    	}
+	    }
+	}
+	
+	protected void onPrepareDialog(int id, Dialog dialog) {
+		
+		switch (id) {
+		case DATE_DIALOG_ID:
+			final Calendar c = Calendar.getInstance();
+			((DatePickerDialog)dialog).updateDate(c.get(Calendar.YEAR),
+					c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+			break;
+		}
+	}
+
 	private void setupEventButton() {
 		btnCreateEvent.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -72,7 +247,7 @@ import org.apache.http.message.BasicNameValuePair;
 				boolean validDate = false, validTime = false, validTitle = false, validDescription = false;
 				
 				//check if title max length is under database specs and if empty
-				stringMaxLength = (textFieldTitle.getText().toString().length() < 256) ? textFieldTitle.getText().toString().length():256;
+				stringMaxLength = (textFieldTitle.getText().toString().length() < 256) ? textFieldTitle.getText().toString().length() : 256;
 				final String titleString = textFieldTitle.getText().toString().substring(0, stringMaxLength);
 				System.out.println(titleString);
 				if (!titleString.isEmpty())
@@ -82,7 +257,7 @@ import org.apache.http.message.BasicNameValuePair;
 				}
 				
 				//check if description max is under database specs
-				stringMaxLength = (textFieldDescription.getText().toString().length() < 256)?textFieldDescription.getText().toString().length():256;
+				stringMaxLength = (textFieldDescription.getText().toString().length() < 256) ? textFieldDescription.getText().toString().length() : 256;
 				final String descriptionString = textFieldDescription.getText().toString().substring(0, stringMaxLength);
 				System.out.println(descriptionString);
 				if (!descriptionString.isEmpty())
@@ -108,12 +283,12 @@ import org.apache.http.message.BasicNameValuePair;
 				
 				
 				//check if start date is after end date
-				startDay = datePickerStartDate.getDayOfMonth();
-				startMonth = datePickerStartDate.getMonth();
-				startYear = datePickerStartDate.getYear();
-				endDay = datePickerEndDate.getDayOfMonth();
-				endMonth = datePickerEndDate.getMonth();
-				endYear = datePickerEndDate.getYear();
+				startDay = start_day;
+				startMonth = start_month;
+				startYear = start_year;
+				endDay = end_day;
+				endMonth = end_month;
+				endYear = end_year;
 				final String startDate = startDay + "-" + startMonth + "-" + startYear;
 				final String endDate = startDay + "-" + endMonth + "-" + endYear;
 				
@@ -127,10 +302,10 @@ import org.apache.http.message.BasicNameValuePair;
 				}
 				
 				//if date validation passes, check if start time is after end time if same day
-				startHour = timePickerStartTime.getCurrentHour();
-				startMinute = timePickerStartTime.getCurrentMinute();
-				endHour = timePickerEndTime.getCurrentHour();
-				endMinute = timePickerEndTime.getCurrentMinute();
+				startHour = start_hour;
+				startMinute = start_min;
+				endHour = end_hour;
+				endMinute = end_min;
 				final String startTime = startHour + ":" + startMinute;
 				final String endTime = endHour + ":" + endMinute;
 

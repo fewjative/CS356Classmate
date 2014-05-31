@@ -97,7 +97,7 @@ public class AddClassTab extends Fragment implements Constants{
 					e.printStackTrace();
 				}
 
-				ArrayAdapter<Term> adapter = new ArrayAdapter<Term>(getActivity(), android.R.layout.simple_spinner_item, terms);
+				ArrayAdapter<Term> adapter = new ArrayAdapter<Term>(getActivity(), R.layout.custom_spinner_item, terms);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sTerm.setAdapter(adapter);
@@ -144,7 +144,7 @@ public class AddClassTab extends Fragment implements Constants{
 					e.printStackTrace();
 				}
 
-				ArrayAdapter<College> adapter = new ArrayAdapter<College>(getActivity(), android.R.layout.simple_spinner_item, colleges);
+				ArrayAdapter<College> adapter = new ArrayAdapter<College>(getActivity(), R.layout.custom_spinner_item, colleges);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sCollege.setAdapter(adapter);
@@ -196,7 +196,7 @@ public class AddClassTab extends Fragment implements Constants{
 					e.printStackTrace();
 				}
 
-				ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(getActivity(), android.R.layout.simple_spinner_item, courses);
+				ArrayAdapter<Course> adapter = new ArrayAdapter<Course>(getActivity(), R.layout.custom_spinner_item, courses);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sCourse.setAdapter(adapter);

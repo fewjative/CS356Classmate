@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
+	android:background="@color/custom_gray"
 	android:padding="5dp"
 	android:orientation="vertical"
 >
@@ -12,14 +12,14 @@
 		android:id="@+id/tvAddGroupHint"
 		android:text="@string/search_groups_hint"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 	/>
 
 	<EditText
 		style="@style/style_edittext"
 		android:id="@+id/etGroupName"
 		android:hint="@string/example_group"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 		android:layout_marginBottom="5dip"
 	/>
 

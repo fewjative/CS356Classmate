@@ -8,7 +8,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cppgreen"
+                android:background="@color/custom_dark_back"
         >
                 <LinearLayout
                     	android:id="@+id/llSettings"
@@ -18,100 +18,155 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                 >
+                
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/custom_gray"
+                	>
 
-                    <ImageView
-                        android:id="@+id/ivProfilePic"
-                        android:scaleType="fitXY"
-						android:layout_width="100dp"
-						android:layout_height="100dp"
-						android:src="@drawable/ic_action_person"
-						android:background="@drawable/user_avatar_border"
-						android:layout_marginLeft="10dp"
-						android:layout_marginRight="10dp"
-						android:layout_marginTop="10dp"
-						android:layout_marginBottom="10dp"
-						android:clickable="true"
-                    />
-
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/oldPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etOldPass"
-                        />
-                        <EditText
-                                style="@style/style_edittext_password"
-                                android:id="@+id/etOldPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/newPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etPassword"
-                        />
-                        <EditText
-                                style="@style/style_edittext_password"
-                                android:id="@+id/etPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/confirmPass"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:labelFor="@+id/etConfirmPassword"
-                        />
-                        <EditText
-                                style="@style/style_edittext_password"
-                                android:id="@+id/etConfirmPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        <TextView
-                                style="@style/style_textview"
-                                android:id="@+id/tvPasswordMatcher"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:gravity="center"
-                        />
+	                    <ImageView
+	                        android:id="@+id/ivProfilePic"
+	                        android:scaleType="fitXY"
+							android:layout_width="80dp"
+							android:layout_height="80dp"
+							android:src="@drawable/ic_action_person"
+							android:background="@drawable/user_avatar_border"
+							android:layout_marginLeft="10dp"
+							android:layout_marginRight="10dp"
+							android:layout_marginTop="10dp"
+							android:layout_marginBottom="10dp"
+							android:clickable="true"
+	                    />
+	
+	                        <TextView
+	                                style="@style/style_textview"
+	                                android:text="@string/oldPass"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                                android:labelFor="@+id/etOldPass"
+	                                android:paddingLeft="10dp"
+	                        />
+	                        <EditText
+	                                style="@style/style_edittext_password"
+	                                android:id="@+id/etOldPass"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                        />
+	
+	                        <TextView
+	                                style="@style/style_textview"
+	                                android:text="@string/newPass"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                                android:labelFor="@+id/etPassword"
+	                                android:paddingLeft="10dp"
+	                        />
+	                        <EditText
+	                                style="@style/style_edittext_password"
+	                                android:id="@+id/etPassword"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                        />
+	                        <TextView
+	                                style="@style/style_textview"
+	                                android:text="@string/confirmPass"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                                android:labelFor="@+id/etConfirmPassword"
+	                                android:paddingLeft="10dp"
+	                        />
+	                        <EditText
+	                                style="@style/style_edittext_password"
+	                                android:id="@+id/etConfirmPassword"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                        />
+	                        <TextView
+	                                style="@style/style_textview"
+	                                android:id="@+id/tvPasswordMatcher"
+	                                android:layout_width="match_parent"
+	                                android:layout_height="wrap_content"
+	                                android:textStyle="bold"
+	                                android:gravity="center"
+	                        />
+                        
+                        </LinearLayout>
+                        
+	                    <LinearLayout
+	                        android:orientation="vertical"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="5dp"
+	                	>
+	                    </LinearLayout>
+                        
                         <Button
                                 style="@style/style_button"
                                 android:id="@+id/btnChangePass"
                                 android:text="@string/changePass"
                         />
+                        
+                        <LinearLayout
+	                        android:orientation="vertical"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="5dp"
+	                	>
+	                    </LinearLayout>
+                        
+                        <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/custom_gray"
+                		>
+                        
                          <TextView
                                 style="@style/style_textview"
                                 android:id="@+id/tvCreateSchedule"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
-                                android:gravity="center"
+                                android:gravity="center_vertical"
+                                android:text="@string/schedulePrompt"
+                                android:paddingTop="5dp"
+                                android:paddingLeft="10dp"
                         />
                           <EditText
                                 style="@style/style_edittext"
                                 android:id="@+id/etScheduleName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:hint="@string/scheduleHint"
                         />
+                        </LinearLayout>
+                        
+                        <LinearLayout
+	                        android:orientation="vertical"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="5dp"
+	                	>
+	                    </LinearLayout>
 
-				<Button
-                                style="@style/style_button"
-                                android:id="@+id/btnCreateSchedule"
-                                android:text="@string/createSchedule"
+						<Button
+                              style="@style/style_button"
+                              android:id="@+id/btnCreateSchedule"
+                              android:text="@string/createSchedule"
                         />
+						
+						<LinearLayout
+	                        android:orientation="vertical"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="5dp"
+	                	>
+	                    </LinearLayout>
 
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@color/white"
-				>
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@color/custom_gray"
+					>
+                          
 					<Spinner
 						 android:id="@+id/sSchedules"
 						 android:layout_width="match_parent"
@@ -119,13 +174,19 @@
 						 android:visibility="gone"
 					 />
 				</LinearLayout>
+				
+				<LinearLayout
+                     android:orientation="vertical"
+                     android:layout_width="match_parent"
+                     android:layout_height="5dp"
+           		>
+                </LinearLayout>
 
-                        <Button
-                                style="@style/style_button"
-                                android:id="@+id/btnSetActive"
-                                android:text="@string/setActiveSchedule"
-                                android:visibility="gone"
-                        />
+                <Button
+                     style="@style/style_button"
+                     android:id="@+id/btnSetActive"
+                     android:text="@string/setActiveSchedule"
+                     android:visibility="gone" />
                 </LinearLayout>
         </RelativeLayout>
 </ScrollView>

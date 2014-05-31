@@ -3,7 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
+	android:background="@color/custom_gray"
 	android:padding="5dp"
 	android:orientation="vertical"
 >
@@ -14,7 +14,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 	/>
 
 	<EditText
@@ -23,7 +23,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:hint="@string/example_event"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 		android:layout_marginBottom="5dip"
 	/>
 
@@ -32,7 +32,7 @@
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		android:orientation="vertical"
-		android:background="@color/cppgreen_darker"
+		android:background="@color/custom_dark_back"
 	>
 		<LinearLayout
 			android:id="@+id/llProgressBar"
@@ -56,6 +56,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:background="@android:color/transparent"
+			android:layout_margin="2dp"
 		>
 		</ListView>
 	</LinearLayout>

@@ -83,7 +83,7 @@ public class DailyScheduleTab extends Fragment implements Constants {
 		tvToday.setPadding((width / 19), 0, 0, 0);
 		
 		int lineHeight = (height / 160);
-		int prog = (int)(width * 0.8);
+		int prog = (int)(width * 0.9);
 		LinearLayout llContainer = (LinearLayout)root.findViewById(R.id.llLineContainer);
 		llContainer.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineHeight));
 		LinearLayout llLine = (LinearLayout)root.findViewById(R.id.llLine);

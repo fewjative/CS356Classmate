@@ -103,6 +103,7 @@
 	<string name ="add_event_hint">Enter a title or description to search for:</string>
 
 	<string name="example_event">CPP BBQ</string>
+	<string name="example_description">A fun BBQ open to ALL CS students!</string>
 
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
@@ -167,6 +168,8 @@
    	<string name="changePass">Change Password</string>
    	<string name="changePassLoading">Changing Your Password</string>
    	<string name="confirmPass">Confirm New Password</string>
+   	<string name="scheduleHint">School and Work</string>
+   	<string name="schedulePrompt">Schedule Name</string>
 
 	<!--Add Class Activity-->
 	<string name="add_class">Add Class</string>
