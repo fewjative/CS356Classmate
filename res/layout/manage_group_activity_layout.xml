@@ -8,21 +8,29 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/white"
+		android:background="@color/custom_dark_back"
 		android:padding="5dp"
 		android:orientation="vertical"
 	>
-		<TextView
-			style="@style/style_textview"
-			android:id="@+id/tvGroupName"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:textColor="@color/black"
-			android:gravity="center"
-			android:layout_margin="10dp"
-			android:textSize="24dp"
-		/>
+		<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="3dp"
+		android:background="@color/custom_gray"
+		android:orientation="vertical"
+		>
+			<TextView
+				style="@style/style_textview"
+				android:id="@+id/tvGroupName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@color/white"
+				android:gravity="center"
+				android:layout_margin="10dp"
+				android:textSize="24dp"
+			/>
+		</LinearLayout>
 
 		<include
 			layout="@layout/http_query_listview_layout"
@@ -30,22 +38,38 @@
 			android:layout_height="0dp"
 			android:layout_weight="1"
 		/>
+		
+		<GridLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="3dp"
+			android:columnCount="2"
+			android:background="@color/custom_gray"
+			android:orientation="vertical"
+		>
 
-		<Button
-			style="@style/style_button"
-			android:id="@+id/btnAddMember"
-			android:layout_marginTop="6dp"
-			android:layout_marginBottom="6dp"
-			android:text="@string/add_member"
-			android:textColor="@color/black"
-		/>
-
-		<Button
-			style="@style/style_button"
-			android:id="@+id/btnEmailGroup"
-			android:layout_marginBottom="6dp"
-			android:text="@string/email_group"
-			android:textColor="@color/black"
-		/>
+			<Button
+				android:id="@+id/btnAddMember"
+				android:layout_width="wrap_content"
+				android:layout_marginTop="6dp"
+				android:layout_marginBottom="6dp"
+				android:text="@string/add_member"
+				android:layout_row="0"
+				android:layout_column="0"
+				android:textColor="@color/white"
+			/>
+	
+			<Button
+				android:id="@+id/btnEmailGroup"
+				android:layout_width="wrap_content"
+				android:layout_marginTop="6dp"
+				android:layout_marginBottom="6dp"
+				android:layout_marginRight="3dp"
+				android:text="@string/email_group"
+				android:layout_row="0"
+				android:layout_column="1"
+				android:textColor="@color/white"
+			/>
+		</GridLayout>
 	</LinearLayout>
 </LinearLayout>

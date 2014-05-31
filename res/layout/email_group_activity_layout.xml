@@ -8,14 +8,14 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/cppgreen"
+		android:background="@color/custom_dark_back"
 	>
 		<LinearLayout
 			android:padding="10dip"
 			android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@android:color/transparent"
+			android:background="@color/custom_gray"
 		>
 			<TextView
 				style="@style/style_textview"
@@ -29,6 +29,8 @@
 				android:id="@+id/etEmailSubject"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:hint="@string/hint_subject"
 			/>
 			<TextView
 				style="@style/style_textview"
@@ -44,6 +46,8 @@
 				android:layout_height="wrap_content"
 				android:inputType="textMultiLine"
 				android:singleLine="false"
+				android:textColor="@color/white"
+				android:hint="@string/hint_message"
 			/>
 
 			<TextView
@@ -54,14 +58,21 @@
 				android:textStyle="bold"
 				android:gravity="center"
 			/>
-
-			<Button
-				style="@style/style_button"
-				android:id="@+id/btnSendEmail"
-				android:text="@string/email_group_send"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-			/>
+			<LinearLayout
+			android:padding="3dip"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/custom_dark_back"
+			>
+				<Button
+					style="@style/style_button"
+					android:id="@+id/btnSendEmail"
+					android:text="@string/email_group_send"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+				/>
+			</LinearLayout>
 		</LinearLayout>
 	</RelativeLayout>
 </ScrollView>

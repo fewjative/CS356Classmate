@@ -165,7 +165,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 //				});
 				Random r = new Random();
 				int friendsCount = r.nextInt(6);
-//				holder.tvFriends.setText("Time: " + s.getFullTime()); // Going to need to write code to fetch friends count per class
+//				holder.tvFriends.setText(); // Going to need to write code to fetch friends count per class
 				holder.tvFriends.setText(friendsCount + " friends");
 			}
 

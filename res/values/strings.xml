@@ -139,6 +139,8 @@
 
 	<string name="dialog_group_join_title">Group Joined</string>
 	<string name="dialog_group_join">You have sucessfully joined the \'%1$s\'!</string>
+	<string name="hint_subject">New Assignment in CS 256</string>
+	<string name="hint_message">We should get together and work on it!</string>
 
 	<!--Manage Group Activity-->
 	<string name="manage_group">Manage Group</string>
@@ -186,6 +188,9 @@
 	<string name="invalid_event_description_hint">Please give your event a description</string>
 	<string name="invalid_event_dates_hint">Please correct the event dates</string>
 	<string name="invalid_event_times_hint">Please correct the event times</string>
+	
+	<string name="review_hint_title">Great Class!</string>
+	<string name="review_hint_message">This class was a great learning experience</string>
 
 	<!-- Book Accomplice Tab -->
 	<string name="books_tab_buy">Buy Books</string>
