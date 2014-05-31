@@ -3,51 +3,86 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
+	android:background="@color/custom_dark_back"
 	android:padding="5dp"
 	android:orientation="vertical"
 >
-	<TextView
-		style="@style/style_textview"
-		android:id="@+id/tvTitle"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
-	/>
-	
-	<TextView
-		style="@style/style_textview"
-		android:id="@+id/tvClassname"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
-	/>
-	
-	<TextView
-		style="@style/style_textview"
-		android:id="@+id/tvCondition"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
-	/>
-	
-	<TextView
-		style="@style/style_textview"
-		android:id="@+id/tvPrice"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@color/black"
-	/>
-
-	<EditText
-		style="@style/style_edittext"
-		android:id="@+id/etComment"
-		android:textColor="@color/black"
-		android:layout_marginBottom="5dip"
-	/>
-	
-	<Button
-			style="@style/style_button"
-			android:id="@+id/btnComment"
-			android:text="Add Comment"
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/custom_gray"
+		android:orientation="vertical"
+		android:layout_marginBottom="5dp"
+	>
+		<TextView
+			style="@style/style_textview"
+			android:id="@+id/tvTitle"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+			android:layout_marginLeft="5dp"
 			android:textColor="@color/white"
 		/>
+		
+		<TextView
+			style="@style/style_textview"
+			android:id="@+id/tvClassname"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_marginBottom="5dp"
+			android:layout_marginLeft="5dp"
+			android:textColor="@color/white"
+		/>
+		
+		<TextView
+			style="@style/style_textview"
+			android:id="@+id/tvCondition"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_marginBottom="5dp"
+			android:layout_marginLeft="5dp"
+			android:textColor="@color/white"
+		/>
+		
+		<TextView
+			style="@style/style_textview"
+			android:id="@+id/tvPrice"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_marginLeft="5dp"
+			android:textColor="@color/white"
+		/>
+	
+		<EditText
+			style="@style/style_edittext"
+			android:id="@+id/etComment"
+			android:textColor="@color/white"
+			android:layout_marginBottom="5dip"
+			android:hint="@string/hint_comment"
+		/>
+	</LinearLayout>
+	
+	<Button
+			android:id="@+id/btnComment"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Add Comment"
+			android:layout_marginBottom="5dip"
+			android:textColor="@color/white"
+		/>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/custom_gray"
+		android:orientation="vertical"
+		android:layout_marginBottom="3dip"
+	>
+		<TextView
+			style="@style/style_textview"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="Comments:"
+			android:layout_marginLeft="5dp"
+			android:textColor="@color/white"
+		/>
+	</LinearLayout>
 	
 	<include
 		layout="@layout/http_query_listview_layout"

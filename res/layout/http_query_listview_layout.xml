@@ -22,5 +22,6 @@
 	<ListView
 		style="@style/style_listview"
 		android:id="@+id/lvQueryResults"
+		android:dividerHeight="3dp"
 	/>
 </LinearLayout>

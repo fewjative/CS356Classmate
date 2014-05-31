@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" >
+    android:padding="6dip"
+    android:background="@color/custom_gray" >
 
     <include
         android:id="@+id/user_avatar_layout_id"
@@ -17,6 +18,7 @@
         android:id="@+id/tvUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
@@ -31,6 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_below="@id/tvUsername"
         android:layout_height="26dip"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/user_avatar_layout_id"
