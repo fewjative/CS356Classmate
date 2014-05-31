@@ -50,7 +50,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int height = displayMetrics.heightPixels;
-//		int width = displayMetrics.widthPixels;
+		int width = displayMetrics.widthPixels;
 
 		user = getIntent().getParcelableExtra(INTENT_KEY_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
@@ -59,6 +59,8 @@ public class SectionDetailsActivity extends Activity implements Constants{
 		getActionBar().setTitle(section.toString());
 
 		
+		Button btnCreateReview = (Button)findViewById(R.id.btnCreateReview);
+		btnCreateReview.setWidth(width / 2);
 		
 		TextView tvCourseTitle = (TextView)findViewById(R.id.tvCourseTitle);
 		tvCourseTitle.setText(section.getTitle());

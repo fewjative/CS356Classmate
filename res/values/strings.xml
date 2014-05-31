@@ -204,6 +204,11 @@
    	<string name="dialog_change_profile_pic">Change profile picture</string>
    	<string name="action_camera">Take picture with camera</string>
 	<string name="action_gallery">Choose from gallery</string>
+	
+	<string name="hint_title">Starting Out With C++ From Control Structures</string>
+	<string name="hint_class">CS 256</string>
+	<string name="hint_condition">Brand new</string>
+	<string name="hint_price">63.00</string>
 
 	<!--Activity Feed Fragment-->
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>

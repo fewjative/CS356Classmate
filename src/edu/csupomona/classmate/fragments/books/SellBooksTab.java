@@ -19,12 +19,14 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.friends.SearchUsersAdapter;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,6 +56,12 @@ public class SellBooksTab extends Fragment implements View.OnClickListener, Cons
 		etBookPrice = (EditText)ROOT.findViewById(R.id.etBookPrice);
 		btnSellBook = (Button)ROOT.findViewById(R.id.btnSellBook);
 		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		
+		btnSellBook.setWidth(width / 2);
 		btnSellBook.setOnClickListener(this);
 		return ROOT;
 	}

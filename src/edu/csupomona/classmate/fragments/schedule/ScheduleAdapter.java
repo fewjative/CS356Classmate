@@ -97,14 +97,6 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
 			view.setTag(new ViewHolder(tvClassNumber, tvClassDays, tvClassTime, tvFriends, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
-
-
-//			btnRemoveClass.setTag(s);
-//			btnRemoveClass.setOnClickListener(this);
-
-//			btnViewSectionDetails.setVisibility(View.VISIBLE);
-//			btnViewSectionDetails.setTag(s);
-//			btnViewSectionDetails.setOnClickListener(this);
 			
 			int cellHeight = (width / 2);
 			
@@ -116,8 +108,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 			
 			tvCellClassTime.setText(part[0]);
 			
-			tvClassNumber.setTextSize(cellHeight / 16);
-//			tvClassTitle.setTextSize(cellHeight / 20);
+			tvClassNumber.setTextSize(cellHeight / 18);
 			tvClassDays.setTextSize(cellHeight / 20);
 			tvCellClassTime.setTextSize(cellHeight / 20);
 			tvFriends.setTextSize(cellHeight / 20);
@@ -127,7 +118,6 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 //			int dim = (width / 2) - (width / 16);
 			
 			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
-//			container = Bitmap.createScaledBitmap(container, dim, dim, true);
 			BitmapDrawable background = new BitmapDrawable(container);
 			innerLayout.setBackgroundDrawable(background);
 		}

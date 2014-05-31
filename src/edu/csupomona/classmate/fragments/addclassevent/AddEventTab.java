@@ -1,15 +1,14 @@
 package edu.csupomona.classmate.fragments.addclassevent;
 
 import android.support.v4.app.Fragment;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -32,13 +30,8 @@ import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
  public class AddEventTab extends Fragment implements Constants{
 	 
@@ -48,7 +41,6 @@ import org.apache.http.message.BasicNameValuePair;
 	 	private int start_hour, start_min;
 	 	private int end_hour, end_min;
 	 	private int FLAG = 0;
-	 	private String currentDate;
 	 	private Button setStartDateBtn;
 	 	private Button setEndDateBtn;
 	 	private Button setStartTimeBtn;
@@ -57,7 +49,7 @@ import org.apache.http.message.BasicNameValuePair;
 		private EditText textFieldTitle;
 		private RadioButton radioButtonOPublic;
 		private RadioButton radioButtonFPublic;
-		private RadioButton radioButtonPrivate;
+//		private RadioButton radioButtonPrivate;
 		private Button btnCreateEvent;
 		private User USER;
 		
@@ -76,14 +68,14 @@ import org.apache.http.message.BasicNameValuePair;
 		textFieldTitle = (EditText)ROOT.findViewById(R.id.textFieldTitle);
 		radioButtonOPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonOPublic);
 		radioButtonFPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonFPublic);
-		radioButtonPrivate = (RadioButton)ROOT.findViewById(R.id.radioButtonPrivate);
+//		radioButtonPrivate = (RadioButton)ROOT.findViewById(R.id.radioButtonPrivate);
 		btnCreateEvent = (Button)ROOT.findViewById(R.id.btnCreateEvent);
 		
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
-		btnCreateEvent.setWidth(width / 3);
+		btnCreateEvent.setWidth(width / 2);
 		
 		OnClickListener listenerStartDate = new OnClickListener() {
 
@@ -191,6 +183,7 @@ import org.apache.http.message.BasicNameValuePair;
 	    }
 	};
 	
+	@SuppressLint("SimpleDateFormat")
 	private void updateDisplay() {
 
 	    GregorianCalendar c = null;
