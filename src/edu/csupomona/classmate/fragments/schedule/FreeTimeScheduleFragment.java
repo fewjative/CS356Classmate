@@ -1,34 +1,35 @@
 package edu.csupomona.classmate.fragments.schedule;
 
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.TimeSlot;
 import edu.csupomona.classmate.abstractions.User;
-
+import edu.csupomona.classmate.utils.TextWatcherAdapter;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("ValidFragment")
 public class FreeTimeScheduleFragment extends Fragment {
 	public static final int CODE_ADD_CLASS = 0x000D;
 	public static final int CODE_VIEW_SECTION = 0x1FC3;
@@ -37,6 +38,10 @@ public class FreeTimeScheduleFragment extends Fragment {
 	private LinearLayout llBothFree;
 	private LinearLayout llFriendFree;
 	private LinearLayout llFreeTime;
+	private LinearLayout llNoSchedule;
+	private LinearLayout llNoFriendSchedule;
+	private LinearLayout llNoClass;
+	private LinearLayout llNoScheduleFreetime;
 	
 	private boolean outside_source=false;
 	private final long friend_id;
@@ -63,53 +68,111 @@ public class FreeTimeScheduleFragment extends Fragment {
 
 		final LinearLayout llProgressBar = (LinearLayout)root.findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
+		
+		final RequestParams params = new RequestParams();
+		params.put("user_id", Long.toString(friend_id));
 
-		RequestParams params = new RequestParams();
-		params.put("user_id", Long.toString(user_id));
-		params.put("friend_id", Long.toString(friend_id));
+		final AsyncHttpClient client = new AsyncHttpClient();
+		client.get("http://www.lol-fc.com/classmate/2/getusernumschedules.php", params, new AsyncHttpResponseHandler() {
 
-		AsyncHttpClient client = new AsyncHttpClient();
-		client.get("http://www.lol-fc.com/classmate/getfreetimetoday.php", params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
 				llProgressBar.setVisibility(View.GONE);
 
-				int resp;
-				boolean free = false;
-				try {
-					resp = Integer.parseInt(response);
-					free = true;
-				} catch (NumberFormatException e) {
-					resp = -1;
-				}
+				int numSchedules;
+                try {
+               	 	numSchedules = Integer.parseInt(response);
+                } catch (NumberFormatException e) {
+               	 	numSchedules = 0;
+                }
 
-				if (resp == 1) {//both are free
-					
-					
-						llBothFree = (LinearLayout)root.findViewById(R.id.llBothFree);
-						llBothFree.setVisibility(View.VISIBLE);
-					
-				} else if(resp==3)
-				{
-					llFriendFree = (LinearLayout)root.findViewById(R.id.llFriendFree);
-					llFriendFree.setVisibility(View.VISIBLE);
-					//set textview to the user name of friend?
-				}
-				else
-				{
-					llFreeTime = (LinearLayout)root.findViewById(R.id.llFreeTime);
-					llFreeTime.setVisibility(View.VISIBLE);
+                if(numSchedules==0)
+                {
+                		llNoFriendSchedule = (LinearLayout)root.findViewById(R.id.llNoFriendSchedule);
+                		llNoFriendSchedule.setVisibility(View.VISIBLE);			        
+                }
+                else
+                {
+                	client.get("http://www.lol-fc.com/classmate/2/getusernumclasses2.php", params, new AsyncHttpResponseHandler() {
+            			@Override
+            			public void onSuccess(String response) {
+            				llProgressBar.setVisibility(View.GONE);
 
-					
-					final LinearLayout llProgressBarClasses = (LinearLayout)llFreeTime.findViewById(R.id.llProgressBarClasses);
-					llProgressBarClasses.setVisibility(View.VISIBLE);
-					
-					setupFreeTime(response);
-					llProgressBarClasses.setVisibility(View.GONE);
-					
-				}
+            				int numClasses;
+            				try {
+            					numClasses = Integer.parseInt(response);
+            				} catch (NumberFormatException e) {
+            					numClasses = 0;
+            				}
+
+            				if (numClasses == 0) {
+
+        						llNoClass = (LinearLayout)root.findViewById(R.id.llNoClass);
+        						llNoClass.setVisibility(View.VISIBLE);
+            				}
+            				else
+            				{
+            					RequestParams params = new RequestParams();
+            					params.put("user_id", Long.toString(user_id));
+            					params.put("friend_id", Long.toString(friend_id));
+
+            					AsyncHttpClient client = new AsyncHttpClient();
+            					client.get("http://www.lol-fc.com/classmate/getfreetimetoday.php", params, new AsyncHttpResponseHandler() {
+            						@Override
+            						public void onSuccess(String response) {
+            							llProgressBar.setVisibility(View.GONE);
+
+            							int resp;
+            							boolean free = false;
+            							try {
+            								resp = Integer.parseInt(response);
+            								free = true;
+            							} catch (NumberFormatException e) {
+            								resp = -1;
+            							}
+
+            							if (resp == 1) {//both are free            								          								
+            									llBothFree = (LinearLayout)root.findViewById(R.id.llBothFree);
+            									llBothFree.setVisibility(View.VISIBLE);
+            								
+            							} else if(resp==3)
+            							{
+            								llFriendFree = (LinearLayout)root.findViewById(R.id.llFriendFree);
+            								llFriendFree.setVisibility(View.VISIBLE);
+            								//set textview to the user name of friend?
+            							}else if(resp==4)
+            							{
+            								llNoScheduleFreetime = (LinearLayout)root.findViewById(R.id.llNoScheduleFreetime);
+            								llNoScheduleFreetime.setVisibility(View.VISIBLE);
+            							}
+            							else if(resp==5)
+            							{
+            								llNoFriendSchedule = (LinearLayout)root.findViewById(R.id.llNoFriendSchedule);
+            		                		llNoFriendSchedule.setVisibility(View.VISIBLE);	
+            							}
+            							else
+            							{
+            								llFreeTime = (LinearLayout)root.findViewById(R.id.llFreeTime);
+            								llFreeTime.setVisibility(View.VISIBLE);
+
+            								
+            								final LinearLayout llProgressBarClasses = (LinearLayout)llFreeTime.findViewById(R.id.llProgressBarClasses);
+            								llProgressBarClasses.setVisibility(View.VISIBLE);
+            								
+            								setupFreeTime(response);
+            								llProgressBarClasses.setVisibility(View.GONE);
+            								
+            							}
+            						}
+            					});
+            				}
+            			}
+            		});
+                }
 			}
 		});
+
+		
 
 		return root;
 	}

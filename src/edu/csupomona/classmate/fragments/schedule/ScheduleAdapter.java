@@ -6,6 +6,7 @@ import java.util.Random;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,6 +33,7 @@ import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.ScheduleItem;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
+import edu.csupomona.classmate.fragments.CalendarFeedFragment;
 
 import java.util.List;
 
@@ -215,6 +217,14 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 			i.putExtra(INTENT_KEY_SECTION,sec);
 			i.putExtra(INTENT_KEY_USER, USER);
 			((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
+		}
+		else
+		{
+			AlertDialog b = new AlertDialog.Builder(getContext()).create();
+			b.setTitle(s.getTitle());
+			b.setMessage(s.getDescription() + "\n Event goes from: " + s.getFullTime() + "\n On: " + s.getDateStart() + "-" + s.getDateEnd());
+			b.setCanceledOnTouchOutside(true);
+			b.show();
 		}
 		
 	}

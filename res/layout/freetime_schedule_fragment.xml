@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/cppgreen"
+        android:background="@color/custom_dark_back"
 >
         <LinearLayout
                 android:id="@+id/llProgressBar"
@@ -21,6 +21,47 @@
                         android:layout_height="wrap_content"
                 >
                 </ProgressBar>
+        </LinearLayout>
+        
+          <LinearLayout
+                android:id="@+id/llNoClass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/dashed_border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:visibility="gone"
+        >
+                        <TextView
+                                style="@style/style_textview"
+                                android:text="@string/dialog_schedule_no_class_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                        />
+                        
+        </LinearLayout>
+        
+           <LinearLayout
+                android:id="@+id/llNoFriendSchedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/dashed_border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:visibility="gone"
+       	>
+                        <TextView
+                                style="@style/style_textview"
+                                android:text="@string/dialog_schedule_nofriend_schedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                        />
         </LinearLayout>
 
         <LinearLayout
@@ -43,6 +84,29 @@
                         />
 
         </LinearLayout>
+        
+        <LinearLayout
+                android:id="@+id/ llNoScheduleFreetime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/dashed_border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:visibility="gone"
+        >
+                        <TextView
+                                style="@style/style_textview"
+                                android:text="You need to create a schedule to compare with a friend!"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                        />
+
+        </LinearLayout>
+        
+       
         
         <LinearLayout
                 android:id="@+id/llFriendFree"
@@ -71,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/cppgreen"
+                android:background="@color/custom_dark_back"
                 android:visibility="gone"
         >
           
@@ -113,7 +177,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:background="@color/cppgreen_darker"
+                                android:background="@color/custom_dark_back"
                         >
                         </ListView>
                 </LinearLayout>
