@@ -28,23 +28,24 @@ import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
+import edu.csupomona.classmate.abstractions.ScheduleItem;
 import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 
-public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
+public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Constants {
 	private final User USER;
 	private final User VIEWER;
 	private int friendC;
 
 
-	public ScheduleAdapter(Context context, User user, List<Section> schedule) {
+	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule) {
 		super(context, 0, schedule);
 		this.USER = user;
 		this.VIEWER = null;
 		this.friendC = 0;
 	}
 
-	public ScheduleAdapter(Context context, User user, List<Section> schedule, User viewer) {
+	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule, User viewer) {
 		super(context,0,schedule);
 		this.USER = user;
 		this.VIEWER = viewer;
@@ -73,7 +74,7 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Section s = getItem(position);
+		ScheduleItem s = getItem(position);
 		ViewHolder holder = null;
 		View view = convertView;
 		Button btnRemoveClass = null;
@@ -106,7 +107,9 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 			String temp = s.getFullTime();
 			String[] part = temp.split(" - ");
 			
-			tvCellClassTime.setText(part[0]);
+			//tvCellClassTime.setText(part[0]);
+			System.out.println(temp + " position: " + position);
+			tvCellClassTime.setText(temp);
 			
 			tvClassNumber.setTextSize(cellHeight / 18);
 			tvClassDays.setTextSize(cellHeight / 20);
@@ -129,15 +132,29 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-				if(Integer.parseInt(s.getSection()) < 10)
+				
+				if(s.getClassID()==0)
 				{
-					holder.tvClassNumber.setText(String.format("%s %s  0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
-				}else
-					holder.tvClassNumber.setText(String.format("%s %s  %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+					holder.tvClassNumber.setText(String.format("%s",s.getTitle()));
+				}
+				else
+				{
+					if(Integer.parseInt(s.getSection()) < 10)
+					{
+						holder.tvClassNumber.setText(String.format("%s %s  0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+					}else
+						holder.tvClassNumber.setText(String.format("%s %s  %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				}
 			}
 
 			if (holder.tvClassDays != null) {
-				holder.tvClassDays.setText(s.getWeekdays());
+				
+				if(s.getClassID()==0)
+				{
+					holder.tvClassDays.setText("M");
+				}
+				else
+					holder.tvClassDays.setText(s.getWeekdays());
 			}
 
 			if (holder.tvClassTime != null) {
@@ -181,16 +198,20 @@ public class ScheduleAdapter extends ArrayAdapter<Section>implements Constants {
 	}
 
 	public void viewSectionDetails(int position) 
-	{
-		Section s = getItem(position);
-		Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
-		i.putExtra(INTENT_KEY_SECTION, s);
-		i.putExtra(INTENT_KEY_USER, USER);
-		((Activity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
+	{	
+		ScheduleItem s = getItem(position);
+		if(s.getClassID()!=0)//if the object we clicked is a class
+		{		
+			Section sec = new Section(s.getClassID(),s.getTitle(),s.getStartTime(),s.getEndTime(),s.getWeekdays(),s.getDateStart(),s.getDateEnd(),s.getInstructor(),s.getBuilding(),s.getRoom(),s.getSection(),s.getMajorShort(),s.getMajorLong(),s.getClassNum(),s.getTerm());
+			Intent i = new Intent(((FragmentActivity)getContext()), SectionDetailsActivity.class);
+			i.putExtra(INTENT_KEY_SECTION,sec);
+			i.putExtra(INTENT_KEY_USER, USER);
+			((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
+		}
 		
 	}
 
-	private void removeClass(final Section s) {
+	private void removeClass(final ScheduleItem s) {
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
 		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));
