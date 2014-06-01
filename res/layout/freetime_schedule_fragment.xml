@@ -6,36 +6,6 @@
         android:orientation="vertical"
         android:background="@color/custom_dark_back"
 >
-		<TextView
-			android:id="@+id/tvToday"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/white"
-			android:singleLine="true"
-			android:ellipsize="marquee"
-			android:marqueeRepeatLimit ="marquee_forever"
-			android:scrollHorizontally="true"
-			android:focusable="false"
-		/>
-		
-		<LinearLayout
-                android:id="@+id/llLineContainer"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:background="@color/custom_light_gray"
-        >
-        	<LinearLayout
-                android:id="@+id/llLine"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="left"
-                android:orientation="horizontal"
-                android:background="@color/custom_light_green"
-        	>
-        	</LinearLayout>
-        </LinearLayout>	
-    
         <LinearLayout
                 android:id="@+id/llProgressBar"
                 android:layout_width="match_parent"
@@ -52,9 +22,9 @@
                 >
                 </ProgressBar>
         </LinearLayout>
-        
-       <LinearLayout
-                android:id="@+id/llNoClass"
+
+        <LinearLayout
+                android:id="@+id/llBothFree"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -65,81 +35,56 @@
                 android:visibility="gone"
         >
                         <TextView
-                                style="@style/style_textview"
-                                android:text="@string/dialog_schedule_no_class_view"
+								android:textColor="@color/white"
+                                android:text="You and your friend are free all day!"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                        />
-                        
-        </LinearLayout>
-
-          <LinearLayout
-                android:id="@+id/llNoSchedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-        >
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/dialog_schedule_create_schedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                        />
-                        
-                         <EditText
-                                style="@style/style_edittext"
-                                android:id="@+id/etScheduleName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                        />
-                        
-                        <Button
-                                style="@style/style_button"
-                                android:id="@+id/btnAddSchedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:text="@string/button_create_schedule"
                         />
 
-        </LinearLayout>
-        
-           <LinearLayout
-                android:id="@+id/llNoFriendSchedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/dashed_border"
-                android:padding="10dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:visibility="gone"
-       	>
-                        <TextView
-                                style="@style/style_textview"
-                                android:text="@string/dialog_schedule_nofriend_schedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                        />
         </LinearLayout>
         
         <LinearLayout
-                android:id="@+id/llSchedule"
+                android:id="@+id/llFriendFree"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/custom_dark_back"
+                android:background="@drawable/dashed_border"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
                 android:visibility="gone"
         >
+                        <TextView
+                                style="@style/style_textview"
+                                android:text="Your friend is free all day, plan around your schedule."
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                        />
+                        
+        </LinearLayout>
+        
+
+        <LinearLayout
+                android:id="@+id/llFreeTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/custom_light_gray"
+                android:visibility="gone"
+        >
+          
+                        
+         <TextView
+            android:id="@+id/tvDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/white"
+            android:text="You and your friend are free from:" 
+            android:gravity="center"/>
+         
                 <LinearLayout
                         android:id="@+id/llProgressBarClasses"
                         android:layout_width="match_parent"
@@ -157,19 +102,22 @@
                         </ProgressBar>
                 </LinearLayout>
 
-               <LinearLayout
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:background="@android:color/transparent"
                 >
-                        <GridView
-                            android:id="@+id/gridSchedule"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:numColumns="2"
-                            >
-                        </GridView>
+                        <ListView
+                                android:id="@+id/lvFreeTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@color/cppgreen_darker"
+                        >
+                        </ListView>
                 </LinearLayout>
         </LinearLayout>
+
+
 </LinearLayout>
