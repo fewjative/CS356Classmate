@@ -10,8 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -94,8 +96,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		btnFbLogin.setReadPermissions(Arrays.asList("email"));		
 		
 		etEmailAddress = (EditText)findViewById(R.id.etEmailAddress);
+		etEmailAddress.setTypeface(Typeface.DEFAULT);
+		
 		etPassword = (EditText)findViewById(R.id.etPassword);
-
+		etPassword.setTypeface(Typeface.DEFAULT);
+		etPassword.setTransformationMethod(new PasswordTransformationMethod());
 //		TextWatcher tw = new TextWatcherAdapter() {
 //			@Override
 //			public void afterTextChanged(Editable e) {
