@@ -790,9 +790,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
 			System.out.println("id: " + id);
 			System.out.println("title: " + title);
-			System.out.println("date_start: " + startDay+"-"+startMonth+"-"+startYear);			
+			System.out.println("date_start: " + startYear+"-"+startMonth+"-"+startDay);			
 			System.out.println("time_start: " + startHour+":"+startMinute);
-			System.out.println("date_end: " + startDay+"-"+endMonth+"-"+endYear);
+			System.out.println("date_end: " + startYear+"-"+startMonth+"-"+startDay);
 			System.out.println("time_end: " + endHour+":"+endMinute);
 			System.out.println("location: " + eventLocation);
 			
@@ -802,8 +802,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			params.put("description", "Imported");
 			params.put("time_start", startHour+":"+startMinute);
 			params.put("time_end", endHour+":"+endMinute);
-			params.put("date_start", startDay+"-"+startMonth+"-"+startYear);
-			params.put("date_end", startDay+"-"+endMonth+"-"+endYear);
+			params.put("date_start", startYear+"-"+startMonth+"-"+startDay);
+			params.put("date_end", startYear+"-"+startMonth+"-"+startDay);
 			params.put("weekdays", "N/A");
 			params.put("fpublic", FPUBLIC);
 			params.put("opublic", OPUBLIC);
