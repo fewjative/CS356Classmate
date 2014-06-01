@@ -5,7 +5,7 @@
 	android:layout_height="0dp"
 	android:layout_weight="1"
 	android:orientation="vertical"
-	android:background="@color/cppgreen_darker"
+	android:background="@color/custom_dark_back"
 >
 	<include
 		layout="@layout/empty_list_layout"
@@ -22,5 +22,6 @@
 	<ListView
 		style="@style/style_listview"
 		android:id="@+id/lvQueryResults"
+		android:dividerHeight="3dp"
 	/>
 </LinearLayout>

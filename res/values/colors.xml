@@ -26,8 +26,17 @@
 	<color name="cppgold">#F5BC23</color>
 
 	<color name="cppgreen_darker">#003D21</color>
+	<color name="cppgreen_darker_darker">#002816</color>
 	<color name="cppgold_darker">#DBA20A</color>
 
 	<color name="cppgreen_trans_darker">#E6003D21</color>
 	<color name="cppgold_trans_darker">#E6DBA20A</color>
+	
+	<color name="custom_gray">#2f2f2f</color>
+	<color name="custom_green">#05f516</color>
+	<color name="custom_dark_back">#1b1b1b</color>
+	<color name="custom_divider">#717171</color>
+	<color name="custom_light_blue">#5fd9fc</color>
+	<color name="custom_light_gray">#727272</color>
+	<color name="custom_light_green">#33cc4e</color>
 </resources>

@@ -4,7 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:background="@color/cppgreen_darker"
+	android:background="@color/custom_dark_back"
 >
 	<include
 		layout="@layout/http_query_listview_layout"

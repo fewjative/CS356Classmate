@@ -106,13 +106,21 @@
 				android:value="edu.csupomona.classmate.fragments.groups.activities.ManageGroupActivity"
 			/>
 		</activity>
-			<activity
-			android:name="edu.csupomona.classmate.SectionDetailsActivity"
-   			android:label="@string/section_details"
-     		android:screenOrientation="portrait"
-     		android:windowSoftInputMode="stateVisible"
+		<activity 
+		    android:name="edu.csupomona.classmate.SectionDetailsActivity" 
+    		android:label="@string/section_details" 
+    		android:screenOrientation="portrait" 
+    		android:windowSoftInputMode="stateVisible" 
     		android:parentActivityName="edu.csupomona.classmate.fragments.ScheduleFragment"
-    	 >
+    	>
+		</activity>
+		<activity 
+		    android:name="edu.csupomona.classmate.SectionReviewActivity" 
+    		android:label="@string/section_details" 
+    		android:screenOrientation="portrait" 
+    		android:windowSoftInputMode="stateVisible" 
+    		android:parentActivityName="edu.csupomona.classmate.fragments.ScheduleFragment"
+    	>
 		</activity>
 		<activity
 			android:name="edu.csupomona.classmate.fragments.NewsArticleActivity"
@@ -130,4 +138,5 @@
     	/>
         
 	</application>
+
 </manifest>

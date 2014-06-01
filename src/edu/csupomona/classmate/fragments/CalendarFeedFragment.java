@@ -1,6 +1,6 @@
 package edu.csupomona.classmate.fragments;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,14 +15,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.abstractions.NewsArticle;
+import edu.csupomona.classmate.abstractions.CalendarEvent;
 import java.util.LinkedList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class NewsFeedFragment extends Fragment {
+public class CalendarFeedFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View ROOT = (ViewGroup)inflater.inflate(R.layout.http_query_listview_layout, null);
@@ -32,17 +32,17 @@ public class NewsFeedFragment extends Fragment {
 
 		final RequestParams params = new RequestParams();
 		AsyncHttpClient client = new AsyncHttpClient();
-		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETNEWSFEED, params, new JsonHttpResponseHandler() {
+		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_GETCALENDARFEED, params, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONArray jsona) {
-				List<NewsArticle> articles = new LinkedList<NewsArticle>();
+				List<CalendarEvent> calendarEvents = new LinkedList<CalendarEvent>();
 
 				try {
 					JSONObject jObj;
 					for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
-						articles.add(new NewsArticle(
-							jObj.getString(Constants.PHP_PARAM_DATE),
+						calendarEvents.add(new CalendarEvent(
+							jObj.getString(Constants.PHP_PARAM_STARTTIME),
 							jObj.getString(Constants.PHP_PARAM_TITLE),
 							jObj.getString(Constants.PHP_PARAM_DESC),
 							jObj.getString(Constants.PHP_PARAM_IMAGEURL),
@@ -53,11 +53,11 @@ public class NewsFeedFragment extends Fragment {
 					e.printStackTrace();
 				}
 
-				final NewsFeedAdapter adapter = new NewsFeedAdapter(getActivity(), articles);
+				final CalendarFeedAdapter adapter = new CalendarFeedAdapter(getActivity(), calendarEvents);
 				ListView lvQueryResults = (ListView)ROOT.findViewById(R.id.lvQueryResults);
 				if (adapter.isEmpty()) {
 					TextView tvEmptyList = (TextView)ROOT.findViewById(R.id.tvEmptyList);
-					tvEmptyList.setText(R.string.news_feed_empty);
+					tvEmptyList.setText(R.string.calendar_events_feed_empty);
 
 					LinearLayout llEmptyList = (LinearLayout)ROOT.findViewById(R.id.llEmptyList);
 					llEmptyList.setVisibility(View.VISIBLE);
@@ -67,11 +67,12 @@ public class NewsFeedFragment extends Fragment {
 					lvQueryResults.setBackgroundResource(R.color.white_smoke);
 					lvQueryResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							NewsArticle article = adapter.getItem(position);
-
-							Intent i = new Intent(NewsFeedFragment.this.getActivity(), NewsArticleActivity.class);
-							i.putExtra(Constants.INTENT_KEY_NEWSARTICLE, article);
-							startActivity(i);
+							CalendarEvent event = adapter.getItem(position);
+							AlertDialog b = new AlertDialog.Builder(CalendarFeedFragment.this.getActivity()).create();
+							b.setTitle(event.getTitle());
+							b.setMessage(event.getDesc());
+							b.setCanceledOnTouchOutside(true);
+							b.show();
 						}
 					});
 				}

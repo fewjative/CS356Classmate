@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/cppgreen"
+	android:background="@color/custom_dark_back"
 	android:orientation="vertical"
 	android:gravity="center_horizontal"
 >
@@ -11,46 +11,63 @@
 		android:id="@+id/rbRating"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="5dp"
 		android:numStars="5"
 	/>
-
-	<TextView
-		style="@style/style_textview"
-		android:text="Title"
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:labelFor="@+id/etTitle"
-	/>
+		android:background="@color/custom_gray"
+		android:orientation="vertical"
+		android:gravity="center_horizontal"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+	>
 
-	<EditText
-		style="@style/style_edittext"
-		android:id="@+id/etTitle"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-	/>
-
-	<TextView
-		style="@style/style_textview"
-		android:text="Review"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:labelFor="@+id/etReview"
-	/>
-
-	<EditText
-		style="@style/style_edittext"
-		android:id="@+id/etReview"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:singleLine="false"
-	/>
-
+		<TextView
+			style="@style/style_textview"
+			android:text="Title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:labelFor="@+id/etTitle"
+		/>
+	
+		<EditText
+			style="@style/style_edittext"
+			android:id="@+id/etTitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/review_hint_title"
+		/>
+	
+		<TextView
+			style="@style/style_textview"
+			android:text="Review"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:labelFor="@+id/etReview"
+		/>
+	
+		<EditText
+			style="@style/style_edittext"
+			android:id="@+id/etReview"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:singleLine="false"
+			android:hint="@string/review_hint_message"
+		/>
+	</LinearLayout>
 	<Button
 		style="@style/style_button"
 		android:id="@+id/btnSubmitReview"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:text="Submit"
+		android:layout_marginTop="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
 	/>
 </LinearLayout>

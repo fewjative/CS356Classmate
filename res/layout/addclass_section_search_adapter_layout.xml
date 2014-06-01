@@ -5,7 +5,7 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:background="@color/cppgreen"
+	android:background="@color/custom_gray"
 	android:animateLayoutChanges="true"
 >
 	<LinearLayout
@@ -52,7 +52,7 @@
 			android:gravity="center_vertical"
 			android:minHeight="?android:attr/listPreferredItemHeightLarge"
 			android:textAppearance="?android:attr/textAppearanceListItemSmall"
-			android:textColor="@color/white"
+			android:textColor="@color/custom_light_blue"
 			android:layout_marginRight="6dip"
 			android:singleLine="true"
 		/>

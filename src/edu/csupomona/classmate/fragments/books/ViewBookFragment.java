@@ -17,11 +17,13 @@ import edu.csupomona.classmate.abstractions.BookComment;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +79,7 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ROOT = (ViewGroup)inflater.inflate(R.layout.books_comments_layout, null);
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		
 		tvTitle = (TextView)ROOT.findViewById(R.id.tvTitle);
 		tvTitle.setText("Book Title: " + title);
 		
@@ -92,6 +95,12 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		etComment = (EditText)ROOT.findViewById(R.id.etComment);
 		btnComment = (Button)ROOT.findViewById(R.id.btnComment);
 		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
+		int newWidth = (int)(width / 1.5);
+		btnComment.setWidth(newWidth);
 		btnComment.setOnClickListener(this);
 		
 		setUpComments();

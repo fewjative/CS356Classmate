@@ -75,7 +75,7 @@ public class ActivityFeedAdapter extends ArrayAdapter<ActivityFeedItem> {
 
 					temp = ((FriendAddedEvent)item).getPersonAdded().getUsername();
 					text = new SpannableString(temp);
-					text.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					text.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.custom_light_green)), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(text);
 
 					temp = " as a friend";
@@ -95,7 +95,7 @@ public class ActivityFeedAdapter extends ArrayAdapter<ActivityFeedItem> {
 
 					temp = ((ClassAddedEvent)item).getClassName();
 					text = new SpannableString(temp);
-					text.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.cppgold)), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					text.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.custom_light_blue)), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					builder.append(text);
 
 					temp = " to their schedule";

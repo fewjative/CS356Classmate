@@ -1,5 +1,6 @@
 package edu.csupomona.classmate.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +12,11 @@ import android.view.ViewGroup;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.fragments.schedule.DailyScheduleTab;
+import edu.csupomona.classmate.fragments.schedule.FreeTimeScheduleFragment;
 import edu.csupomona.classmate.fragments.schedule.WeeklyScheduleTab;
 import edu.csupomona.classmate.fragments.schedule.FreeTimeTab;
 
+@SuppressLint("ValidFragment")
 public class ScheduleFragment extends Fragment {
 	private final User VIEWER;
 
@@ -61,7 +64,7 @@ public class ScheduleFragment extends Fragment {
 				switch (i) {
 				case 0: return new DailyScheduleTab(VIEWER);
 				case 1: return new WeeklyScheduleTab(VIEWER);
-				case 2: return new FreeTimeTab(VIEWER);
+				case 2: return new FreeTimeScheduleFragment(VIEWER.getID());
 				default: return null;
 			}
 			}

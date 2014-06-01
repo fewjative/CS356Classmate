@@ -23,7 +23,7 @@
 	<string name="login_action_sign_up"><u>Sign Up</u></string>
 
 	<string name="example_email">johndoe@csupomona.edu</string>
-	<string name="prompt_email">e-mail</string>	
+	<string name="prompt_email">e-mail</string>
 	<string name="example_name">John</string>
 	<string name="example_password">password</string>
 	<string name="example_group">Poly Dogs</string>
@@ -108,12 +108,9 @@
 	<string name="dialog_event_acceptance_title">Added an Event</string>
 	<string name="dialog_event_acceptance">You have added %1$s to your schedule.</string>
 	<string name ="add_event_hint">Enter a title or description to search for:</string>
+
 	<string name="example_event">CPP BBQ</string>
-	<string name="invalid_event_header_hint">Sorry</string>
-	<string name="invalid_event_title_hint">Please give your event a title</string>
-	<string name="invalid_event_description_hint">Please give your event a description</string>
-	<string name="invalid_event_dates_hint">Please correct the event dates</string>
-	<string name="invalid_event_times_hint">Please correct the event times</string>
+	<string name="example_description">A fun BBQ open to ALL CS students!</string>
 
 	<!--Friends Fragment-->
 	<string name="friends_tab_list">My Friends</string>
@@ -149,20 +146,8 @@
 
 	<string name="dialog_group_join_title">Group Joined</string>
 	<string name="dialog_group_join">You have sucessfully joined the \'%1$s\'!</string>
-
-	<!-- Book Accomplice Tab -->
-	<string name="books_tab_buy">Buy Books</string>
-	<string name="books_tab_sell">Sell Books</string>
-	<string name="books_tab_admin">Admin Panel</string>
-	<string name="book_title">Book Title:</string>
-	<string name="book_classname">What class is this book for?</string>
-	<string name="book_condition">What condition is the book in?</string>
-	<string name="book_price">How much are you selling this book for?</string>
-	<string name="book_sell_button">Sell Book</string>
-	<string name="listingBook">Listing your book!</string>
-	<string name="listingBookLoading">Your book is being listed as we speak!</string>
-	<string name="book_list_empty">There are no books to be listed.</string>
-	<string name="book_comment_list_empty">There are no comments to be listed.</string>
+	<string name="hint_subject">New Assignment in CS 256</string>
+	<string name="hint_message">We should get together and work on it!</string>
 
 	<!--Manage Group Activity-->
 	<string name="manage_group">Manage Group</string>
@@ -196,6 +181,8 @@
    	<string name="dialog_change_profile_pic">Change profile picture</string>
    	<string name="action_camera">Take picture with camera</string>
 	<string name="action_gallery">Choose from gallery</string>
+   	<string name="scheduleHint">School and Work</string>
+   	<string name="schedulePrompt">Schedule Name</string>
 
 	<!--Add Class Activity-->
 	<string name="add_class">Add Class</string>
@@ -205,7 +192,38 @@
 	<string name="schedule_course">Course</string>
 	<string name="schedule_time">Time</string>
 	<string name="schedule_lecturer">Lecturer</string>
+	<string name="section_details">Section Details</string>
+
+	<string name="invalid_event_header_hint">Sorry</string>
+	<string name="invalid_event_title_hint">Please give your event a title</string>
+	<string name="invalid_event_description_hint">Please give your event a description</string>
+	<string name="invalid_event_dates_hint">Please correct the event dates</string>
+	<string name="invalid_event_times_hint">Please correct the event times</string>
 	
+	<string name="review_hint_title">Great Class!</string>
+	<string name="review_hint_message">This class was a great learning experience</string>
+
+	<!-- Book Accomplice Tab -->
+	<string name="books_tab_buy">Buy Books</string>
+	<string name="books_tab_sell">Sell Books</string>
+	<string name="books_tab_admin">Admin Panel</string>
+	<string name="book_title">Book Title:</string>
+	<string name="book_classname">What class is this book for?</string>
+	<string name="book_condition">What condition is the book in?</string>
+	<string name="book_price">How much are you selling this book for?</string>
+	<string name="book_sell_button">Sell Book</string>
+	<string name="listingBook">Listing your book!</string>
+	<string name="listingBookLoading">Your book is being listed as we speak!</string>
+	<string name="book_list_empty">There are no books to be listed.</string>
+	<string name="book_comment_list_empty">There are no comments to be listed.</string>
+	
+	<string name="hint_title">Starting Out With C++ From Control Structures</string>
+	<string name="hint_class">CS 256</string>
+	<string name="hint_condition">New</string>
+	<string name="hint_price">$63.00</string>
+	
+	<string name="hint_comment">I really want this book!</string>
+
 	<!--Activity Feed Fragment-->
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>
 	<string name="friend_added_event">%1$s added %2$s as a friend</string>
@@ -214,6 +232,10 @@
 	<!--CPP Event Feed Fragment-->
 	<string name="cpp_feed_empty">There are no current events going on at school</string>
 	
-	<!--  Section Details Activity -->
-	<string name="section_details">Section Details</string>
+	<!--News Feed Fragment-->
+	<string name="news_feed_empty">There are no recent news items</string>
+
+	<!--Calendar Events Feed Fragment-->
+	<string name="calendar_events_feed_empty">There are no upcomming</string>
+
 </resources>

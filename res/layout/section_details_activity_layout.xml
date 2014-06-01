@@ -4,122 +4,79 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
+	android:background="@color/custom_dark_back"
 >
-	<GridLayout
+
+    <LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:columnCount="2"
-		android:stretchMode="columnWidth"
+		android:orientation="vertical"
+		android:background="@color/custom_gray"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
 	>
-		<TextView
-			android:layout_width="wrap_content"
+		<GridLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Course: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvCourseNum"
-		/>
-
-		<TextView
-			android:id="@+id/tvCourseNum"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Title: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvCourseTitle"
-		/>
-
-		<TextView
-			android:id="@+id/tvCourseTitle"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Time: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvSectionTime"
-		/>
-
-		<TextView
-			android:id="@+id/tvSectionTime"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Date: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvSectionDate"
-		/>
-
-		<TextView
-			android:id="@+id/tvSectionDate"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Instructor: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvSectionInstructor"
-		/>
-
-		<TextView
-			android:id="@+id/tvSectionInstructor"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Bldg./Room: "
-			android:layout_gravity="right|center_vertical"
-			android:labelFor="@+id/tvSectionBuildingRoom"
-		/>
-
-		<TextView
-			android:id="@+id/tvSectionBuildingRoom"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_gravity="left|center_vertical"
-		/>
-	</GridLayout>
+			android:columnCount="1"
+			android:layout_marginLeft="6dip"
+		>
+			<TextView
+				android:id="@+id/tvCourseTitle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_gravity="left|center_vertical"
+				android:textColor="@color/white"
+				android:textSize="20sp"
+				android:textStyle="bold"
+			/>
+	
+			<TextView
+				android:id="@+id/tvSectionTime"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_gravity="left|center_vertical"
+				android:textColor="@color/custom_light_blue"
+			/>
+	
+			<TextView
+				android:id="@+id/tvSectionInstructor"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_gravity="left|center_vertical"
+				android:textColor="@color/white"
+				android:textStyle="bold"
+			/>
+	
+			<TextView
+				android:id="@+id/tvSectionBuildingRoom"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_gravity="left|center_vertical"
+				android:textColor="@color/white"
+			/>
+			
+			<TextView 
+			    android:id="@+id/tvDate"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textAppearance="?android:attr/textAppearanceMedium"
+			    android:layout_gravity="left|center_vertical"
+			    android:textColor="@color/white"
+			/>
+		</GridLayout>
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="0.34"
 		android:orientation="vertical"
-		android:background="@color/cppgreen_darker"
+		android:background="@color/custom_dark_back"
 		android:padding="5dp"
 	>
 		<TextView
@@ -127,6 +84,7 @@
 			android:text="Friends in class:"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
 			android:textStyle="bold"
 		/>
 
@@ -170,8 +128,7 @@
 			android:background="@android:color/transparent"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:divider="@color/gray"
-			android:dividerHeight="2dp"
+			android:dividerHeight="3dp"
 			android:animateLayoutChanges="true"
 		/>
 	</LinearLayout>
@@ -181,14 +138,15 @@
 		android:layout_height="0dp"
 		android:layout_weight="0.66"
 		android:orientation="vertical"
-		android:background="@color/cppgreen_darker"
+		android:background="@color/custom_dark_back"
 		android:padding="5dp"
 	>
 		<TextView
-				style="@style/style_textview"
+			style="@style/style_textview"
 			android:text="Reviews:"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
 			android:textStyle="bold"
 		/>
 
@@ -229,23 +187,47 @@
 
 		<ListView
 			android:id="@+id/lvReviewList"
-			android:background="@android:color/transparent"
+			android:background="@color/custom_dark_back"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:divider="@color/gray"
-			android:dividerHeight="2dp"
+			android:dividerHeight="3dp"
 			android:animateLayoutChanges="true"
 		/>
 	</LinearLayout>
-	s
-	<Button
-		style="@style/style_button"
-		android:id="@+id/btnCreateReview"
+	<GridLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="Review Class"
-		android:textColor="@color/black"
-		android:layout_marginTop="0dp"
-		android:visibility="gone"
-	/>
+		android:layout_marginBottom="3dp"
+		android:columnCount="2"
+		android:background="@color/custom_gray"
+		android:orientation="vertical"
+	>
+		<Button
+			android:id="@+id/btnCreateReview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Review Class"
+			android:textColor="@color/white"
+			android:layout_marginTop="0dp"
+			android:layout_row="0"
+			android:layout_column="0"
+			android:padding="10dp"
+			android:visibility="gone"
+		/>
+
+		<Button
+			android:id="@+id/btnDeleteClass"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Delete Class"
+			android:textColor="@color/white"
+			android:layout_marginTop="0dp"
+			android:layout_row="0"
+			android:layout_column="1"
+			android:padding="10dp"
+			android:visibility="gone"
+		/>
+	</GridLayout>
 </LinearLayout>

@@ -4,8 +4,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/cppgreen"
+        android:background="@color/custom_dark_back"
 >
+		<TextView
+			android:id="@+id/tvToday"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/white"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:marqueeRepeatLimit ="marquee_forever"
+			android:scrollHorizontally="true"
+			android:focusable="false"
+		/>
+		
+		<LinearLayout
+                android:id="@+id/llLineContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:background="@color/custom_light_gray"
+        >
+        	<LinearLayout
+                android:id="@+id/llLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="left"
+                android:orientation="horizontal"
+                android:background="@color/custom_light_green"
+        	>
+        	</LinearLayout>
+        </LinearLayout>	
+    
         <LinearLayout
                 android:id="@+id/llProgressBar"
                 android:layout_width="match_parent"
@@ -81,8 +111,7 @@
                         />
 
         </LinearLayout>
-        
-            <LinearLayout
+           <LinearLayout
                 android:id="@+id/llNoFriendSchedule"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -107,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/cppgreen"
+                android:background="@color/custom_dark_back"
                 android:visibility="gone"
         >
                 <LinearLayout
@@ -133,14 +162,13 @@
                         android:orientation="vertical"
                         android:background="@android:color/transparent"
                 >
-                        <ListView
-                                android:id="@+id/lvSchedule"
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:background="@color/cppgreen_darker"
-                        >
-                        </ListView>
+                        <GridView
+                            android:id="@+id/gridSchedule"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:numColumns="2"
+                            >
+                        </GridView>
                 </LinearLayout>
         </LinearLayout>
 </LinearLayout>

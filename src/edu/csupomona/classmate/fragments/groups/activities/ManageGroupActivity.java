@@ -3,6 +3,7 @@ package edu.csupomona.classmate.fragments.groups.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -39,8 +40,14 @@ public class ManageGroupActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		group = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
 
 		Button btnAddMember = (Button)findViewById(R.id.btnAddMember);
+		btnAddMember.setWidth(width / 2);
 		btnAddMember.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(ManageGroupActivity.this, AddMemberActivity.class);
@@ -50,6 +57,7 @@ public class ManageGroupActivity extends Activity {
 		});
 
 		Button btnEmailGroup = (Button)findViewById(R.id.btnEmailGroup);
+		btnEmailGroup.setWidth(width / 2);
 		btnEmailGroup.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(ManageGroupActivity.this, EmailGroupActivity.class);

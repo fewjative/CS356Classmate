@@ -4,6 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
+	android:background="@color/custom_gray"
 >
 	<GridLayout
 		android:layout_width="match_parent"
@@ -19,6 +20,7 @@
 			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sTerm"
+			android:textColor="@color/white"
 		/>
 
 		<Spinner
@@ -36,6 +38,7 @@
 			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sCollege"
+			android:textColor="@color/white"
 		/>
 
 		<Spinner
@@ -52,6 +55,7 @@
 			android:text="@null"
 			android:layout_gravity="right|center_vertical"
 			android:labelFor="@+id/sCourse"
+			android:textColor="@color/white"
 		/>
 
 		<Spinner
@@ -66,13 +70,14 @@
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		android:orientation="vertical"
-		android:background="@color/cppgreen_darker"
+		android:background="@color/custom_dark_back"
 		android:layout_margin="5dp"
 	>
 		<include
 			layout="@layout/http_query_listview_layout"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:layout_margin="2dp"
 		/>
 	</LinearLayout>
 </LinearLayout>

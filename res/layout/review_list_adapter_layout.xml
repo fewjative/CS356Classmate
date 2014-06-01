@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:background="@color/cppgreen"
+	android:background="@color/custom_gray"
 >
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -14,16 +14,25 @@
 		android:gravity="center_vertical"
 	>
 		<TextView
-			android:id="@+id/tvReviewer"
-			android:layout_width="0dp"
+			android:id="@+id/tvReviewTitle"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:gravity="center_vertical"
 			android:textAppearance="?android:attr/textAppearanceListItemSmall"
 			android:textColor="@color/white"
 			android:layout_marginLeft="6dip"
-			android:layout_marginRight="6dip"
+			android:singleLine="true"
+		/>
+		<TextView
+			android:id="@+id/tvUser"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:textAppearance="?android:attr/textAppearanceListItemSmall"
+			android:textColor="@color/custom_light_green"
 			android:layout_weight="1"
 			android:singleLine="true"
+			android:textStyle="bold"
 		/>
 
 		<RatingBar
@@ -31,6 +40,8 @@
 			android:id="@+id/rbRating"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginRight="6dip"
+			android:gravity="center_vertical"
 			android:numStars="5"
 			android:isIndicator="true"
 			android:clickable="false"
@@ -40,12 +51,11 @@
 	<TextView
 		android:id="@+id/tvReview"
 		android:layout_width="wrap_content"
-		android:layout_height="0dp"
+		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceListItemSmall"
 		android:textColor="@color/white"
 		android:layout_marginLeft="6dip"
 		android:layout_marginRight="6dip"
-		android:layout_weight="1"
 		android:lines="2"
 	/>
 </LinearLayout>

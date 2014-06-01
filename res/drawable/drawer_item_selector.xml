@@ -4,6 +4,6 @@
 >
 	<item
 		android:state_pressed="true"
-		android:drawable="@color/cppgreen_trans_darker"
+		android:drawable="@color/custom_dark_back"
 	/>
 </selector>

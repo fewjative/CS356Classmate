@@ -242,7 +242,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 				}
 
 				System.out.println("Spinner size: " + schedules.size());
-				ArrayAdapter<Schedule> adapter = new ArrayAdapter<Schedule>(getActivity(), android.R.layout.simple_spinner_item, schedules);
+				ArrayAdapter<Schedule> adapter = new ArrayAdapter<Schedule>(getActivity(), R.layout.custom_spinner_schedule_item, schedules);
 				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 				sSchedule.setAdapter(adapter);

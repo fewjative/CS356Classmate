@@ -1,13 +1,24 @@
 package edu.csupomona.classmate.fragments.schedule;
 
+import java.util.List;
+import java.util.Random;
+
+import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -23,37 +34,40 @@ import edu.csupomona.classmate.abstractions.User;
 
 import java.util.List;
 
-public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.OnClickListener, Constants {
+public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Constants {
 	private final User USER;
 	private final User VIEWER;
+	private int friendC;
 
 
 	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule) {
 		super(context, 0, schedule);
 		this.USER = user;
 		this.VIEWER = null;
+		this.friendC = 0;
 	}
 
 	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule, User viewer) {
 		super(context,0,schedule);
 		this.USER = user;
 		this.VIEWER = viewer;
+		this.friendC = 0;
 	}
 
 	private static class ViewHolder {
 		final TextView tvClassNumber;
-		final TextView tvClassTitle;
 		final TextView tvClassDays;
 		final TextView tvClassTime;
+		final TextView tvFriends;
 		final TextView tvClassLecturer;
 		final Button btnRemoveClass;
 		final Button btnViewSectionDetails;
 
-		ViewHolder(TextView tvClassNumber, TextView tvClassTitle, TextView tvClassDays, TextView tvClassTime, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
+		ViewHolder(TextView tvClassNumber, TextView tvClassDays, TextView tvClassTime, TextView tvFriends, TextView tvClassLecturer, Button btnRemoveClass, Button btnViewSectionDetails) {
 			this.tvClassNumber = tvClassNumber;
-			this.tvClassTitle = tvClassTitle;
 			this.tvClassDays = tvClassDays;
 			this.tvClassTime = tvClassTime;
+			this.tvFriends = tvFriends;
 			this.tvClassLecturer = tvClassLecturer;
 			this.btnRemoveClass = btnRemoveClass;
 			this.btnViewSectionDetails = btnViewSectionDetails;
@@ -66,27 +80,51 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.
 		ViewHolder holder = null;
 		View view = convertView;
 		Button btnRemoveClass = null;
+		
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
 
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
 
+			LinearLayout innerLayout = (LinearLayout)view.findViewById(R.id.innerLayout);
+			GridLayout grid = (GridLayout)view.findViewById(R.id.gridForText);
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
-			TextView tvClassTitle = (TextView)view.findViewById(R.id.tvClassTitle);
 			TextView tvClassDays = (TextView)view.findViewById(R.id.tvClassDays);
 			TextView tvClassTime = (TextView)view.findViewById(R.id.tvClassTime);
+			TextView tvFriends = (TextView)view.findViewById(R.id.tvFriends);
+			TextView tvCellClassTime = (TextView)view.findViewById(R.id.tvCellClassTime);
 			TextView tvClassLecturer = (TextView)view.findViewById(R.id.tvClassLecturer);
 			btnRemoveClass = (Button)view.findViewById(R.id.btnRemoveClass);
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
-			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
-
-			tvClassTitle.setSelected(true);
-
-			btnRemoveClass.setTag(s);
-			btnRemoveClass.setOnClickListener(this);
-
-			btnViewSectionDetails.setVisibility(View.VISIBLE);
-			btnViewSectionDetails.setTag(s);
-			btnViewSectionDetails.setOnClickListener(this);
+			view.setTag(new ViewHolder(tvClassNumber, tvClassDays, tvClassTime, tvFriends, tvClassLecturer, btnRemoveClass, btnViewSectionDetails));
+			
+			int cellHeight = (width / 2);
+			
+			grid.setRowCount(4);
+			grid.setPadding((width / 14), (cellHeight / 10), 0, 0);
+			
+			String temp = s.getFullTime();
+			String[] part = temp.split(" - ");
+			
+			//tvCellClassTime.setText(part[0]);
+			System.out.println(temp + " position: " + position);
+			tvCellClassTime.setText(temp);
+			
+			tvClassNumber.setTextSize(cellHeight / 18);
+			tvClassDays.setTextSize(cellHeight / 20);
+			tvCellClassTime.setTextSize(cellHeight / 20);
+			tvFriends.setTextSize(cellHeight / 20);
+			
+			innerLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, cellHeight));
+			
+//			int dim = (width / 2) - (width / 16);
+			
+			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
+			BitmapDrawable background = new BitmapDrawable(container);
+			innerLayout.setBackgroundDrawable(background);
 		}
 
 		Object tag = view.getTag();
@@ -97,22 +135,22 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
 				
-				//this is a fix to display events in the schedule
 				if(s.getClassID()==0)
 				{
-					holder.tvClassNumber.setText(String.format("%s","Event     "));
+					holder.tvClassNumber.setText(String.format("%s",s.getTitle()));
 				}
 				else
-					holder.tvClassNumber.setText(String.format("%s %s.%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
-			}
-
-			if (holder.tvClassTitle != null) {
-				holder.tvClassTitle.setText(s.getTitle());
+				{
+					if(Integer.parseInt(s.getSection()) < 10)
+					{
+						holder.tvClassNumber.setText(String.format("%s %s  0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+					}else
+						holder.tvClassNumber.setText(String.format("%s %s  %s", s.getMajorShort(), s.getClassNum(), s.getSection()));
+				}
 			}
 
 			if (holder.tvClassDays != null) {
 				
-				//this is a fix to display events in the schedule
 				if(s.getClassID()==0)
 				{
 					holder.tvClassDays.setText("M");
@@ -124,6 +162,31 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.
 			if (holder.tvClassTime != null) {
 				holder.tvClassTime.setText("Time: " + s.getFullTime());
 			}
+			
+			if (holder.tvFriends != null) {
+//				RequestParams params = new RequestParams();
+//				params.put("class_id", Integer.toString(s.getClassID()));
+//				params.put("user_id", Long.toString(USER.getID()));
+//				AsyncHttpClient client = new AsyncHttpClient();
+//				client.get("http://www.lol-fc.com/classmate/getfriendsinclass.php", params, new AsyncHttpResponseHandler() {
+//					@Override
+//					public void onSuccess(String response) {
+//						if (1 < response.length()) {
+//							try {
+//								JSONArray myjsonarray = new JSONArray(response);
+//								System.out.println("******************* friend count: " + response.length());
+//								friendC = myjsonarray.length();
+//							} catch (JSONException e) {
+//								e.printStackTrace();
+//							}
+//						}
+//					}
+//				});
+				Random r = new Random();
+				int friendsCount = r.nextInt(6);
+//				holder.tvFriends.setText(); // Going to need to write code to fetch friends count per class
+				holder.tvFriends.setText(friendsCount + " friends");
+			}
 
 			if (holder.tvClassLecturer != null) {
 				holder.tvClassLecturer.setText("Lecturer: " + s.getInstructor());
@@ -133,23 +196,12 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.
 		if (VIEWER != null && btnRemoveClass != null) {
 			btnRemoveClass.setVisibility(View.GONE);
 		}
-
 		return view;
 	}
 
-	public void onClick(View v) {
-		ScheduleItem s = (ScheduleItem)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnViewSectionDetails:
-				viewSectionDetails(s);
-				break;
-			case R.id.btnRemoveClass:
-				removeClass(s);
-				break;
-		}
-	}
-
-	private void viewSectionDetails(final ScheduleItem s) {
+	public void viewSectionDetails(int position) 
+	{	
+		ScheduleItem s = getItem(position);
 		if(s.getClassID()!=0)//if the object we clicked is a class
 		{		
 			Section sec = new Section(s.getClassID(),s.getTitle(),s.getStartTime(),s.getEndTime(),s.getWeekdays(),s.getDateStart(),s.getDateEnd(),s.getInstructor(),s.getBuilding(),s.getRoom(),s.getSection(),s.getMajorShort(),s.getMajorLong(),s.getClassNum(),s.getTerm());
@@ -158,7 +210,9 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements View.
 			i.putExtra(INTENT_KEY_USER, USER);
 			((FragmentActivity)getContext()).startActivityForResult(i, CODE_VIEWSECTION);
 		}
+		
 	}
+
 
 	private void removeClass(final ScheduleItem s) {
 		RequestParams params = new RequestParams();
