@@ -245,6 +245,11 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 				e.printStackTrace();
 			}
 		}
+		
+		for(int i=0;i<schedule.size();i++)
+		{
+			System.out.println("T: "+schedule.get(i).getFullTime());
+		}
 
 		final ScheduleAdapter adapter;
 

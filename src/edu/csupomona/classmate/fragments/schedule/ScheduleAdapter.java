@@ -1,5 +1,6 @@
 package edu.csupomona.classmate.fragments.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -36,6 +37,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 	private final User USER;
 	private final User VIEWER;
 	private int friendC;
+	private List<ScheduleItem> schedule = null;
 
 
 	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule) {
@@ -43,6 +45,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 		this.USER = user;
 		this.VIEWER = null;
 		this.friendC = 0;
+		this.schedule = schedule;
 	}
 
 	public ScheduleAdapter(Context context, User user, List<ScheduleItem> schedule, User viewer) {
@@ -50,6 +53,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 		this.USER = user;
 		this.VIEWER = viewer;
 		this.friendC = 0;
+		this.schedule = schedule;
 	}
 
 	private static class ViewHolder {
@@ -86,6 +90,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 
 		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.schedule_list_item, null);
+		}
 
 			LinearLayout innerLayout = (LinearLayout)view.findViewById(R.id.innerLayout);
 			GridLayout grid = (GridLayout)view.findViewById(R.id.gridForText);
@@ -104,7 +109,8 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 			grid.setRowCount(4);
 			grid.setPadding((width / 14), (cellHeight / 10), 0, 0);
 			
-			String temp = s.getFullTime();
+			//String temp = s.getFullTime();
+			String temp = schedule.get(position).getFullTime();
 			String[] part = temp.split(" - ");
 			
 			//tvCellClassTime.setText(part[0]);
@@ -123,7 +129,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
 			BitmapDrawable background = new BitmapDrawable(container);
 			innerLayout.setBackgroundDrawable(background);
-		}
+		
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {
