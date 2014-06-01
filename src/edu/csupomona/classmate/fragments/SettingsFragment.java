@@ -1,8 +1,11 @@
 package edu.csupomona.classmate.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +13,9 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.CalendarContract.Calendars;
+import android.provider.CalendarContract.Instances;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -44,7 +50,10 @@ import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -60,6 +69,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	private EditText etNewPass2;
 	private Button btnCreateSchedule;
 	private Button btnSetActiveSchedule;
+	private Button btnImportCalendar;
 	private ImageView ivProfilePic;
 	private EditText etScheduleName;
 	private LinearLayout llNoSchedule;
@@ -95,7 +105,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		btnSetActiveSchedule = (Button)root.findViewById(R.id.btnSetActive);
 		btnSetActiveSchedule.setOnClickListener(this);
 		btnSetActiveSchedule.setEnabled(true);
-
+				
+		btnImportCalendar = (Button)root.findViewById(R.id.btnImportCalendar);
+		btnImportCalendar.setOnClickListener(this);
+		
 		etOldPass = (EditText)root.findViewById(R.id.etOldPass);
 		etNewPass1 = (EditText)root.findViewById(R.id.etPassword);
 		etNewPass2 = (EditText)root.findViewById(R.id.etConfirmPassword);
@@ -413,7 +426,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
 				}
 				break;
-
+			case R.id.btnImportCalendar:
+				importCalendar();
+				break;
+		
 		}
 	}
 	
@@ -665,6 +681,195 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		        }
 		        break;
 	    }
+	}
+	
+	public void importCalendar() {
+		//check available calendars on the device
+		final String[] PROJECTION = 
+		    new String[] {
+	            Calendars._ID, 
+	            Calendars.NAME, 
+	            Calendars.ACCOUNT_NAME, 
+	            Calendars.ACCOUNT_TYPE
+	            };
+		Cursor calCursor = 
+			getActivity().getContentResolver().query(
+			Calendars.CONTENT_URI, 
+            PROJECTION, 
+            Calendars.VISIBLE + " = 1", 
+            null, 
+            Calendars._ID + " ASC");
+		if (calCursor.moveToFirst()) {
+		   do {
+		      long id = calCursor.getLong(0);
+		      String displayName = calCursor.getString(1);
+		      String accountName = calCursor.getString(2);
+		      String accountType = calCursor.getString(3);
+		      System.out.println("id: " + id);
+		      System.out.println("display name: " + displayName);
+		      System.out.println("account name: " + accountName);
+		      System.out.println("account type: " + accountType + "\n");
+		      // ...
+		   } while (calCursor.moveToNext());
+		}
+		
+	
+		
+		String[] projection = new String[] { "calendar_id", "title",
+                "dtstart", "dtend", "eventLocation"  };
+		
+		ContentResolver cr = getActivity().getContentResolver();
+		Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+		// Specify the date range you want to search for recurring
+		// event instances
+		Calendar beginTime = Calendar.getInstance();
+		beginTime.set(
+				beginTime.get(Calendar.YEAR), 
+				beginTime.get(Calendar.MONTH) + 1,
+				beginTime.get(Calendar.DAY_OF_MONTH),
+				beginTime.get(Calendar.HOUR_OF_DAY),
+				beginTime.get(Calendar.MINUTE));
+		long startMillis = beginTime.getTimeInMillis();
+		Calendar endTime = Calendar.getInstance();
+		endTime.set(endTime.get(Calendar.YEAR), 12, 30, 0, 0);
+		long endMillis = endTime.getTimeInMillis();		
+		ContentUris.appendId(builder, startMillis);
+		ContentUris.appendId(builder, endMillis);
+		
+		Cursor cursor = cr.query(builder.build(),
+                projection,
+                null,
+                null,
+                null);	
+		
+		User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
+		int startDay, startMonth, startYear, endDay, endMonth, endYear, startHour, startMinute, endHour, endMinute;
+		String FPUBLIC = "0";
+		String OPUBLIC = "0";
+		String ISPRIVATE = "1";
+		
+		while(cursor.moveToNext()) {
+			long id = 0;
+			String title = null;
+			long dtstart = 0;
+			long dtend = 0;
+			String eventLocation = null;
+			
+			id = cursor.getLong(0);
+			title = cursor.getString(1);
+			dtstart = cursor.getLong(2);
+			dtend = cursor.getLong(3);
+			eventLocation = cursor.getString(4);
+			
+			Calendar calendar = Calendar.getInstance();
+			DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy h:m a");
+			
+			calendar.setTimeInMillis(dtstart);
+			formatter = new SimpleDateFormat("dd");
+			startDay = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("MM");
+			startMonth = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("yyyy");
+			startYear = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("H");
+			startHour = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("m");
+			startMinute = Integer.parseInt(formatter.format(calendar.getTime()));
+			
+			calendar.setTimeInMillis(dtend);
+			formatter = new SimpleDateFormat("dd");
+			endDay = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("MM");
+			endMonth = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("yyyy");
+			endYear = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("H");
+			endHour = Integer.parseInt(formatter.format(calendar.getTime()));
+			formatter = new SimpleDateFormat("m");			
+			endMinute = Integer.parseInt(formatter.format(calendar.getTime()));			
+
+			System.out.println("id: " + id);
+			System.out.println("title: " + title);
+			System.out.println("date_start: " + startDay+"-"+startMonth+"-"+startYear);			
+			System.out.println("time_start: " + startHour+":"+startMinute);
+			System.out.println("date_end: " + startDay+"-"+endMonth+"-"+endYear);
+			System.out.println("time_end: " + endHour+":"+endMinute);
+			System.out.println("location: " + eventLocation);
+			
+			RequestParams params = new RequestParams();
+			params.put("user_id", Long.toString(USER.getID()));
+			params.put("title", title);
+			params.put("description", "Imported");
+			params.put("time_start", startHour+":"+startMinute);
+			params.put("time_end", endHour+":"+endMinute);
+			params.put("date_start", startDay+"-"+startMonth+"-"+startYear);
+			params.put("date_end", startDay+"-"+endMonth+"-"+endYear);
+			params.put("weekdays", "N/A");
+			params.put("fpublic", FPUBLIC);
+			params.put("opublic", OPUBLIC);
+			params.put("isprivate", ISPRIVATE);
+			AsyncHttpClient client = new AsyncHttpClient();
+			
+			client.get("http://www.lol-fc.com/classmate/2/createevent.php", params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(String response) {
+					System.out.println("response: " + response);
+
+					int id;
+					try {
+						id = Integer.parseInt(response);
+					} catch (NumberFormatException e) {
+						id = NO_USER;
+					}
+
+					if (id <= NO_USER) {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Error With Event Creation");
+						d.setMessage("We could not create the event as this time.");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+                                              // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+                                                    //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+						return;
+					} else {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Success!");
+						d.setMessage("The event has been created!");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+                                              // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+                                                    //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+						//set fields to be empty
+						return;
+					}
+						
+				}
+			});
+		}
 	}
 	
 }

@@ -54,6 +54,7 @@
 	            android:imeOptions="flagNoFullscreen"
 	            android:ems="10" 
 	            android:inputType="textEmailAddress"
+	            android:typeface="normal"
             />        
 	        
 	        <EditText
@@ -66,7 +67,8 @@
 	            android:hint="@string/example_password"
 	            android:inputType="textPassword"
 	            android:imeOptions="flagNoFullscreen"
-	            android:ems="10"	            
+	            android:ems="10"
+	            android:typeface="normal"     
             />
 	
 	        <Button
