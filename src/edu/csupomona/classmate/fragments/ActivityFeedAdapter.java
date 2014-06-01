@@ -48,7 +48,7 @@ public class ActivityFeedAdapter extends ArrayAdapter<ActivityFeedItem> {
 			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
 			view.setTag(new ViewHolder(ivFriendAvatar, ivPersonAddedAvatar, tvItemText));
 
-			tvItemText.setSelected(true);
+			//tvItemText.setSelected(true);
 		}
 
 		Object tag = view.getTag();
