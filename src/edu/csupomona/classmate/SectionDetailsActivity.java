@@ -44,9 +44,9 @@ public class SectionDetailsActivity extends Activity implements Constants{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.section_details_activity_layout);
-		
+
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int height = displayMetrics.heightPixels;
@@ -58,13 +58,13 @@ public class SectionDetailsActivity extends Activity implements Constants{
 
 		getActionBar().setTitle(section.toString());
 
-		
+
 		Button btnCreateReview = (Button)findViewById(R.id.btnCreateReview);
 		btnCreateReview.setWidth(width / 2);
-		
+
 		Button btnDeleteClass = (Button)findViewById(R.id.btnDeleteClass);
 		btnDeleteClass.setWidth(width / 2);
-		
+
 		TextView tvCourseTitle = (TextView)findViewById(R.id.tvCourseTitle);
 		tvCourseTitle.setText(section.getTitle());
 
@@ -76,10 +76,10 @@ public class SectionDetailsActivity extends Activity implements Constants{
 
 		TextView tvSectionBuildingRoom = (TextView)findViewById(R.id.tvSectionBuildingRoom);
 		tvSectionBuildingRoom.setText(String.format("Bldg %s Rm %s", section.getBuilding(), section.getRoom()));
-		
+
 		TextView tvDate = (TextView)findViewById(R.id.tvDate);
 		tvDate.setText(String.format("%s to %s", section.getDateStart(), section.getDateEnd()));
-		
+
 		llProgressBar = (LinearLayout)findViewById(R.id.llProgressBar);
 		llProgressBar.setVisibility(View.VISIBLE);
 
@@ -187,21 +187,22 @@ public class SectionDetailsActivity extends Activity implements Constants{
 				startActivityForResult(i, CODE_CREATE_REVIEW);
 			}
 		});
-		
+
 		btnDeleteClass.setVisibility(View.VISIBLE);
 		btnDeleteClass.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-//				RequestParams params = new RequestParams();
-//				params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
-//				params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(section.getClassID()));
-//
-//				AsyncHttpClient client = new AsyncHttpClient();
-//				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_REMOVECLASS2, params, new AsyncHttpResponseHandler() {
-//					@Override
-//					public void onSuccess(String response) {
-//						remove(section);
-//					}
-//				});
+				RequestParams params = new RequestParams();
+				params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
+				params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(section.getClassID()));
+
+				AsyncHttpClient client = new AsyncHttpClient();
+				client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_REMOVECLASS2, params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(String response) {
+						//remove(section);
+						finish();
+					}
+				});
 			}
 		});
 	}
