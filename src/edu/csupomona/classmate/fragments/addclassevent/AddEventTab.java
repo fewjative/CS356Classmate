@@ -289,17 +289,21 @@ import java.util.GregorianCalendar;
 				endDay = end_day;
 				endMonth = end_month;
 				endYear = end_year;
-				final String startDate = startDay + "-" + startMonth + "-" + startYear;
-				final String endDate = startDay + "-" + endMonth + "-" + endYear;
-				
-				System.out.println(startDate);
-				System.out.println(endDate);
-				
+			
+				//im pretty sure this code doesn't actually work correctly
+				//just works for dates within the same month
 				if (startYear <= endYear && startMonth <= endMonth && startDay <= endDay)
 				{
 					System.out.println("Dates are valid");
 					validDate = true;
 				}
+				
+				final String startDate =startYear +"-"+startMonth + "-" +startDay;
+				final String endDate = endYear + "-" + endMonth+"-"+endDay;
+				
+				System.out.println(startDate);
+				System.out.println(endDate);
+				
 				
 				//if date validation passes, check if start time is after end time if same day
 				startHour = start_hour;
