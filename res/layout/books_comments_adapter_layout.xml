@@ -5,7 +5,6 @@
     android:background="@color/custom_gray" >
 
     <include
-        android:id="@+id/user_avatar_layout_id"
 		layout="@layout/user_avatar_layout"
 		android:layout_width="48dp"
 		android:layout_height="48dp"
@@ -20,7 +19,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/user_avatar_layout_id"
+        android:layout_toRightOf="@+id/ivAvatar"
         android:gravity="center_vertical"
         android:text="HELLO"
         android:textSize="16sp" />
@@ -35,7 +34,7 @@
 	  android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/user_avatar_layout_id"
+        android:layout_toRightOf="@+id/ivAvatar"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="12sp" />

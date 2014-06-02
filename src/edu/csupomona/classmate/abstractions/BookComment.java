@@ -2,7 +2,7 @@ package edu.csupomona.classmate.abstractions;
 
 import android.widget.ImageView;
 import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.utils.AsyncGetImageTask;
+import edu.csupomona.classmate.utils.AsyncGetAvatarTask;
 
 public class BookComment {
 	private final String username;
@@ -20,24 +20,24 @@ public class BookComment {
 	public String getComment() {
 		return comment;
 	}
-	
+
 	public long getCommentID() {
 		return comment_id;
 	}
-	
+
 	public String getCommenter()
 	{
 		return username;
 	}
-	
+
 	@Override
 	public String toString() {
 		return username + " " + comment;
 	}
-	
+
 	public void loadAvatar(final ImageView iv) {
 		for (String ext : Constants.AVATAR_EXTENSIONS) {
-			new AsyncGetImageTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(user_id) + "." + ext);
+			new AsyncGetAvatarTask(iv).execute(Constants.PHP_ADDRESS_UPLOADS + Long.toString(user_id) + "." + ext);
 		}
 	}
 }
