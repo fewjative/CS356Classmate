@@ -170,7 +170,10 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 			}
 
 			if (holder.tvFriends != null) {
-				holder.tvFriends.setText(s.getFriendsAttending()+ " friends");
+				if(s.getFriendsAttending()==1)
+					holder.tvFriends.setText(s.getFriendsAttending()+ " friend");
+				else
+					holder.tvFriends.setText(s.getFriendsAttending()+ " friends");
 			}
 
 			if (holder.tvClassLecturer != null) {
@@ -199,7 +202,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 		{
 			AlertDialog b = new AlertDialog.Builder(getContext()).create();
 			b.setTitle(s.getTitle());
-			b.setMessage(s.getDescription() + "\n Event goes from: " + s.getFullTime() + "\n On: " + s.getDateStart() + "-" + s.getDateEnd());
+			b.setMessage(s.getDescription() + "\n Event goes from: " + s.getFullTime() + "\n On: " + s.getDateStart() + " to " + s.getDateEnd());
 			b.setCanceledOnTouchOutside(true);
 			b.show();
 		}

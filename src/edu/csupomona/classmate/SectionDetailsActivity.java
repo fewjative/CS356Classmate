@@ -183,7 +183,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 			public void onClick(View v) {
 				Intent i = new Intent(SectionDetailsActivity.this, SectionReviewActivity.class);
 				i.putExtra(INTENT_KEY_SECTION, section);
-				i.putExtra(INTENT_KEY_USER, user.getID());
+				i.putExtra(INTENT_KEY_USER, user);
 				startActivityForResult(i, CODE_CREATE_REVIEW);
 			}
 		});
