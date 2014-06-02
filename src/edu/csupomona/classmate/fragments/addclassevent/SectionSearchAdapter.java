@@ -111,13 +111,11 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 
 	public void onClick(View v) {
 		Section s = (Section)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnRemoveClass:
-				addClass(s);
-				break;
-			case R.id.btnViewSectionDetails:
-				viewSectionDetails(s);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnRemoveClass) {
+			addClass(s);
+		} else if (id == R.id.btnViewSectionDetails) {
+			viewSectionDetails(s);
 		}
 	}
 

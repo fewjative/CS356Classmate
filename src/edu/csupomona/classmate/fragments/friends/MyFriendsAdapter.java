@@ -105,13 +105,11 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 
 	public void onClick(View v) {
 		User r = (User)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnViewSchedule:
-				viewSchedule(r);
-				break;
-			case R.id.btnCancel:
-				removeFriend(r);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnViewSchedule) {
+			viewSchedule(r);
+		} else if (id == R.id.btnCancel) {
+			removeFriend(r);
 		}
 	}
 

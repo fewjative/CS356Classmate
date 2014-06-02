@@ -122,9 +122,9 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 
 //			int dim = (width / 2) - (width / 16);
 
-			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
-			BitmapDrawable background = new BitmapDrawable(container);
-			innerLayout.setBackgroundDrawable(background);
+//			Bitmap container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
+//			BitmapDrawable background = new BitmapDrawable(container);
+//			innerLayout.setBackgroundDrawable(background);
 
 
 		Object tag = view.getTag();
@@ -134,13 +134,19 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 
 		if (s != null && holder != null) {
 			if (holder.tvClassNumber != null) {
-
+				Bitmap container;
 				if(s.getClassID()==0)
 				{
 					holder.tvClassNumber.setText(String.format("%s",s.getTitle()));
+					container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit_event);
+					BitmapDrawable background = new BitmapDrawable(container);
+					innerLayout.setBackgroundDrawable(background);
 				}
 				else
 				{
+					container = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.grid_unit);
+					BitmapDrawable background = new BitmapDrawable(container);
+					innerLayout.setBackgroundDrawable(background);
 					if(Integer.parseInt(s.getSection()) < 10)
 					{
 						holder.tvClassNumber.setText(String.format("%s %s.0%s", s.getMajorShort(), s.getClassNum(), s.getSection()));

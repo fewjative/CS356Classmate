@@ -101,16 +101,14 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 	}
 
 	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.btnRegister:
-				String email = etEmailAddress.getText().toString();
-				String password = etPass1.getText().toString();
-				String confirmPassword = etPass2.getText().toString();
-				String username = etUsername.getText().toString();
-
-				assert password.compareTo(confirmPassword) == 0;
-				registerAccount(email, password, username);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnRegister) {
+			String email = etEmailAddress.getText().toString();
+			String password = etPass1.getText().toString();
+			String confirmPassword = etPass2.getText().toString();
+			String username = etUsername.getText().toString();
+			assert password.compareTo(confirmPassword) == 0;
+			registerAccount(email, password, username);
 		}
 	}
 

@@ -256,180 +256,162 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		AsyncHttpClient client = new AsyncHttpClient();
 
-		switch (v.getId()) {
-	    	//profile picture clicked
-	    	case R.id.ivProfilePic:
-	    		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	            CharSequence[] options = new CharSequence[2];
-	            
-	            options[0] = getResources().getString(R.string.action_camera);
-	            options[1] = getResources().getString(R.string.action_gallery);
-	            builder.setCancelable(true);
-	            builder.setTitle(R.string.dialog_change_profile_pic)
-	            	   .setItems(options, new DialogInterface.OnClickListener() {
-	            		   public void onClick(DialogInterface dialog, int which) {
-	            			   if (which == 0) {
-	            				   startCamera();
-	            			   } else if (which == 1) {
-	            				   startGallery();
-	            			   }
-	            		   }
-	            	   })
-	            	   .setNegativeButton(R.string.global_action_cancel, new DialogInterface.OnClickListener() {
-	            		   @Override
-	            		   public void onClick(DialogInterface dialog, int id) {
-	            			   // ...
-	            		   }
-	            	   });
-	            builder.show(); 
-	    		break;	
-	    		
-			case R.id.btnChangePass:
-				assert etNewPass1.getText().toString().compareTo(etNewPass2.getText().toString()) == 0;
-
-				final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
-				loadingDialog.setTitle(getString(R.string.changePass));
-				loadingDialog.setMessage(getString(R.string.changePassLoading));
-				loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-				//loadingDialog.setCancelable(false);
-				loadingDialog.show();
-
-				String newpassword = etNewPass1.getText().toString();
-				String oldpassword = etOldPass.getText().toString();
-
-				params.put("user_id", Long.toString(USER.getID()));
-				params.put("oldpassword", oldpassword);
-				params.put("newpassword", newpassword);
-
-				client.get("http://www.lol-fc.com/classmate/changepass.php", params, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-						if (!loadingDialog.isShowing()) {
-							return;
-						}
-
-						loadingDialog.dismiss();
-
-						int id;
-						try {
-							id = Integer.parseInt(response);
-						} catch (NumberFormatException e) {
-							id = NO_USER;
-						}
-
-						if (id <= NO_USER) {
-							AlertDialog d = new AlertDialog.Builder(getActivity()).create();
-							d.setTitle("Error With Changing Your Password");
-							d.setMessage("Please double check to make sure you have input all the forms correctly");
-							d.setIcon(android.R.drawable.ic_dialog_alert);
-							d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-								public void onCancel(DialogInterface dialog) {
-                                                  // setResult(0);
-									//finish();
-								}
-							});
-
-							d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                                        //setResult(RESULT_CANCELED);
-									//finish();
-								}
-							});
-
-							d.show();
-							return;
-						} else {
-							AlertDialog d = new AlertDialog.Builder(getActivity()).create();
-							d.setTitle("Success!");
-							d.setMessage("Your password has been successfully changed!");
-							d.setIcon(android.R.drawable.ic_dialog_alert);
-							d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-								public void onCancel(DialogInterface dialog) {
-                                                  // setResult(0);
-									//finish();
-								}
-							});
-
-							d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                                        //setResult(RESULT_CANCELED);
-									//finish();
-								}
-							});
-
-							d.show();
-							etNewPass1.setText("");
-							etNewPass2.setText("");
-							etOldPass.setText("");
-							return;
-						}
-
-						/*        Intent i = new Intent();
-						 i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
-						 i.putExtra(LoginActivity.INTENT_KEY_EMAIL, emailAddress);
-						 i.putExtra(LoginActivity.INTENT_KEY_USERNAME, username);
-						 i.putExtra(LoginActivity.INTENT_KEY_REMEMBER, cbRememberMe.isChecked());
-						 setResult(RESULT_OK, i);
-						 finish();
-						 */
+		int id = v.getId();
+		if (id == R.id.ivProfilePic) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			CharSequence[] options = new CharSequence[2];
+			options[0] = getResources().getString(R.string.action_camera);
+			options[1] = getResources().getString(R.string.action_gallery);
+			builder.setCancelable(true);
+			builder.setTitle(R.string.dialog_change_profile_pic)
+				   .setItems(options, new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int which) {
+						   if (which == 0) {
+							   startCamera();
+						   } else if (which == 1) {
+							   startGallery();
+						   }
+					   }
+				   })
+				   .setNegativeButton(R.string.global_action_cancel, new DialogInterface.OnClickListener() {
+					   @Override
+					   public void onClick(DialogInterface dialog, int id) {
+						   // ...
+					   }
+				   });
+			builder.show();
+		} else if (id == R.id.btnChangePass) {
+			assert etNewPass1.getText().toString().compareTo(etNewPass2.getText().toString()) == 0;
+			final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
+			loadingDialog.setTitle(getString(R.string.changePass));
+			loadingDialog.setMessage(getString(R.string.changePassLoading));
+			loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			//loadingDialog.setCancelable(false);
+			loadingDialog.show();
+			String newpassword = etNewPass1.getText().toString();
+			String oldpassword = etOldPass.getText().toString();
+			params.put("user_id", Long.toString(USER.getID()));
+			params.put("oldpassword", oldpassword);
+			params.put("newpassword", newpassword);
+			client.get("http://www.lol-fc.com/classmate/changepass.php", params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(String response) {
+					if (!loadingDialog.isShowing()) {
+						return;
 					}
-				});
-				break;
-			case R.id.btnCreateSchedule://change button to createScheduleFirst
-				System.out.println("Clicked the create schedule button");
-				String scheduleName = etScheduleName.getText().toString();
-				System.out.println("scheduleName: " + scheduleName);
-				String firstSchedule;
-				if (isFirst) {
-					firstSchedule = Integer.toString(1);
-				} else {
-					firstSchedule = "doesnt matter";
+
+					loadingDialog.dismiss();
+
+					int id;
+					try {
+						id = Integer.parseInt(response);
+					} catch (NumberFormatException e) {
+						id = NO_USER;
+					}
+
+					if (id <= NO_USER) {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Error With Changing Your Password");
+						d.setMessage("Please double check to make sure you have input all the forms correctly");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+			                                  // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+			                                        //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+						return;
+					} else {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Success!");
+						d.setMessage("Your password has been successfully changed!");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+			                                  // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+			                                        //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+						etNewPass1.setText("");
+						etNewPass2.setText("");
+						etOldPass.setText("");
+						return;
+					}
+
+					/*        Intent i = new Intent();
+					 i.putExtra(LoginActivity.INTENT_KEY_USERID, id);
+					 i.putExtra(LoginActivity.INTENT_KEY_EMAIL, emailAddress);
+					 i.putExtra(LoginActivity.INTENT_KEY_USERNAME, username);
+					 i.putExtra(LoginActivity.INTENT_KEY_REMEMBER, cbRememberMe.isChecked());
+					 setResult(RESULT_OK, i);
+					 finish();
+					 */
 				}
+			});
+		} else if (id == R.id.btnCreateSchedule) {
+			System.out.println("Clicked the create schedule button");
+			String scheduleName = etScheduleName.getText().toString();
+			System.out.println("scheduleName: " + scheduleName);
+			String firstSchedule;
+			if (isFirst) {
+				firstSchedule = Integer.toString(1);
+			} else {
+				firstSchedule = "doesnt matter";
+			}
+			params.put("user_id", Long.toString(USER.getID()));
+			params.put("title", scheduleName);
+			params.put("new", firstSchedule);
+			client.get("http://www.lol-fc.com/classmate/2/adduserschedule.php", params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(String response) {
 
-				params.put("user_id", Long.toString(USER.getID()));
-				params.put("title", scheduleName);
-				params.put("new", firstSchedule);
-
-				client.get("http://www.lol-fc.com/classmate/2/adduserschedule.php", params, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-
-						if (isFirst) {
-							btnSetActiveSchedule.setVisibility(View.VISIBLE);
-							sSchedule.setVisibility(View.VISIBLE);
-							isFirst = false;
-						}
-						setupSpinner();
-						etScheduleName.setText("");
-
+					if (isFirst) {
+						btnSetActiveSchedule.setVisibility(View.VISIBLE);
+						sSchedule.setVisibility(View.VISIBLE);
+						isFirst = false;
 					}
-				});
-
-				//create schedule and set as active
-				break;
-			case R.id.btnSetActive:
-				System.out.println("Clicked set active");
-
-				if (schActive != null) {
-					Toast.makeText(getActivity(), "Button Clicked", Toast.LENGTH_SHORT).show();
-
-					params.put("user_id", Long.toString(USER.getID()));
-					params.put("schedule_id", Integer.toString(schActive.getScheduleID()));
-
-					client.get("http://www.lol-fc.com/classmate/2/setuserschedule.php", params, new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(String response) {
-
-							Toast.makeText(getActivity(), "Schedule is set to active, resp: " + response + " schActive: " + schActive.getScheduleID(), Toast.LENGTH_SHORT).show();
-						}
-					});
+					setupSpinner();
+					etScheduleName.setText("");
 
 				}
-				break;
-			case R.id.btnImportCalendar:
-				importCalendar();
-				break;
-		
+			});
+		} else if (id == R.id.btnSetActive) {
+			System.out.println("Clicked set active");
+			if (schActive != null) {
+				Toast.makeText(getActivity(), "Button Clicked", Toast.LENGTH_SHORT).show();
+
+				params.put("user_id", Long.toString(USER.getID()));
+				params.put("schedule_id", Integer.toString(schActive.getScheduleID()));
+
+				client.get("http://www.lol-fc.com/classmate/2/setuserschedule.php", params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onSuccess(String response) {
+
+						Toast.makeText(getActivity(), "Schedule is set to active, resp: " + response + " schActive: " + schActive.getScheduleID(), Toast.LENGTH_SHORT).show();
+					}
+				});
+
+			}
+		} else if (id == R.id.btnImportCalendar) {
+			importCalendar();
 		}
 	}
 	

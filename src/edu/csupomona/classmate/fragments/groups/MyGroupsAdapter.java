@@ -84,13 +84,11 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 
 	public void onClick(View v) {
 		Group g = (Group)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnViewDetails:
-				viewDetails(g);
-				break;
-			case R.id.btnCancel:
-				removeGroup(g);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnViewDetails) {
+			viewDetails(g);
+		} else if (id == R.id.btnCancel) {
+			removeGroup(g);
 		}
 	}
 

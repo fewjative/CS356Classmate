@@ -94,15 +94,13 @@ public class GroupMembersAdapter extends ArrayAdapter<User> implements View.OnCl
 
 	public void onClick(View v) {
 		User u = (User)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnCancel:
-				if (lock) {
-					return;
-				}
-
-				lock = true;
-				removeGroup(u);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnCancel) {
+			if (lock) {
+				return;
+			}
+			lock = true;
+			removeGroup(u);
 		}
 	}
 

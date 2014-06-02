@@ -103,13 +103,11 @@ public class AdminBookAdapter extends ArrayAdapter<Book> implements View.OnClick
 
 	public void onClick(View v) {
 		Book r = (Book)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnViewBook:
-				viewBook(r);
-				break;
-			case R.id.btnDeleteBook:
-				deleteBook(r);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnViewBook) {
+			viewBook(r);
+		} else if (id == R.id.btnDeleteBook) {
+			deleteBook(r);
 		}
 	}
 

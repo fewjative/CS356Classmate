@@ -195,21 +195,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		String email = etEmailAddress.getText().toString();
-		switch (v.getId()) {
-			case R.id.btnLogin:
-				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(etEmailAddress.getWindowToken(), 0);
-				imm.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
-
-				String password = etPassword.getText().toString();
-				attemptLogin(email, password);
-				break;
-			case R.id.btnRecover:
-				recoverAccount(email);
-				break;
-			case R.id.btnRegister:
-				registerAccount(email);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnLogin) {
+			InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(etEmailAddress.getWindowToken(), 0);
+			imm.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
+			String password = etPassword.getText().toString();
+			attemptLogin(email, password);
+		} else if (id == R.id.btnRecover) {
+			recoverAccount(email);
+		} else if (id == R.id.btnRegister) {
+			registerAccount(email);
 		}
 	}
 

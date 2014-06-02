@@ -99,13 +99,11 @@ public class FriendRequestsAdapter extends ArrayAdapter<User> implements View.On
 
 	public void onClick(View v) {
 		User r = (User)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnAccept:
-				acceptInvite(r);
-				break;
-			case R.id.btnCancel:
-				rejectInvite(r);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnAccept) {
+			acceptInvite(r);
+		} else if (id == R.id.btnCancel) {
+			rejectInvite(r);
 		}
 	}
 

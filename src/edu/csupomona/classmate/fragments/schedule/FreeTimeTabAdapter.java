@@ -90,11 +90,10 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
 
         public void onClick(View v) {
                 User r = (User)v.getTag();
-                switch (v.getId()) {
-                        case R.id.btnCompare:
-                                compareSchedule(r);
-                                break;
-                }
+                int id = v.getId();
+				if (id == R.id.btnCompare) {
+					compareSchedule(r);
+				}
         }
 
         public void compareSchedule(final User f) {

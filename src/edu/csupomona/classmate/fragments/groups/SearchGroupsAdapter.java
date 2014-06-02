@@ -74,15 +74,13 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 
 	public void onClick(View v) {
 		Group g = (Group)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnAdd:
-				if (lock) {
-					return;
-				}
-
-				lock = true;
-				joinGroup(g);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnAdd) {
+			if (lock) {
+				return;
+			}
+			lock = true;
+			joinGroup(g);
 		}
 	}
 

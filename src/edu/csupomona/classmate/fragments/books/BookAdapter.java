@@ -138,10 +138,9 @@ public class BookAdapter extends ArrayAdapter<Book> implements View.OnClickListe
 
 	public void onClick(View v) {
 		Book r = (Book)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnViewBook:
-				viewBook(r);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnViewBook) {
+			viewBook(r);
 		}
 	}
 

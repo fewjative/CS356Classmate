@@ -47,11 +47,10 @@ public class RecoveryActivity extends Activity implements View.OnClickListener {
 	}
 
 	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.btnRecover:
-				String email = etEmailAddress.getText().toString();
-				recoverAccount(email);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnRecover) {
+			String email = etEmailAddress.getText().toString();
+			recoverAccount(email);
 		}
 	}
 

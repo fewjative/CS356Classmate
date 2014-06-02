@@ -99,19 +99,16 @@ public class SearchUsersAdapter extends ArrayAdapter<User> implements View.OnCli
 
 	public void onClick(View v) {
 		User u = (User)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnAdd:
-				if (lock) {
-					return;
-				}
-
-				lock = true;
-				sendRequest(u);
-
-				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(ATTACHED_VIEW.getWindowToken(), 0);
-				ATTACHED_VIEW.clearFocus();
-				break;
+		int id = v.getId();
+		if (id == R.id.btnAdd) {
+			if (lock) {
+				return;
+			}
+			lock = true;
+			sendRequest(u);
+			InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(ATTACHED_VIEW.getWindowToken(), 0);
+			ATTACHED_VIEW.clearFocus();
 		}
 	}
 

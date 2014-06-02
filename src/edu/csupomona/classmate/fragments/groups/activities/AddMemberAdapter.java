@@ -100,15 +100,13 @@ public class AddMemberAdapter extends ArrayAdapter<User> implements View.OnClick
 
 	public void onClick(View v) {
 		User u = (User)v.getTag();
-		switch (v.getId()) {
-			case R.id.btnAdd:
-				if (lock) {
-					return;
-				}
-
-				lock = true;
-				joinGroup(u);
-				break;
+		int id = v.getId();
+		if (id == R.id.btnAdd) {
+			if (lock) {
+				return;
+			}
+			lock = true;
+			joinGroup(u);
 		}
 	}
 

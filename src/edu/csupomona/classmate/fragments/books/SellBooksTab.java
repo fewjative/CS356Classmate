@@ -72,94 +72,88 @@ public class SellBooksTab extends Fragment implements View.OnClickListener, Cons
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		AsyncHttpClient client = new AsyncHttpClient();
 
-		switch (v.getId()) {
-			case R.id.btnSellBook:
-				//could do asserts to check if content is empty or just use a textwatcher
-
-				final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
-				loadingDialog.setTitle(getString(R.string.listingBook));
-				loadingDialog.setMessage(getString(R.string.listingBookLoading));
-				loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-				loadingDialog.show();
-
-				String title = etBookTitle.getText().toString();
-				String classname = etBookClassname.getText().toString();
-				String price = etBookPrice.getText().toString();
-				String condition = etBookCondition.getText().toString();
-
-				params.put("user_id", Long.toString(USER.getID()));
-				params.put("title", title);
-				params.put("classname", classname);
-				params.put("price", price);
-				params.put("condition", condition);
-
-				client.get("http://www.lol-fc.com/classmate/2/createbooklist.php", params, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(String response) {
-						if (!loadingDialog.isShowing()) {
-							return;
-						}
-
-						loadingDialog.dismiss();
-
-						int result;
-						try {
-							result = Integer.parseInt(response);
-						} catch (NumberFormatException e) {
-							result = NO_USER;
-						}
-
-						if (result <= NO_USER) {
-							AlertDialog d = new AlertDialog.Builder(getActivity()).create();
-							d.setTitle("Book could not be listed");
-							d.setMessage("Please double check to make sure you have input all the forms correctly");
-							d.setIcon(android.R.drawable.ic_dialog_alert);
-							d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-								public void onCancel(DialogInterface dialog) {
-                                                  // setResult(0);
-									//finish();
-								}
-							});
-
-							d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                                        //setResult(RESULT_CANCELED);
-									//finish();
-								}
-							});
-
-							d.show();
-							return;
-						} else {
-							AlertDialog d = new AlertDialog.Builder(getActivity()).create();
-							d.setTitle("Success!");
-							d.setMessage("Your book can now be seen on the marketplace!");
-							d.setIcon(android.R.drawable.ic_dialog_alert);
-							d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-								public void onCancel(DialogInterface dialog) {
-                                                  // setResult(0);
-									//finish();
-								}
-							});
-
-							d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                                        //setResult(RESULT_CANCELED);
-									//finish();
-								}
-							});
-
-							d.show();
-
-							etBookTitle.setText("");
-							etBookClassname.setText("");
-							etBookPrice.setText("");
-							etBookCondition.setText("");
-							return;
-						}
+		int id = v.getId();
+		if (id == R.id.btnSellBook) {
+			final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
+			loadingDialog.setTitle(getString(R.string.listingBook));
+			loadingDialog.setMessage(getString(R.string.listingBookLoading));
+			loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			loadingDialog.show();
+			String title = etBookTitle.getText().toString();
+			String classname = etBookClassname.getText().toString();
+			String price = etBookPrice.getText().toString();
+			String condition = etBookCondition.getText().toString();
+			params.put("user_id", Long.toString(USER.getID()));
+			params.put("title", title);
+			params.put("classname", classname);
+			params.put("price", price);
+			params.put("condition", condition);
+			client.get("http://www.lol-fc.com/classmate/2/createbooklist.php", params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(String response) {
+					if (!loadingDialog.isShowing()) {
+						return;
 					}
-				});
-				break;
+
+					loadingDialog.dismiss();
+
+					int result;
+					try {
+						result = Integer.parseInt(response);
+					} catch (NumberFormatException e) {
+						result = NO_USER;
+					}
+
+					if (result <= NO_USER) {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Book could not be listed");
+						d.setMessage("Please double check to make sure you have input all the forms correctly");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+			                                  // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+			                                        //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+						return;
+					} else {
+						AlertDialog d = new AlertDialog.Builder(getActivity()).create();
+						d.setTitle("Success!");
+						d.setMessage("Your book can now be seen on the marketplace!");
+						d.setIcon(android.R.drawable.ic_dialog_alert);
+						d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+							public void onCancel(DialogInterface dialog) {
+			                                  // setResult(0);
+								//finish();
+							}
+						});
+
+						d.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.global_action_okay), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+			                                        //setResult(RESULT_CANCELED);
+								//finish();
+							}
+						});
+
+						d.show();
+
+						etBookTitle.setText("");
+						etBookClassname.setText("");
+						etBookPrice.setText("");
+						etBookCondition.setText("");
+						return;
+					}
+				}
+			});
 		}
 	}
 }
