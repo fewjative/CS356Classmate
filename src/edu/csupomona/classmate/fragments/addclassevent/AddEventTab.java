@@ -1,15 +1,15 @@
 package edu.csupomona.classmate.fragments.addclassevent;
 
-import android.support.v4.app.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,21 +20,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
  public class AddEventTab extends Fragment implements Constants{
-	 
+
 	 	final int DATE_DIALOG_ID = 1;
 	 	private int start_year, start_month, start_day;
 	 	private int end_year, end_month, end_day;
@@ -52,13 +49,13 @@ import java.util.GregorianCalendar;
 //		private RadioButton radioButtonPrivate;
 		private Button btnCreateEvent;
 		private User USER;
-		
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View ROOT = inflater.inflate(R.layout.addclassevent_event_fragment_tab_layout, container, false);
 		USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+
 
 		setStartDateBtn = (Button)ROOT.findViewById(R.id.setStartDateBtn);
 		setEndDateBtn = (Button)ROOT.findViewById(R.id.setEndDateBtn);
@@ -70,13 +67,13 @@ import java.util.GregorianCalendar;
 		radioButtonFPublic = (RadioButton)ROOT.findViewById(R.id.radioButtonFPublic);
 //		radioButtonPrivate = (RadioButton)ROOT.findViewById(R.id.radioButtonPrivate);
 		btnCreateEvent = (Button)ROOT.findViewById(R.id.btnCreateEvent);
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
 		btnCreateEvent.setWidth(width / 2);
-		
+
 		OnClickListener listenerStartDate = new OnClickListener() {
 
 			@Override
@@ -92,7 +89,7 @@ import java.util.GregorianCalendar;
 	            d.show();
 	        }
 	    };
-	    
+
 	    OnClickListener listenerEndDate = new OnClickListener() {
 
 			@Override
@@ -108,7 +105,7 @@ import java.util.GregorianCalendar;
 	            d.show();
 	        }
 	    };
-	    
+
 	    OnClickListener listenerStartTime = new OnClickListener() {
 
 			@Override
@@ -123,7 +120,7 @@ import java.util.GregorianCalendar;
 	            t.show();
 	        }
 	    };
-	    
+
 	    OnClickListener listenerEndTime = new OnClickListener() {
 
 			@Override
@@ -138,16 +135,16 @@ import java.util.GregorianCalendar;
 	            t.show();
 	        }
 	    };
-	    
+
 	    setStartDateBtn.setOnClickListener(listenerStartDate);
 	    setEndDateBtn.setOnClickListener(listenerEndDate);
 	    setStartTimeBtn.setOnClickListener(listenerStartTime);
 	    setEndTimeBtn.setOnClickListener(listenerEndTime);
-	    
+
 		setupEventButton();
 		return ROOT;
 	}
-	
+
 	DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
 	    public void onDateSet(DatePicker view, int Year,
@@ -166,7 +163,7 @@ import java.util.GregorianCalendar;
 	        updateDisplay();
 	    }
 	};
-	
+
 	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
 	    public void onTimeSet(TimePicker view, int Hour, int Minute) {
@@ -182,7 +179,7 @@ import java.util.GregorianCalendar;
 	        updateTimeDisplay();
 	    }
 	};
-	
+
 	@SuppressLint("SimpleDateFormat")
 	private void updateDisplay() {
 
@@ -198,7 +195,7 @@ import java.util.GregorianCalendar;
 	    	setEndDateBtn.setText(sdf.format(c.getTime()));
 	    }
 	}
-	
+
 	private void updateTimeDisplay() {
 
 		String ampm = null;
@@ -207,28 +204,28 @@ import java.util.GregorianCalendar;
 	    	if (start_hour <= 12)
 	    	{
 	    		ampm = "AM";
-	    		setStartTimeBtn.setText(String.format("%d:%d %s", start_hour, start_min, ampm));
+	    		setStartTimeBtn.setText(String.format("%d:%02d %s", start_hour, start_min, ampm));
 	    	}else
 	    	{
 	    		ampm = "PM";
-	    		setStartTimeBtn.setText(String.format("%d:%d %s", (start_hour - 12), start_min, ampm));
+	    		setStartTimeBtn.setText(String.format("%d:%02d %s", (start_hour - 12), start_min, ampm));
 	    	}
 	    }else if (FLAG == 2)
 	    {
 	    	if (start_hour <= 12)
 	    	{
 	    		ampm = "AM";
-	    		setEndTimeBtn.setText(String.format("%d:%d %s", end_hour, end_min, ampm));
+	    		setEndTimeBtn.setText(String.format("%d:%02d %s", end_hour, end_min, ampm));
 	    	}else
 	    	{
 	    		ampm = "PM";
-	    		setEndTimeBtn.setText(String.format("%d:%d %s", (end_hour - 12), end_min, ampm));
+	    		setEndTimeBtn.setText(String.format("%d:%02d %s", (end_hour - 12), end_min, ampm));
 	    	}
 	    }
 	}
-	
+
 	protected void onPrepareDialog(int id, Dialog dialog) {
-		
+
 		switch (id) {
 		case DATE_DIALOG_ID:
 			final Calendar c = Calendar.getInstance();
@@ -242,10 +239,10 @@ import java.util.GregorianCalendar;
 		btnCreateEvent.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				int stringMaxLength, startDay, startMonth, startYear, endDay, endMonth, endYear, startHour, startMinute, endHour, endMinute;
 				boolean validDate = false, validTime = false, validTitle = false, validDescription = false;
-				
+
 				//check if title max length is under database specs and if empty
 				stringMaxLength = (textFieldTitle.getText().toString().length() < 256) ? textFieldTitle.getText().toString().length() : 256;
 				final String titleString = textFieldTitle.getText().toString().substring(0, stringMaxLength);
@@ -255,7 +252,7 @@ import java.util.GregorianCalendar;
 					System.out.println("Title is valid");
 					validTitle = true;
 				}
-				
+
 				//check if description max is under database specs
 				stringMaxLength = (textFieldDescription.getText().toString().length() < 256) ? textFieldDescription.getText().toString().length() : 256;
 				final String descriptionString = textFieldDescription.getText().toString().substring(0, stringMaxLength);
@@ -265,7 +262,7 @@ import java.util.GregorianCalendar;
 					System.out.println("Description is valid");
 					validDescription = true;
 				}
-				
+
 				//return privacy setting
 				String case1 = "0", case2 = "0", case3 = "0";
 				if (radioButtonOPublic.isChecked())
@@ -280,8 +277,8 @@ import java.util.GregorianCalendar;
 				System.out.println(oPublic);
 				System.out.println(fPublic);
 				System.out.println(Private);
-				
-				
+
+
 				//check if start date is after end date
 				startDay = start_day;
 				startMonth = start_month;
@@ -289,7 +286,7 @@ import java.util.GregorianCalendar;
 				endDay = end_day;
 				endMonth = end_month;
 				endYear = end_year;
-			
+
 				//im pretty sure this code doesn't actually work correctly
 				//just works for dates within the same month
 				if (startYear <= endYear && startMonth <= endMonth && startDay <= endDay)
@@ -297,14 +294,14 @@ import java.util.GregorianCalendar;
 					System.out.println("Dates are valid");
 					validDate = true;
 				}
-				
+
 				final String startDate =startYear +"-"+startMonth + "-" +startDay;
 				final String endDate = endYear + "-" + endMonth+"-"+endDay;
-				
+
 				System.out.println(startDate);
 				System.out.println(endDate);
-				
-				
+
+
 				//if date validation passes, check if start time is after end time if same day
 				startHour = start_hour;
 				startMinute = start_min;
@@ -326,8 +323,8 @@ import java.util.GregorianCalendar;
 					System.out.println("Times are valid");
 					validTime = true;
 				}
-				
-				
+
+
 				if (validDate == false || validTime == false || validDescription == false || validTitle == false)
 				{
 					//textViewValid.setVisibility(View.VISIBLE);
@@ -341,7 +338,7 @@ import java.util.GregorianCalendar;
 					dialog.setCanceledOnTouchOutside(true);
 					dialog.show();
 				} else {
-					
+
 					RequestParams params = new RequestParams();
 					params.put("user_id", Long.toString(USER.getID()));
 					params.put("title", titleString);
@@ -355,13 +352,13 @@ import java.util.GregorianCalendar;
 					params.put("opublic", oPublic);
 					params.put("isprivate", Private);
 					AsyncHttpClient client = new AsyncHttpClient();
-					
+
 					final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
 					loadingDialog.setTitle("Creating Event");
 					loadingDialog.setMessage("Event is being created as we speak");
 					loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 					loadingDialog.show();
-					
+
 					client.get("http://www.lol-fc.com/classmate/2/createevent.php", params, new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(String response) {
@@ -423,10 +420,10 @@ import java.util.GregorianCalendar;
 								//set fields to be empty
 								return;
 							}
-								
+
 						}
 					});
-					
+
 				}
 			}
 		});
