@@ -5,7 +5,7 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:background="@color/cppgreen"
+	android:background="@color/custom_gray"
 	android:animateLayoutChanges="true"
 >
 	<LinearLayout
@@ -19,7 +19,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:textAppearance="?android:attr/textAppearanceListItemSmall"
-			android:textColor="@color/cppgold"
+			android:textColor="@color/white"
 			android:layout_marginLeft="6dip"
 			android:singleLine="true"
 			android:gravity="center"
