@@ -40,7 +40,7 @@ public class ActivityFeedAdapter extends ArrayAdapter<ActivityFeedItem> {
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.activity_feed_item_layout, null);
 
 			ImageView ivFriendAvatar = (ImageView)view.findViewById(R.id.ivFriendAvatar);
@@ -49,7 +49,7 @@ public class ActivityFeedAdapter extends ArrayAdapter<ActivityFeedItem> {
 			view.setTag(new ViewHolder(ivFriendAvatar, ivPersonAddedAvatar, tvItemText));
 
 			//tvItemText.setSelected(true);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

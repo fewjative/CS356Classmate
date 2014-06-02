@@ -1,8 +1,7 @@
 package edu.csupomona.classmate.fragments.addclassevent;
 
 import android.app.Activity;
-import static android.app.Activity.RESULT_OK;
-import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import edu.csupomona.classmate.Constants;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.SectionDetailsActivity;
 import edu.csupomona.classmate.abstractions.Section;
@@ -55,7 +56,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.addclass_section_search_adapter_layout, null);
 
 			TextView tvClassNumber = (TextView)view.findViewById(R.id.tvClassNumber);
@@ -76,7 +77,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 			btnViewSectionDetails.setVisibility(View.VISIBLE);
 			btnViewSectionDetails.setTag(s);
 			btnViewSectionDetails.setOnClickListener(this);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {
@@ -129,6 +130,13 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 	}
 
 	public void addClass(final Section s) {
+		final ProgressDialog loadingDialog = new ProgressDialog(getContext());
+		//loadingDialog.setTitle(getString(R.string.dialog_login_load_title));
+		loadingDialog.setMessage("Adding " + s + " to your schedule...");
+		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		loadingDialog.setCancelable(false);
+		loadingDialog.show();
+
 		RequestParams params = new RequestParams();
 		params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
 		params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(s.getClassID()));
@@ -137,6 +145,9 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 		client.get(Constants.PHP_BASE_ADDRESS + Constants.PHP_ADDRESS_ADDCLASS2, params, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
+				loadingDialog.dismiss();
+				Toast.makeText(SectionSearchAdapter.this.getContext(), s + " was added to your schedule", Toast.LENGTH_LONG).show();
+
 				//((Activity)getContext()).setResult(RESULT_OK);
 				//((Activity)getContext()).finish();
 			}

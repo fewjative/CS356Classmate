@@ -36,7 +36,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.review_list_adapter_layout, null);
 
 			TextView tvReviewTitle = (TextView)view.findViewById(R.id.tvReviewTitle);
@@ -44,7 +44,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 			TextView tvReview = (TextView)view.findViewById(R.id.tvReview);
 			RatingBar rbRating = (RatingBar)view.findViewById(R.id.rbRating);
 			view.setTag(new ViewHolder(tvReviewTitle, tvUser, tvReview, rbRating));
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {
@@ -55,7 +55,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> {
 			if (holder.tvReviewTitle != null) {
 				holder.tvReviewTitle.setText(String.format("%s by ", r.getTitle()));
 			}
-			
+
 			if (holder.tvUser != null) {
 				holder.tvUser.setText(r.getUsername());
 			}

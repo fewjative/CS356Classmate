@@ -13,18 +13,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Event;
 import edu.csupomona.classmate.abstractions.User;
-
 import java.util.List;
 
 public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnClickListener {
@@ -55,7 +51,7 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.event_item_layout, null);
 
 			TextView tvSnippit = (TextView)view.findViewById(R.id.tvSnippit);
@@ -67,7 +63,7 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 			btnAdd.setTag(event);
 			btnAdd.setOnClickListener(this);
 			btnAdd.setVisibility(View.VISIBLE);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {
@@ -81,7 +77,7 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 				SpannableString snippit = new SpannableString(event.getFullTime() + " " + event.getTitle());
 				snippit.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, event.getFullTime().length()+event.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(snippit);
-				
+
 				holder.tvSnippit.setText(builder);
 			}
 		}

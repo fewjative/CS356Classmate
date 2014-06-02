@@ -39,7 +39,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsArticle> {
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.news_article_item_layout, null);
 
 			ImageView ivImage = (ImageView)view.findViewById(R.id.ivImage);
@@ -48,7 +48,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsArticle> {
 			TextView tvDate = (TextView)view.findViewById(R.id.tvDate);
 			LinearLayout llProgressBar = (LinearLayout)view.findViewById(R.id.llProgressBar);
 			view.setTag(new ViewHolder(ivImage, tvTitle, tvDesc, tvDate, llProgressBar));
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

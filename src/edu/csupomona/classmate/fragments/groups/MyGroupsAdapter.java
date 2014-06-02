@@ -49,7 +49,7 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.group_item_layout, null);
 
 			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
@@ -66,7 +66,7 @@ public class MyGroupsAdapter extends ArrayAdapter<Group> implements View.OnClick
 			btnCancel.setTag(g);
 			btnCancel.setOnClickListener(this);
 			btnCancel.setVisibility(View.VISIBLE);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

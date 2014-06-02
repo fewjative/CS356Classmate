@@ -8,8 +8,9 @@
 >
 		<TextView
 			android:id="@+id/tvToday"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
 			android:textColor="@color/white"
 			android:singleLine="true"
 			android:ellipsize="marquee"
@@ -17,7 +18,7 @@
 			android:scrollHorizontally="true"
 			android:focusable="false"
 		/>
-		
+
 		<LinearLayout
                 android:id="@+id/llLineContainer"
                 android:layout_width="match_parent"
@@ -35,7 +36,7 @@
         	>
         	</LinearLayout>
         </LinearLayout>
-        
+
         <LinearLayout
                 android:id="@+id/llProgressBar"
                 android:layout_width="match_parent"
@@ -71,9 +72,9 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                         />
-                        
+
         </LinearLayout>
-        
+
        	 <LinearLayout
                 android:id="@+id/llNoFriendSchedule"
                 android:layout_width="match_parent"
@@ -112,14 +113,14 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                         />
-                        
+
                          <EditText
                                 style="@style/style_edittext"
                                 android:id="@+id/etScheduleName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                         />
-                        
+
                         <Button
                                 style="@style/style_button"
                                 android:id="@+id/btnAddSchedule"
@@ -131,7 +132,7 @@
                         />
 
         </LinearLayout>
-        
+
            <LinearLayout
                 android:id="@+id/llNoFriendSchedule"
                 android:layout_width="match_parent"
@@ -151,7 +152,7 @@
                                 android:gravity="center"
                         />
         </LinearLayout>
-        
+
         <LinearLayout
                 android:id="@+id/llSchedule"
                 android:layout_width="match_parent"

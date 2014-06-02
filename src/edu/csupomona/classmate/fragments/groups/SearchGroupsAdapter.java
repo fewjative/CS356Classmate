@@ -44,7 +44,7 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.group_item_layout, null);
 
 			TextView tvItemText = (TextView)view.findViewById(R.id.tvItemText);
@@ -56,7 +56,7 @@ public class SearchGroupsAdapter extends ArrayAdapter<Group> implements View.OnC
 			btnAdd.setTag(g);
 			btnAdd.setOnClickListener(this);
 			btnAdd.setVisibility(View.VISIBLE);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

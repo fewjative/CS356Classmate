@@ -48,7 +48,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<User> implements View.On
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
@@ -66,7 +66,7 @@ public class FriendRequestsAdapter extends ArrayAdapter<User> implements View.On
 			btnCancel.setTag(f);
 			btnCancel.setOnClickListener(this);
 			btnCancel.setVisibility(View.VISIBLE);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

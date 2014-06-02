@@ -54,7 +54,7 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.user_item_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
@@ -72,7 +72,7 @@ public class MyFriendsAdapter extends ArrayAdapter<User> implements View.OnClick
 			btnCancel.setTag(f);
 			btnCancel.setOnClickListener(this);
 			btnCancel.setVisibility(View.VISIBLE);
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

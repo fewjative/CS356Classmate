@@ -1,16 +1,12 @@
 package edu.csupomona.classmate.fragments.schedule;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
-import android.text.format.DateFormat;
-import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,30 +16,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
-
-import edu.csupomona.classmate.abstractions.Event;
 import edu.csupomona.classmate.abstractions.ScheduleItem;
-
-import edu.csupomona.classmate.SectionDetailsActivity;
-import edu.csupomona.classmate.abstractions.ScheduleItem;
-import edu.csupomona.classmate.abstractions.Section;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,29 +59,29 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		root = (ViewGroup)inflater.inflate(R.layout.schedule_weekly_tab_layout, null);
 		user = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+
 		final long id;
 		if (VIEWER != null) {
 			id = VIEWER.getID();
 		} else {
 			id = user.getID();
 		}
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
-		
+
 		TextView tvToday = (TextView)root.findViewById(R.id.tvToday);
-		tvToday.setTextSize(height / 26);
-		
+		tvToday.setTextSize(height / 52);
+
 		SimpleDateFormat df = new SimpleDateFormat("EEE, MMM d, ''yy");
 		String date = df.format(Calendar.getInstance().getTime());
 		tvToday.setText(date);
 		tvToday.setPadding((width / 19), 0, 0, 0);
-		
+
 		int lineHeight = (height / 160);
-		int prog = (int)(width * 0.9);
+		int prog = (int)(width * 0.92537);
 		LinearLayout llContainer = (LinearLayout)root.findViewById(R.id.llLineContainer);
 		llContainer.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineHeight));
 		LinearLayout llLine = (LinearLayout)root.findViewById(R.id.llLine);
@@ -128,18 +113,18 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
                 	{
                 		llNoSchedule = (LinearLayout)root.findViewById(R.id.llNoSchedule);
                 		llNoSchedule.setVisibility(View.VISIBLE);
-	
+
 			            etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
 			           	btnAddSchedule = (Button)root.findViewById(R.id.btnAddSchedule);
 			           	btnAddSchedule.setEnabled(false);
-	
+
 			           	TextWatcherAdapter scheduleNameTextWatcher = new TextWatcherAdapter() {
 	                     String s1;
-	
+
 	                     @Override
 	                     public void afterTextChanged(Editable e) {
 	                             s1 = etScheduleName.getText().toString();
-	
+
 	                             if (!s1.isEmpty()) {
 	                           	  btnAddSchedule.setEnabled(true);
 	                             } else {
@@ -214,7 +199,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 				JSONArray myjsonarray = new JSONArray(response);
 				for (int i = 0; i < myjsonarray.length(); i++) {
 					jObj = myjsonarray.getJSONObject(i);
-					
+
 					try{
 						schedule.add(new ScheduleItem(
 								jObj.getInt("class_id"),
@@ -232,6 +217,7 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 								jObj.getString("major_long"),
 								jObj.getString("class_num"),
 								jObj.getString("term"),
+								jObj.getInt("friends_in_class"),
 								0,
 								"",
 								"",
@@ -240,15 +226,15 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 							));
 					}catch (JSONException e)
 					{
-						schedule.add(new ScheduleItem(0,jObj.getString("title"),jObj.getString("time_start"),jObj.getString("time_end"),jObj.getString("weekdays"),jObj.getString("date_start"),jObj.getString("date_end"),"","","","","","","","",jObj.getInt("event_id"),jObj.getString("description"),jObj.getString("fpublic"),jObj.getString("opublic"), jObj.getString("isprivate")));
+						schedule.add(new ScheduleItem(0,jObj.getString("title"),jObj.getString("time_start"),jObj.getString("time_end"),jObj.getString("weekdays"),jObj.getString("date_start"),jObj.getString("date_end"),"","","","","","","","",jObj.getInt("friends_in_class"),jObj.getInt("event_id"),jObj.getString("description"),jObj.getString("fpublic"),jObj.getString("opublic"), jObj.getString("isprivate")));
 					}
-					
+
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		for(int i=0;i<schedule.size();i++)
 		{
 			System.out.println("T: "+schedule.get(i).getFullTime());
@@ -261,24 +247,24 @@ public class WeeklyScheduleTab extends Fragment implements Constants {
 		} else {
 			adapter = new ScheduleAdapter(getActivity(), user, schedule);
 		}
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) root.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int width = displayMetrics.widthPixels;
-		
+
 		int pad = (width / 38);
-		
+
 		GridView gridSchedule = (GridView)llSchedule.findViewById(R.id.gridSchedule);
 		gridSchedule.setPadding((pad / 2), pad, (pad / 2), 0);
 		gridSchedule.setVerticalSpacing(pad);
 		gridSchedule.setHorizontalSpacing(pad);
 		gridSchedule.setAdapter(adapter);
-		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener() 
-		{	
+		gridSchedule.setOnItemClickListener(new GridView.OnItemClickListener()
+		{
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				adapter.viewSectionDetails(position);		
+				adapter.viewSectionDetails(position);
 			}
 		});
 	}

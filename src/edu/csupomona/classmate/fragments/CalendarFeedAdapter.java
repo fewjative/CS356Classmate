@@ -46,7 +46,7 @@ public class CalendarFeedAdapter extends ArrayAdapter<CalendarEvent> {
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.calendar_event_item_layout, null);
 
 			ImageView ivImage = (ImageView)view.findViewById(R.id.ivImage);
@@ -56,7 +56,7 @@ public class CalendarFeedAdapter extends ArrayAdapter<CalendarEvent> {
 			TextView tvDay = (TextView)view.findViewById(R.id.tvDay);
 			LinearLayout llProgressBar = (LinearLayout)view.findViewById(R.id.llProgressBar);
 			view.setTag(new ViewHolder(ivImage, tvTitle, tvDesc, tvDate, tvDay, llProgressBar));
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {

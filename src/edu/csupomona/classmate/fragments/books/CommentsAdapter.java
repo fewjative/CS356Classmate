@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.BookComment;
 import java.util.List;
 
 public class CommentsAdapter extends ArrayAdapter<BookComment> {
-	
+
 	public CommentsAdapter(Context context,List<BookComment> comments) {
 		super(context,0,comments);
 	}
@@ -36,17 +35,17 @@ public class CommentsAdapter extends ArrayAdapter<BookComment> {
 		ViewHolder holder = null;
 		View view = convertView;
 
-		if (view == null) {
+		//if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(R.layout.books_comments_adapter_layout, null);
 
 			ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
 			TextView tvUsername = (TextView)view.findViewById(R.id.tvUsername);
 			TextView tvComment = (TextView)view.findViewById(R.id.tvComment);
-			
+
 			view.setTag(new ViewHolder(ivAvatar, tvUsername,tvComment));
 
 			tvUsername.setSelected(true);//why?
-		}
+		//}
 
 		Object tag = view.getTag();
 		if (tag instanceof ViewHolder) {
@@ -59,12 +58,12 @@ public class CommentsAdapter extends ArrayAdapter<BookComment> {
 				holder.tvUsername.setText(f.getCommenter());
 				System.out.println("Commenter: " + f.getCommenter());
 			}
-			
+
 			if(holder.tvComment !=null)
 			{
 				holder.tvComment.setText(f.getComment());
 			}
-			
+
 
 			if (holder.ivAvatar != null) {
 				holder.ivAvatar.setVisibility(View.VISIBLE);

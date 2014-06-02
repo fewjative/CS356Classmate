@@ -1,12 +1,8 @@
 package edu.csupomona.classmate.fragments.schedule;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -19,20 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-
-
-
-
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.ScheduleFragment;
-import edu.csupomona.classmate.fragments.schedule.*;
-
 import java.util.List;
 
 public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnClickListener {
@@ -44,7 +28,7 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
                 final ImageView avatar;
                 final TextView tvItemTextUsername;
                 final ImageButton btnCompare;
- 
+
 
                 ViewHolder(ImageView avatar, TextView tvItemTextUsername, ImageButton btnCompare) {
                         this.avatar = avatar;
@@ -59,7 +43,7 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
                 ViewHolder holder = null;
                 View view = convertView;
 
-                if (view == null) {
+               // if (view == null) {
                         view = LayoutInflater.from(getContext()).inflate(R.layout.freetime_list_list_item, null);
 
                         ImageView ivAvatar = (ImageView)view.findViewById(R.id.ivAvatar);
@@ -72,8 +56,8 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
                         btnCompare.setTag(f);
                         btnCompare.setOnClickListener(this);
 
-                 
-                }
+
+               // }
 
                 Object tag = view.getTag();
                 if (tag instanceof ViewHolder) {
@@ -114,7 +98,7 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
         }
 
         public void compareSchedule(final User f) {
-                                
+
             	if (getContext() instanceof FragmentActivity) {
         			Fragment newFragment = new FreeTimeScheduleFragment(f.getID());
         			FragmentActivity activity = ((FragmentActivity)getContext());
@@ -123,7 +107,7 @@ public class FreeTimeTabAdapter extends ArrayAdapter<User> implements View.OnCli
         			t.addToBackStack(null);
         			t.commit();
         		}
-                
-              
+
+
         }
 }

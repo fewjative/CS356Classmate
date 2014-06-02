@@ -19,7 +19,8 @@ public class ScheduleItem implements Parcelable {
 	private final String major_long;
 	private final String class_num;
 	private final String term;
-	
+	private final int friendsAttending;
+
 	private final int event_id;
 	private final String description;
 	private final String fpublic;//if this is 1, the event can only be seen by friends
@@ -42,6 +43,7 @@ public class ScheduleItem implements Parcelable {
 			String major_long,
 			String class_num,
 			String term,
+			int friendsAttending,
 			int event_id,
 			String description,
 			String fpublic,
@@ -63,7 +65,8 @@ public class ScheduleItem implements Parcelable {
 		this.major_long = major_long;
 		this.class_num = class_num;
 		this.term = term;
-		
+		this.friendsAttending = friendsAttending;
+
 		this.event_id = event_id;
 		this.description = description;
 		this.fpublic = fpublic;
@@ -75,27 +78,27 @@ public class ScheduleItem implements Parcelable {
 	{
 		return event_id;
 	}
-	
+
 	public String getDescription()
 	{
 		return description;
 	}
-	
+
 	public String getFPublic()
 	{
 		return fpublic;
 	}
-	
+
 	public String getOPublic()
 	{
 		return opublic;
 	}
-	
+
 	public String getIsprivate()
 	{
 		return isprivate;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -175,12 +178,12 @@ public class ScheduleItem implements Parcelable {
 	public String getMajorShort() {
 		return major_short;
 	}
-	
+
 	public String getMajorLong()
 	{
 		return major_long;
 	}
-	
+
 	public String getTerm()
 	{
 		return term;
@@ -210,6 +213,10 @@ public class ScheduleItem implements Parcelable {
 		return room;
 	}
 
+	public int getFriendsAttending() {
+		return friendsAttending;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s Section %s", major_short, class_num, section);
@@ -235,6 +242,7 @@ public class ScheduleItem implements Parcelable {
 		this.major_long = in.readString();
 		this.class_num = in.readString();
 		this.term = in.readString();
+		this.friendsAttending = in.readInt();
 		this.event_id = in.readInt();
 		this.description = in.readString();
 		this.fpublic = in.readString();
@@ -264,7 +272,8 @@ public class ScheduleItem implements Parcelable {
 		dest.writeString(major_long);
 		dest.writeString(class_num);
 		dest.writeString(term);
-		
+		dest.writeInt(friendsAttending);
+
 		dest.writeInt(event_id);
 		dest.writeString(description);
 		dest.writeString(fpublic);
