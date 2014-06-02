@@ -54,7 +54,6 @@ public class SectionDetailsActivity extends Activity implements Constants{
 
 		user = getIntent().getParcelableExtra(INTENT_KEY_USER);
 		section = getIntent().getParcelableExtra(INTENT_KEY_SECTION);
-		final User USER = this.getIntent().getParcelableExtra(INTENT_KEY_USER);
 
 		getActionBar().setTitle(section.toString());
 
@@ -109,7 +108,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 					}
 				}
 
-				MyFriendsAdapter adapter = new MyFriendsAdapter(SectionDetailsActivity.this, USER, friends);
+				MyFriendsAdapter adapter = new MyFriendsAdapter(SectionDetailsActivity.this, user, friends);
 				ListView lvFriendsList = (ListView)findViewById(R.id.lvFriendsList);
 				if (adapter.isEmpty()) {
 					LinearLayout llEmptyList = (LinearLayout)findViewById(R.id.llEmptyList);
@@ -192,7 +191,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 		btnDeleteClass.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				RequestParams params = new RequestParams();
-				params.put(Constants.PHP_PARAM_USERID, Long.toString(USER.getID()));
+				params.put(Constants.PHP_PARAM_USERID, Long.toString(user.getID()));
 				params.put(Constants.PHP_PARAM_CLASS_ID, Integer.toString(section.getClassID()));
 
 				AsyncHttpClient client = new AsyncHttpClient();
