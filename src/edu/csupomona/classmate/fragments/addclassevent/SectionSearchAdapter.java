@@ -68,7 +68,7 @@ public class SectionSearchAdapter extends ArrayAdapter<Section> implements View.
 			Button btnViewSectionDetails = (Button)view.findViewById(R.id.btnViewSectionDetails);
 			view.setTag(new ViewHolder(tvClassNumber, tvClassTitle, tvClassDays, tvClassTime, tvClassLecturer, btnAddClass, btnViewSectionDetails));
 
-			tvClassTitle.setSelected(true);
+			//tvClassTitle.setSelected(true);
 
 			btnAddClass.setTag(s);
 			btnAddClass.setOnClickListener(this);

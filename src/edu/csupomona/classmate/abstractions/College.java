@@ -6,7 +6,11 @@ public class College {
 
 	public College(String major_short, String major_long) {
 		this.major_short = major_short;
-		this.major_long = major_long;
+		if (major_long != null && major_long.equalsIgnoreCase("basket weaving")) {
+			this.major_long = major_short;
+		} else {
+			this.major_long = major_long;
+		}
 	}
 
 	public String getMajorShort() {

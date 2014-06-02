@@ -113,7 +113,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>implements Consta
 			System.out.println(temp + " position: " + position);
 			tvCellClassTime.setText(part[0]);
 
-			tvClassNumber.setTextSize(cellHeight / 18);
+			tvClassNumber.setTextSize(cellHeight / 20);
 			tvClassDays.setTextSize(cellHeight / 20);
 			tvCellClassTime.setTextSize(cellHeight / 20);
 			tvFriends.setTextSize(cellHeight / 20);

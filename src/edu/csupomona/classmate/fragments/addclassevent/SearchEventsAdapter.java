@@ -74,7 +74,7 @@ public class SearchEventsAdapter extends ArrayAdapter<Event> implements View.OnC
 			if (holder.tvSnippit != null) {
 				SpannableStringBuilder builder = new SpannableStringBuilder();
 
-				SpannableString snippit = new SpannableString(event.getFullTime() + " " + event.getTitle());
+				SpannableString snippit = new SpannableString(event.getTitle() + " " + event.getFullTime());
 				snippit.setSpan(new ForegroundColorSpan(getContext().getResources().getColor(R.color.white)), 0, event.getFullTime().length()+event.getTitle().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				builder.append(snippit);
 

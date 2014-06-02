@@ -62,7 +62,12 @@ public class ScheduleItem implements Parcelable {
 		this.room = room;
 		this.section = section;
 		this.major_short = major_short;
-		this.major_long = major_long;
+		if (major_long.equalsIgnoreCase("basket weaving")) {
+			this.major_long = major_short;
+		} else {
+			this.major_long = major_long;
+		}
+		
 		this.class_num = class_num;
 		this.term = term;
 		this.friendsAttending = friendsAttending;
