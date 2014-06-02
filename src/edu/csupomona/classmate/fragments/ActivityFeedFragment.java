@@ -44,23 +44,34 @@ public class ActivityFeedFragment extends Fragment {
 
 				try {
 					JSONObject jObj;
+					FriendAddedEvent existingEvent;
 					ActivityFeedItem item = null;
-					for (int i = 0; i < jsona.length(); i++) {
+					JSONLoop: for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
 						switch (jObj.getInt(Constants.PHP_PARAM_ACTIVITYTYPE)) {
 							case ActivityFeedItem.FRIEND_ADDED_EVENT:
 								item = new FriendAddedEvent(
 									new User(
-										jObj.getLong(Constants.PHP_PARAM_USERID),
+										Long.parseLong(jObj.getString(Constants.PHP_PARAM_USERID)),
 										jObj.getString(Constants.PHP_PARAM_NAME),
 										null
 									),
 									new User(
-										jObj.getInt(Constants.PHP_PARAM_FRIENDID),
+										Long.parseLong(jObj.getString(Constants.PHP_PARAM_FRIENDID)),
 										jObj.getString(Constants.PHP_PARAM_FRIENDUSERNAME),
 										null
 									)
 								);
+
+								for (ActivityFeedItem existingItem : activityFeedItems) {
+									if (existingItem instanceof FriendAddedEvent) {
+										existingEvent = (FriendAddedEvent)existingItem;
+										if (item.getFriend().getID() == existingEvent.getPersonAdded().getID()
+												&& ((FriendAddedEvent)item).getPersonAdded().getID() == existingEvent.getFriend().getID()) {
+											continue JSONLoop;
+										}
+									}
+								}
 
 								break;
 							case ActivityFeedItem.CLASS_ADDED_EVENT:

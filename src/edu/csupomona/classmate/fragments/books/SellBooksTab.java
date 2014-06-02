@@ -1,51 +1,33 @@
 package edu.csupomona.classmate.fragments.books;
 
-import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.friends.SearchUsersAdapter;
-import edu.csupomona.classmate.utils.TextWatcherAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import edu.csupomona.classmate.Constants;
+import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
+import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.User;
 
 public class SellBooksTab extends Fragment implements View.OnClickListener, Constants {
-	
+
 	EditText etBookTitle;
 	EditText etBookClassname;
 	EditText etBookCondition;
 	EditText etBookPrice;
 	Button btnSellBook;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ViewGroup ROOT = (ViewGroup)inflater.inflate(R.layout.books_sell_tab_layout, null);
@@ -55,17 +37,17 @@ public class SellBooksTab extends Fragment implements View.OnClickListener, Cons
 		etBookCondition = (EditText)ROOT.findViewById(R.id.etBookCondition);
 		etBookPrice = (EditText)ROOT.findViewById(R.id.etBookPrice);
 		btnSellBook = (Button)ROOT.findViewById(R.id.btnSellBook);
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
-		
+
 		btnSellBook.setWidth(width / 2);
 		btnSellBook.setOnClickListener(this);
 		return ROOT;
 	}
-	
+
 	public void onClick(View v) {
 
 		RequestParams params = new RequestParams();
@@ -97,7 +79,7 @@ public class SellBooksTab extends Fragment implements View.OnClickListener, Cons
 
 					loadingDialog.dismiss();
 
-					int result;
+					long result;
 					try {
 						result = Integer.parseInt(response);
 					} catch (NumberFormatException e) {

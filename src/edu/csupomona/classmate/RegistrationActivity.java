@@ -140,7 +140,7 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
 
 				long id = NO_USER;
 				try {
-					id = Integer.parseInt(response);
+					id = Long.parseLong(response);
 				} catch (NumberFormatException e) {
 					id = NO_USER;
 				} finally {

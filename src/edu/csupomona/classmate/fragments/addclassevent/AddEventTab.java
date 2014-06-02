@@ -369,7 +369,7 @@ import java.util.GregorianCalendar;
 
 							loadingDialog.dismiss();
 
-							int id;
+							long id;
 							try {
 								id = Integer.parseInt(response);
 							} catch (NumberFormatException e) {

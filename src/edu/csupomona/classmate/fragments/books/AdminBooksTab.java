@@ -8,20 +8,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
 import static edu.csupomona.classmate.Constants.INTENT_KEY_USER;
 import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.abstractions.Book;
-
+import edu.csupomona.classmate.abstractions.User;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,8 +43,8 @@ public class AdminBooksTab extends Fragment {
 					for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
 						books.add(new Book(
-							jObj.getLong(Constants.PHP_PARAM_BOOKLISTID),
-							jObj.getLong(Constants.PHP_PARAM_USERID),
+							Long.parseLong(jObj.getString(Constants.PHP_PARAM_BOOKLISTID)),
+							Long.parseLong(jObj.getString(Constants.PHP_PARAM_USERID)),
 							jObj.getString(Constants.PHP_PARAM_BOOKTITLE),
 							jObj.getString(Constants.PHP_PARAM_BOOKCLASSNAME),
 							jObj.getString(Constants.PHP_PARAM_BOOKCONDITION),

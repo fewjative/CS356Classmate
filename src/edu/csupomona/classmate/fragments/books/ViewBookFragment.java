@@ -1,39 +1,31 @@
 package edu.csupomona.classmate.fragments.books;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import edu.csupomona.classmate.Constants;
-import edu.csupomona.classmate.R;
-import edu.csupomona.classmate.abstractions.BookComment;
-import edu.csupomona.classmate.abstractions.User;
-import edu.csupomona.classmate.fragments.friends.FriendRequestsAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import edu.csupomona.classmate.Constants;
+import edu.csupomona.classmate.R;
+import edu.csupomona.classmate.abstractions.BookComment;
+import edu.csupomona.classmate.abstractions.User;
+import java.util.LinkedList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @SuppressLint("ValidFragment")
 public class ViewBookFragment extends Fragment implements View.OnClickListener,Constants  {
@@ -51,7 +43,7 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 	EditText etComment;
 	Button btnComment;
 	ViewGroup ROOT;
-	
+
 	public ViewBookFragment(long user_id,long booklist_id,long seller_id, String title,String classname,String condition,String price)
 	{
 		this.user_id = user_id;
@@ -62,7 +54,7 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		this.condition = condition;
 		this.price = price;
 	}
-	
+
 	public ViewBookFragment()
 	{
 		this.user_id = 17;
@@ -73,28 +65,28 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		this.condition = "New";
 		this.price = "3.50";
 	}
-	
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ROOT = (ViewGroup)inflater.inflate(R.layout.books_comments_layout, null);
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+
 		tvTitle = (TextView)ROOT.findViewById(R.id.tvTitle);
 		tvTitle.setText("Book Title: " + title);
-		
+
 		tvClassname = (TextView)ROOT.findViewById(R.id.tvClassname);
 		tvClassname.setText("For class: " + classname);
-		
+
 		tvCondition = (TextView)ROOT.findViewById(R.id.tvCondition);
 		tvCondition.setText("In condition: " + condition);
-		
+
 		tvPrice = (TextView)ROOT.findViewById(R.id.tvPrice);
 		tvPrice.setText("For this price: " + price);
-		
+
 		etComment = (EditText)ROOT.findViewById(R.id.etComment);
 		btnComment = (Button)ROOT.findViewById(R.id.btnComment);
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((Activity) ROOT.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //		int height = displayMetrics.heightPixels;
@@ -102,9 +94,9 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		int newWidth = (int)(width / 1.5);
 		btnComment.setWidth(newWidth);
 		btnComment.setOnClickListener(this);
-		
+
 		setUpComments();
-		
+
 		return ROOT;
 	}
 
@@ -127,9 +119,9 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 					for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
 						comments.add(new BookComment(
-							jObj.getLong("comment_id"),
-							jObj.getLong("user_id"),
-							jObj.getString("username"),				
+							Long.parseLong(jObj.getString("comment_id")),
+							Long.parseLong(jObj.getString("user_id")),
+							jObj.getString("username"),
 							jObj.getString("comment")
 						));
 					}
@@ -162,18 +154,18 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 		params.put("user_id", Long.toString(user_id));
 		String comment = etComment.getText().toString();
 		params.put("comment", comment );
-		
+
 		final ProgressDialog loadingDialog = new ProgressDialog(getActivity());
 		loadingDialog.setTitle("Adding your comment");
 		loadingDialog.setMessage("Your comment is being added as we speak");
 		loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		loadingDialog.show();
-		
+
 		System.out.println(Long.toString(booklist_id) + " " + Long.toString(user_id) + " " + comment);
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get("http://www.lol-fc.com/classmate/2/addbookcomment.php",params, new JsonHttpResponseHandler() {
-			
+
 			/*@Override
 			public void onSuccess(String response) {
 				System.out.println("response: " + response);
@@ -217,21 +209,21 @@ public class ViewBookFragment extends Fragment implements View.OnClickListener,C
 					return;
 				}
 			}
-			
+
 			public void onFailure(Throwable arg0, String arg1) {
-		         Log.d("TAG", "Failure");        
+		         Log.d("TAG", "Failure");
 		     }*/
-			
+
 		});
-		
+
 		if (!loadingDialog.isShowing()) {
-	
+
 		}
 
 		loadingDialog.dismiss();
-		
+
 		etComment.setText("");
 		setUpComments();
-		
+
 	}
 }

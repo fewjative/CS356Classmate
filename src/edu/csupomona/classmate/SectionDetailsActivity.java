@@ -98,7 +98,7 @@ public class SectionDetailsActivity extends Activity implements Constants{
 						for (int i = 0; i < myjsonarray.length(); i++) {
 							jObj = myjsonarray.getJSONObject(i);
 							friends.add(new User(
-									jObj.getInt(Constants.PHP_PARAM_USERID),
+									Long.parseLong(jObj.getString(Constants.PHP_PARAM_USERID)),
 									jObj.getString(Constants.PHP_PARAM_NAME),
 									jObj.getString(Constants.PHP_PARAM_EMAIL)
 							));

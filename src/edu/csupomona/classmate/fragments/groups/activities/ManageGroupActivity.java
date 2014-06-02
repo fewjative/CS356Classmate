@@ -40,7 +40,7 @@ public class ManageGroupActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		group = getIntent().getParcelableExtra(INTENT_KEY_GROUP);
-		
+
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		this.getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //		int height = displayMetrics.heightPixels;
@@ -92,7 +92,7 @@ public class ManageGroupActivity extends Activity {
 					for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
 						people.add(new User(
-							jObj.getLong(Constants.PHP_PARAM_USERID),
+							Long.parseLong(jObj.getString(Constants.PHP_PARAM_USERID)),
 							jObj.getString(Constants.PHP_PARAM_NAME),
 							jObj.getString(Constants.PHP_PARAM_EMAIL)
 						));

@@ -44,7 +44,7 @@ public class MyFriendsTab extends Fragment {
 					for (int i = 0; i < jsona.length(); i++) {
 						jObj = jsona.getJSONObject(i);
 						friends.add(new User(
-							jObj.getInt(Constants.PHP_PARAM_FRIENDID),
+							Long.parseLong(jObj.getString(Constants.PHP_PARAM_FRIENDID)),
 							jObj.getString(Constants.PHP_PARAM_FRIENDUSERNAME),
 							jObj.getString(Constants.PHP_PARAM_FRIENDEMAIL)
 						));

@@ -1,7 +1,6 @@
 package edu.csupomona.classmate.fragments;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -13,7 +12,6 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Instances;
 import android.provider.MediaStore;
@@ -33,17 +31,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import edu.csupomona.classmate.Constants;
 import edu.csupomona.classmate.R;
 import edu.csupomona.classmate.abstractions.Schedule;
 import edu.csupomona.classmate.abstractions.User;
 import edu.csupomona.classmate.utils.TextWatcherAdapter;
-
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,7 +50,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,12 +82,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		root = (ViewGroup)inflater.inflate(R.layout.settings_fragment_layout, null);
 
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
-		
+
 		ivProfilePic = (ImageView)root.findViewById(R.id.ivProfilePic);
 		ivProfilePic.setOnClickListener(this);
 		ivProfilePic.setEnabled(true);
 		USER.loadAvatar(ivProfilePic);
-		
+
 		btnChangePass = (Button)root.findViewById(R.id.btnChangePass);
 		btnChangePass.setOnClickListener(this);
 		btnChangePass.setEnabled(false);
@@ -105,17 +99,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		btnSetActiveSchedule = (Button)root.findViewById(R.id.btnSetActive);
 		btnSetActiveSchedule.setOnClickListener(this);
 		btnSetActiveSchedule.setEnabled(true);
-				
+
 		btnImportCalendar = (Button)root.findViewById(R.id.btnImportCalendar);
 		btnImportCalendar.setOnClickListener(this);
-		
+
 		etOldPass = (EditText)root.findViewById(R.id.etOldPass);
 		etNewPass1 = (EditText)root.findViewById(R.id.etPassword);
 		etNewPass2 = (EditText)root.findViewById(R.id.etConfirmPassword);
 		etScheduleName = (EditText)root.findViewById(R.id.etScheduleName);
 
 		sSchedule = (Spinner)root.findViewById(R.id.sSchedules);
-		
+
 		final TextView tvPasswordMatcher = (TextView)root.findViewById(R.id.tvPasswordMatcher);
 		TextWatcherAdapter textWatcher = new TextWatcherAdapter() {
 			String s1, s2, oldpass;
@@ -302,7 +296,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
 					loadingDialog.dismiss();
 
-					int id;
+					long id;
 					try {
 						id = Integer.parseInt(response);
 					} catch (NumberFormatException e) {
@@ -414,7 +408,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			importCalendar();
 		}
 	}
-	
+
 	private void startCamera() {
 		Intent camera_intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 	    startActivityForResult(camera_intent, CODE_CAMERA_REQUEST);
@@ -424,51 +418,51 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		Intent gallery_intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(gallery_intent, CODE_GALLERY_REQUEST);
 	}
-	
+
 	private String getRealPathFromURI(Uri contentURI) {
 	    Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
 	    if (cursor == null) { // Source is Dropbox or other similar local file path
 	        return contentURI.getPath();
-	    } else { 
-	        cursor.moveToFirst(); 
-	        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA); 
-	        return cursor.getString(idx); 
+	    } else {
+	        cursor.moveToFirst();
+	        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+	        return cursor.getString(idx);
 	    }
 	}
-	
-    
+
+
     //==================FOR UPLOADING PICTURES
     //
     public int uploadFile(String sourceFileUri) {
-        
+
         System.out.println(sourceFileUri);
         String fileName = sourceFileUri;
 
         HttpURLConnection conn = null;
-        DataOutputStream dos = null;  
+        DataOutputStream dos = null;
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
         int bytesRead, bytesAvailable, bufferSize;
    	 	int serverResponseCode = 0;
         byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024; 
-        File sourceFile = new File(sourceFileUri); 
-         
+        int maxBufferSize = 1 * 1024 * 1024;
+        File sourceFile = new File(sourceFileUri);
+
         if (!sourceFile.isFile()) {
-             
-             //dialog.dismiss(); 
-              
+
+             //dialog.dismiss();
+
              Log.e("uploadFile", "Source File not exist :");
-              
+
              getActivity().runOnUiThread(new Runnable() {
             	 public void run() {
                      System.out.println("Source File not exist :");
                  }
-             }); 
-              
+             });
+
              return 0;
-          
+
         }
         else
         {
@@ -478,9 +472,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                  // open a URL connection to the Servlet
                  FileInputStream fileInputStream = new FileInputStream(sourceFile);
                  URL url = new URL(upLoadServerUri+"?"+urlParameters);
-                  
+
                  // Open a HTTP  connection to  the URL
-                 conn = (HttpURLConnection) url.openConnection(); 
+                 conn = (HttpURLConnection) url.openConnection();
                  conn.setDoInput(true); // Allow Inputs
                  conn.setDoOutput(true); // Allow Outputs
                  conn.setUseCaches(false); // Don't use a Cached Copy
@@ -488,127 +482,127 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                  conn.setRequestProperty("Connection", "Keep-Alive");
                  conn.setRequestProperty("ENCTYPE", "multipart/form-data");
                  conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-                 conn.setRequestProperty("uploaded_file", fileName); 
-               
+                 conn.setRequestProperty("uploaded_file", fileName);
+
                 // conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
-                  
+
                  dos = new DataOutputStream(conn.getOutputStream());
-                                  
-                 dos.writeBytes(twoHyphens + boundary + lineEnd); 
+
+                 dos.writeBytes(twoHyphens + boundary + lineEnd);
                 // dos.writeBytes("Content-Disposition: form-data; name="+uploaded_file+";filename=\""+ fileName + """ + lineEnd);
-               
-                 dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+ fileName + "\"" + lineEnd);		 
+
+                 dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""+ fileName + "\"" + lineEnd);
                  dos.writeBytes(lineEnd);
-        
+
                  // create a buffer of  maximum size
-                 bytesAvailable = fileInputStream.available(); 
-        
+                 bytesAvailable = fileInputStream.available();
+
                  bufferSize = Math.min(bytesAvailable, maxBufferSize);
                  buffer = new byte[bufferSize];
-        
+
                  // read file and write it into form...
-                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);  
-                    
+                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
                  while (bytesRead > 0) {
-                      
+
                    dos.write(buffer, 0, bufferSize);
                    bytesAvailable = fileInputStream.available();
                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                   bytesRead = fileInputStream.read(buffer, 0, bufferSize);   
-                    
+                   bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
                   }
-        
+
                  // send multipart form data necesssary after file data...
                  dos.writeBytes(lineEnd);
                  dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                 
+
                  //SEND EXTRA PARAMS
                  //dos.writeBytes(urlParameters);
-        
+
                  // Responses from the server (code and message)
                  serverResponseCode = conn.getResponseCode();
                  String serverResponseMessage = conn.getResponseMessage();
-                   
+
                  Log.i("uploadFile", "HTTP Response is : "
                          + serverResponseMessage + ": " + serverResponseCode);
-                  
+
                  if(serverResponseCode == 200){
-                      
+
                      getActivity().runOnUiThread(new Runnable() {
                           public void run() {
-                               
+
                               String msg = "File Upload Completed.";
-                               
+
                               System.out.println(msg);
-                              Toast.makeText(getActivity(), "File Upload Complete.", 
+                              Toast.makeText(getActivity(), "File Upload Complete.",
                                            Toast.LENGTH_SHORT).show();
                           }
-                      });                
-                 }    
-                  
+                      });
+                 }
+
                  //close the streams //
                  fileInputStream.close();
                  dos.flush();
                  dos.close();
-                   
+
             } catch (MalformedURLException ex) {
-                 
-                dialog.dismiss();  
+
+                dialog.dismiss();
                 ex.printStackTrace();
-                 
+
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         System.out.println("MalformedURLException Exception : check script url.");
-                        Toast.makeText(getActivity(), "MalformedURLException", 
+                        Toast.makeText(getActivity(), "MalformedURLException",
                                                             Toast.LENGTH_SHORT).show();
                     }
                 });
-                 
-                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);  
+
+                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
             } catch (Exception e) {
-                 
-                dialog.dismiss();  
+
+                dialog.dismiss();
                 e.printStackTrace();
-                 
+
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                     	System.out.println("Got Exception : see logcat ");
-                        Toast.makeText(getActivity(), "Got Exception : see logcat ", 
+                        Toast.makeText(getActivity(), "Got Exception : see logcat ",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
                 Log.e("Upload file to server Exception", "Exception : "
-                                                 + e.getMessage(), e);  
+                                                 + e.getMessage(), e);
             }
-            dialog.dismiss();       
-            return serverResponseCode; 
-             
-         } // End else block 
+            dialog.dismiss();
+            return serverResponseCode;
+
+         } // End else block
        }
-    
-	private void uploadPhotoToServer() {		
+
+	private void uploadPhotoToServer() {
 		final User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		dialog = ProgressDialog.show(getActivity(), "", "Uploading file...", true);
-		
+
 		Toast.makeText(getActivity(), "USER ID: " + Long.toString(USER.getID()), Toast.LENGTH_SHORT).show();
-        
+
         new Thread(new Runnable() {
               public void run() {
                      getActivity().runOnUiThread(new Runnable() {
                             public void run() {
                                 System.out.println("uploading started.....");
                                 }
-                        });                      
-                    
+                        });
+
                      uploadFile(imageFile);
                 }
               }).start();
 	}
-	
+
 	public static Bitmap bmCropMiddle(Bitmap bitmap) {
 		Bitmap result;
 		int smallestDimension = 0;
-		
+
 		if(bitmap.getWidth() == bitmap.getHeight()) {
 			return bitmap;
 		} else if (bitmap.getWidth() < bitmap.getHeight()) {
@@ -617,11 +611,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			smallestDimension = bitmap.getHeight();
 		}
 		result = ThumbnailUtils.extractThumbnail(bitmap, smallestDimension, smallestDimension);
-		
+
 		return result;
-	}	
+	}
     //==================FOR UPLOADING PICTURES
-	
+
 	//needs to upload server as soon as it is called
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -632,7 +626,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 	    if(data==null) {
 	    	return;
 	    }
-	    
+
 	    switch(requestCode) {
 		    case 0:
 		    	System.out.println("The user pressed the back button while in the gallery");
@@ -640,7 +634,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		    case CODE_CAMERA_REQUEST:
 		        if(resultCode == FragmentActivity.RESULT_OK) {
 		            // Need to find a way to upload photo taken to server
-		        	// currently using fileinputstream, but since there is no saved directory for 
+		        	// currently using fileinputstream, but since there is no saved directory for
 		        	// photos taken with camera, need to upload the data directly
 		        	Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
 		            thumbnail = bmCropMiddle(thumbnail);
@@ -651,7 +645,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		    case CODE_GALLERY_REQUEST:
 		        try { //if data != null
 	    	       Uri photoUri = data.getData();
-	    	       imageFile = getRealPathFromURI(photoUri);	    	       
+	    	       imageFile = getRealPathFromURI(photoUri);
 	    	       // Do something with the photo based on Uri
 	    	       Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
 	    	       thumbnail = bmCropMiddle(thumbnail);
@@ -664,22 +658,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		        break;
 	    }
 	}
-	
+
 	public void importCalendar() {
 		//check available calendars on the device
-		final String[] PROJECTION = 
+		final String[] PROJECTION =
 		    new String[] {
-	            Calendars._ID, 
-	            Calendars.NAME, 
-	            Calendars.ACCOUNT_NAME, 
+	            Calendars._ID,
+	            Calendars.NAME,
+	            Calendars.ACCOUNT_NAME,
 	            Calendars.ACCOUNT_TYPE
 	            };
-		Cursor calCursor = 
+		Cursor calCursor =
 			getActivity().getContentResolver().query(
-			Calendars.CONTENT_URI, 
-            PROJECTION, 
-            Calendars.VISIBLE + " = 1", 
-            null, 
+			Calendars.CONTENT_URI,
+            PROJECTION,
+            Calendars.VISIBLE + " = 1",
+            null,
             Calendars._ID + " ASC");
 		if (calCursor.moveToFirst()) {
 		   do {
@@ -694,19 +688,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		      // ...
 		   } while (calCursor.moveToNext());
 		}
-		
-	
-		
+
+
+
 		String[] projection = new String[] { "calendar_id", "title",
                 "dtstart", "dtend", "eventLocation"  };
-		
+
 		ContentResolver cr = getActivity().getContentResolver();
 		Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
 		// Specify the date range you want to search for recurring
 		// event instances
 		Calendar beginTime = Calendar.getInstance();
 		beginTime.set(
-				beginTime.get(Calendar.YEAR), 
+				beginTime.get(Calendar.YEAR),
 				beginTime.get(Calendar.MONTH) + 1,
 				beginTime.get(Calendar.DAY_OF_MONTH),
 				beginTime.get(Calendar.HOUR_OF_DAY),
@@ -714,38 +708,38 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 		long startMillis = beginTime.getTimeInMillis();
 		Calendar endTime = Calendar.getInstance();
 		endTime.set(endTime.get(Calendar.YEAR), 12, 30, 0, 0);
-		long endMillis = endTime.getTimeInMillis();		
+		long endMillis = endTime.getTimeInMillis();
 		ContentUris.appendId(builder, startMillis);
 		ContentUris.appendId(builder, endMillis);
-		
+
 		Cursor cursor = cr.query(builder.build(),
                 projection,
                 null,
                 null,
-                null);	
-		
+                null);
+
 		User USER = getActivity().getIntent().getParcelableExtra(INTENT_KEY_USER);
 		int startDay, startMonth, startYear, endDay, endMonth, endYear, startHour, startMinute, endHour, endMinute;
 		String FPUBLIC = "0";
 		String OPUBLIC = "0";
 		String ISPRIVATE = "1";
-		
+
 		while(cursor.moveToNext()) {
 			long id = 0;
 			String title = null;
 			long dtstart = 0;
 			long dtend = 0;
 			String eventLocation = null;
-			
+
 			id = cursor.getLong(0);
 			title = cursor.getString(1);
 			dtstart = cursor.getLong(2);
 			dtend = cursor.getLong(3);
 			eventLocation = cursor.getString(4);
-			
+
 			Calendar calendar = Calendar.getInstance();
 			DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy h:m a");
-			
+
 			calendar.setTimeInMillis(dtstart);
 			formatter = new SimpleDateFormat("dd");
 			startDay = Integer.parseInt(formatter.format(calendar.getTime()));
@@ -757,7 +751,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			startHour = Integer.parseInt(formatter.format(calendar.getTime()));
 			formatter = new SimpleDateFormat("m");
 			startMinute = Integer.parseInt(formatter.format(calendar.getTime()));
-			
+
 			calendar.setTimeInMillis(dtend);
 			formatter = new SimpleDateFormat("dd");
 			endDay = Integer.parseInt(formatter.format(calendar.getTime()));
@@ -767,17 +761,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			endYear = Integer.parseInt(formatter.format(calendar.getTime()));
 			formatter = new SimpleDateFormat("H");
 			endHour = Integer.parseInt(formatter.format(calendar.getTime()));
-			formatter = new SimpleDateFormat("m");			
-			endMinute = Integer.parseInt(formatter.format(calendar.getTime()));			
+			formatter = new SimpleDateFormat("m");
+			endMinute = Integer.parseInt(formatter.format(calendar.getTime()));
 
 			System.out.println("id: " + id);
 			System.out.println("title: " + title);
-			System.out.println("date_start: " + startYear+"-"+startMonth+"-"+startDay);			
+			System.out.println("date_start: " + startYear+"-"+startMonth+"-"+startDay);
 			System.out.println("time_start: " + startHour+":"+startMinute);
 			System.out.println("date_end: " + startYear+"-"+startMonth+"-"+startDay);
 			System.out.println("time_end: " + endHour+":"+endMinute);
 			System.out.println("location: " + eventLocation);
-			
+
 			RequestParams params = new RequestParams();
 			params.put("user_id", Long.toString(USER.getID()));
 			params.put("title", title);
@@ -791,13 +785,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 			params.put("opublic", OPUBLIC);
 			params.put("isprivate", ISPRIVATE);
 			AsyncHttpClient client = new AsyncHttpClient();
-			
+
 			client.get("http://www.lol-fc.com/classmate/2/createevent.php", params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(String response) {
 					System.out.println("response: " + response);
 
-					int id;
+					long id;
 					try {
 						id = Integer.parseInt(response);
 					} catch (NumberFormatException e) {
@@ -848,11 +842,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 						//set fields to be empty
 						return;
 					}
-						
+
 				}
 			});
 		}
 	}
-	
+
 }
 //http://stackoverflow.com/questions/18268880/reset-reload-fragment-container
