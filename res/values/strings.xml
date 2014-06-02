@@ -9,8 +9,8 @@
 	<string name="global_action_no">No</string>
 
     <!--Facebook Stuff -->
-    <string name="app_id">240568556150736</string>	
-    
+    <string name="app_id">240568556150736</string>
+
 	<!--Login Activity-->
 	<string name="email_address">Email Address</string>
 	<string name="person_name">Name</string>
@@ -37,7 +37,7 @@
 	<string name="dialog_login_error">Sorry, either your email or password was incorrect.</string>
     <string name="dialog_login_loading">Verifying user credentials.</string>
     <string name="dialog_fb_login_error">Sorry, we had a problem automatically logging you in through facebook.</string>
-	
+
 	<!--Recovery Activity-->
 	<string name="recovery_action_recover">Recover Password</string>
 
@@ -100,11 +100,11 @@
 	<string name="dialog_schedule_no_class_view">No classes or events to be viewed.</string>
 	<string name="dialog_schedule_create_schedule">You have not created a schedule yet. You must create at least one schedule before attempting to add content. Create one now!</string>
 	<string name="dialog_schedule_nofriend_schedule">Your friend does not have a schedule ready to be shared yet.</string>
-	
+
 	<!--Add Class or Event Fragment-->
 	<string name="add_class_event_addclass">Add Class</string>
 	<string name="add_class_event_addevent">Add Event</string>
-	<string name="add_class_event_search_event">Search Event</string>
+	<string name="add_class_event_search_event">Search</string>
 	<string name="dialog_event_acceptance_title">Added an Event</string>
 	<string name="dialog_event_acceptance">You have added %1$s to your schedule.</string>
 	<string name ="add_event_hint">Enter a title or description to search for:</string>
@@ -199,7 +199,7 @@
 	<string name="invalid_event_description_hint">Please give your event a description</string>
 	<string name="invalid_event_dates_hint">Please correct the event dates</string>
 	<string name="invalid_event_times_hint">Please correct the event times</string>
-	
+
 	<string name="review_hint_title">Great Class!</string>
 	<string name="review_hint_message">This class was a great learning experience</string>
 
@@ -216,22 +216,22 @@
 	<string name="listingBookLoading">Your book is being listed as we speak!</string>
 	<string name="book_list_empty">There are no books to be listed.</string>
 	<string name="book_comment_list_empty">There are no comments to be listed.</string>
-	
+
 	<string name="hint_title">Starting Out With C++ From Control Structures</string>
 	<string name="hint_class">CS 256</string>
 	<string name="hint_condition">New</string>
 	<string name="hint_price">$63.00</string>
-	
+
 	<string name="hint_comment">I really want this book!</string>
 
 	<!--Activity Feed Fragment-->
 	<string name="activity_feed_empty">There has been no recent activity by your friends</string>
 	<string name="friend_added_event">%1$s added %2$s as a friend</string>
 	<string name="class_added_event">%1$s added %2$s to their schedule</string>
-	
+
 	<!--CPP Event Feed Fragment-->
 	<string name="cpp_feed_empty">There are no current events going on at school</string>
-	
+
 	<!--News Feed Fragment-->
 	<string name="news_feed_empty">There are no recent news items</string>
 

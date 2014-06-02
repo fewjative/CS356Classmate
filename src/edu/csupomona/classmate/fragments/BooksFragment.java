@@ -23,12 +23,12 @@ public class BooksFragment extends Fragment {
 
 		final ViewPager vpContentPane = (ViewPager)ROOT.findViewById(R.id.vpContentPane);
 		vpContentPane.setAdapter(new BooksFragmentPagerAdapter(getChildFragmentManager()));
-		vpContentPane.setCurrentItem(0);
+		vpContentPane.setCurrentItem(1);
 		vpContentPane.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			private int previous;
 			@Override
 			public void onPageSelected(int position) {
-				if (previous == 2 && previous != position) {
+				if (previous == 0 && previous != position) {
 					InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 					imm.hideSoftInputFromWindow(vpContentPane.getWindowToken(), 0);
 					ROOT.clearFocus();
@@ -49,8 +49,8 @@ public class BooksFragment extends Fragment {
 		@Override
 		public Fragment getItem(int i) {
 			switch (i) {
-				case 0: return new BuyBooksTab();
-				case 1: return new SellBooksTab();
+				case 0: return new SellBooksTab();
+				case 1: return new BuyBooksTab();
 				case 2: return new AdminBooksTab();
 				default: return null;
 			}
@@ -59,8 +59,8 @@ public class BooksFragment extends Fragment {
 		@Override
 		public CharSequence getPageTitle(int i) {
 			switch (i) {
-				case 0: return getString(R.string.books_tab_buy);
-				case 1: return getString(R.string.books_tab_sell);
+				case 0: return getString(R.string.books_tab_sell);
+				case 1: return getString(R.string.books_tab_buy);
 				case 2: return getString(R.string.books_tab_admin);
 				default: throw new RuntimeException();
 			}

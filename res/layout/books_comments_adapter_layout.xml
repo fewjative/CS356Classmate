@@ -7,12 +7,10 @@
     <include
         android:id="@+id/user_avatar_layout_id"
 		layout="@layout/user_avatar_layout"
-		android:layout_width="36dp"
-		android:layout_height="36dp"
-		android:layout_marginTop="6dip"
-		android:layout_marginBottom="6dip"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
 	/>
-    
+
         <TextView
         style="@style/style_textview"
         android:id="@+id/tvUsername"
@@ -34,6 +32,7 @@
         android:layout_below="@id/tvUsername"
         android:layout_height="26dip"
         android:layout_marginLeft="5dp"
+	  android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/user_avatar_layout_id"
